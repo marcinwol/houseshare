@@ -1,24 +1,43 @@
 <!-- application/layouts/scripts/layout.phtml -->
 <?php echo $this->doctype() ?>
 <html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-  <title>Zend Framework Quickstart Application</title>
-  <?php echo $this->headLink()->appendStylesheet('/css/global.css') ?>
-</head>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>Stancje</title>
+        <?php // echo $this->headScript(); ?>
 
-<body>
-<div id="header" style="background-color: #EEEEEE; height: 30px;">
-    <div id="header-logo" style="float: left">
-        <b>Portal house share - some header</b>
-    </div>
+        <?php echo $this->headLink()->appendStylesheet($this->baseUrl().'/css/layout.css'); ?>
 
-</div>
+    </head>
 
-<?php echo $this->layout()->content ?>
-<div>
-    Some footer
-</div>
 
-</body>
+    <body>
+        <div id="pageWrapper">
+            <div id="header">
+                <h1>Zend Framework CMS</h1>
+            </div>
+            <div id="nav">
+                <?php echo $this->layout()->nav; ?>&nbsp;
+            </div>
+            <div id="sidebar">
+                <div id="subNav">
+                    <?php echo $this->layout()->subNav; ?>&nbsp;
+                </div>
+                <div id="adminMenu">
+                    <?php echo $this->layout()->adminMenu; ?>&nbsp;
+                </div>
+                <div id="userForm">
+                    <?php echo $this->layout()->userForm; ?>&nbsp;
+                </div>
+            </div>
+            <div id="main">
+                <?php echo $this->layout()->content ?>&nbsp;
+            </div>
+            <div id="footer">
+                <p><em>Powered by the Zend Framework</em></p>
+            </div>
+        </div>
+    </body>
+
+
 </html>
