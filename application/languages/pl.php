@@ -9,7 +9,8 @@ return array(
     'Powered by the Zend Framework'=>'Zasilany przez Zend Framework',
     'An error occurred' => 'Blad w aplikacji',
     'Our header' => 'Nasz naglowek',
-    'Welcom in houseshare project'=>'Witam w projekcje stancje (house share)'
+    'Welcom in houseshare project'=>'Witam w projekcje stancje (house share)',
+    'Hello world!'=>'Witaj swiecie'
     );
 ?>
 
