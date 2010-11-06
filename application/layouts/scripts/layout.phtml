@@ -3,10 +3,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-        <title>Stancje</title>
+        <title><?php echo $this->translate('Houseshare'); ?></title>
+
+
         <?php // echo $this->headScript(); ?>
 
-        <?php echo $this->headLink()->appendStylesheet($this->baseUrl().'/css/layout.css'); ?>
+        <?php echo $this->headLink()->appendStylesheet($this->baseUrl() . '/css/layout.css'); ?>
 
     </head>
 
@@ -14,7 +16,7 @@
     <body>
         <div id="pageWrapper">
             <div id="header">
-                <h1>Zend Framework CMS</h1>
+                <h1><?php echo $this->translate('Our header'); ?></h1>
             </div>
             <div id="nav">
                 <?php echo $this->layout()->nav; ?>&nbsp;
@@ -32,9 +34,12 @@
             </div>
             <div id="main">
                 <?php echo $this->layout()->content ?>&nbsp;
-            </div>
-            <div id="footer">
-                <p><em>Powered by the Zend Framework</em></p>
+                </div>
+                <div id="footer">
+                    <p><em>
+                        <?php echo $this->translate('Powered by the Zend Framework'); ?>
+                    </em>
+                </p>
             </div>
         </div>
     </body>
