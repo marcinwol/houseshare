@@ -12,11 +12,8 @@ Michal Chojcan
 
 INSTALL
 This is a Zend Framework 1.11 project. Thus you need to have
-Zend Framework library available for PHP. To to this, go to file public/.htaccess
-and set a path to Zend Framework library by amending 
-the following line in .htaccess:
-
-php_value include_path "/opt/zf/library/"
+Zend Framework library available for PHP. You can do it just by 
+putting it in application/library.
 
 Pozdrowienia z majorki tj PWR.
 No to fajnie. d s
