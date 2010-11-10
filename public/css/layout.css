@@ -36,8 +36,8 @@ p {
     padding: .5em;
 }
 #header {
-    background: #fff;
-    height: 7.5em;
+    background: url("../gfx/top.jpg") no-repeat scroll 0 0 transparent;
+    height: 13.5em;
     margin: 0 0 .5em 0;
 }
 
