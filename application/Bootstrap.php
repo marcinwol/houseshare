@@ -11,7 +11,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
     protected function _initLocale() {
         // define locale
         $locale = new Zend_Locale('pl');
-
+      
         // register it so that it can be used all over the website
         Zend_Registry::set('Zend_Locale', $locale);
     }

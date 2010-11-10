@@ -1,0 +1,22 @@
+
+<phpunit bootstrap="./TestHelper.php" colors="true">
+    <testsuite name="Your Application">
+        <directory>./application</directory>
+        <directory>./library</directory>
+    </testsuite>
+    <filter>
+        <whitelist>
+            <directory suffix=".php">../application/</directory>
+            <directory suffix=".php">../library/App/</directory>
+            <exclude>
+                <directory suffix=".phtml">../application/</directory>              
+                <directory suffix=".php">../application/views</directory>
+                <file>../application/Bootstrap.php</file>               
+            </exclude>
+        </whitelist>
+    </filter>
+    <logging>
+        <log type="coverage-html" target="./log/report" title="PrintConcept" charset="UTF-8" yui="true" highlight="true" lowUpperBound="35" highLowerBound="70" />
+        <log type="testdox" target="./log/testdox.html" />
+    </logging>
+</phpunit>
