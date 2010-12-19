@@ -32,7 +32,7 @@ CREATE  TABLE IF NOT EXISTS `houseshare`.`CITY` (
   CONSTRAINT `fk_CITY_STATE1`
     FOREIGN KEY (`state_id` )
     REFERENCES `houseshare`.`STATE` (`state_id` )
-    ON DELETE NO ACTION
+    ON DELETE CASCADE
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
@@ -672,7 +672,45 @@ CREATE  TABLE IF NOT EXISTS `houseshare`.`WANTED_BED_has_BED_FEATURE` (
 ENGINE = InnoDB;
 
 
+-- -----------------------------------------------------
+-- Placeholder table for view `houseshare`.`VIEW_CITY`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `houseshare`.`VIEW_CITY` (`city_id` INT, `city_name` INT, `state_id` INT, `state_name` INT);
+
+-- -----------------------------------------------------
+-- View `houseshare`.`VIEW_CITY`
+-- -----------------------------------------------------
+DROP VIEW IF EXISTS `houseshare`.`VIEW_CITY` ;
+DROP TABLE IF EXISTS `houseshare`.`VIEW_CITY`;
+USE `houseshare`;
+CREATE  OR REPLACE VIEW `houseshare`.`VIEW_CITY` AS
+SELECT c.`city_id`,  c.`name` as `city_name`, c.`state_id`, s.`name` as `state_name` 
+FROM `CITY` c 
+INNER JOIN `STATE` s USING (`state_id`);
+
 
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
+
+-- -----------------------------------------------------
+-- Data for table `houseshare`.`STATE`
+-- -----------------------------------------------------
+SET AUTOCOMMIT=0;
+USE `houseshare`;
+INSERT INTO `houseshare`.`STATE` (`state_id`, `name`) VALUES (NULL, 'Malopolska');
+INSERT INTO `houseshare`.`STATE` (`state_id`, `name`) VALUES (NULL, 'Dolnyslask');
+INSERT INTO `houseshare`.`STATE` (`state_id`, `name`) VALUES (NULL, 'Mazowieckie');
+
+COMMIT;
+
+-- -----------------------------------------------------
+-- Data for table `houseshare`.`CITY`
+-- -----------------------------------------------------
+SET AUTOCOMMIT=0;
+USE `houseshare`;
+INSERT INTO `houseshare`.`CITY` (`city_id`, `name`, `state_id`) VALUES (1, 'Wroclaw', 2);
+INSERT INTO `houseshare`.`CITY` (`city_id`, `name`, `state_id`) VALUES (2, 'Krakow', 1);
+INSERT INTO `houseshare`.`CITY` (`city_id`, `name`, `state_id`) VALUES (3, 'Nowy Targ', 1);
+
+COMMIT;

@@ -10,7 +10,10 @@ return array(
     'An error occurred' => 'Blad w aplikacji',
     'Our header' => 'Nasz naglowek',
     'Welcom in houseshare project'=>'Witam w projekcje stancje (house share)',
-    'Hello world!'=>'Witaj swiecie'
+    'Hello world!'=>'Witaj swiecie',
+    "I need a room in ..." => "Potrzebuje pokoju w ...",
+    "I have a room in ..." => "Mam pokoj do wynajecia w ...",
+    "Search" => "Szukaj"
     );
 ?>
 

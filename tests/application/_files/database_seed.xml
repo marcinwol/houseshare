@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dataset>
+    <STATE state_id="1" name="Malopolska" />
+    <STATE state_id="2" name="Wielkopolska" />
+    <STATE state_id="3" name="Dolnoslaskie" />
+
+    <CITY city_id="1" name="Krakow" state_id="1"/>
+    <CITY city_id="2" name="Nowy Targ" state_id="1"/>
+    <CITY city_id="3" name="Wroclaw" state_id="3"/>
+</dataset>

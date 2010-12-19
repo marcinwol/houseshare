@@ -20,6 +20,6 @@ set_include_path(implode(PATH_SEPARATOR, array(
  * Zend_Application
  */
 
-print(APPLICATION_PATH);
 
 require_once('application/ControllerTestCase.php');
+require_once('application/ModelTestCase.php');

@@ -7,8 +7,32 @@ class IndexController extends Zend_Controller_Action {
     }
 
     public function indexAction()  {
-        // action body
-        // some new code in the new-branch
+        
+        $modelCity = new My_Model_DbTable_City();
+        $mainForm = new My_Form_MainPageForm();
+
+        // get all cities
+        $avaliableCities = $modelCity->getCities()->toArray();
+        $mainForm->setCitySelect($avaliableCities);
+        
+        if ($this->getRequest()->isPost()) {           
+            if ($mainForm->isValid($_POST)) {
+
+                $whatToDo = $mainForm->getValue('rd_what_to_do');
+                $cityID = $mainForm->getValue('s_city');
+
+                if ('1' === $whatToDo ) {
+                    return $this->_redirect('/accommodation/add/city_id/' . $cityID);                    
+                } elseif ('0' === $whatToDo ) {
+                    return $this->_redirect('/accommodation/list/city_id/' . $cityID);                    
+                }                
+            }
+        }
+
+       
+        $mainForm->setAction($this->view->baseUrl() . '/index/index');
+        $this->view->mainForm = $mainForm;
+    
     }
 
 
