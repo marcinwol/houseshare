@@ -20,7 +20,8 @@ class AccommodationController extends Zend_Controller_Action
 
     public function addAction()
     {
-        // action body
+        $addAccForm = new My_Form_Room();
+        $this->view->form = $addAccForm;
     }
 
     public function deleteAction()
