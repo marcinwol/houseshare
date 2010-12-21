@@ -13,7 +13,7 @@
  *
  * @author marcin
  */
-class My_Form_MainPageForm extends Zend_Form {
+class My_Form_MainPage extends Zend_Form {
 
     public function init() {     
 
