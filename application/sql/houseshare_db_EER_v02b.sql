@@ -714,3 +714,16 @@ INSERT INTO `houseshare`.`CITY` (`city_id`, `name`, `state_id`) VALUES (2, 'Krak
 INSERT INTO `houseshare`.`CITY` (`city_id`, `name`, `state_id`) VALUES (3, 'Nowy Targ', 1);
 
 COMMIT;
+
+-- -----------------------------------------------------
+-- Data for table `houseshare`.`PREFERENCE`
+-- -----------------------------------------------------
+SET AUTOCOMMIT=0;
+USE `houseshare`;
+INSERT INTO `houseshare`.`PREFERENCE` (`pref_id`, `name`) VALUES (1, 'smokers');
+INSERT INTO `houseshare`.`PREFERENCE` (`pref_id`, `name`) VALUES (2, 'kids');
+INSERT INTO `houseshare`.`PREFERENCE` (`pref_id`, `name`) VALUES (3, 'couples');
+INSERT INTO `houseshare`.`PREFERENCE` (`pref_id`, `name`) VALUES (4, 'pets');
+INSERT INTO `houseshare`.`PREFERENCE` (`pref_id`, `name`) VALUES (5, 'gender');
+
+COMMIT;
