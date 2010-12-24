@@ -5,17 +5,17 @@
  */
 
 /**
- * Description of StateModelTest
+ * Description of PreferenceModelTest
  *
  * @author marcin
  */
-class StateModelTest extends ModelTestCase {
+class PreferenceModelTest extends ModelTestCase {
     //put your code here
 
-    public function testGetAllStates() {
-        $modelState = new My_Model_DbTable_State();
-        $arrayStates = $modelState->getStates()->toArray();
-        $this->assertEquals(count($arrayStates),3);
+    public function testGetAllPreferences() {
+        $modelState = new My_Model_DbTable_Preference();
+        $arrayStates = $modelState->getPreferences()->toArray();
+        $this->assertEquals(count($arrayStates),5);
     }
 
 }

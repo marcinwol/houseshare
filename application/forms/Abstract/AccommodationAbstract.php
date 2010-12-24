@@ -8,6 +8,9 @@
 /**
  * Description of My_Form_AddAccommodation
  * @todo Make Add Accomodation Abstract and dependant forms.
+ * @todo add 'Show property address to everyone'
+ * @todo add bond fild
+ * @todo add photos
  * @author marcin
  */
 abstract class My_Form_Abstract_AccommodationAbstract extends Zend_Form {
@@ -15,6 +18,7 @@ abstract class My_Form_Abstract_AccommodationAbstract extends Zend_Form {
     const BASIC_INFO_SUBFORM_NAME = 'basic_info';
     const ADDRESS_SUBFORM_NAME = 'address';
     const ROOMATES_SUBFORM_NAME = 'roomates';
+    const PREFERENCES_SUBFORM_NAME = 'preferences';
 
     public function init() {
         $this->setMethod('post');
@@ -148,8 +152,6 @@ abstract class My_Form_Abstract_AccommodationAbstract extends Zend_Form {
         );
         $genderOfRoomatesInput->setRequired(true);
 
-
-
         $ageOptions = array();
 
         for ($i = 10; $i < 65; $i+=5) {
@@ -179,6 +181,51 @@ abstract class My_Form_Abstract_AccommodationAbstract extends Zend_Form {
 
         return $aroomatesForm;
     }
+
+     protected function _makePreferencesSubForm() {
+        $preferencesForm = new Zend_Form_SubForm();
+        $preferencesForm->setLegend('Preferences');
+
+        // create new element
+        $couplesChBox = $this->createElement('checkbox', 'couples');
+        $couplesChBox->setRequired(true)->setLabel('Couples accepted');
+
+        // create new element
+        $petsChBox = $this->createElement('checkbox', 'pets');
+        $petsChBox->setRequired(true)->setLabel('Pets accepted');
+
+        // create new element
+        $kidsChBox = $this->createElement('checkbox', 'kids');
+        $kidsChBox->setRequired(true)->setLabel('Kids accepted');
+
+
+        // create new element
+        $smokersChBox = $this->createElement('checkbox', 'smokers');
+        $smokersChBox->setRequired(true)->setLabel('Smokers accepted');
+
+
+         // create new element
+        $genderPref = new Zend_Form_Element_Select('gender');
+        $genderPref->setLabel('Prefered geneder');
+        $genderPref->addMultiOptions(
+                array(
+                    '0' => "male",
+                    '1' => "female",
+                    '2' => "does not matter",
+                )
+        );
+        $genderPref->setRequired(true);
+        $genderPref->setValue('2');
+
+        $preferencesForm->addElements(array(
+            $couplesChBox, $petsChBox, $kidsChBox, $smokersChBox, $genderPref
+           )
+        );
+
+        return $preferencesForm;
+    }
+
+
 
     protected function _getCities() {
         $modelCity = new My_Model_DbTable_City();
