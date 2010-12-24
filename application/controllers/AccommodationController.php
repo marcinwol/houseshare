@@ -20,7 +20,14 @@ class AccommodationController extends Zend_Controller_Action
 
     public function addAction()
     {
+        $cityID = $this->_request->getParam('city_id', null);
+
+        if (!ctype_digit($cityID)) {
+            throw new Zend_Exception('Provided value is not integer');
+        }
+
         $addAccForm = new My_Form_Room();
+        $addAccForm->setDefultCity($cityID);
 
         if ($this->getRequest()->isPost()) {
             if ($addAccForm->isValid($_POST)) {
