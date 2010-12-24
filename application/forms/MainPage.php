@@ -27,11 +27,6 @@ class My_Form_MainPage extends Zend_Form {
                     '1' => "I have a room in ...",
                 )
         );
-
-      //  $inArrayValidator = new Zend_Validate_InArray(
-      //          array( '0', '1') );
-      
-       // $mainChoice->addValidator($inArrayValidator);
         $mainChoice->setRequired(true);
         $mainChoice->setValue('0');
         $this->addElement($mainChoice);

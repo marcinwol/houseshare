@@ -28,7 +28,6 @@ class IndexController extends Zend_Controller_Action {
                 }                
             }
         }
-
        
         $mainForm->setAction($this->view->baseUrl() . '/index/index');
         $this->view->mainForm = $mainForm;

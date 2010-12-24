@@ -21,6 +21,18 @@ class AccommodationController extends Zend_Controller_Action
     public function addAction()
     {
         $addAccForm = new My_Form_Room();
+
+        if ($this->getRequest()->isPost()) {
+            if ($addAccForm->isValid($_POST)) {
+                echo "Data is valid";
+                Zend_Debug::dump($addAccForm->getValues());
+            } else {
+                echo "Data is NOT valid";
+                Zend_Debug::dump($addAccForm->getValues());
+            }
+
+        }
+
         $this->view->form = $addAccForm;
     }
 

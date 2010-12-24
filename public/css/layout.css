@@ -56,7 +56,7 @@ p {
 }
 #main {
     background: #fff;
-    height: 41em;
+   /* height: 41em; */
     margin: 0 0 .5em 0;
 }
 #subNav,#adminMenu,#userForm {
