@@ -66,7 +66,7 @@ CREATE  TABLE IF NOT EXISTS `USER` (
   `email` VARCHAR(85) NOT NULL ,
   `password` VARCHAR(65) NOT NULL ,
   `phone` VARCHAR(45) NULL ,
-  `phone_public` TINYINT(1) NULL DEFAULT 0 ,
+  `phone_public` TINYINT(1) NOT NULL DEFAULT 0 ,
   `created` TIMESTAMP NULL ,
   PRIMARY KEY (`user_id`) ,
   UNIQUE INDEX `email_UNIQUE` (`email` ASC) )
@@ -87,6 +87,8 @@ CREATE  TABLE IF NOT EXISTS `ACCOMMODATION` (
   `date_avaliable` DATE NOT NULL ,
   `price` INT UNSIGNED NOT NULL ,
   `created` TIMESTAMP NULL ,
+  `bond` INT UNSIGNED NULL ,
+  `street_address_public` TINYINT(1) NOT NULL DEFAULT 0 ,
   PRIMARY KEY (`acc_id`) ,
   INDEX `fk_ACCOMODATION_ADDRESS1` (`addr_id` ASC) ,
   INDEX `fk_ACCOMODATION_USER1` (`user_id` ASC) ,
@@ -683,10 +685,15 @@ CREATE TABLE IF NOT EXISTS `VIEW_CITY` (`city_id` INT, `city_name` INT, `state_i
 -- -----------------------------------------------------
 DROP VIEW IF EXISTS `VIEW_CITY` ;
 DROP TABLE IF EXISTS `VIEW_CITY`;
+DELIMITER $$
 CREATE  OR REPLACE VIEW `VIEW_CITY` AS
 SELECT c.`city_id`,  c.`name` as `city_name`, c.`state_id`, s.`name` as `state_name` 
 FROM `CITY` c 
 INNER JOIN `STATE` s USING (`state_id`);
+$$
+DELIMITER ;
+
+;
 
 
 SET SQL_MODE=@OLD_SQL_MODE;

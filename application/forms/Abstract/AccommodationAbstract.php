@@ -6,11 +6,9 @@
  */
 
 /**
- * Description of My_Form_AddAccommodation
- * @todo Make Add Accomodation Abstract and dependant forms.
+ * Description of My_Form_AccommodationAbstract
  * @todo add 'Show property address to everyone'
  * @todo add bond field
- * @todo add photos
  * @author marcin
  */
 abstract class My_Form_Abstract_AccommodationAbstract extends Zend_Form {
@@ -31,7 +29,6 @@ abstract class My_Form_Abstract_AccommodationAbstract extends Zend_Form {
     protected function _makeAccBasicDescSubForm() {
         $accInfoSubForm = new Zend_Form_SubForm();
         $accInfoSubForm->setLegend('Basic description');
-
 
         // add element
         $accTypeChoice = new Zend_Form_Element_Select('acc_type');

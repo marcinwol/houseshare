@@ -15,6 +15,8 @@ class My_Form_Accommodation extends My_Form_Abstract_AccommodationAbstract {
     //put your code here
 
     public function init() {
+        parent::init();
+        
         $accInfoSubForm = $this->_makeAccBasicDescSubForm();
         $addressSubForm = $this->_makeAddressSubForm();
         $roomatesSubForm = $this->_makeRoomatesSubForm();
