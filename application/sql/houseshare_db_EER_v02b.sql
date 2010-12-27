@@ -269,6 +269,7 @@ DROP TABLE IF EXISTS `houseshare`.`PREFERENCE` ;
 CREATE  TABLE IF NOT EXISTS `houseshare`.`PREFERENCE` (
   `pref_id` INT UNSIGNED NOT NULL AUTO_INCREMENT ,
   `name` VARCHAR(45) NOT NULL ,
+  `binary` BIT NOT NULL DEFAULT 1 COMMENT 'This indicates whether\nthe preference is \nonly yes/no type.' ,
   PRIMARY KEY (`pref_id`) )
 ENGINE = InnoDB;
 
@@ -720,10 +721,10 @@ COMMIT;
 -- -----------------------------------------------------
 SET AUTOCOMMIT=0;
 USE `houseshare`;
-INSERT INTO `houseshare`.`PREFERENCE` (`pref_id`, `name`) VALUES (1, 'smokers');
-INSERT INTO `houseshare`.`PREFERENCE` (`pref_id`, `name`) VALUES (2, 'kids');
-INSERT INTO `houseshare`.`PREFERENCE` (`pref_id`, `name`) VALUES (3, 'couples');
-INSERT INTO `houseshare`.`PREFERENCE` (`pref_id`, `name`) VALUES (4, 'pets');
-INSERT INTO `houseshare`.`PREFERENCE` (`pref_id`, `name`) VALUES (5, 'gender');
+INSERT INTO `houseshare`.`PREFERENCE` (`pref_id`, `name`, `binary`) VALUES (1, 'smokers', 1);
+INSERT INTO `houseshare`.`PREFERENCE` (`pref_id`, `name`, `binary`) VALUES (2, 'kids', 1);
+INSERT INTO `houseshare`.`PREFERENCE` (`pref_id`, `name`, `binary`) VALUES (3, 'couples', 1);
+INSERT INTO `houseshare`.`PREFERENCE` (`pref_id`, `name`, `binary`) VALUES (4, 'pets', 1);
+INSERT INTO `houseshare`.`PREFERENCE` (`pref_id`, `name`, `binary`) VALUES (5, 'gender', 0);
 
 COMMIT;

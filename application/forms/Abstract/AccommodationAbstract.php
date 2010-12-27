@@ -186,25 +186,19 @@ abstract class My_Form_Abstract_AccommodationAbstract extends Zend_Form {
         $preferencesForm = new Zend_Form_SubForm();
         $preferencesForm->setLegend('Preferences');
 
-        // create new element
-        $couplesChBox = $this->createElement('checkbox', 'couples');
-        $couplesChBox->setRequired(true)->setLabel('Couples accepted');
+        $allPreferences = My_Model_DbTable_Preference::getAllPreferences()->toArray();     
 
-        // create new element
-        $petsChBox = $this->createElement('checkbox', 'pets');
-        $petsChBox->setRequired(true)->setLabel('Pets accepted');
+        foreach ($allPreferences as $pref ) {
+            if ('0' === $pref['binary']) {
+                continue;
+            }
+            $newElem =  $this->createElement('checkbox', $pref['name']);
+            $newElem->setRequired(true)->setLabel(ucfirst($pref['name']) . ' accepted');
+            $newElem->setChecked(true);
+            $preferencesForm->addElement($newElem);         
+        }
 
-        // create new element
-        $kidsChBox = $this->createElement('checkbox', 'kids');
-        $kidsChBox->setRequired(true)->setLabel('Kids accepted');
-
-
-        // create new element
-        $smokersChBox = $this->createElement('checkbox', 'smokers');
-        $smokersChBox->setRequired(true)->setLabel('Smokers accepted');
-
-
-         // create new element
+         // create element for gender as it is not binary.
         $genderPref = new Zend_Form_Element_Select('gender');
         $genderPref->setLabel('Prefered geneder');
         $genderPref->addMultiOptions(
@@ -214,13 +208,8 @@ abstract class My_Form_Abstract_AccommodationAbstract extends Zend_Form {
                     '2' => "does not matter",
                 )
         );
-        $genderPref->setRequired(true);
-        $genderPref->setValue('2');
-
-        $preferencesForm->addElements(array(
-            $couplesChBox, $petsChBox, $kidsChBox, $smokersChBox, $genderPref
-           )
-        );
+        $genderPref->setRequired(true)->setValue('2');     
+        $preferencesForm->addElement($genderPref);
 
         return $preferencesForm;
     }

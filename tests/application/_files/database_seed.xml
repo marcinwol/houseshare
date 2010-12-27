@@ -8,10 +8,10 @@
     <CITY city_id="2" name="Nowy Targ" state_id="1"/>
     <CITY city_id="3" name="Wroclaw" state_id="3"/>
 
-    <PREFERENCE pref_id="1" name="Smokers" />
-    <PREFERENCE pref_id="2" name="Kids" />
-    <PREFERENCE pref_id="3" name="Couples" />
-    <PREFERENCE pref_id="4" name="Pets" />
-    <PREFERENCE pref_id="5" name="Gender" />
+    <PREFERENCE pref_id="1" name="Smokers"  binary="1"/>
+    <PREFERENCE pref_id="2" name="Kids"     binary="1" />
+    <PREFERENCE pref_id="3" name="Couples"  binary="1" />
+    <PREFERENCE pref_id="4" name="Pets"     binary="1" />
+    <PREFERENCE pref_id="5" name="Gender"   binary="0" />
 
 </dataset>

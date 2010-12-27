@@ -25,6 +25,16 @@ class My_Model_DbTable_Preference extends Zend_Db_Table_Abstract {
        return  $this->fetchAll();
     }
 
+     /**
+     * Get all preferences.
+     *
+     * @return Zend_Db_Table_Rowset_Abstract The row results per the Zend_Db_Adapter fetch mode
+     */
+    static public function getAllPreferences() {
+        $mdl = new self();
+        return $mdl->getPreferences();
+    }
+
 
 }
 ?>
