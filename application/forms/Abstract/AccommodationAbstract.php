@@ -372,6 +372,7 @@ abstract class My_Form_Abstract_AccommodationAbstract extends Zend_Form {
         $password2->setLabel('Repeat password');
         $password2->addValidator('StringLength', false, array(6))
                 ->setRequired(true);
+        $password2->addValidator(new My_Validate_PasswordConfirmation());
 
         $aboutYouForm->addElements(array(
             $fnameInput, $lnameInput,
