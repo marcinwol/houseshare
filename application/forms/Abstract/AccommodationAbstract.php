@@ -70,9 +70,17 @@ abstract class My_Form_Abstract_AccommodationAbstract extends Zend_Form {
         $priceInput->setFilters(array('stripTags', 'stringTrim'));
         $priceInput->addValidator('int');
 
+        // create new element
+        $bondInput = $this->createElement('text', 'bond');
+        $bondInput->setRequired(false);
+        $bondInput->setLabel('Bond (e.g. 1200)');
+        $bondInput->setFilters(array('stripTags', 'stringTrim'));
+        $bondInput->addValidator('int');
+
+
         $accInfoSubForm->addElements(array(
             $accTypeChoice, $titleInput, $descriptionInput,
-            $dateAvaliableInput, $priceInput)
+            $dateAvaliableInput, $priceInput, $bondInput)
         );
 
         return $accInfoSubForm;
@@ -95,6 +103,13 @@ abstract class My_Form_Abstract_AccommodationAbstract extends Zend_Form {
         $streetNoInput->setRequired(true)->setLabel('Street number');
         $streetNoInput->setFilters(array('stripTags', 'stringTrim'));
 
+        $addressPublicChb = $this->createElement('checkbox', 'address_public');
+        $addressPublicChb->setRequired(true);
+        $addressPublicChb->setLabel('Street number visible to all');
+        $addressPublicChb->setChecked(false);
+
+
+
         // create new element
         $streetNameInput = $this->createElement('text', 'street_name');
         $streetNameInput->setRequired(true)->setLabel('Street name');
@@ -108,7 +123,7 @@ abstract class My_Form_Abstract_AccommodationAbstract extends Zend_Form {
 
 
         $addressForm->addElements(array(
-            $streetNoInput, $streetNameInput,
+            $streetNoInput, $streetNameInput, $addressPublicChb,
             $zipInput, $cityChoice)
         );
 

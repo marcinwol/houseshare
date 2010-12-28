@@ -39,7 +39,7 @@ class My_Form_MainPage extends Zend_Form {
         $this->addElement($cities);
 
         $submit = $this->addElement('submit', 'submit',
-                        array('label' => 'Search')
+                        array('label' => 'Search for an accommodation')
         );
     }
 
