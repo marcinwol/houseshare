@@ -25,6 +25,7 @@ class My_Form_Accommodation extends My_Form_Abstract_AccommodationAbstract {
         $roomFeaturesSubForm = $this->_makeRoomFeaturesSubForm();
         $bedFeaturesSubForm = $this->_makeBedFeaturesSubForm();
         $photosSubForm = $this->_makePhotosSubForm();
+        $aboutYouSubForm = $this->_makeAboutYouSubForm();
 
         $this->addSubForm($accInfoSubForm, self::BASIC_INFO_SUBFORM_NAME);
         $this->addSubForm($addressSubForm, self::ADDRESS_SUBFORM_NAME);
@@ -32,6 +33,7 @@ class My_Form_Accommodation extends My_Form_Abstract_AccommodationAbstract {
         $this->addSubForm($preferencesSubForm, self::PREFERENCES_SUBFORM_NAME);
         $this->addSubForm($accFeaturesSubForm, self::ACC_FEATURES_SUBFORM_NAME);
         $this->addSubForm($roomFeaturesSubForm, self::ROOM_FEATURES_SUBFORM_NAME);
+        $this->addSubForm($aboutYouSubForm, self::ABOUT_YOU_SUBFORM_NAME);
 
         if ($bedFeaturesSubForm) {
             $this->addSubForm($bedFeaturesSubForm, self::BED_FEATURES_SUBFORM_NAME);

@@ -7,8 +7,7 @@
 
 /**
  * Description of My_Form_AccommodationAbstract
- * @todo add 'Show property address to everyone'
- * @todo add bond field
+ *
  * @author marcin
  */
 abstract class My_Form_Abstract_AccommodationAbstract extends Zend_Form {
@@ -19,6 +18,7 @@ abstract class My_Form_Abstract_AccommodationAbstract extends Zend_Form {
     const ACC_FEATURES_SUBFORM_NAME = 'acc_features';
     const ROOM_FEATURES_SUBFORM_NAME = 'room_features';
     const BED_FEATURES_SUBFORM_NAME = 'bed_features';
+    const ABOUT_YOU_SUBFORM_NAME = 'about_you';
     const PHOTOS_SUBFORM_NAME = 'photos';
 
     public function init() {
@@ -41,6 +41,20 @@ abstract class My_Form_Abstract_AccommodationAbstract extends Zend_Form {
         );
         $accTypeChoice->setRequired(true);
         $accTypeChoice->setValue('0');
+
+          // add element
+        $liveChoice = new Zend_Form_Element_Select('live_in_acc');
+        $liveChoice->setLabel('Do you live in the property?');
+        $liveChoice->addMultiOptions(
+                array(
+                    '0' => "Yes and I rent it",
+                    '1' => "Yes and I own it",
+                    '2' => "No but I own it",
+                    '3' => "No and I am a Real Estate Agent",
+                )
+        );
+        $liveChoice->setRequired(true);
+        $liveChoice->setValue('0');
 
 
         // create new element
@@ -79,7 +93,7 @@ abstract class My_Form_Abstract_AccommodationAbstract extends Zend_Form {
 
 
         $accInfoSubForm->addElements(array(
-            $accTypeChoice, $titleInput, $descriptionInput,
+            $accTypeChoice, $liveChoice, $titleInput, $descriptionInput,
             $dateAvaliableInput, $priceInput, $bondInput)
         );
 
@@ -301,6 +315,77 @@ abstract class My_Form_Abstract_AccommodationAbstract extends Zend_Form {
         }
 
         return $featuresForm;
+    }
+
+    protected function _makeAboutYouSubForm() {
+        $aboutYouForm = new Zend_Form_SubForm();
+        $aboutYouForm->setLegend('About you');
+
+
+      
+
+
+        // create new element
+        $fnameInput = $this->createElement('text', 'first_name');
+        $fnameInput->setRequired(true)->setLabel('First name');
+        $fnameInput->setFilters(array('stripTags', 'stringTrim'));
+
+        // create new element
+        $lnameInput = $this->createElement('text', 'last_name');
+        $lnameInput->setRequired(true)->setLabel('Last name');
+        $lnameInput->setFilters(array('stripTags', 'stringTrim'));
+
+        // create new element
+        $lnamePublicChb = $this->createElement('checkbox', 'last_name_public');
+        $lnamePublicChb->setRequired(true);
+        $lnamePublicChb->setLabel('Last name visible to all');
+        $lnamePublicChb->setChecked(true);
+
+        // create new element
+        $phoneInput = $this->createElement('text', 'phone_no');
+        $phoneInput->setRequired(true)->setLabel('Phone');
+        $phoneInput->setFilters(array('stripTags', 'stringTrim'));
+
+
+        // create new element
+        $phonePublicChb = $this->createElement('checkbox', 'phone_public');
+        $phonePublicChb->setRequired(true);
+        $phonePublicChb->setLabel('Phone visible to all');
+        $phonePublicChb->setChecked(true);
+
+        // create new element
+        $emailInput = $this->createElement('text', 'email');
+        $emailInput->setRequired(true)->setLabel('Email');
+        $emailInput->setFilters(array('stripTags', 'stringTrim'));
+        $emailValidator = new Zend_Validate_EmailAddress(
+                        array('domain' => false)
+        );
+        $emailValidator->setMessages(array(
+            Zend_Validate_EmailAddress::INVALID_FORMAT => 'Incorrect email format'
+        ));
+        $emailInput->addValidator($emailValidator);
+
+        $password1 = $this->createElement('password', 'password1');
+        $password1->setLabel('Password (minum 6 characters)');
+        $password1->addValidator('StringLength', false, array(6))
+                ->setRequired(true);
+
+        //@todo add custom validator for passwrods.
+        $password2 = $this->createElement('password', 'password2');
+        $password2->setLabel('Repeat password');
+        $password2->addValidator('StringLength', false, array(6))
+                ->setRequired(true);
+
+        $aboutYouForm->addElements(array(
+            $fnameInput, $lnameInput,
+            $lnamePublicChb, $phoneInput, $phonePublicChb, $emailInput,
+            $password1, $password2
+        ));
+
+
+
+
+        return $aboutYouForm;
     }
 
     protected function _makePhotosSubForm($noOfPhotos = 3) {
