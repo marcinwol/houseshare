@@ -6,10 +6,12 @@
         <title><?php echo $this->translate('Houseshare'); ?></title>
 
 
-        <?php // echo $this->headScript(); ?>
-        <?php echo $this->headScript()->appendFile($this->baseUrl() . '/js/jquery-1.4.4.min.js') ;?>
-        <?php echo $this->headScript()->appendFile($this->baseUrl() . '/js/houseshare.js') ;?>
         <?php echo $this->headLink()->appendStylesheet($this->baseUrl() . '/css/layout.css'); ?>
+        <?php echo $this->headLink()->appendStylesheet($this->baseUrl() . '/css/smoothness/jquery-ui-1.8.7.custom.css'); ?>
+        <?php echo $this->headScript()->appendFile($this->baseUrl() . '/js/jquery-1.4.4.min.js') ;?>
+        <?php echo $this->headScript()->appendFile($this->baseUrl() . '/js/jquery-ui-1.8.7.custom.min.js') ;?>
+        <?php echo $this->headScript()->appendFile($this->baseUrl() . '/js/houseshare.js') ;?>
+        
 
     </head>
 
