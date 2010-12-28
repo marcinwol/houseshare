@@ -1,18 +1,13 @@
 <?php
 
-require_once 'PHPUnit/Framework/TestCase.php';
 
-class UserControllerTest extends PHPUnit_Framework_TestCase
+class UserControllerTest extends ControllerTestCase
 {
 
-    public function setUp()
-    {
-        /* Setup Routine */
-    }
-
-    public function tearDown()
-    {
-        /* Tear Down Routine */
+    public function testIndexAction() {
+        $this->dispatch('/user/');
+        $this->assertController('user');
+        $this->assertAction('index');
     }
 
 

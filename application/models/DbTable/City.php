@@ -34,6 +34,37 @@ class My_Model_DbTable_City extends Zend_Db_Table_Abstract {
        return  $this->fetchAll();
     }
 
+
+     /**
+     * Get all cities.
+     *
+     * @return Zend_Db_Table_Rowset_Abstract The row results per the Zend_Db_Adapter fetch mode
+     */
+    static public function getAllCities() {
+        $obj = new self();
+        return $obj->getCities();
+    }
+
+    /**
+     * Get all cities from the databse in a form city_id=>name.
+     *
+     * @return array of cities
+     */
+    static public function getAllCitiesAsArray() {
+
+        $cities = self::getAllCities()->toArray();
+
+        $citiesOptions = array();
+
+        foreach ($cities as $city) {
+            $citiesOptions[$city['city_id']] = $city['name'];
+        }
+
+        return $citiesOptions;
+    }
+
+
+
 }
 
 ?>

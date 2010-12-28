@@ -12,7 +12,6 @@
  * @author marcin
  */
 abstract class My_Form_Abstract_AccommodationAbstract extends Zend_Form {
-
     const BASIC_INFO_SUBFORM_NAME = 'basic_info';
     const ADDRESS_SUBFORM_NAME = 'address';
     const ROOMATES_SUBFORM_NAME = 'roomates';
@@ -22,6 +21,7 @@ abstract class My_Form_Abstract_AccommodationAbstract extends Zend_Form {
     const BED_FEATURES_SUBFORM_NAME = 'bed_features';
     const ABOUT_YOU_SUBFORM_NAME = 'about_you';
     const PHOTOS_SUBFORM_NAME = 'photos';
+    const NEW_CITY_SUBFORM_NAME = 'new_city';
 
     public function init() {
         $this->setMethod('post');
@@ -44,7 +44,7 @@ abstract class My_Form_Abstract_AccommodationAbstract extends Zend_Form {
         $accTypeChoice->setRequired(true);
         $accTypeChoice->setValue('0');
 
-          // add element
+        // add element
         $liveChoice = new Zend_Form_Element_Select('live_in_acc');
         $liveChoice->setLabel('Do you live in the property?');
         $liveChoice->addMultiOptions(
@@ -109,7 +109,9 @@ abstract class My_Form_Abstract_AccommodationAbstract extends Zend_Form {
         // add element
         $cityChoice = new Zend_Form_Element_Select('city');
         $cityChoice->setLabel('City');
-        $cityChoice->addMultiOptions($this->_getCities());
+        $cityChoice->addMultiOptions(
+                My_Model_DbTable_City::getAllCitiesAsArray()
+        );
         $cityChoice->setRequired(true);
         $cityChoice->setValue('0');
 
@@ -124,8 +126,6 @@ abstract class My_Form_Abstract_AccommodationAbstract extends Zend_Form {
         $addressPublicChb->setLabel('Street number visible to all');
         $addressPublicChb->setChecked(false);
 
-
-
         // create new element
         $streetNameInput = $this->createElement('text', 'street_name');
         $streetNameInput->setRequired(true)->setLabel('Street name');
@@ -137,15 +137,49 @@ abstract class My_Form_Abstract_AccommodationAbstract extends Zend_Form {
         $zipInput->setRequired(true)->setLabel('Zip code');
         $zipInput->setFilters(array('stripTags', 'stringTrim'));
 
+        // create new element
+        $newCityChb = $this->createElement('checkbox', 'new_public');
+        $newCityChb->setRequired(true);
+        $newCityChb->setLabel('My city not in the list');
+        $newCityChb->setChecked(false);
+
+
 
         $addressForm->addElements(array(
             $streetNoInput, $streetNameInput, $addressPublicChb,
-            $zipInput, $cityChoice)
+            $zipInput, $cityChoice, $newCityChb,
+                )
         );
 
         return $addressForm;
     }
 
+    public function _makeNewCitySubForm($display_none = true) {
+        $newCityForm = new Zend_Form_SubForm();
+        $newCityForm->setLegend('Add a new city');
+
+        if ($display_none) {
+            $newCityForm->setAttrib('style', 'display:none');
+        }
+
+        // create elements in case new city is needed
+        $newCityNameInput = $this->createElement('text', 'new_city_name');
+        $newCityNameInput->setRequired(false)->setLabel('City name');
+        $newCityNameInput->setFilters(array('stripTags', 'stringTrim'));
+ 
+        // add select element to indicate state for the new city
+        $stateChoice = new Zend_Form_Element_Select('state_for_new_city');
+        $stateChoice->setLabel('Select state in which a new city is');
+        $stateChoice->addMultiOptions(
+                My_Model_DbTable_State::getAllStatesAsArray()
+        );
+        $stateChoice->setRequired(true);
+        $stateChoice->setValue('0');
+
+        $newCityForm->addElements(array($newCityNameInput, $stateChoice));
+
+        return $newCityForm;
+    }
 
     protected function _makeRoomatesSubForm() {
         $aroomatesForm = new Zend_Form_SubForm();
@@ -366,7 +400,7 @@ abstract class My_Form_Abstract_AccommodationAbstract extends Zend_Form {
         $password1->addValidator('StringLength', false, array(6))
                 ->setRequired(true);
 
-        
+
         $password2 = $this->createElement('password', 'password2');
         $password2->setLabel('Repeat password');
         $password2->addValidator('StringLength', false, array(6))
@@ -413,19 +447,6 @@ abstract class My_Form_Abstract_AccommodationAbstract extends Zend_Form {
         $imageElement->addValidator('Extension', false, 'jpg,png,gif');
 
         return $imageElement;
-    }
-
-    protected function _getCities() {
-        $modelCity = new My_Model_DbTable_City();
-        $cities = $modelCity->getCities()->toArray();
-
-        $citiesOptions = array();
-
-        foreach ($cities as $city) {
-            $citiesOptions[$city['city_id']] = $city['name'];
-        }
-
-        return $citiesOptions;
     }
 
     /**

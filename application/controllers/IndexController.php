@@ -8,11 +8,11 @@ class IndexController extends Zend_Controller_Action {
 
     public function indexAction()  {
         
-        $modelCity = new My_Model_DbTable_City();
+       
         $mainForm = new My_Form_MainPage();
 
         // get all cities
-        $avaliableCities = $modelCity->getCities()->toArray();
+        $avaliableCities = My_Model_DbTable_City::getAllCities()->toArray();
         $mainForm->setCitySelect($avaliableCities);
         
         if ($this->getRequest()->isPost()) {           

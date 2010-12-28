@@ -35,6 +35,12 @@ class My_Form_MainPage extends Zend_Form {
         $cities = new Zend_Form_Element_Select('s_city');
         $cities->setLabel('Select a city:');
         $cities->setRequired(true);
+
+        // create new element
+        // $cities = $this->createElement('text', 's_city');
+        // $cities->setRequired(true)->setLabel('Title');
+        // $cities->setFilters(array('stripTags', 'stringTrim'));
+
         
         $this->addElement($cities);
 
