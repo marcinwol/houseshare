@@ -16,7 +16,7 @@ class My_Form_Accommodation extends My_Form_Abstract_AccommodationAbstract {
 
     public function init() {
         parent::init();
-        
+
         $accInfoSubForm = $this->_makeAccBasicDescSubForm();
         $addressSubForm = $this->_makeAddressSubForm();
         $roomatesSubForm = $this->_makeRoomatesSubForm();
@@ -24,7 +24,7 @@ class My_Form_Accommodation extends My_Form_Abstract_AccommodationAbstract {
         $accFeaturesSubForm = $this->_makeAccFeaturesSubForm();
         $roomFeaturesSubForm = $this->_makeRoomFeaturesSubForm();
         $bedFeaturesSubForm = $this->_makeBedFeaturesSubForm();
-        $photosSubForm = $this->_makePhotosSubForm();
+        // $photosSubForm = $this->_makePhotosSubForm();
         $aboutYouSubForm = $this->_makeAboutYouSubForm();
 
         $this->addSubForm($accInfoSubForm, self::BASIC_INFO_SUBFORM_NAME);
@@ -38,9 +38,8 @@ class My_Form_Accommodation extends My_Form_Abstract_AccommodationAbstract {
         if ($bedFeaturesSubForm) {
             $this->addSubForm($bedFeaturesSubForm, self::BED_FEATURES_SUBFORM_NAME);
         }
-        
-        $this->addSubForm($photosSubForm, self::PHOTOS_SUBFORM_NAME);
 
+        //  $this->addSubForm($photosSubForm, self::PHOTOS_SUBFORM_NAME);
         // Create a submit button.
         $this->addElement('submit', 'Submit');
     }

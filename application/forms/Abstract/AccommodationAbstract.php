@@ -8,9 +8,11 @@
 /**
  * Description of My_Form_AccommodationAbstract
  *
+ * @todo Upload of photos should be separate from this form.
  * @author marcin
  */
 abstract class My_Form_Abstract_AccommodationAbstract extends Zend_Form {
+
     const BASIC_INFO_SUBFORM_NAME = 'basic_info';
     const ADDRESS_SUBFORM_NAME = 'address';
     const ROOMATES_SUBFORM_NAME = 'roomates';
@@ -144,10 +146,7 @@ abstract class My_Form_Abstract_AccommodationAbstract extends Zend_Form {
         return $addressForm;
     }
 
-    /**
-     *
-     * @todo add costum calidator for max and min ages.
-     */
+
     protected function _makeRoomatesSubForm() {
         $aroomatesForm = new Zend_Form_SubForm();
         $aroomatesForm->setLegend('Roomates');
@@ -367,7 +366,7 @@ abstract class My_Form_Abstract_AccommodationAbstract extends Zend_Form {
         $password1->addValidator('StringLength', false, array(6))
                 ->setRequired(true);
 
-        //@todo add custom validator for passwrods.
+        
         $password2 = $this->createElement('password', 'password2');
         $password2->setLabel('Repeat password');
         $password2->addValidator('StringLength', false, array(6))
