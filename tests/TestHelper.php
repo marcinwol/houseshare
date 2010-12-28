@@ -16,10 +16,7 @@ set_include_path(implode(PATH_SEPARATOR, array(
             get_include_path(),
         )));
 
-/**
- * Zend_Application
- */
-
 
 require_once('application/ControllerTestCase.php');
 require_once('application/ModelTestCase.php');
+require_once('application/ValidatorTestCase.php');

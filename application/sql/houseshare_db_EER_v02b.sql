@@ -68,6 +68,9 @@ CREATE  TABLE IF NOT EXISTS `USER` (
   `phone` VARCHAR(45) NULL ,
   `phone_public` TINYINT(1) NOT NULL DEFAULT 0 ,
   `created` TIMESTAMP NULL ,
+  `first_name` VARCHAR(45) NOT NULL ,
+  `last_name` VARCHAR(45) NOT NULL ,
+  `last_name_public` TINYINT(1) NOT NULL DEFAULT 1 ,
   PRIMARY KEY (`user_id`) ,
   UNIQUE INDEX `email_UNIQUE` (`email` ASC) )
 ENGINE = InnoDB;

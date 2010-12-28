@@ -21,6 +21,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
                    'My_View_Helper_');
         $resourceLoader->addResourceType('form', 'forms/', 'My_Form_');
         $resourceLoader->addResourceType('model', 'models/', 'My_Model_');
+        $resourceLoader->addResourceType('validate', 'validators/', 'My_Validate_');
 
 
         $autoLoader->pushAutoloader($resourceLoader);
@@ -32,7 +33,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
                     'namespace' => 'My_',
                 ));
 
-        $resourceLoader_cms->addResourceType('cms', 'CMS/', 'CMS_');
+        //$resourceLoader_cms->addResourceType('cms', 'CMS/', 'CMS_');
         //var_dump($resourceLoader_cms->getResourceTypes());
         $autoLoader->pushAutoloader($resourceLoader_cms);
 

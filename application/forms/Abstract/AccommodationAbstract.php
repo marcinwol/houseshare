@@ -201,6 +201,7 @@ abstract class My_Form_Abstract_AccommodationAbstract extends Zend_Form {
         $maxAgeInput->addMultiOptions($ageOptions);
         $maxAgeInput->setRequired(true);
         $maxAgeInput->setValue('35');
+        $maxAgeInput->addValidator(new My_Validate_MinMaxAge());
 
 
         $aroomatesForm->addElements(array(
@@ -320,10 +321,6 @@ abstract class My_Form_Abstract_AccommodationAbstract extends Zend_Form {
     protected function _makeAboutYouSubForm() {
         $aboutYouForm = new Zend_Form_SubForm();
         $aboutYouForm->setLegend('About you');
-
-
-      
-
 
         // create new element
         $fnameInput = $this->createElement('text', 'first_name');
