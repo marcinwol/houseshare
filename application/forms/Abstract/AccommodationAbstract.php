@@ -73,7 +73,7 @@ abstract class My_Form_Abstract_AccommodationAbstract extends Zend_Form {
         // create new element
         $dateAvaliableInput = $this->createElement('text', 'date_avaliable');
         $dateAvaliableInput->setRequired(true);
-        $dateAvaliableInput->setLabel('Avaliable from (dd/mm/yyyy)');
+        $dateAvaliableInput->setLabel('Avaliable froms');
         $dateAvaliableInput->setFilters(array('stripTags', 'stringTrim'));
         $dateAvaliableInput->addValidator('date',
                 array('format' => 'dd/MM/yyyy')
