@@ -32,17 +32,25 @@ class My_Form_MainPage extends Zend_Form {
         $this->addElement($mainChoice);
 
         // add city select field
-        $cities = new Zend_Form_Element_Select('s_city');
-        $cities->setLabel('Select a city:');
-        $cities->setRequired(true);
+      //  $cities = new Zend_Form_Element_Select('s_city');
+       // $cities->setLabel('Select a city:');
+       // $cities->setRequired(true);
+       // $this->addElement($cities);
 
-        // create new element
-        // $cities = $this->createElement('text', 's_city');
-        // $cities->setRequired(true)->setLabel('Title');
-        // $cities->setFilters(array('stripTags', 'stringTrim'));
 
-        
-        $this->addElement($cities);
+        //create new element
+         $cities1 = $this->createElement('text', 'i_city');
+         $cities1->setRequired(true)->setLabel('City');
+         $cities1->setFilters(array('stripTags', 'stringTrim'));
+         $this->addElement($cities1);
+
+          // add city id hidden field
+     /*   $cityID = new Zend_Form_Element_Hidden('h_city_id');
+        $cityID->setRequired(false);
+        $cityID->setValue(" ");
+        $cityID->setDecorators(array('ViewHelper'));
+        $this->addElement($cityID);
+    */
 
         $submit = $this->addElement('submit', 'submit',
                         array('label' => 'Search for an accommodation')

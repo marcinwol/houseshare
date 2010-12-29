@@ -27,23 +27,23 @@ class IndexControllerTest extends ControllerTestCase {
     public function testRedirectToAccList() {
         $search = array(
             'rd_what_to_do' => '0',
-            's_city' => '1'
+            'i_city' => 'Wroclaw, Dolnyslas'
         );
 
         $this->request->setMethod('POST')->setPost($search);
         $this->dispatch('/index/index');        
-        $this->assertRedirectTo('/accommodation/list/city_id/1');
+        $this->assertRedirectTo('/accommodation/list/city/Wroclaw, Dolnyslas');
     }
 
     public function testRedirectToAccAdd() {
         $search = array(
             'rd_what_to_do' => '1',
-            's_city' => '1'
+            'i_city' => 'Wroclaw, Dolnyslas'
         );
 
         $this->request->setMethod('POST')->setPost($search);
         $this->dispatch('/index/index');
-        $this->assertRedirectTo('/accommodation/add/city_id/1');
+        $this->assertRedirectTo('/accommodation/add/city/Wroclaw, Dolnyslas');
     }
 
 }
