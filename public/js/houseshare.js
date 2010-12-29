@@ -20,30 +20,21 @@ $(document).ready(function () {
     });
 
 
-    /**
-    * This toglles 'Add a new city' fieldset display regarding
-    * checkbox with id="address-new_public".
-    */
-    $("#address-new_public").change(function(){
-        if (true == $(this).attr('checked')) {
-            $('#fieldset-new_city').show();
-        } else {
-            $('#fieldset-new_city').hide();
-        }
-      
+   
+    $("#i_city").autocomplete({
+        source: "/houseshare/public/index/getcities"
     });
 
+    $("#address-city").autocomplete({
+        source: "/houseshare/public/index/getcities/nostate/1",
+        select: function(event, ui){            
+              $("#address-city").val(ui.item.city_name);
+              $('#address-state').val(ui.item.state_name);
+        }
+    });
 
-    var ac_config = {
-        source: "/houseshare/public/index/getcities",
-        select: function(event, ui){          
-            $("#i_city").val(ui.item.value);
-          //  $('#h_city_id').val(ui.item.city_id);
-        },
-        minLength:1
-    };
-    $("#i_city").autocomplete(ac_config);
-
-
+    $("#address-state").autocomplete({
+        source: "/houseshare/public/index/getstates"
+    });
   
 });

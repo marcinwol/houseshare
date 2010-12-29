@@ -107,14 +107,24 @@ abstract class My_Form_Abstract_AccommodationAbstract extends Zend_Form {
         $addressForm->setLegend('Address');
 
         // add element
-        $cityChoice = new Zend_Form_Element_Select('city');
-        $cityChoice->setLabel('City');
-        $cityChoice->addMultiOptions(
-                My_Model_DbTable_City::getAllCitiesAsArray()
-        );
-        $cityChoice->setRequired(true);
-        $cityChoice->setValue('0');
+        /*
+          $cityChoice = new Zend_Form_Element_Select('city');
+          $cityChoice->setLabel('City');
+          $cityChoice->addMultiOptions(
+          My_Model_DbTable_City::getAllCitiesAsArray()
+          );
+          $cityChoice->setRequired(true);
+          $cityChoice->setValue('0');
+         */
 
+            //create new element
+         $cityInput = $this->createElement('text', 'city');
+         $cityInput->setRequired(true)->setLabel('City');
+         $cityInput->setFilters(array('stripTags', 'stringTrim'));
+
+         $stateInput = $this->createElement('text', 'state');
+         $stateInput->setRequired(true)->setLabel('State');
+         $stateInput->setFilters(array('stripTags', 'stringTrim'));
 
         // create new element
         $streetNoInput = $this->createElement('text', 'street_no');
@@ -138,16 +148,17 @@ abstract class My_Form_Abstract_AccommodationAbstract extends Zend_Form {
         $zipInput->setFilters(array('stripTags', 'stringTrim'));
 
         // create new element
+        /*
         $newCityChb = $this->createElement('checkbox', 'new_public');
         $newCityChb->setRequired(true);
         $newCityChb->setLabel('My city not in the list');
         $newCityChb->setChecked(false);
-
+        */
 
 
         $addressForm->addElements(array(
             $streetNoInput, $streetNameInput, $addressPublicChb,
-            $zipInput, $cityChoice, $newCityChb,
+            $zipInput, $cityInput, $stateInput
                 )
         );
 
@@ -166,7 +177,7 @@ abstract class My_Form_Abstract_AccommodationAbstract extends Zend_Form {
         $newCityNameInput = $this->createElement('text', 'new_city_name');
         $newCityNameInput->setRequired(false)->setLabel('City name');
         $newCityNameInput->setFilters(array('stripTags', 'stringTrim'));
- 
+
         // add select element to indicate state for the new city
         $stateChoice = new Zend_Form_Element_Select('state_for_new_city');
         $stateChoice->setLabel('Select state in which a new city is');
@@ -450,16 +461,29 @@ abstract class My_Form_Abstract_AccommodationAbstract extends Zend_Form {
     }
 
     /**
-     * Set default value of city select form.
+     * Set default value of city input text field.
      *
-     * @param int|string $cityID
+     * @param string $city city name
      */
-    public function setDefultCity($cityID) {
+    public function setDefaultCity($city) {
 
         $cityElement = $this->getSubForm(self::ADDRESS_SUBFORM_NAME)
                         ->getElement('city');
 
-        $cityElement->setValue($cityID);
+        $cityElement->setValue($city);
+    }
+
+     /**
+     * Set default value of state input text field.
+     *
+     * @param string $state state name
+     */
+    public function setDefaultState($state) {
+
+        $stateElement = $this->getSubForm(self::ADDRESS_SUBFORM_NAME)
+                        ->getElement('state');
+
+        $stateElement->setValue($state);
     }
 
 }

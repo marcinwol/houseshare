@@ -27,6 +27,22 @@ class My_Model_DbTable_State extends Zend_Db_Table_Abstract {
         return $this->fetchAll();
     }
 
+
+     /**
+     * Find states  that match a given string
+     *
+     * @param string    $term  State name or part of the name
+     * @param int       $limit Limit of returned rows.
+     * @return Zend_Db_Table_Rowset_Abstract
+     */
+    public function findStatesBasedOnName($term, $limit = 5) {
+        $select = $this->select();
+        $select->where("name LIKE '%$term%' ")->order('name ASC')->limit($limit);
+        return $this->fetchAll($select);
+    }
+
+
+
     /**
      * Get all states.
      *

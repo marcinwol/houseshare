@@ -35,6 +35,19 @@ class My_Model_DbTable_City extends Zend_Db_Table_Abstract {
     }
 
 
+    /**
+     * Find cities that match a given string
+     *
+     * @param string    $term  City name or part of the name
+     * @param int       $limit Limit of returned rows.
+     * @return Zend_Db_Table_Rowset_Abstract
+     */
+    public function findCitiesBasedOnName($term, $limit = 5) {
+        $select = $this->select();
+        $select->where("name LIKE '%$term%' ")->order('name ASC')->limit($limit);
+        return $this->fetchAll($select);
+    }
+
      /**
      * Get all cities.
      *

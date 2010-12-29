@@ -31,12 +31,6 @@ class My_Form_MainPage extends Zend_Form {
         $mainChoice->setValue('0');
         $this->addElement($mainChoice);
 
-        // add city select field
-      //  $cities = new Zend_Form_Element_Select('s_city');
-       // $cities->setLabel('Select a city:');
-       // $cities->setRequired(true);
-       // $this->addElement($cities);
-
 
         //create new element
          $cities1 = $this->createElement('text', 'i_city');
@@ -44,36 +38,13 @@ class My_Form_MainPage extends Zend_Form {
          $cities1->setFilters(array('stripTags', 'stringTrim'));
          $this->addElement($cities1);
 
-          // add city id hidden field
-     /*   $cityID = new Zend_Form_Element_Hidden('h_city_id');
-        $cityID->setRequired(false);
-        $cityID->setValue(" ");
-        $cityID->setDecorators(array('ViewHelper'));
-        $this->addElement($cityID);
-    */
-
+      
         $submit = $this->addElement('submit', 'submit',
                         array('label' => 'Search for an accommodation')
         );
     }
 
-    /**
-     * Fill select option with cities and their IDs.
-     *
-     * @param array $cities Array of cities.
-     */
-    public function setCitySelect(array $cities) {
-
-        $citiesElement = $this->getElement('s_city');
-        $citiesOptions = array();
-
-        foreach ($cities as $city) {
-            $citiesOptions[$city['city_id']] = $city['name'];
-        }
-     
-        $citiesElement->setMultiOptions($citiesOptions);
-     }
-
+  
 }
 
 ?>

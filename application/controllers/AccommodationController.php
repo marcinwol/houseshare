@@ -15,19 +15,13 @@ class AccommodationController extends Zend_Controller_Action {
     }
 
     public function addAction() {
-        $cityID = $this->_request->getParam('city_id', null);
-        $cityName = $this->_request->getParam('city_name', null);
-
-        // if $cityID is null that the city does not existi in database
-        // and it should be added
-        if (!is_null($cityID)) {
-            if (!is_numeric($cityID)) {
-                throw new Zend_Exception('Provided value is not integer');
-            }
-        }
-
+       
+        $city = $this->_request->getParam('city', null);
+        @list($cityName, $stateName) = explode(', ',$city);
+      
         $addAccForm = new My_Form_Accommodation();
-        $addAccForm->setDefultCity($cityID);
+        $addAccForm->setDefaultCity($cityName);
+        $addAccForm->setDefaultState($stateName);
 
         if ($this->getRequest()->isPost()) {
             if ($addAccForm->isValid($_POST)) {

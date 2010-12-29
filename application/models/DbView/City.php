@@ -30,7 +30,7 @@ class My_Model_DbView_City extends Zend_Db_Table_Abstract {
      */
     public function findCitiesBasedOnName($term, $limit = 5) {
         $select = $this->select();
-        $select->where("city_name LIKE '%$term%' ")->order('city_name DESC')->limit($limit);
+        $select->where("city_name LIKE '%$term%' ")->order('city_name ASC')->limit($limit);
         return $this->fetchAll($select);
     }
 
