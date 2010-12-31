@@ -9,10 +9,10 @@
  *
  * @author marcin
  */
-class My_Model_DbTable_Preference extends Zend_Db_Table_Abstract {
+class My_Model_Table_Preference extends Zend_Db_Table_Abstract {
 
     protected $_name = "PREFERENCE";
-  //  protected $_dependentTables = array('My_Model_DbTable_??');
+  //  protected $_dependentTables = array('My_Model_Table_??');
 
 
 

@@ -15,13 +15,13 @@ class CityModelTest extends ModelTestCase {
     //put your code here
 
     public function testGetAllCities() {
-        $modelState = new My_Model_DbTable_City();
+        $modelState = new My_Model_Table_City();
         $arrayStates = $modelState->getCities()->toArray();
         $this->assertEquals(count($arrayStates), 3);
     }
 
     public function testGetAllCitiesByPartialName() {
-        $modelState = new My_Model_DbTable_City();
+        $modelState = new My_Model_Table_City();
         $arrayStates = $modelState->findCitiesBasedOnName('ta');
         $this->assertEquals(
                 array(

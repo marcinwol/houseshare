@@ -34,7 +34,7 @@ class IndexController extends Zend_Controller_Action {
 
             $term = $this->getRequest()->getParam('term');
             $nostate = $this->getRequest()->getParam('nostate', 0);
-            $cityModel = new My_Model_DbView_City();
+            $cityModel = new My_Model_View_City();
 
             $cities = $cityModel->findCitiesBasedOnName($term, 5)->toArray();
 
@@ -67,7 +67,7 @@ class IndexController extends Zend_Controller_Action {
         if ($this->getRequest()->isXmlHttpRequest()) {
 
             $term = $this->getRequest()->getParam('term');
-            $stateModel = new My_Model_DbTable_State();
+            $stateModel = new My_Model_Table_State();
 
             $states = $stateModel->findStatesBasedOnName($term, 5)->toArray();
 

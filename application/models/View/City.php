@@ -5,7 +5,7 @@
  *
  * @author marcin
  */
-class My_Model_DbView_City extends Zend_Db_Table_Abstract {
+class My_Model_View_City extends Zend_Db_Table_Abstract {
         
     protected $_name = "VIEW_CITY";
     protected $_primary = array('city_id','state_id');

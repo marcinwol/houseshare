@@ -10,7 +10,7 @@
  *
  * @author marcin
  */
-abstract class My_Model_DbTable_Abstract_FeatureAbstract extends Zend_Db_Table_Abstract {
+abstract class My_Model_Table_Abstract_FeatureAbstract extends Zend_Db_Table_Abstract {
     //put your code here
 
     /**

@@ -11,12 +11,12 @@
  *
  * @author marcin
  */
-class My_Model_DbTable_State extends Zend_Db_Table_Abstract {
+class My_Model_Table_State extends Zend_Db_Table_Abstract {
 
     //put your code here
 
     protected $_name = "STATE";
-    protected $_dependentTables = array('My_Model_DbTable_City');
+    protected $_dependentTables = array('My_Model_Table_City');
 
     /**
      * Get all states.

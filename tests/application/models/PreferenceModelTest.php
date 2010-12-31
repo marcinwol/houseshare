@@ -13,7 +13,7 @@ class PreferenceModelTest extends ModelTestCase {
     //put your code here
 
     public function testGetAllPreferences() {
-        $modelState = new My_Model_DbTable_Preference();
+        $modelState = new My_Model_Table_Preference();
         $arrayStates = $modelState->getPreferences()->toArray();
         $this->assertEquals(count($arrayStates),5);
     }

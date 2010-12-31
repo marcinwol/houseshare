@@ -15,13 +15,13 @@ class StateModelTest extends ModelTestCase {
     //put your code here
 
     public function testGetAllStates() {
-        $modelState = new My_Model_DbTable_State();
+        $modelState = new My_Model_Table_State();
         $arrayStates = $modelState->getStates()->toArray();
         $this->assertEquals(count($arrayStates), 3);
     }
 
     public function testGetAllStatesByPartialName() {
-        $modelState = new My_Model_DbTable_State();
+        $modelState = new My_Model_Table_State();
         $arrayStates = $modelState->findStatesBasedOnName('opo');
         $this->assertEquals(
                 array(

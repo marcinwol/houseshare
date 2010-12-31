@@ -10,7 +10,7 @@
  * @todo Add reference to ADDRFESS
  * @author marcin
  */
-class My_Model_DbTable_City extends Zend_Db_Table_Abstract {
+class My_Model_Table_City extends Zend_Db_Table_Abstract {
 
     protected $_name = "CITY";
 
@@ -19,7 +19,7 @@ class My_Model_DbTable_City extends Zend_Db_Table_Abstract {
     protected $_referenceMap  = array(
         'Menu' => array(
             'columns' => array('state_id'),
-            'refTableClass' => 'My_Model_DbTable_State',
+            'refTableClass' => 'My_Model_Table_State',
             'refColumns' => array('state_id'),
         )
     );

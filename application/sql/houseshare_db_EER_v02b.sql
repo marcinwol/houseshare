@@ -92,6 +92,7 @@ CREATE  TABLE IF NOT EXISTS `ACCOMMODATION` (
   `created` TIMESTAMP NULL ,
   `bond` INT UNSIGNED NULL ,
   `street_address_public` TINYINT(1) NOT NULL DEFAULT 0 ,
+  `short_term_ok` TINYINT(1) NOT NULL DEFAULT 1 ,
   PRIMARY KEY (`acc_id`) ,
   INDEX `fk_ACCOMODATION_ADDRESS1` (`addr_id` ASC) ,
   INDEX `fk_ACCOMODATION_USER1` (`user_id` ASC) ,

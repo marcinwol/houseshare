@@ -9,10 +9,10 @@
  *
  * @author marcin
  */
-class My_Model_DbTable_AccFeature extends My_Model_DbTable_Abstract_FeatureAbstract {
+class My_Model_Table_AccFeature extends My_Model_Table_Abstract_FeatureAbstract {
 
     protected $_name = "FEATURE";
-  //  protected $_dependentTables = array('My_Model_DbTable_??');
+  //  protected $_dependentTables = array('My_Model_Table_??');
 
     
 

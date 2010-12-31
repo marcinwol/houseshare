@@ -118,7 +118,7 @@ abstract class My_Form_Abstract_AccommodationAbstract extends Zend_Form {
           $cityChoice = new Zend_Form_Element_Select('city');
           $cityChoice->setLabel('City');
           $cityChoice->addMultiOptions(
-          My_Model_DbTable_City::getAllCitiesAsArray()
+          My_Model_Table_City::getAllCitiesAsArray()
           );
           $cityChoice->setRequired(true);
           $cityChoice->setValue('0');
@@ -189,7 +189,7 @@ abstract class My_Form_Abstract_AccommodationAbstract extends Zend_Form {
         $stateChoice = new Zend_Form_Element_Select('state_for_new_city');
         $stateChoice->setLabel('Select state in which a new city is');
         $stateChoice->addMultiOptions(
-                My_Model_DbTable_State::getAllStatesAsArray()
+                My_Model_Table_State::getAllStatesAsArray()
         );
         $stateChoice->setRequired(true);
         $stateChoice->setValue('0');
@@ -267,7 +267,7 @@ abstract class My_Form_Abstract_AccommodationAbstract extends Zend_Form {
         $preferencesForm = new Zend_Form_SubForm();
         $preferencesForm->setLegend('Preferences');
 
-        $allPreferences = My_Model_DbTable_Preference::getAllPreferences()->toArray();
+        $allPreferences = My_Model_Table_Preference::getAllPreferences()->toArray();
 
         foreach ($allPreferences as $pref) {
             if ('0' === $pref['binary']) {
@@ -299,7 +299,7 @@ abstract class My_Form_Abstract_AccommodationAbstract extends Zend_Form {
         $featuresForm = new Zend_Form_SubForm();
         $featuresForm->setLegend('Accommodation features');
 
-        $accFeatures = My_Model_DbTable_AccFeature::getAllFeatures()->toArray();
+        $accFeatures = My_Model_Table_AccFeature::getAllFeatures()->toArray();
 
         foreach ($accFeatures as $feature) {
             if ('0' === $feature['binary']) {
@@ -331,7 +331,7 @@ abstract class My_Form_Abstract_AccommodationAbstract extends Zend_Form {
         $featuresForm = new Zend_Form_SubForm();
         $featuresForm->setLegend('Room features');
 
-        $roomFeatures = My_Model_DbTable_RoomFeature::getAllFeatures()->toArray();
+        $roomFeatures = My_Model_Table_RoomFeature::getAllFeatures()->toArray();
 
         foreach ($roomFeatures as $feature) {
             if ('0' === $feature['binary']) {
@@ -350,7 +350,7 @@ abstract class My_Form_Abstract_AccommodationAbstract extends Zend_Form {
         $featuresForm = new Zend_Form_SubForm();
         $featuresForm->setLegend('Bed features');
 
-        $bedFeatures = My_Model_DbTable_BedFeature::getAllFeatures()->toArray();
+        $bedFeatures = My_Model_Table_BedFeature::getAllFeatures()->toArray();
 
         if (count($bedFeatures) == 0) {
             return null;
