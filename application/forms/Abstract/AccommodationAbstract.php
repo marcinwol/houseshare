@@ -73,11 +73,18 @@ abstract class My_Form_Abstract_AccommodationAbstract extends Zend_Form {
         // create new element
         $dateAvaliableInput = $this->createElement('text', 'date_avaliable');
         $dateAvaliableInput->setRequired(true);
-        $dateAvaliableInput->setLabel('Avaliable froms');
+        $dateAvaliableInput->setLabel('Avaliable from');
         $dateAvaliableInput->setFilters(array('stripTags', 'stringTrim'));
         $dateAvaliableInput->addValidator('date',
                 array('format' => 'dd/MM/yyyy')
         );
+        $dateAvaliableInput->setValue(Zend_Date::now()->toString('dd/MM/yyyy'));
+
+        // create new element
+        $shortTermChb = $this->createElement('checkbox', 'short_term');
+        $shortTermChb->setRequired(true);
+        $shortTermChb->setLabel('Is short term OK');
+        $shortTermChb->setChecked(true);
 
         // create new element
         $priceInput = $this->createElement('text', 'price');
@@ -96,7 +103,7 @@ abstract class My_Form_Abstract_AccommodationAbstract extends Zend_Form {
 
         $accInfoSubForm->addElements(array(
             $accTypeChoice, $liveChoice, $titleInput, $descriptionInput,
-            $dateAvaliableInput, $priceInput, $bondInput)
+            $dateAvaliableInput, $shortTermChb, $priceInput, $bondInput)
         );
 
         return $accInfoSubForm;
@@ -157,7 +164,7 @@ abstract class My_Form_Abstract_AccommodationAbstract extends Zend_Form {
 
 
         $addressForm->addElements(array(
-            $streetNoInput, $streetNameInput, $addressPublicChb,
+            $streetNoInput, $addressPublicChb, $streetNameInput,
             $zipInput, $cityInput, $stateInput
                 )
         );

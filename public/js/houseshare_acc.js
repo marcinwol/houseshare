@@ -17,6 +17,6 @@ $(document).ready(function () {
         source: "/houseshare/public/index/getstates"
     });
 
-    $( "#basic_info-date_avaliable" ).datepicker();
+    $( "#basic_info-date_avaliable" ).datepicker({ dateFormat: 'dd/mm/yy' });
 
 });
