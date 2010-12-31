@@ -27,6 +27,25 @@ class My_Model_Table_State extends Zend_Db_Table_Abstract {
         return $this->fetchAll();
     }
 
+    /**
+     * Set or update state.
+     *
+     * @param array $data state data
+     * @param int $id state ID
+     * @return int The primary key value.
+     */
+    public function setState(array $data, $id = null ) {
+        $row = $this->fetchRow("name = '{$data['name']}' OR state_id = '$id'") ;
+
+        if (is_null($row)) {
+            $row = $this->createRow($data);
+        } else {
+            $row->setFromArray($data);
+        }
+        
+        return $row->save();
+    }
+
 
      /**
      * Find states  that match a given string

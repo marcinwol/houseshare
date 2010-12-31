@@ -29,15 +29,15 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
         $autoLoader->pushAutoloader($resourceLoader);
 
 
-        // add 'My_' namespace for library/CSM
-        $resourceLoader_cms = new Zend_Loader_Autoloader_Resource(array(
+        // add 'My_' namespace for library/houseshare
+        $resourceLoader_hs = new Zend_Loader_Autoloader_Resource(array(
                     'basePath' => APPLICATION_PATH . '/../library',
                     'namespace' => 'My_',
                 ));
 
-        //$resourceLoader_cms->addResourceType('cms', 'CMS/', 'CMS_');
+        $resourceLoader_hs->addResourceType('houseshare', 'Houseshare/', 'Houseshare_');
         //var_dump($resourceLoader_cms->getResourceTypes());
-        $autoLoader->pushAutoloader($resourceLoader_cms);
+        $autoLoader->pushAutoloader($resourceLoader_hs);
     }
 
     protected function _initLocale() {

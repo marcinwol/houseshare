@@ -6,15 +6,14 @@
  * A city references STATE and is being referenced by ADDRESS
  * (i.e. ADDRESS depends on CITY).
  *
- *
- * @todo Add reference to ADDRFESS
  * @author marcin
  */
 class My_Model_Table_City extends Zend_Db_Table_Abstract {
 
     protected $_name = "CITY";
 
-    // protected $_dependentTables = array('My_Model_Address');
+    protected $_dependentTables = array('My_Model_Table_Address');
+    protected $_rowClass = 'My_Model_Table_Row_City';
 
     protected $_referenceMap  = array(
         'Menu' => array(
@@ -32,6 +31,26 @@ class My_Model_Table_City extends Zend_Db_Table_Abstract {
      */
     public function getCities() {
        return  $this->fetchAll();
+    }
+
+
+    /**
+     * Set or update city.
+     *
+     * @param array $data city info
+     * @param int $id city ID
+     * @return int The primary key value.
+     */
+    public function setCity(array $data,  $id = null ) {
+        $row = $this->fetchRow("name = '{$data['name']}' OR city_id = '$id'") ;;
+
+        if (is_null($row)) {
+            $row = $this->createRow($data);
+        } else {
+            $row->setFromArray($data);
+        }
+      
+        return $row->save();
     }
 
 

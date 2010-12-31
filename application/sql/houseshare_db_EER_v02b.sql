@@ -11,7 +11,8 @@ DROP TABLE IF EXISTS `STATE` ;
 CREATE  TABLE IF NOT EXISTS `STATE` (
   `state_id` INT NOT NULL AUTO_INCREMENT ,
   `name` VARCHAR(100) NOT NULL ,
-  PRIMARY KEY (`state_id`) )
+  PRIMARY KEY (`state_id`) ,
+  UNIQUE INDEX `name_UNIQUE` (`name` ASC) )
 ENGINE = InnoDB;
 
 
@@ -26,6 +27,7 @@ CREATE  TABLE IF NOT EXISTS `CITY` (
   `state_id` INT NOT NULL ,
   PRIMARY KEY (`city_id`) ,
   INDEX `fk_CITY_STATE1` (`state_id` ASC) ,
+  UNIQUE INDEX `name_UNIQUE` (`name` ASC) ,
   CONSTRAINT `fk_CITY_STATE1`
     FOREIGN KEY (`state_id` )
     REFERENCES `STATE` (`state_id` )

@@ -15,17 +15,32 @@ class AccommodationController extends Zend_Controller_Action {
     }
 
     public function addAction() {
-       
+
         $city = $this->_request->getParam('city', null);
-        @list($cityName, $stateName) = explode(', ',$city);
-      
+        @list($cityName, $stateName) = explode(', ', $city);
+
         $addAccForm = new My_Form_Accommodation();
         $addAccForm->setDefaultCity($cityName);
         $addAccForm->setDefaultState($stateName);
 
+        $addressModel = new My_Model_Table_Address();
+        $addressModel->newAddress(array(
+            'unit_no'=>'12a',
+            'street_no'=>'23a',
+            'street_name'=>'Podtatrzabska',
+            'zip'=>'34-505',
+            'city'=>'Nowy targ',
+            'state'=>'Mazowckies'
+        ));
+       
+
         if ($this->getRequest()->isPost()) {
             if ($addAccForm->isValid($_POST)) {
+
                 echo "Data is valid";
+                $formData = $addAccForm->getValues();
+                var_dump($formData['address']['state']);
+
                 Zend_Debug::dump($addAccForm->getValues());
             } else {
                 echo "Data is NOT valid";
