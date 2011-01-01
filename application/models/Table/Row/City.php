@@ -16,7 +16,7 @@ class My_Model_Table_Row_City extends Zend_Db_Table_Row_Abstract  {
      *
      * @return Zend_Db_Table_Row
      */
-    public function getStateRow() {
+    public function getState() {
         return $this->findParentRow('My_Model_Table_State');
     }
 

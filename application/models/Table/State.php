@@ -31,13 +31,13 @@ class My_Model_Table_State extends Zend_Db_Table_Abstract {
       * Find State by name
       *
       * @param string $value State value
-      * @return Zend_Db_Table_Rowset_Abstract
+      * @return Zend_Db_Table_Row
       */
      public function findByValue($value) {
 
          $value = trim($value);
 
-         return $this->fetchAll("name = '$value'");
+         return $this->fetchRow("name = '$value'");
      }
 
 
@@ -50,14 +50,14 @@ class My_Model_Table_State extends Zend_Db_Table_Abstract {
       */
      public function insertState(array $data) {
 
-         $rowSet = $this->findByValue($data['state_name']);
+         $row = $this->findByValue($data['state_name']);
 
-         if (0 === count($rowSet)) {
-             //if 0 than such zip does not exist so create it.
+         if (is_null($row)) {
+             //if 0 than such state does not exist so create it.
              return $this->insert(array('name'=>$data['state_name']));
          } else {
-             // such zip exists thus return its id
-             return $rowSet->current()->state_id;
+             // such state exists thus return its id
+             return $row->state_id;
          }
 
      }

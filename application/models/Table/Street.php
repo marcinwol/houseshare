@@ -24,13 +24,13 @@ class My_Model_Table_Street extends Zend_Db_Table_Abstract {
       * Find Street by name
       *
       * @param string $value Street value
-      * @return Zend_Db_Table_Rowset_Abstract
+      * @return Zend_Db_Table_Row
       */
      public function findByValue($value) {
 
          $value = trim($value);
 
-         return $this->fetchAll("name = '$value'");
+         return $this->fetchRow("name = '$value'");
      }
 
 
@@ -43,14 +43,14 @@ class My_Model_Table_Street extends Zend_Db_Table_Abstract {
       */
      public function insertStreet(array $data) {
 
-         $rowSet = $this->findByValue($data['street_name']);
+         $row = $this->findByValue($data['street_name']);
 
-         if (0 === count($rowSet)) {
+         if (is_null($row)) {
              //if 0 than such zip does not exist so create it.
              return $this->insert(array('name'=>$data['street_name']));
          } else {
              // such zip exists thus return its id
-             return $rowSet->current()->street_id;
+             return $row->street_id;
          }
 
      }

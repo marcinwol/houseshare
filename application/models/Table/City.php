@@ -39,13 +39,13 @@ class My_Model_Table_City extends Zend_Db_Table_Abstract {
       *
       * @param string $name City name
       * @param int $state_id Id of a state in which the city is
-      * @return Zend_Db_Table_Rowset_Abstract
+      * @return Zend_Db_Table_Row_City | NULL
       */
      public function findByNameAndState($name, $state_id) {
 
          $name = trim($name);
 
-         return $this->fetchAll("name = '$name' AND state_id = $state_id");
+         return $this->fetchRow("name = '$name' AND state_id = $state_id");
      }
 
     /**
@@ -56,20 +56,20 @@ class My_Model_Table_City extends Zend_Db_Table_Abstract {
       */
      public function insertCity(array $data) {
 
-         $rowSet = $this->findByNameAndState(
+         $row = $this->findByNameAndState(
                  $data['city_name'],
                  $data['state_id']
                  );
 
-         if (0 === count($rowSet)) {
-             //if 0 than such city in this state does not exist so create it.
+         if (is_null($row)) {
+             //if null than such city in this state does not exist so create it.
              return $this->insert(array(
                  'name' => $data['city_name'],
                  'state_id' => $data['state_id']
                  ));
          } else {
              // such city in that state exists thus return its city's id
-             return $rowSet->current()->city_id;
+             return $row->city_id;
          }
 
      }

@@ -70,7 +70,7 @@ class StateModelTest extends ModelTestCase {
      */
     public function testFindByValueCorrect($value, $expectedResult) {
         $state = $this->_model->findByValue($value);
-        $this->assertEquals($state->current()->name, $expectedResult);
+        $this->assertEquals($state->name, $expectedResult);
     }
 
     public function stateValuesProvider1() {
@@ -87,7 +87,7 @@ class StateModelTest extends ModelTestCase {
      */
     public function testFindByValueInCorrect($value) {
         $state = $this->_model->findByValue($value);
-        $this->assertEquals(count($state), 0);
+        $this->assertTrue(is_null($state), 0);
     }
 
     public function stateValuesProvider2() {

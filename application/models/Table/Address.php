@@ -25,46 +25,64 @@ class My_Model_Table_Address extends Zend_Db_Table_Abstract {
             'columns' => array('city_id'),
             'refTableClass' => 'My_Model_Table_City',
             'refColumns' => array('city_id'),
+        ),
+        'Street' => array(
+            'columns' => array('street_id'),
+            'refTableClass' => 'My_Model_Table_Street',
+            'refColumns' => array('street_id'),
+        ),
+        'Zip' => array(
+            'columns' => array('zip_id'),
+            'refTableClass' => 'My_Model_Table_Zip',
+            'refColumns' => array('zip_id'),
         )
     );
 
 
+     /**
+      * Find Address by all its elements (except addr_id)
+      *
+      * @param array $data Address data
+      * @return Zend_Db_Table_Row_Address | NULL
+      */
+     public function findByValues(array $data) {
+
+         $select = $this->select();
+         $select->where("unit_no = ? ", trim($data['unit_no']) );
+         $select->where("street_no = ? ", trim($data['street_no']) );
+         $select->where("street_id = ? ", $data['street_id']);
+         $select->where("zip_id = ? ", $data['zip_id']);
+         $select->where("city_id = ? ", $data['city_id']);
+
+         return $this->fetchRow($select);
+     }
+
     /**
-     * Create new address
-     *
-     * @param array $data
-     * @return int  The primary key of the row inserted
-     */
-    public function newAddress(array $data) {
-        
-        //first save state or get states ID if exists
-        $stateModel = new My_Model_Table_State();
-        $state_id = $stateModel->setState(array('name'=>$data['state']));
+      * Insert address if does not exisit.
+      *
+      * @param array $data address data
+      * @return int primary key value of address
+      */
+     public function insertAddress(array $data) {
 
-        //second save city for this state or get city ID if exists
-        $cityModel = new My_Model_Table_City();
-        $city = $cityModel->fetchRow(
-                "name = '{$data['city']}' AND state_id = '$state_id'"
-                );
+         $row = $this->findByValues($data);
 
-        if (is_null($city)) {
-            $city_id = $cityModel->insert(array(
-                'name'=>$data['city'],
-                'state_id'=>$state_id
-            ));
+         if (is_null($row)) {
+             //if null than such address does not exist so create it.
+             return $this->insert(array(
+                 'unit_no' => $data['unit_no'],
+                 'street_no' => $data['street_no'],
+                 'street_id' => $data['street_id'],
+                 'zip_id' => $data['zip_id'],
+                 'city_id' => $data['city_id'],
+                 ));
+         } else {
+             // such address in that state exists thus return its city's id
+             return $row->addr_id;
+         }
 
-        } else {
-            $city_id = $city->city_id;
-        }
+     }
 
-        // do not need this data any more
-        unset($data['state']);
-        unset($data['city']);
-
-        // add city_id and insert address
-        $data['city_id'] = $city_id;
-        return $this->insert($data);
-    }
 
     /**
      * Get address row

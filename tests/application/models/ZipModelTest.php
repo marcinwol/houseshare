@@ -58,7 +58,7 @@ class ZipModelTest extends ModelTestCase {
      */
     public function testFindByValueCorrect($value, $expectedResult) {
         $zip = $this->_model->findByValue($value);
-        $this->assertEquals($zip->current()->value, $expectedResult);
+        $this->assertEquals($zip->value, $expectedResult);
     }
 
     public function zipValuesProvider1() {
@@ -76,7 +76,7 @@ class ZipModelTest extends ModelTestCase {
      */
     public function testFindByValueInCorrect($value) {
         $zip = $this->_model->findByValue($value);
-        $this->assertEquals(count($zip), 0);
+        $this->assertTrue(is_null($zip), 0);
     }
 
     public function zipValuesProvider2() {

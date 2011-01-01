@@ -23,16 +23,14 @@ class AccommodationController extends Zend_Controller_Action {
         $addAccForm->setDefaultCity($cityName);
         $addAccForm->setDefaultState($stateName);
 
-        $addressModel = new My_Model_Table_Address();
-        $addressModel->newAddress(array(
-            'unit_no'=>'12a',
-            'street_no'=>'23a',
-            'street_name'=>'Podtatrzabska',
-            'zip'=>'34-505',
-            'city'=>'Nowy targ',
-            'state'=>'Mazowckies'
-        ));
-       
+
+
+        $addressModel = new My_Houseshare_Address2(3);
+        $addressModel->unit_no = "12";
+        $addressModel->street_no = '13A';
+        $addressModel->save();
+        //  var_dump($addressModel->city);
+
 
         if ($this->getRequest()->isPost()) {
             if ($addAccForm->isValid($_POST)) {

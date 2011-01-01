@@ -11,12 +11,33 @@
  */
 class My_Model_Table_Row_Address extends Zend_Db_Table_Row_Abstract {
 
-    /**
-     * Get City Row for the current address row.
+
+     /**
+     * Get Street Row for the current address row.
      *
      * @return Zend_Db_Table_Row
      */
-    public function getCityRow() {
+    public function getStreet() {
+        return $this->findParentRow('My_Model_Table_Street');
+    }
+
+
+    /**
+     * Get Zip Row for the current address row.
+     *
+     * @return Zend_Db_Table_Row
+     */
+    public function getZip() {
+        return $this->findParentRow('My_Model_Table_Zip');
+    }
+
+
+    /**
+     * Get City Row for the current address row.
+     *
+     * @return Zend_Db_Table_Row_City
+     */
+    public function getCity() {
         return $this->findParentRow('My_Model_Table_City');
     }
 
@@ -25,8 +46,8 @@ class My_Model_Table_Row_Address extends Zend_Db_Table_Row_Abstract {
      *
      * @return Zend_Db_Table_Row
      */
-    public function getStateRow() {
-        return $this->getCityRow()->getStateRow();
+    public function getState() {
+        return $this->getCity()->getState();
     }
 
 }

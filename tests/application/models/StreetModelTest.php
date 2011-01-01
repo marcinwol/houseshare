@@ -58,7 +58,7 @@ class StreetModelTest extends ModelTestCase {
      */
     public function testFindByValueCorrect($value, $expectedResult) {
         $street = $this->_model->findByValue($value);
-        $this->assertEquals($street->current()->name, $expectedResult);
+        $this->assertEquals($street->name, $expectedResult);
     }
 
     public function streetValuesProvider1() {
@@ -76,7 +76,7 @@ class StreetModelTest extends ModelTestCase {
      */
     public function testFindByValueInCorrect($value) {
         $street = $this->_model->findByValue($value);
-        $this->assertEquals(count($street), 0);
+        $this->assertTrue(is_null($street), 0);
     }
 
     public function streetValuesProvider2() {

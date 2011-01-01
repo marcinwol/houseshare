@@ -58,11 +58,11 @@ class CityModelTest extends ModelTestCase {
 
     public function insertCityProvider() {
         return array(
-            array(' Krakow', 1, 1),
-            array(' Nowy Targ', 1, 2),
-            array(' Nowy Targ', 2, 4),
-            array(' Wroclaw', 3, 3),
-            array(' Nowa Sol ', 3, 4)
+            array(' Krakow', 1, 1),     //exhisting city
+            array(' Nowy Targ', 1, 2),  //exhisting city
+            array(' Nowy Targ', 2, 4), // new city
+            array(' Wroclaw', 3, 3),   //exhisting city
+            array(' Nowa Sol ', 3, 4) // new city
         );
     }
 
@@ -72,7 +72,7 @@ class CityModelTest extends ModelTestCase {
      */
     public function testFindByNameAndStateCorrect($cityName, $state_id, $expectedResult) {
         $city = $this->_model->findByNameAndState($cityName, $state_id);
-        $this->assertEquals($city->current()->name, $expectedResult);
+        $this->assertEquals($city->name, $expectedResult);
     }
 
     public function cityValuesProvider1() {
@@ -90,7 +90,7 @@ class CityModelTest extends ModelTestCase {
      */
     public function testFindByNameAndStateInCorrect($cityName, $state_id) {
         $city = $this->_model->findByNameAndState($cityName, $state_id);
-        $this->assertEquals(count($city), 0);
+        $this->assertTrue(is_null($city));
     }
 
     public function cityValuesProvider2() {
