@@ -1,5 +1,15 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <dataset>
+
+    <STREET street_id="1" name="Podtatrzanska" />
+    <STREET street_id="2" name="Hapden Rd" />
+    <STREET street_id="3" name="Wyb. Wyspianskiego" />
+    <STREET street_id="4" name="Aleja 1000 lecia" />
+
+    <ZIP zip_id="1" value="34-543" />
+    <ZIP zip_id="2" value="2356" />
+    <ZIP zip_id="5" value="98-34a" />
+
     <STATE state_id="1" name="Malopolska" />
     <STATE state_id="2" name="Wielkopolska" />
     <STATE state_id="3" name="Dolnoslaskie" />
@@ -7,6 +17,14 @@
     <CITY city_id="1" name="Krakow" state_id="1"/>
     <CITY city_id="2" name="Nowy Targ" state_id="1"/>
     <CITY city_id="3" name="Wroclaw" state_id="3"/>
+
+    <ADDRESS addr_id="1" unit_no="" street_no="23c" street_id="2"
+             zip_id="1" city_id="1" />
+
+    <ADDRESS addr_id="2" unit_no="12" street_no="212" street_id="3"
+             zip_id="5" city_id="3" />
+
+   
 
     <PREFERENCE pref_id="1" name="Smokers"  binary="1"/>
     <PREFERENCE pref_id="2" name="Kids"     binary="1" />

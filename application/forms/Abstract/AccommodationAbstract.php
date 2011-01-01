@@ -26,6 +26,8 @@ abstract class My_Form_Abstract_AccommodationAbstract extends Zend_Form {
     public function init() {
         $this->setMethod('post');
         $this->setAttrib('enctype', 'multipart/form-data');
+        $this->setElementFilters(array('stripTags', 'stringTrim'));
+
     }
 
     protected function _makeAccBasicDescSubForm() {
@@ -66,8 +68,7 @@ abstract class My_Form_Abstract_AccommodationAbstract extends Zend_Form {
 
         // create new element
         $descriptionInput = $this->createElement('textarea', 'description');
-        $descriptionInput->setRequired(true)->setLabel('Advertisment description');
-        $descriptionInput->setFilters(array('stripTags', 'stringTrim'));
+        $descriptionInput->setRequired(true)->setLabel('Advertisment description');        
         $descriptionInput->setAttribs(array('cols' => 20, 'rows' => 5));
 
         // create new element

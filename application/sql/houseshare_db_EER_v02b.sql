@@ -27,12 +27,37 @@ CREATE  TABLE IF NOT EXISTS `CITY` (
   `state_id` INT NOT NULL ,
   PRIMARY KEY (`city_id`) ,
   INDEX `fk_CITY_STATE1` (`state_id` ASC) ,
-  UNIQUE INDEX `name_UNIQUE` (`name` ASC) ,
   CONSTRAINT `fk_CITY_STATE1`
     FOREIGN KEY (`state_id` )
     REFERENCES `STATE` (`state_id` )
     ON DELETE CASCADE
     ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `STREET`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `STREET` ;
+
+CREATE  TABLE IF NOT EXISTS `STREET` (
+  `street_id` INT UNSIGNED NOT NULL AUTO_INCREMENT ,
+  `name` VARCHAR(100) NOT NULL ,
+  PRIMARY KEY (`street_id`) ,
+  UNIQUE INDEX `name_UNIQUE` (`name` ASC) )
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `ZIP`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `ZIP` ;
+
+CREATE  TABLE IF NOT EXISTS `ZIP` (
+  `zip_id` INT UNSIGNED NOT NULL AUTO_INCREMENT ,
+  `value` VARCHAR(20) NOT NULL ,
+  PRIMARY KEY (`zip_id`) ,
+  UNIQUE INDEX `value_UNIQUE` (`value` ASC) )
 ENGINE = InnoDB;
 
 
@@ -43,17 +68,30 @@ DROP TABLE IF EXISTS `ADDRESS` ;
 
 CREATE  TABLE IF NOT EXISTS `ADDRESS` (
   `addr_id` INT UNSIGNED NOT NULL AUTO_INCREMENT ,
-  `unit_no` INT NULL ,
+  `unit_no` VARCHAR(10) NULL ,
   `street_no` VARCHAR(10) NOT NULL ,
-  `street_name` VARCHAR(100) NOT NULL ,
-  `zip` VARCHAR(20) NOT NULL ,
   `city_id` INT UNSIGNED NOT NULL ,
+  `street_id` INT UNSIGNED NOT NULL ,
+  `zip_id` INT UNSIGNED NOT NULL ,
   PRIMARY KEY (`addr_id`) ,
   INDEX `fk_ADDRESS_CITY1` (`city_id` ASC) ,
+  UNIQUE INDEX `UNIQUE_ADDRESS` (`unit_no` ASC, `street_no` ASC, `city_id` ASC, `street_id` ASC, `zip_id` ASC) ,
+  INDEX `fk_ADDRESS_STREET1` (`street_id` ASC) ,
+  INDEX `fk_ADDRESS_ZIP1` (`zip_id` ASC) ,
   CONSTRAINT `fk_ADDRESS_CITY1`
     FOREIGN KEY (`city_id` )
     REFERENCES `CITY` (`city_id` )
     ON DELETE CASCADE
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_ADDRESS_STREET1`
+    FOREIGN KEY (`street_id` )
+    REFERENCES `STREET` (`street_id` )
+    ON DELETE CASCADE
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_ADDRESS_ZIP1`
+    FOREIGN KEY (`zip_id` )
+    REFERENCES `ZIP` (`zip_id` )
+    ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
@@ -687,6 +725,11 @@ ENGINE = InnoDB;
 CREATE TABLE IF NOT EXISTS `VIEW_CITY` (`city_id` INT, `city_name` INT, `state_id` INT, `state_name` INT);
 
 -- -----------------------------------------------------
+-- Placeholder table for view `VIEW_ADDRESS`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `VIEW_ADDRESS` (`*` INT, `street_name` INT, `zip` INT, `city_name` INT, `state_name` INT);
+
+-- -----------------------------------------------------
 -- View `VIEW_CITY`
 -- -----------------------------------------------------
 DROP VIEW IF EXISTS `VIEW_CITY` ;
@@ -696,6 +739,24 @@ CREATE  OR REPLACE VIEW `VIEW_CITY` AS
 SELECT c.`city_id`,  c.`name` as `city_name`, c.`state_id`, s.`name` as `state_name` 
 FROM `CITY` c 
 INNER JOIN `STATE` s USING (`state_id`);
+$$
+DELIMITER ;
+
+;
+
+-- -----------------------------------------------------
+-- View `VIEW_ADDRESS`
+-- -----------------------------------------------------
+DROP VIEW IF EXISTS `VIEW_ADDRESS` ;
+DROP TABLE IF EXISTS `VIEW_ADDRESS`;
+DELIMITER $$
+CREATE  OR REPLACE VIEW `VIEW_ADDRESS` AS 
+SELECT a.*, s.name as street_name, z.value as zip, c.name as city_name, st.name as state_name FROM `ADDRESS` a
+INNER JOIN (`STREET` s, `ZIP` z, `CITY` c) USING (`street_id`, `zip_id`, `city_id`)
+INNER JOIN `STATE` st ON c.state_id = st.state_id
+
+
+
 $$
 DELIMITER ;
 

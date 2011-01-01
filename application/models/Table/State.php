@@ -27,25 +27,40 @@ class My_Model_Table_State extends Zend_Db_Table_Abstract {
         return $this->fetchAll();
     }
 
-    /**
-     * Set or update state.
-     *
-     * @param array $data state data
-     * @param int $id state ID
-     * @return int The primary key value.
-     */
-    public function setState(array $data, $id = null ) {
-        $row = $this->fetchRow("name = '{$data['name']}' OR state_id = '$id'") ;
+     /**
+      * Find State by name
+      *
+      * @param string $value State value
+      * @return Zend_Db_Table_Rowset_Abstract
+      */
+     public function findByValue($value) {
 
-        if (is_null($row)) {
-            $row = $this->createRow($data);
-        } else {
-            $row->setFromArray($data);
-        }
-        
-        return $row->save();
-    }
+         $value = trim($value);
 
+         return $this->fetchAll("name = '$value'");
+     }
+
+
+
+   /**
+      * Insert state if does not exisit.
+      *
+      * @param array $data state data
+      * @return int primary key value of state
+      */
+     public function insertState(array $data) {
+
+         $rowSet = $this->findByValue($data['state_name']);
+
+         if (0 === count($rowSet)) {
+             //if 0 than such zip does not exist so create it.
+             return $this->insert(array('name'=>$data['state_name']));
+         } else {
+             // such zip exists thus return its id
+             return $rowSet->current()->state_id;
+         }
+
+     }
 
      /**
      * Find states  that match a given string
