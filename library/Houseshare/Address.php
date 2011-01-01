@@ -1,98 +1,71 @@
 <?php
 
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
+
 
 /**
- * Description of Address
+ *
+ * Class for working with address.
+ *
+ * @example
+ * $address = new My_Houseshare_Address();
+ * $address->unit_no = "12";
+ * $address->street_no = '13A';
+ * $address->street = "Nowa ulica";
+ * $address->city = "Nowe miasto";
+ * $address->zip = "34-455";
+ * $address->state = "Mazowieckie";
+ * $address->save();
+ *
  *
  * @author marcin
  */
-class My_Houseshare_Address {
+class My_Houseshare_Address extends My_Houseshare_Abstract_PropertyAccessor {
 
     /**
      *
      * @var My_Model_Table_Address 
      */
     protected $_model;
-
-    protected $_propertiesTable = array();
     
-    protected $_changedProperties = array();
-
-    protected $_data = array();
+    protected $_modelName = 'Address';
 
     public function __construct($id = null) {
-        $this->_model = new My_Model_Table_Address();
 
-        $this->_makePropertiesArray();
+        $this->_properties['id'] = null;
+        $this->_properties['unit_no'] = null;
+        $this->_properties['street_no'] = null;
+        $this->_properties['street'] = null;
+        $this->_properties['street_id'] = null;
+        $this->_properties['city_id'] = null;
+        $this->_properties['state_id'] = null;
+        $this->_properties['city'] = null;
+        $this->_properties['state'] = null;
+        $this->_properties['zip'] = null;
+        $this->_properties['zip_id'] = null;
 
-        if (!is_null($id)) {
-            $this->_getRow($id);
-        }
+
+        parent::__construct($id);
     }
-
-    protected function _makePropertiesArray() {
-        $this->_propertiesTable['id'] = array('model' => 'address', 'col' => 'addr_id');
-        $this->_propertiesTable['unit_no'] = array('model' => 'address', 'col' => 'unit_no');
-        $this->_propertiesTable['street_no'] = array('model' => 'address', 'col' => 'street_no');
-        $this->_propertiesTable['street'] = array('model' => 'street', 'col' => 'name');
-        $this->_propertiesTable['street_id'] = array('model' => 'street', 'col' => 'street_id');
-        $this->_propertiesTable['city_id'] = array('model' => 'city', 'col' => 'city_id');
-        $this->_propertiesTable['state_id'] = array('model' => 'state', 'col' => 'state_id');
-        $this->_propertiesTable['city'] = array('model' => 'city', 'col' => 'name');
-        $this->_propertiesTable['state'] = array('model' => 'state', 'col' => 'name');
-        $this->_propertiesTable['zip'] = array('model' => 'zip', 'col' => 'value');
-        $this->_propertiesTable['zip_id'] = array('model' => 'zip', 'col' => 'zip_id');
-    }
-
-    public function __get($propertyName) {
-
-        if (!array_key_exists($propertyName, $this->_propertiesTable)) {
-            throw new Zend_Exception("Invalid property: $propertyName");
-        } else {
-            $where = $this->_propertiesTable[$propertyName];
-            return $this->_data[$where['model']][$where['col']];
-        }
-    }
-
-    public function __set($propertyName, $value) {
-        if (!array_key_exists($propertyName, $this->_propertiesTable)) {
-            throw new Zend_Exception("Invalid property: $propertyName");
-        } else {
-            if (stripos($propertyName, '_id')) {
-                throw new Zend_Exception("Cannot change '_id' property : $propertyName");
-            }
-            $where = $this->_propertiesTable[$propertyName];
-            $this->_changedProperties[$propertyName] = true;
-            $this->_data[$where['model']][$where['col']] = $value;
-        }
-    }
-
+    
     /**
      * Fetch data from database.
      *
      * @param int $id
      */
-    protected function _getRow($id) {
-        $row = $this->_model->find($id)->current();
+    protected function _populateProperties($id) {
 
-        if (is_null($row)) {
-            throw new Zend_Exception("Row with addr_id=$id not found");
-        }
+        parent::_populateProperties($id);
 
-        $this->_data['address']['addr_id'] = $row->addr_id;
-        $this->_data['address']['unit_no'] = $row->unit_no;
-        $this->_data['address']['street_no'] = $row->sAddress2treet_no;
-        $this->_data['street']['name'] = $row->getStreet()->name;
-        $this->_data['street']['street_id'] = $row->getStreet()->street_id;
-        $this->_data['city']['name'] = $row->getCity()->name;
-        $this->_data['city']['city_id'] = $row->getCity()->city_id;
-        $this->_data['state']['name'] = $row->getState()->name;
-        $this->_data['zip']['value'] = $row->getZip()->value;
-        $this->_data['zip']['zip_id'] = $row->getZip()->zip_id;
+        $this->_properties['id'] = $this->_row->addr_id;
+        $this->_properties['unit_no'] = $this->_row->unit_no;
+        $this->_properties['street_no'] = $this->_row->street_no;
+        $this->_properties['street'] = $this->_row->getStreet()->name;
+        $this->_properties['street_id'] = $this->_row->getStreet()->street_id;
+        $this->_properties['city'] = $this->_row->getCity()->name;
+        $this->_properties['city_id'] = $this->_row->getCity()->city_id;
+        $this->_properties['state'] = $this->_row->getState()->name;
+        $this->_properties['zip'] = $this->_row->getZip()->value;
+        $this->_properties['zip_id'] = $this->_row->getZip()->zip_id;
     }
 
     /**
@@ -146,18 +119,17 @@ class My_Houseshare_Address {
         }
 
         // insert address
-        $row_id =  $this->_model->insertAddress(array(
-            'unit_no' => $this->unit_no,
-            'street_no' => $this->street_no,
-            'street_id' => $street_id,
-            'zip_id' => $zip_id,
-            'city_id' => $city_id
-        ));
+        $row_id = $this->_model->insertAddress(array(
+                    'unit_no' => $this->unit_no,
+                    'street_no' => $this->street_no,
+                    'street_id' => $street_id,
+                    'zip_id' => $zip_id,
+                    'city_id' => $city_id
+                ));
 
-        $this->_getRow($row_id);
+        $this->_populateProperties($row_id);
 
         return $row_id;
-
     }
 
 }

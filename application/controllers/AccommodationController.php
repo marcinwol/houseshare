@@ -25,9 +25,13 @@ class AccommodationController extends Zend_Controller_Action {
 
 
 
-        $addressModel = new My_Houseshare_Address2(3);
+        $addressModel = new My_Houseshare_Address();
         $addressModel->unit_no = "12";
         $addressModel->street_no = '13A';
+        $addressModel->street = "Nowa ulica";
+        $addressModel->city = "Nowe miasto";
+        $addressModel->zip = "34-455";
+        $addressModel->state = "Mazowieckie";
         $addressModel->save();
         //  var_dump($addressModel->city);
 
