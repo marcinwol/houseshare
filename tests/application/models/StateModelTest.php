@@ -12,10 +12,10 @@
  */
 class StateModelTest extends ModelTestCase {
 
-     /**
+    /**
      * STATE table model
      *
-     * @var My_Model_Table_STATE
+     * @var My_Model_Table_State
      */
     private $_model;
 
@@ -29,13 +29,12 @@ class StateModelTest extends ModelTestCase {
         parent::tearDown();
     }
 
-
-    public function testGetAllStates() {        
+    public function testGetAllStates() {
         $arrayStates = $this->_model->getStates()->toArray();
         $this->assertEquals(count($arrayStates), 3);
     }
 
-    public function testGetAllStatesByPartialName() {       
+    public function testGetAllStatesByPartialName() {
         $arrayStates = $this->_model->findStatesBasedOnName('opo');
         $this->assertEquals(
                 array(
@@ -48,8 +47,7 @@ class StateModelTest extends ModelTestCase {
         ));
     }
 
-
-  /**
+    /**
      * @dataProvider insertStateProvider
      */
     public function testInsertState($value, $expectedId) {
@@ -99,8 +97,6 @@ class StateModelTest extends ModelTestCase {
             array(' Malopolskie   ')
         );
     }
-
-
 
 }
 

@@ -16,7 +16,7 @@ class My_Model_Table_City extends Zend_Db_Table_Abstract {
     protected $_rowClass = 'My_Model_Table_Row_City';
 
     protected $_referenceMap  = array(
-        'Menu' => array(
+        'State' => array(
             'columns' => array('state_id'),
             'refTableClass' => 'My_Model_Table_State',
             'refColumns' => array('state_id'),
@@ -34,24 +34,45 @@ class My_Model_Table_City extends Zend_Db_Table_Abstract {
     }
 
 
-    /**
-     * Set or update city.
-     *
-     * @param array $data city info
-     * @param int $id city ID
-     * @return int The primary key value.
-     */
-    public function setCity(array $data,  $id = null ) {
-        $row = $this->fetchRow("name = '{$data['name']}' OR city_id = '$id'") ;;
+      /**
+      * Find City by its name and state
+      *
+      * @param string $name City name
+      * @param int $state_id Id of a state in which the city is
+      * @return Zend_Db_Table_Rowset_Abstract
+      */
+     public function findByNameAndState($name, $state_id) {
 
-        if (is_null($row)) {
-            $row = $this->createRow($data);
-        } else {
-            $row->setFromArray($data);
-        }
-      
-        return $row->save();
-    }
+         $name = trim($name);
+
+         return $this->fetchAll("name = '$name' AND state_id = $state_id");
+     }
+
+    /**
+      * Insert city if does not exisit.
+      *
+      * @param array $data city data
+      * @return int primary key value of state
+      */
+     public function insertCity(array $data) {
+
+         $rowSet = $this->findByNameAndState(
+                 $data['city_name'],
+                 $data['state_id']
+                 );
+
+         if (0 === count($rowSet)) {
+             //if 0 than such city in this state does not exist so create it.
+             return $this->insert(array(
+                 'name' => $data['city_name'],
+                 'state_id' => $data['state_id']
+                 ));
+         } else {
+             // such city in that state exists thus return its city's id
+             return $rowSet->current()->city_id;
+         }
+
+     }
 
 
     /**

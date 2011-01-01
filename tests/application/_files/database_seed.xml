@@ -20,11 +20,8 @@
 
     <ADDRESS addr_id="1" unit_no="" street_no="23c" street_id="2"
              zip_id="1" city_id="1" />
-
     <ADDRESS addr_id="2" unit_no="12" street_no="212" street_id="3"
              zip_id="5" city_id="3" />
-
-   
 
     <PREFERENCE pref_id="1" name="Smokers"  binary="1"/>
     <PREFERENCE pref_id="2" name="Kids"     binary="1" />
