@@ -54,6 +54,25 @@ class StreetModelTest extends ModelTestCase {
     }
 
     /**
+     * @dataProvider updateStreetProvider
+     */
+    public function testUpdateStreet($streetId, $streetName, $expectedId) {
+        $id = $this->_model->updateStreet(
+                        array('street_name' => $streetName),
+                        $streetId
+        );
+        $this->assertEquals($id, $expectedId);
+    }
+
+    public function updateStreetProvider() {
+        return array(
+            array(1, 'Podtatrzanska updated', 1), // no reference
+            array(3, 'Wyb. Wyspianskiego updated', 3), // one reference
+            array(4, 'Aleja 1000 lecia updated', 5), // two reference, create new
+        );
+    }
+
+    /**
      * @dataProvider streetValuesProvider1
      */
     public function testFindByValueCorrect($value, $expectedResult) {

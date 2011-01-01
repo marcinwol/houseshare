@@ -53,6 +53,27 @@ class ZipModelTest extends ModelTestCase {
         );
     }
 
+     /**
+     * @dataProvider updateZipProvider
+     */
+    public function testUpdateZip($zipId, $zipValue, $expectedId) {
+        $id = $this->_model->updateZip(
+                        array('zip' => $zipValue),
+                        $zipId
+        );
+        $this->assertEquals($id, $expectedId);
+    }
+
+    public function updateZipProvider() {
+        return array(
+            array(2, '2356', 2), // no change
+            array(2, '2356-43', 2), // one reference
+            array(1, '34-543', 1), // more references, no change
+            array(1, '34-543-3', 6), // more references, change
+        );
+    }
+
+
     /**
      * @dataProvider zipValuesProvider1
      */

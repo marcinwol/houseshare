@@ -52,7 +52,7 @@ class My_Model_Table_City extends Zend_Db_Table_Abstract {
       * Insert city if does not exisit.
       *
       * @param array $data city data
-      * @return int primary key value of state
+      * @return int primary key value of city
       */
      public function insertCity(array $data) {
 
@@ -73,6 +73,34 @@ class My_Model_Table_City extends Zend_Db_Table_Abstract {
          }
 
      }
+
+/**
+     * Update city if possible. It is possible to update city
+     * only when there is only one or less rows in the dependant table
+     * (i.e. address)
+     *
+     * @param array $data city data
+     * @param int $id city id
+     * @return int primary key value of city
+     */
+    public function updateCity(array $data, $id) {
+
+        $row = $this->find($id)->current();
+
+        if (is_null($row)) {
+            throw new Zend_Db_Exception("No city with id = $id");
+        }
+
+        if ($row->getAddresses()->count() > 1) {
+            // There are many rows in dependant table, so
+            // need to create new row in this one.
+            return $this->insertCity($data);
+        }
+
+        $row->name = $data['city_name'];
+        $row->state_id = $data['state_id'];
+        return $row->save();
+    }
 
 
     /**

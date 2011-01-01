@@ -20,5 +20,14 @@ class My_Model_Table_Row_City extends Zend_Db_Table_Row_Abstract  {
         return $this->findParentRow('My_Model_Table_State');
     }
 
+    /**
+     * Get Addressess in the current city row.
+     *
+     * @return Zend_Db_Table_RowSet
+     */
+    public function getAddresses() {
+        return $this->findDependentRowset('My_Model_Table_Address');
+    }
+
 }
 ?>

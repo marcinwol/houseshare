@@ -31,7 +31,7 @@ class AddressModelTest extends ModelTestCase {
 
     public function testGetAllAddresses() {
         $result = $this->_model->fetchAll()->toArray();
-        $this->assertEquals(count($result), 3);
+        $this->assertEquals(count($result), 4);
     }
 
 
@@ -55,7 +55,7 @@ class AddressModelTest extends ModelTestCase {
         return array(
            array('', ' 23c ', 2, 1, 1, 1),      // exhistig address
            array(' 12 ', ' 212 ', 3, 5, 3, 2),  // exhistig address
-           array(' 13 ', ' 212 ', 3, 5, 3, 5),  // new address
+           array(' 13 ', ' 212 ', 3, 5, 3, 6),  // new address
         );
     }
 

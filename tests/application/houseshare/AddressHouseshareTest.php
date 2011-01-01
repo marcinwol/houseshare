@@ -83,7 +83,46 @@ class AddressHouseshareTest extends ModelTestCase {
         $address->state = "Mazowieckie";
         $row_id = $address->save();
 
-        $this->assertEquals($row_id, 5);
+        $this->assertEquals(
+                array(
+                    $row_id,
+                    $address->state_id,
+                    $address->state,
+                    $address->city_id,
+                    $address->city,
+                    $address->zip_id,
+                    $address->zip,
+                    $address->street_id,
+                    $address->street,
+                ),
+                array(
+                    6,
+                    4,
+                    'Mazowieckie',
+                    4,
+                    'Warszawa',
+                    6,
+                    '44-543',
+                    5,
+                    'Aleja 2000 lecia'
+                )
+        );
+
+
+        // aftert that check updateing new address.
+        $address = new My_Houseshare_Address(2);
+        $address->street = 'Aleja 2000 lecia';
+        $row_id = $address->save();
+        $this->assertEquals(
+                array(
+                    $row_id,
+                ),
+                array(
+                    2, // this should be the same ID as orginal!
+                )
+        );
+
+
     }
 
 }

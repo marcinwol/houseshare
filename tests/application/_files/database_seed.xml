@@ -24,6 +24,8 @@
              zip_id="5" city_id="3" />
     <ADDRESS addr_id="4" unit_no="8-A" street_no="21a" street_id="4"
              zip_id="1" city_id="3" />
+    <ADDRESS addr_id="5" unit_no="18" street_no="1a" street_id="4"
+             zip_id="1" city_id="3" />
 
 
     <PREFERENCE pref_id="1" name="Smokers"  binary="1"/>

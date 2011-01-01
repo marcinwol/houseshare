@@ -13,9 +13,9 @@ class My_Model_Table_Zip extends Zend_Db_Table_Abstract {
 
      protected $_name = "ZIP";
 
-     protected $_dependentTables = array(
-        'My_Model_Table_Address'
-    );
+     protected $_dependentTables = array('My_Model_Table_Address' );
+
+     protected $_rowClass = 'My_Model_Table_Row_Zip';
 
 
      /**
@@ -51,6 +51,35 @@ class My_Model_Table_Zip extends Zend_Db_Table_Abstract {
          }
 
      }
+
+
+      /**
+     * Update zip if possible. It is possible to update zip
+     * only when there is only one or less rows in the dependant table
+     * (i.e. address)
+     *
+     * @param array $data zip data
+     * @param int $id zip id
+     * @return int primary key value of zip
+     */
+    public function updateZip(array $data, $id) {
+
+        $row = $this->find($id)->current();
+
+        if (is_null($row)) {
+            throw new Zend_Db_Exception("No zip with id = $id");
+        }
+
+        if ($row->getAddresses()->count() > 1) {
+            // There are many rows in dependant table, so
+            // need to create new row in this one.
+            return $this->insertZip($data);
+        }
+
+        $row->value = $data['zip'];
+        return $row->save();
+    }
+
 
 
 }

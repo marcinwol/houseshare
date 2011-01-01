@@ -66,6 +66,25 @@ class StateModelTest extends ModelTestCase {
     }
 
     /**
+     * @dataProvider updateStateProvider
+     */
+    public function testUpdateState($state_id, $state_name, $expectedId) {
+        $id = $this->_model->updateState(
+                        array('state_name' => $state_name),
+                        $state_id
+        );
+        $this->assertEquals($id, $expectedId);
+    }
+
+    public function updateStateProvider() {
+        return array(
+            array(1, ' Malopolska_updated', 4),  // used by 2 cites, thus create new state
+            array(2, ' Wielkopolska_updated', 2),
+            array(3, 'Dolnoslaskie', 3)
+        );
+    }
+
+    /**
      * @dataProvider stateValuesProvider1
      */
     public function testFindByValueCorrect($value, $expectedResult) {
