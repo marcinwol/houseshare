@@ -1,7 +1,5 @@
 <?php
 
-
-
 /**
  *
  * Class for working with address.
@@ -21,53 +19,9 @@
  */
 class My_Houseshare_Address extends My_Houseshare_Abstract_PropertyAccessor {
 
-    /**
-     *
-     * @var My_Model_Table_Address 
-     */
-    protected $_model;
-    
-    protected $_modelName = 'Address';
+    protected $_modelName = 'View_Address';
 
-    public function __construct($id = null) {
-
-        $this->_properties['id'] = null;
-        $this->_properties['unit_no'] = null;
-        $this->_properties['street_no'] = null;
-        $this->_properties['street'] = null;
-        $this->_properties['street_id'] = null;
-        $this->_properties['city_id'] = null;
-        $this->_properties['state_id'] = null;
-        $this->_properties['city'] = null;
-        $this->_properties['state'] = null;
-        $this->_properties['zip'] = null;
-        $this->_properties['zip_id'] = null;
-
-
-        parent::__construct($id);
-    }
-    
-    /**
-     * Fetch data from database.
-     *
-     * @param int $id
-     */
-    protected function _populateProperties($id) {
-
-        parent::_populateProperties($id);
-
-        $this->_properties['id'] = $this->_row->addr_id;
-        $this->_properties['unit_no'] = $this->_row->unit_no;
-        $this->_properties['street_no'] = $this->_row->street_no;
-        $this->_properties['street'] = $this->_row->getStreet()->name;
-        $this->_properties['street_id'] = $this->_row->getStreet()->street_id;
-        $this->_properties['city'] = $this->_row->getCity()->name;
-        $this->_properties['city_id'] = $this->_row->getCity()->city_id;
-        $this->_properties['state'] = $this->_row->getState()->name;
-        $this->_properties['zip'] = $this->_row->getZip()->value;
-        $this->_properties['zip_id'] = $this->_row->getZip()->zip_id;
-    }
-
+        
     /**
      * Save new address in the database if necessery.
      *
@@ -118,8 +72,10 @@ class My_Houseshare_Address extends My_Houseshare_Abstract_PropertyAccessor {
             $street_id = $this->_data['street']['street_id'];
         }
 
+       
+
         // insert address
-        $row_id = $this->_model->insertAddress(array(
+        $row_id = $this->getModel()->insertAddress(array(
                     'unit_no' => $this->unit_no,
                     'street_no' => $this->street_no,
                     'street_id' => $street_id,

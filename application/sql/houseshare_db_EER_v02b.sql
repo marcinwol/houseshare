@@ -728,7 +728,7 @@ CREATE TABLE IF NOT EXISTS `VIEW_CITY` (`city_id` INT, `city_name` INT, `state_i
 -- -----------------------------------------------------
 -- Placeholder table for view `VIEW_ADDRESS`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `VIEW_ADDRESS` (`*` INT, `street_name` INT, `zip` INT, `city_name` INT, `state_name` INT);
+CREATE TABLE IF NOT EXISTS `VIEW_ADDRESS` (`id` INT, `unit_no` INT, `street_no` INT, `city_id` INT, `zip_id` INT, `street_id` INT, `state_id` INT, `street` INT, `zip` INT, `city` INT, `state` INT);
 
 -- -----------------------------------------------------
 -- View `VIEW_CITY`
@@ -752,7 +752,7 @@ DROP VIEW IF EXISTS `VIEW_ADDRESS` ;
 DROP TABLE IF EXISTS `VIEW_ADDRESS`;
 DELIMITER $$
 CREATE  OR REPLACE VIEW `VIEW_ADDRESS` AS 
-SELECT a.*, s.name as street_name, z.value as zip, c.name as city_name, st.name as state_name FROM `ADDRESS` a
+SELECT a.addr_id as id, a.unit_no, a.street_no, a.city_id, a.zip_id, a.street_id, st.state_id, s.name as street, z.value as zip, c.name as city, st.name as state FROM `ADDRESS` a
 INNER JOIN (`STREET` s, `ZIP` z, `CITY` c) USING (`street_id`, `zip_id`, `city_id`)
 INNER JOIN `STATE` st ON c.state_id = st.state_id
 
