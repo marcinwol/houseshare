@@ -128,10 +128,6 @@ class AddressHouseshareTest extends ModelTestCase {
 
     /**
      * There is one ref. in ACCOMMODATION to addr_id = 1.
-     * Thus, you can update (if possible) this addres without problems
-     * (i.e. do not create new address). If possible means, that addresses must be
-     * unique, so if already exists new address the pre-existing addr_id is returned
-     * instead of updating the current addr.
      */
     public function testUpdateAddress1() {
     
@@ -144,7 +140,19 @@ class AddressHouseshareTest extends ModelTestCase {
         $address->state = "Mazowieckie";
         $row_id = $address->save();
 
-        $this->assertEquals(
+        $this->assertEquals(                
+                array(
+                    6, // address change so make new one.
+                    4, // new state,
+                       // because there are two refs. in city to state_id = 1
+                    'Mazowieckie',
+                    4, // new city
+                    'Warszawa',
+                    5, // new zip already exists so return existing zip_id
+                    '98-34a',
+                    3, // new street already exists so return existing street_id
+                    'Wyb. Wyspianskiego'
+                ),
                 array(
                     $row_id,
                     $address->state_id,
@@ -155,19 +163,6 @@ class AddressHouseshareTest extends ModelTestCase {
                     $address->zip,
                     $address->street_id,
                     $address->street,
-                ),
-                array(
-                    1, // addr_id not changed
-                    4, // new state,
-                       // because there are two refs. in city to state_id = 1
-                    'Mazowieckie',
-                    1, // update Krakow-> Warszawa, no change in city_id
-                      // beacuse only one ref. in address to city_id = 1
-                    'Warszawa',
-                    5, // new zip already exists so return existing zip_id
-                    '98-34a',
-                    3, // new street already exists so return existing street_id
-                    'Wyb. Wyspianskiego'
                 )
         );
     }
@@ -175,16 +170,8 @@ class AddressHouseshareTest extends ModelTestCase {
     /**
      * There are two refs. in ACCOMMODATION to addr_id = 2.
      * street_id is 3 and there is only one ref. in ADDRESS to this street.
-     * Thus, updating street should return street_id = 3, not create new street.
-     * Then, since street_id hasn't changed the no new address is created.
-     *
-     * @PROBLEM THIS IS A PROBLEM BEACUSE  ONE PERSON UPDATING A STREET FOR
-     * HIS/HERS ACCOMMODATION WILL UPDATE STREETS FOR ALL OTHER USERS THAT
-     * USE THE SAME add_id IN THEIR ACCOMMODATIONS!!!
      */
     public function testUpdateAddress2() {
-
-        // there are two refs. in Acc. for addr_id = 2
 
         $address = new My_Houseshare_Address(2);
         $address->street = "Wybrzerze Wyspianskiego";
@@ -192,14 +179,13 @@ class AddressHouseshareTest extends ModelTestCase {
 
         $this->assertEquals(
                 array(
-                    $row_id,
-                    $address->street_id,
+                    6, // new address since new street
+                    5, // new street.
                 ),
                 array(
-                    2,
-                    3, // only one ref. in address to this street thus update it
-                // rathar then create new one.
-                )
+                    $row_id,
+                    $address->street_id,
+                )                
         );
     }
 
@@ -222,6 +208,41 @@ class AddressHouseshareTest extends ModelTestCase {
                 )
         );
     }
+
+    /**
+     * This time update one address (4) so that it is exacly the same as
+     * address (5). Thus instead of creating new data, just return address 5.
+     */
+     public function testUpdateAddress4() {
+
+        $address = new My_Houseshare_Address(4);
+        $address->unit_no = "18";
+        $address->street_no = "1a";
+        $address->street = "Aleja 1000 lecia";
+        $address->zip = "34-543";
+        $address->city = "Wroclaw";
+        $address->state = "Dolnoslaskie";
+        $row_id = $address->save();
+
+        $this->assertEquals(
+                array(
+                    5, // the new address corresponds to the address 5
+                    3,
+                    3,
+                    4,
+                    1
+                ),
+                array(
+                    $row_id,
+                    $address->city_id,
+                    $address->state_id,
+                    $address->street_id,
+                    $address->zip_id
+                )
+        );
+    }
+
+
 
 }
 

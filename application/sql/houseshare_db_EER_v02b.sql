@@ -31,7 +31,7 @@ CREATE  TABLE IF NOT EXISTS `CITY` (
   CONSTRAINT `fk_CITY_STATE1`
     FOREIGN KEY (`state_id` )
     REFERENCES `STATE` (`state_id` )
-    ON DELETE CASCADE
+    ON DELETE RESTRICT
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
@@ -82,17 +82,17 @@ CREATE  TABLE IF NOT EXISTS `ADDRESS` (
   CONSTRAINT `fk_ADDRESS_CITY1`
     FOREIGN KEY (`city_id` )
     REFERENCES `CITY` (`city_id` )
-    ON DELETE CASCADE
+    ON DELETE RESTRICT
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_ADDRESS_STREET1`
     FOREIGN KEY (`street_id` )
     REFERENCES `STREET` (`street_id` )
-    ON DELETE CASCADE
+    ON DELETE RESTRICT
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_ADDRESS_ZIP1`
     FOREIGN KEY (`zip_id` )
     REFERENCES `ZIP` (`zip_id` )
-    ON DELETE CASCADE
+    ON DELETE RESTRICT
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
@@ -140,7 +140,7 @@ CREATE  TABLE IF NOT EXISTS `ACCOMMODATION` (
   CONSTRAINT `fk_ACCOMODATION_ADDRESS1`
     FOREIGN KEY (`addr_id` )
     REFERENCES `ADDRESS` (`addr_id` )
-    ON DELETE CASCADE
+    ON DELETE RESTRICT
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_ACCOMODATION_USER1`
     FOREIGN KEY (`user_id` )
@@ -187,7 +187,7 @@ CREATE  TABLE IF NOT EXISTS `ROOM` (
   CONSTRAINT `fk_ROOM_ROOMATES1`
     FOREIGN KEY (`roomates_id` )
     REFERENCES `ROOMATES` (`roomates_id` )
-    ON DELETE NO ACTION
+    ON DELETE RESTRICT
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
@@ -210,7 +210,7 @@ CREATE  TABLE IF NOT EXISTS `BED` (
   CONSTRAINT `fk_BED_ROOMATES1`
     FOREIGN KEY (`roomates_id` )
     REFERENCES `ROOMATES` (`roomates_id` )
-    ON DELETE NO ACTION
+    ON DELETE RESTRICT
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
@@ -281,7 +281,7 @@ CREATE  TABLE IF NOT EXISTS `ACCOMODATION_has_FEATURE` (
   CONSTRAINT `fk_ACCOMODATION_has_FEATURE_FEATURE1`
     FOREIGN KEY (`feat_id` )
     REFERENCES `FEATURE` (`feat_id` )
-    ON DELETE CASCADE
+    ON DELETE RESTRICT
     ON UPDATE CASCADE)
 ENGINE = InnoDB;
 
@@ -301,7 +301,7 @@ CREATE  TABLE IF NOT EXISTS `PHOTO` (
   CONSTRAINT `fk_PHOTO_ACCOMODATION1`
     FOREIGN KEY (`acc_id` )
     REFERENCES `ACCOMMODATION` (`acc_id` )
-    ON DELETE NO ACTION
+    ON DELETE CASCADE
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
@@ -338,7 +338,7 @@ CREATE  TABLE IF NOT EXISTS `ACCOMODATION_has_PREFERENCE` (
   CONSTRAINT `fk_ACCOMODATION_has_PREFERENCE_PREFERENCE1`
     FOREIGN KEY (`pref_id` )
     REFERENCES `PREFERENCE` (`pref_id` )
-    ON DELETE CASCADE
+    ON DELETE RESTRICT
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
@@ -396,7 +396,7 @@ CREATE  TABLE IF NOT EXISTS `AGENT` (
   CONSTRAINT `fk_AGENT_ADDRESS1`
     FOREIGN KEY (`addr_id` )
     REFERENCES `ADDRESS` (`addr_id` )
-    ON DELETE NO ACTION
+    ON DELETE RESTRICT
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
@@ -625,7 +625,7 @@ CREATE  TABLE IF NOT EXISTS `ROOM_has_ROOM_FEATURE` (
   CONSTRAINT `fk_ROOM_FEATURES_has_ROOM_ROOM_FEATURES1`
     FOREIGN KEY (`room_feat_id` )
     REFERENCES `ROOM_FEATURE` (`room_feat_id` )
-    ON DELETE CASCADE
+    ON DELETE RESTRICT
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_ROOM_FEATURES_has_ROOM_ROOM1`
     FOREIGN KEY (`acc_id` )
@@ -686,12 +686,12 @@ CREATE  TABLE IF NOT EXISTS `BED_has_BED_FEATURE` (
   CONSTRAINT `fk_BED_has_BED_FEATURE_BED1`
     FOREIGN KEY (`acc_id` )
     REFERENCES `BED` (`acc_id` )
-    ON DELETE NO ACTION
+    ON DELETE CASCADE
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_BED_has_BED_FEATURE_BED_FEATURE1`
     FOREIGN KEY (`bed_feat_id` )
     REFERENCES `BED_FEATURE` (`bead_feat_id` )
-    ON DELETE NO ACTION
+    ON DELETE RESTRICT
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
@@ -785,6 +785,29 @@ SET AUTOCOMMIT=0;
 INSERT INTO CITY (`city_id`, `name`, `state_id`) VALUES (1, 'Wroclaw', 2);
 INSERT INTO CITY (`city_id`, `name`, `state_id`) VALUES (2, 'Krakow', 1);
 INSERT INTO CITY (`city_id`, `name`, `state_id`) VALUES (3, 'Nowy Targ', 1);
+INSERT INTO CITY (`city_id`, `name`, `state_id`) VALUES (4, 'Nowa Sol', 2);
+
+COMMIT;
+
+-- -----------------------------------------------------
+-- Data for table `STREET`
+-- -----------------------------------------------------
+SET AUTOCOMMIT=0;
+INSERT INTO STREET (`street_id`, `name`) VALUES (1, 'Podtatrzanska');
+INSERT INTO STREET (`street_id`, `name`) VALUES (2, 'Wyb. Wyspianskiego');
+INSERT INTO STREET (`street_id`, `name`) VALUES (3, 'Aleja 100 lecia');
+INSERT INTO STREET (`street_id`, `name`) VALUES (4, 'Plac dominikanski');
+
+COMMIT;
+
+-- -----------------------------------------------------
+-- Data for table `ZIP`
+-- -----------------------------------------------------
+SET AUTOCOMMIT=0;
+INSERT INTO ZIP (`zip_id`, `value`) VALUES (1, '34-400');
+INSERT INTO ZIP (`zip_id`, `value`) VALUES (2, '55-500');
+INSERT INTO ZIP (`zip_id`, `value`) VALUES (3, '12-134');
+INSERT INTO ZIP (`zip_id`, `value`) VALUES (4, '45-132');
 
 COMMIT;
 

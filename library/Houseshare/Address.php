@@ -33,17 +33,9 @@ class My_Houseshare_Address extends My_Houseshare_Abstract_PropertyAccessor {
         if (in_array('state', $this->_changedProperties)) {
             $stateModel = new My_Model_Table_State();
 
-            if ($this->_properties['state_id']) {
-                // if state_id exist than update the state (if possible)
-                $state_id = $stateModel->updateState(
-                                array('state_name' => $this->state),
-                                $this->_properties['state_id']
-                );
-            } else {
-                $state_id = $stateModel->insertState(
-                                array('state_name' => $this->state)
-                );
-            }
+            $state_id = $stateModel->insertState(
+                            array('state_name' => $this->state)
+            );
         } else {
             $state_id = $this->_properties['state_id'];
         }
@@ -53,22 +45,12 @@ class My_Houseshare_Address extends My_Houseshare_Abstract_PropertyAccessor {
         if (in_array('city', $this->_changedProperties)) {
             $cityModel = new My_Model_Table_City();
 
-            if ($this->_properties['city_id']) {
-                $city_id = $cityModel->updateCity(
-                                array(
-                                    'city_name' => $this->city,
-                                    'state_id' => $state_id,
-                                ),
-                                $this->_properties['city_id']
-                );
-            } else {
-                $city_id = $cityModel->insertCity(
-                                array(
-                                    'city_name' => $this->city,
-                                    'state_id' => $state_id,
-                                )
-                );
-            }
+            $city_id = $cityModel->insertCity(
+                            array(
+                                'city_name' => $this->city,
+                                'state_id' => $state_id,
+                            )
+            );
         } else {
             $city_id = $this->_properties['city_id'];
         }
@@ -77,15 +59,7 @@ class My_Houseshare_Address extends My_Houseshare_Abstract_PropertyAccessor {
         // insert/update zip
         if (in_array('zip', $this->_changedProperties)) {
             $zipModel = new My_Model_Table_Zip();
-
-            if ($this->_properties['zip_id']) {
-                $zip_id = $zipModel->updateZip(
-                                array('zip' => $this->zip),
-                                $this->_properties['zip_id']
-                );
-            } else {
-                $zip_id = $zipModel->insertZip(array('zip' => $this->zip));
-            }
+            $zip_id = $zipModel->insertZip(array('zip' => $this->zip));
         } else {
             $zip_id = $this->_properties['zip_id'];
         }
@@ -94,42 +68,21 @@ class My_Houseshare_Address extends My_Houseshare_Abstract_PropertyAccessor {
         if (in_array('street', $this->_changedProperties)) {
             $streetModel = new My_Model_Table_Street();
 
-            if ($this->_properties['street_id']) {
-                $street_id = $streetModel->updateStreet(
-                                array('street_name' => $this->street),
-                                $this->_properties['street_id']
-                );
-            } else {
-
-                $street_id = $streetModel->insertStreet(
-                                array('street_name' => $this->street)
-                );
-            }
+            $street_id = $streetModel->insertStreet(
+                            array('street_name' => $this->street)
+            );
         } else {
             $street_id = $this->_properties['street_id'];
         }
 
 
-        // insert/update address
-        if ($this->_id) {            
-            $row_id = $this->getModel()->updateAddress(array(
-                        'unit_no' => $this->unit_no,
-                        'street_no' => $this->street_no,
-                        'street_id' => $street_id,
-                        'zip_id' => $zip_id,
-                        'city_id' => $city_id
-                            ),
-                            $this->_id
-            );
-        } else {            
-            $row_id = $this->getModel()->insertAddress(array(
-                        'unit_no' => $this->unit_no,
-                        'street_no' => $this->street_no,
-                        'street_id' => $street_id,
-                        'zip_id' => $zip_id,
-                        'city_id' => $city_id
-                    ));
-        }
+        $row_id = $this->getModel()->insertAddress(array(
+                    'unit_no' => $this->unit_no,
+                    'street_no' => $this->street_no,
+                    'street_id' => $street_id,
+                    'zip_id' => $zip_id,
+                    'city_id' => $city_id
+                ));
 
 
         $this->_populateProperties($row_id);
