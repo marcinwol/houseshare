@@ -34,15 +34,13 @@ class AddressModelTest extends ModelTestCase {
         $this->assertEquals(count($result), 4);
     }
 
-
-
-     /**
+    /**
      * @dataProvider insertAddressProvider
      */
     public function testInsertAddress(
-            $unit_no, $street_no, $street_id, $zip_id, $city_id, $expectedId) {
+    $unit_no, $street_no, $street_id, $zip_id, $city_id, $expectedId) {
         $id = $this->_model->insertAddress(array(
-                   'unit_no' => $unit_no,
+                    'unit_no' => $unit_no,
                     'street_no' => $street_no,
                     'street_id' => $street_id,
                     'zip_id' => $zip_id,
@@ -53,14 +51,37 @@ class AddressModelTest extends ModelTestCase {
 
     public function insertAddressProvider() {
         return array(
-           array('', ' 23c ', 2, 1, 1, 1),      // exhistig address
-           array(' 12 ', ' 212 ', 3, 5, 3, 2),  // exhistig address
-           array(' 13 ', ' 212 ', 3, 5, 3, 6),  // new address
+            array('', ' 23c ', 2, 1, 1, 1), // exhistig address
+            array(' 12 ', ' 212 ', 3, 5, 3, 2), // exhistig address
+            array(' 13 ', ' 212 ', 3, 5, 3, 6), // new address
         );
     }
 
+    /**
+     * @dataProvider updateAddressProvider
+     */
+    public function testUpdateAddress($addr_id, $unit_no, $street_no,
+            $street_id, $zip_id, $city_id, $expectedId) {
 
+        $id = $this->_model->updateAddress(array(
+                    'unit_no' => $unit_no,
+                    'street_no' => $street_no,
+                    'street_id' => $street_id,
+                    'zip_id' => $zip_id,
+                    'city_id' => $city_id
+                        ),
+                        $addr_id);
+        $this->assertEquals($id, $expectedId);
+    }
 
+    public function updateAddressProvider() {
+        return array(
+            array(1, '', '23c', 2, 1, 1, 1), // one ref. to accomm
+            array(1, '2', 'd23c', 1, 2, 2, 1), // one ref. to accomm
+            array(4, '2', 'd23c', 1, 2, 2, 4), // no ref. to accomm
+            array(2, '12-a', '221', 2, 2, 2, 6), // two ref. to accomm, make new
+        );
+    }
 
     /**
      * @dataProvider addressValuesProvider1

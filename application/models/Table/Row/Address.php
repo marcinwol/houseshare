@@ -18,7 +18,7 @@ class My_Model_Table_Row_Address extends Zend_Db_Table_Row_Abstract {
      * @return Zend_Db_Table_RowSet
      */
     public function getAccommodations() {
-        return $this->findDependentRowset('My_Model_Table_Accommodations');
+        return $this->findDependentRowset('My_Model_Table_Accommodation');
     }
 
      /**
