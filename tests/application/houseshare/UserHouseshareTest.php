@@ -12,8 +12,18 @@
  */
 class UserHouseshareTest extends ModelTestCase {
 
-    public function testGetUser() {
-        $user = new My_Houseshare_User(1);
+    public function userClassProvider() {
+        return array(
+            array('My_Houseshare_User'),
+            array('My_Houseshare_Roomate')
+        );
+    }
+
+    /**
+     * @dataProvider userClassProvider
+     */
+    public function testGetUser($userClass) {
+        $user = new $userClass(1);
 
         $this->assertEquals(
                 array(
@@ -26,7 +36,7 @@ class UserHouseshareTest extends ModelTestCase {
                 )
         );
 
-        $user = new My_Houseshare_User(2);
+        $user = new $userClass(2);
         $this->assertEquals(
                 array(
                     'Michal',
@@ -39,8 +49,11 @@ class UserHouseshareTest extends ModelTestCase {
         );
     }
 
-    public function testInsertUser() {
-        $user = new My_Houseshare_User();
+    /**
+     * @dataProvider userClassProvider
+     */
+    public function testInsertUser($userClass) {
+        $user = new $userClass();
 
         $user->email = 'new@email.com';
         $user->password = 'new password';
@@ -50,24 +63,38 @@ class UserHouseshareTest extends ModelTestCase {
         $user->last_name = 'Polanski';
         $user->last_name_public = '0';
 
+        if ( 'My_Houseshare_Roomate' == $userClass) {
+            $user->is_owner = '1';
+        }
+
         $id = $user->save();
 
         $this->assertEquals(4, $id);
     }
 
-    public function testUpdateUser() {
-        $user = new My_Houseshare_User(2);
+    /**
+     * @dataProvider userClassProvider
+     */
+    public function testUpdateUser($userClass) {
+        $user = new $userClass(2);
 
         $user->phone_public = '0';
         $user->first_name = 'Jerzy';
         $user->last_name = 'Powanski';
         $user->last_name_public = '1';
 
+        if ( 'My_Houseshare_Roomate' == $userClass) {
+            $user->is_owner = '0';
+        }
+
         $id = $user->save();
 
         $this->assertEquals(2, $id);
-    }
 
+         if ( 'My_Houseshare_Roomate' == $userClass) {
+            $this->assertEquals('0', $user->is_owner);
+        }
+    }
 
 }
 

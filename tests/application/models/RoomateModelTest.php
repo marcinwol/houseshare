@@ -41,5 +41,15 @@ class RoomateModelTest extends ModelTestCase  {
         $this->assertEquals('Michal',$row->first_name);
     }
 
+
+    public function testSetRoomate() {
+        $id = $this->_model->setRoomate(array('is_owner'=>'0'), 1);
+        $this->assertEquals('0',$this->_model->find(1)->current()->is_owner);
+
+        $id = $this->_model->setRoomate(array('is_owner'=>'1'), 2);
+        $this->assertEquals('1',$this->_model->find(2)->current()->is_owner);
+
+    }
+
 }
 ?>

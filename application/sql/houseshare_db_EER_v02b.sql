@@ -106,9 +106,9 @@ CREATE  TABLE IF NOT EXISTS `USER` (
   `user_id` INT UNSIGNED NOT NULL AUTO_INCREMENT ,
   `email` VARCHAR(85) NOT NULL ,
   `password` VARCHAR(65) NOT NULL ,
-  `phone` VARCHAR(45) NULL ,
+  `phone` VARCHAR(45) NOT NULL ,
   `phone_public` TINYINT(1) NOT NULL DEFAULT 0 ,
-  `created` TIMESTAMP NULL ,
+  `created` TIMESTAMP NOT NULL ,
   `first_name` VARCHAR(45) NOT NULL ,
   `last_name` VARCHAR(45) NOT NULL ,
   `last_name_public` TINYINT(1) NOT NULL DEFAULT 1 ,
@@ -130,8 +130,8 @@ CREATE  TABLE IF NOT EXISTS `ACCOMMODATION` (
   `user_id` INT UNSIGNED NOT NULL ,
   `date_avaliable` DATE NOT NULL ,
   `price` INT UNSIGNED NOT NULL ,
-  `created` TIMESTAMP NULL ,
-  `bond` INT UNSIGNED NULL ,
+  `created` TIMESTAMP NOT NULL ,
+  `bond` INT UNSIGNED NOT NULL ,
   `street_address_public` TINYINT(1) NOT NULL DEFAULT 0 ,
   `short_term_ok` TINYINT(1) NOT NULL DEFAULT 1 ,
   PRIMARY KEY (`acc_id`) ,
@@ -350,7 +350,7 @@ DROP TABLE IF EXISTS `ROOMATE` ;
 
 CREATE  TABLE IF NOT EXISTS `ROOMATE` (
   `user_id` INT UNSIGNED NOT NULL ,
-  `is_owner` BIT NOT NULL ,
+  `is_owner` TINYINT(1) NOT NULL DEFAULT 0 ,
   PRIMARY KEY (`user_id`) ,
   CONSTRAINT `fk_ROOMATE_USER1`
     FOREIGN KEY (`user_id` )
@@ -383,7 +383,7 @@ COMMENT = 'A person looking for accomodation.';
 DROP TABLE IF EXISTS `AGENT` ;
 
 CREATE  TABLE IF NOT EXISTS `AGENT` (
-  `user_id` INT UNSIGNED NOT NULL ,
+  `user_id` INT UNSIGNED NOT NULL AUTO_INCREMENT ,
   `agancy_name` VARCHAR(100) NOT NULL ,
   `addr_id` INT UNSIGNED NOT NULL ,
   PRIMARY KEY (`user_id`) ,

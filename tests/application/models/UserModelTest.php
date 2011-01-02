@@ -28,5 +28,10 @@ class UserModelTest extends ModelTestCase  {
         parent::tearDown();
     }
 
+    public function testFoo() {
+        $this->assertTrue(true);
+    }
+
+
 }
 ?>

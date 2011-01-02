@@ -78,7 +78,7 @@ abstract class My_Houseshare_Abstract_PropertyAccessor {
      * Make _properties table using model's info('cols') method.
      */
     protected function _makeProperties() {
-
+        $this->_cleanProperties();
         foreach ($this->_model->info('cols') as $prop) {
             $this->_properties[$prop] = null;
         }
@@ -124,6 +124,10 @@ abstract class My_Houseshare_Abstract_PropertyAccessor {
         }
         
         $this->_cleanChangedProperties();
+    }
+
+    protected function _cleanProperties() {
+        $this->_properties = array();
     }
 
     protected function _cleanChangedProperties() {
