@@ -13,6 +13,15 @@ class My_Model_Table_Row_Address extends Zend_Db_Table_Row_Abstract {
 
 
      /**
+     * Get Accommodations in the current address.
+     *
+     * @return Zend_Db_Table_RowSet
+     */
+    public function getAccommodations() {
+        return $this->findDependentRowset('My_Model_Table_Accommodations');
+    }
+
+     /**
      * Get Street Row for the current address row.
      *
      * @return Zend_Db_Table_Row

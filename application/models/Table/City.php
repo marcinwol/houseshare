@@ -11,11 +11,9 @@
 class My_Model_Table_City extends Zend_Db_Table_Abstract {
 
     protected $_name = "CITY";
-
     protected $_dependentTables = array('My_Model_Table_Address');
     protected $_rowClass = 'My_Model_Table_Row_City';
-
-    protected $_referenceMap  = array(
+    protected $_referenceMap = array(
         'State' => array(
             'columns' => array('state_id'),
             'refTableClass' => 'My_Model_Table_State',
@@ -23,58 +21,55 @@ class My_Model_Table_City extends Zend_Db_Table_Abstract {
         )
     );
 
-
     /**
      * Get all cities. 
      *
      * @return Zend_Db_Table_Rowset_Abstract The row results per the Zend_Db_Adapter fetch mode
      */
     public function getCities() {
-       return  $this->fetchAll();
+        return $this->fetchAll();
     }
 
+    /**
+     * Find City by its name and state
+     *
+     * @param string $name City name
+     * @param int $state_id Id of a state in which the city is
+     * @return Zend_Db_Table_Row_City | NULL
+     */
+    public function findByNameAndState($name, $state_id) {
 
-      /**
-      * Find City by its name and state
-      *
-      * @param string $name City name
-      * @param int $state_id Id of a state in which the city is
-      * @return Zend_Db_Table_Row_City | NULL
-      */
-     public function findByNameAndState($name, $state_id) {
+        $name = trim($name);
 
-         $name = trim($name);
-
-         return $this->fetchRow("name = '$name' AND state_id = $state_id");
-     }
+        return $this->fetchRow("name = '$name' AND state_id = $state_id");
+    }
 
     /**
-      * Insert city if does not exisit.
-      *
-      * @param array $data city data
-      * @return int primary key value of city
-      */
-     public function insertCity(array $data) {
+     * Insert city if does not exisit.
+     *
+     * @param array $data city data
+     * @return int primary key value of city
+     */
+    public function insertCity(array $data) {
 
-         $row = $this->findByNameAndState(
-                 $data['city_name'],
-                 $data['state_id']
-                 );
+        $row = $this->findByNameAndState(
+                        $data['city_name'],
+                        $data['state_id']
+        );
 
-         if (is_null($row)) {
-             //if null than such city in this state does not exist so create it.
-             return $this->insert(array(
-                 'name' => $data['city_name'],
-                 'state_id' => $data['state_id']
-                 ));
-         } else {
-             // such city in that state exists thus return its city's id
-             return $row->city_id;
-         }
+        if (is_null($row)) {
+            //if null than such city in this state does not exist so create it.
+            return $this->insert(array(
+                'name' => $data['city_name'],
+                'state_id' => $data['state_id']
+            ));
+        } else {
+            // such city in that state exists thus return its city's id
+            return $row->city_id;
+        }
+    }
 
-     }
-
-/**
+    /**
      * Update city if possible. It is possible to update city
      * only when there is only one or less rows in the dependant table
      * (i.e. address)
@@ -102,7 +97,6 @@ class My_Model_Table_City extends Zend_Db_Table_Abstract {
         return $row->save();
     }
 
-
     /**
      * Find cities that match a given string
      *
@@ -116,7 +110,7 @@ class My_Model_Table_City extends Zend_Db_Table_Abstract {
         return $this->fetchAll($select);
     }
 
-     /**
+    /**
      * Get all cities.
      *
      * @return Zend_Db_Table_Rowset_Abstract The row results per the Zend_Db_Adapter fetch mode
@@ -143,8 +137,6 @@ class My_Model_Table_City extends Zend_Db_Table_Abstract {
 
         return $citiesOptions;
     }
-
-
 
 }
 

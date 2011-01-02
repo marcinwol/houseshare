@@ -29,7 +29,7 @@ class My_Houseshare_Address extends My_Houseshare_Abstract_PropertyAccessor {
      */
     public function save() {
 
-        // insert city and state if changed
+        // insert/update city and state if changed
         if (in_array('state', $this->_changedProperties) ||
                 in_array('city', $this->_changedProperties)
         ) {

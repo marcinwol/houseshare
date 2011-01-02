@@ -80,8 +80,39 @@ class My_Model_Table_Address extends Zend_Db_Table_Abstract {
              // such address in that state exists thus return its city's id
              return $row->addr_id;
          }
-
      }
+
+
+    /**
+     * Update address if possible. It is possible to update address
+     * only when there is only one or less rows in the dependant table
+     * (i.e. accommodation, agent)
+     *
+     * @param array $data address data
+     * @param int $id address id
+     * @return int primary key value of address
+     */
+    public function updateAddress(array $data, $id) {
+
+        $row = $this->find($id)->current();
+
+        if (is_null($row)) {
+            throw new Zend_Db_Exception("No address with id = $id");
+        }
+
+        if ($row->getAccommodations()->count() > 1) {
+            // There are many rows in dependant table, so
+            // need to create new row in this one.
+            return $this->insertAddress($data);
+        }
+
+        $row->unit_no = $data['unit_no'];
+        $row->street_no = $data['street_no'];
+        $row->street_id = $data['street_id'];
+        $row->zip_id = $data['zip_id'];
+        $row->city_id = $data['city_id'];
+        return $row->save();
+    }
 
 
     /**

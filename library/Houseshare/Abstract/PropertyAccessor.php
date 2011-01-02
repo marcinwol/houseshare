@@ -25,6 +25,8 @@ abstract class My_Houseshare_Abstract_PropertyAccessor {
     
     protected $_isView = false;
 
+    protected $_id = null;
+
     protected $_modelName;
     protected $_properties = array();
     protected $_changedProperties = array();
@@ -41,6 +43,7 @@ abstract class My_Houseshare_Abstract_PropertyAccessor {
         $this->_makeProperties();
 
         if (!is_null($id)) {
+            $this->_id = $id;
             $this->_populateProperties($id);
         }
 
