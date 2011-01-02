@@ -80,6 +80,17 @@ class My_Model_Table_City extends Zend_Db_Table_Abstract {
      */
     public function updateCity(array $data, $id) {
 
+        // first see if the new city  already exhisits
+        $row = $this->findByNameAndState(
+                        $data['city_name'],
+                        $data['state_id']
+        );
+
+        if (!is_null($row)) {
+            // if exists than return its id
+            return $row->city_id;
+        }
+
         $row = $this->find($id)->current();
 
         if (is_null($row)) {

@@ -70,6 +70,14 @@ class My_Model_Table_State extends Zend_Db_Table_Abstract {
      * @return int primary key value of state
      */
     public function updateState(array $data, $id) {
+        
+         // first see if the new state name already exhisits
+        $row = $this->findByValue($data['state_name']);
+
+        if (!is_null($row)) {
+            // if exists than return its id
+            return $row->state_id;
+        }
 
         $row = $this->find($id)->current();
 

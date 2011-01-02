@@ -41,6 +41,7 @@
             date_avaliable="2011-01-04" price="300" bond="1200"
             street_address_public="0" short_term_ok="1"
     />
+
     <ACCOMMODATION acc_id="2" title="Great room for rent 2"
             description="Some description of the room 2" addr_id="2" user_id="1"
             date_avaliable="2011-02-12" price="400" bond="1600"

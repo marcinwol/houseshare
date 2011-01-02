@@ -87,12 +87,22 @@ class My_Model_Table_Address extends Zend_Db_Table_Abstract {
      * Update address if possible. It is possible to update address
      * only when there is only one or less rows in the dependant table
      * (i.e. accommodation, agent)
+     * 
+     * @todo if AGENT model is added than this function must be updated.
      *
      * @param array $data address data
      * @param int $id address id
      * @return int primary key value of address
      */
     public function updateAddress(array $data, $id) {
+
+        // first see if the new address  already exhisits
+        $row = $this->findByValues($data);
+
+         if (!is_null($row)) {
+            // if exists than return its id
+            return $row->addr_id;
+        }
 
         $row = $this->find($id)->current();
 

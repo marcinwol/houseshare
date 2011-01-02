@@ -60,6 +60,15 @@ class My_Model_Table_Street extends Zend_Db_Table_Abstract {
      */
     public function updateStreet(array $data, $id) {
 
+        // first see if the new street name already exhisits
+        $row = $this->findByValue($data['street_name']);
+
+        if (!is_null($row)) {
+            // if exists than return its id
+            return $row->street_id;
+        }
+
+        // if does not exhist, find street row by id and try to update it
         $row = $this->find($id)->current();
 
         if (is_null($row)) {
@@ -71,6 +80,8 @@ class My_Model_Table_Street extends Zend_Db_Table_Abstract {
             // need to create new row in this one.
             return $this->insertStreet($data);
         }
+
+
 
         $row->name = $data['street_name'];
         return $row->save();
