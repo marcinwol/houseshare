@@ -27,32 +27,43 @@
     <ADDRESS addr_id="5" unit_no="18" street_no="1a" street_id="4"
              zip_id="1" city_id="3" />
 
+
+
+
     <USER user_id="1" email="test@test.com" password="some_pass"
             phone="0 432 123 123" phone_public="0" first_name="Marcin"
-            last_name="Wolski" last_name_public="1"
-    />
+            last_name="Wolski" last_name_public="1" />
+
     <USER user_id="2" email="michal@michal.com" password="some_pass2"
             phone="+(0) 18 2443 232" phone_public="1" first_name="Michal"
-            last_name="Chojcan" last_name_public="0"
-    />
-    
+            last_name="Chojcan" last_name_public="0" />
+
+    <USER user_id="3" email="user1@user.com" password="some_pass3"
+            phone="+(1) 2323 232 (wew.3)" phone_public="1" first_name="Jarek"
+            last_name="Smitch 3th" last_name_public="1" />
+
+
+
+     <ROOMATE user_id="1"  is_owner="1" />
+     <ROOMATE user_id="2"  is_owner="0" />
+     <LOOKER user_id="3"   />
+
+
+
     <ACCOMMODATION acc_id="1" title="Great room for rent"
             description="Some description of the room" addr_id="1" user_id="1"
             date_avaliable="2011-01-04" price="300" bond="1200"
-            street_address_public="0" short_term_ok="1"
-    />
+            street_address_public="0" short_term_ok="1" />
 
     <ACCOMMODATION acc_id="2" title="Great room for rent 2"
             description="Some description of the room 2" addr_id="2" user_id="1"
             date_avaliable="2011-02-12" price="400" bond="1600"
-            street_address_public="1" short_term_ok="0"
-    />
+            street_address_public="1" short_term_ok="0" />
 
     <ACCOMMODATION acc_id="3" title="One bed in a room of students"
             description="Description of accomm" addr_id="2" user_id="2"
             date_avaliable="2011-12-12" price="420" bond="0"
-            street_address_public="0" short_term_ok="1"
-    />
+            street_address_public="0" short_term_ok="1" />
 
 
     <PREFERENCE pref_id="1" name="Smokers"  binary="1"/>
