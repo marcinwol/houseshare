@@ -30,7 +30,6 @@ class My_Houseshare_Looker extends My_Houseshare_User {
         $this->_mergeProperties();
         
     }
-
    
 
     
@@ -43,7 +42,7 @@ class My_Houseshare_Looker extends My_Houseshare_User {
         // make sure that user_id is the same as roomate_id
         if ($user_id !== $looker_id) {
             throw new Zend_Exception(
-                    "Looker id = $roomate_id does not match user id = $user_id"
+                    "Looker id = $looker_id does not match user id = $user_id"
             );
         }
 

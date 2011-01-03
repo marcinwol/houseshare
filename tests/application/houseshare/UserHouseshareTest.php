@@ -94,7 +94,25 @@ class UserHouseshareTest extends ModelTestCase {
 
         $id = $user->save();
 
-        $this->assertEquals(4, $id);
+        $user = new $userClass(4);
+
+        $this->assertEquals(
+                array(
+                    4,
+                    'Juzek',
+                    'Polanski',
+                    'new@email.com',
+                    '0'
+                ),
+                array(
+                    $user->user_id,
+                    $user->first_name,
+                    $user->last_name,
+                    $user->email,
+                    $user->last_name_public
+                )
+        );
+        
     }
 
     /**
@@ -114,7 +132,24 @@ class UserHouseshareTest extends ModelTestCase {
 
         $id = $user->save();
 
-        $this->assertEquals(2, $id);
+        $user = new $userClass($id);
+
+        $this->assertEquals(
+                array(
+                    2,
+                    'Jerzy',
+                    'Powanski',
+                    'michal@michal.com',
+                    '1'
+                ),
+                array(
+                    $user->user_id,
+                    $user->first_name,
+                    $user->last_name,
+                    $user->email,
+                    $user->last_name_public
+                )
+        );
 
         if ('My_Houseshare_Roomate' == $userClass) {
             $this->assertEquals('0', $user->is_owner);
@@ -141,11 +176,10 @@ class UserHouseshareTest extends ModelTestCase {
             $user = new $userClass(3);
             $expectedNoOfAcc = 0;
         }
-        
-        $acc = $user->getAccommodations();
-        $this->assertEquals($expectedNoOfAcc,count($acc));
-    }
 
+        $acc = $user->getAccommodations();
+        $this->assertEquals($expectedNoOfAcc, count($acc));
+    }
 
 }
 
