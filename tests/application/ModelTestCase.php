@@ -58,6 +58,11 @@ class ModelTestCase extends Zend_Test_PHPUnit_DatabaseTestCase {
         );
     }
 
+    public function tearDown() {
+        $this->_connectionMock->close();
+        parent::tearDown();
+    }
+
 }
 
 ?>
