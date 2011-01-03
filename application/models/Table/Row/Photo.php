@@ -18,7 +18,7 @@ class My_Model_Table_Row_Photo extends Zend_Db_Table_Row_Abstract {
      * @return My_Model_Table_Row_Path
      */
     public function getPath() {
-        return $this->findParentRow('My_Model_Table_Row_Path');
+        return $this->findParentRow('My_Model_Table_Path');
     }
 
     /**

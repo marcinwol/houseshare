@@ -27,9 +27,46 @@ class My_Model_Table_Photo extends Zend_Db_Table_Abstract {
         )
     );
 
+     /**
+     * Get photo by its id.
+     *
+     * @param int $id photo id
+     * @return Zend_Db_Table_Row_Photo
+     */
+    public function getPhoto($id) {
+        return $this->find($id)->current();
+    }
 
 
 
+    /**
+     * Find photo by its filename and path
+     *
+     * @param string $filename photo name
+     * @param int $path_id Id of a path in which the photo is
+     * @return Zend_Db_Table_Row_Photo | NULL
+     */
+    public function findByNameAndPath($filename, $path_id) {
+
+        $filename = trim($filename);
+
+        return $this->fetchRow("filename = '$filename' AND path_id = $path_id");
+    }
+
+    /**
+     * Insert photo.
+     *
+     * @param array $data city data
+     * @return int primary key value of photo
+     */
+    public function insertPhoto(array $data) {
+
+        return $this->insert(array(
+            'filename' => $data['filename'],
+            'path_id' => $data['path_id'],
+            'acc_id' => $data['acc_id']
+        ));
+    }
 
 }
 
