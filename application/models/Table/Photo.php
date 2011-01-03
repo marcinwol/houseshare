@@ -19,8 +19,17 @@ class My_Model_Table_Photo extends Zend_Db_Table_Abstract {
             'columns' => array('acc_id'),
             'refTableClass' => 'My_Model_Table_Accommodation',
             'refColumns' => array('acc_id'),
+        ),
+        'Path' => array(
+            'columns' => array('path_id'),
+            'refTableClass' => 'My_Model_Table_Path',
+            'refColumns' => array('path_id'),
         )
     );
+
+
+
+
 
 }
 

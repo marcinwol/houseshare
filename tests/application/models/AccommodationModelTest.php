@@ -223,6 +223,17 @@ class AccommodationModelTest extends ModelTestCase {
         );
     }
 
+    public function testCountPhotos() {
+        $row = $this->_model->find(1)->current();
+        $this->assertEquals(3, count($row->getPhotos()));
+
+        $row = $this->_model->find(2)->current();
+        $this->assertEquals(0, count($row->getPhotos()));
+
+        $row = $this->_model->find(3)->current();
+        $this->assertEquals(2, count($row->getPhotos()));
+    }
+
 }
 
 ?>

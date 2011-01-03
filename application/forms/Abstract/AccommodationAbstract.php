@@ -34,13 +34,16 @@ abstract class My_Form_Abstract_AccommodationAbstract extends Zend_Form {
         $accInfoSubForm = new Zend_Form_SubForm();
         $accInfoSubForm->setLegend('Basic description');
 
+        //@todo  $accTypeChoice shoudl be field using type model.
+        $typeModel = new My_Model_Table_Type();
+
         // add element
         $accTypeChoice = new Zend_Form_Element_Select('acc_type');
         $accTypeChoice->setLabel('Accommodation type');
         $accTypeChoice->addMultiOptions(
                 array(
-                    '0' => "Room",
-                    '1' => "Bed",
+                    '1' => "Room",
+                    '2' => "Bed",
                 )
         );
         $accTypeChoice->setRequired(true);

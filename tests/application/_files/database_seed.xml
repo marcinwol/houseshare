@@ -80,6 +80,18 @@
             street_address_public="0" short_term_ok="1" type_id="1" />
 
 
+
+    <PATH path_id="1" value="/images/upload/"  />
+    <PATH path_id="2" value="/images2/upload2/"/>
+
+    <PHOTO photo_id="1" acc_id="1" filename="photo1.jpg"  path_id="1" />
+    <PHOTO photo_id="2" acc_id="1" filename="photo2.jpg"  path_id="1" />
+    <PHOTO photo_id="3" acc_id="1" filename="photo3.jpg"  path_id="2" />
+    <PHOTO photo_id="7" acc_id="3" filename="photo11.jpg" path_id="2"/>
+    <PHOTO photo_id="8" acc_id="3" filename="photo12.jpg" path_id="1"/>
+
+
+
     <PREFERENCE pref_id="1" name="Smokers"  binary="1"/>
     <PREFERENCE pref_id="2" name="Kids"     binary="1" />
     <PREFERENCE pref_id="3" name="Couples"  binary="1" />
