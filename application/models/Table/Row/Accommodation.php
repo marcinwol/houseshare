@@ -30,6 +30,15 @@ class My_Model_Table_Row_Accommodation extends Zend_Db_Table_Row_Abstract {
         return $this->findParentRow('My_Model_Table_User');
     }
 
+    /**
+     * Get type Row for the current accommodation row.
+     *
+     * @return Zend_Db_Table_Row_Type
+     */
+    public function getType() {
+        return $this->findParentRow('My_Model_Table_Type');
+    }
+
 
      /**
      * Get Photos for the current accommodation.

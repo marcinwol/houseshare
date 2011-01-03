@@ -58,7 +58,8 @@ class AccommodationModelTest extends ModelTestCase {
                 'price' => 300,
                 'bond' => 1200,
                 'street_address_public' => 1,
-                'short_term_ok' => 1
+                'short_term_ok' => 1,
+                'type_id' => 2
             ),
             null, // create new Accommodation
             4     // expected id of the new Accommodation
@@ -74,7 +75,8 @@ class AccommodationModelTest extends ModelTestCase {
                 'price' => 300,
                 'bond' => 1200,
                 'street_address_public' => 1,
-                'short_term_ok' => 1
+                'short_term_ok' => 1,
+                'type_id' => 1
             ),
             2, // update new Accommodation with id = 2
             2   // expected id is 2 (just update, no new Accommodation)
@@ -127,7 +129,8 @@ class AccommodationModelTest extends ModelTestCase {
             'price' => 300,
             'bond' => 1200,
             'street_address_public' => 1,
-            'short_term_ok' => 1
+            'short_term_ok' => 1,
+            'type_id' => 3
         );
 
         // create new user

@@ -18,12 +18,17 @@
     <CITY city_id="2" name="Nowy Targ" state_id="1"/>
     <CITY city_id="3" name="Wroclaw" state_id="3"/>
 
+
+
     <ADDRESS addr_id="1" unit_no="" street_no="23c" street_id="2"
              zip_id="1" city_id="1" />
+             
     <ADDRESS addr_id="2" unit_no="12" street_no="212" street_id="3"
              zip_id="5" city_id="3" />
+
     <ADDRESS addr_id="4" unit_no="8-A" street_no="21a" street_id="4"
              zip_id="1" city_id="3" />
+
     <ADDRESS addr_id="5" unit_no="18" street_no="1a" street_id="4"
              zip_id="1" city_id="3" />
 
@@ -52,22 +57,27 @@
      <LOOKER user_id="3"   />
     
 
+     <TYPE type_id="1" name="Bed" is_shared="1" />
+     <TYPE type_id="2" name="Room" is_shared="1" />
+     <TYPE type_id="3" name="House" is_shared="0" />
+     <TYPE type_id="4" name="Appartment" is_shared="0" />
+
 
 
     <ACCOMMODATION acc_id="1" title="Great room for rent"
             description="Some description of the room" addr_id="1" user_id="1"
             date_avaliable="2011-01-04" price="300" bond="1200"
-            street_address_public="0" short_term_ok="1" />
+            street_address_public="0" short_term_ok="1" type_id="2" />
 
     <ACCOMMODATION acc_id="2" title="Great room for rent 2"
             description="Some description of the room 2" addr_id="2" user_id="1"
             date_avaliable="2011-02-12" price="400" bond="1600"
-            street_address_public="1" short_term_ok="0" />
+            street_address_public="1" short_term_ok="0" type_id="2" />
 
     <ACCOMMODATION acc_id="3" title="One bed in a room of students"
             description="Description of accomm" addr_id="2" user_id="2"
             date_avaliable="2011-12-12" price="420" bond="0"
-            street_address_public="0" short_term_ok="1" />
+            street_address_public="0" short_term_ok="1" type_id="1" />
 
 
     <PREFERENCE pref_id="1" name="Smokers"  binary="1"/>
