@@ -116,7 +116,7 @@ abstract class My_Houseshare_Abstract_PropertyAccessor {
         $this->_row = $this->_model->find($id)->current();
 
         if (is_null($this->_row)) {
-            throw new Zend_Exception("Row with id=$id was not found");
+            throw new Zend_Db_Exception("Row with id=$id was not found");
         }
 
         foreach ($this->_properties as $prop => $val) {

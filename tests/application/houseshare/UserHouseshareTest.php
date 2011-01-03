@@ -15,8 +15,33 @@ class UserHouseshareTest extends ModelTestCase {
     public function userClassProvider() {
         return array(
             array('My_Houseshare_User'),
-            array('My_Houseshare_Roomate')
+            array('My_Houseshare_Roomate'),
+            array('My_Houseshare_Looker')
         );
+    }
+
+    /**
+     * @dataProvider userClassProvider
+     */
+    public function testUpdateUser($userClass) {
+        $user = new $userClass(2);
+
+        $user->phone_public = '0';
+        $user->first_name = 'Jerzy';
+        $user->last_name = 'Powanski';
+        $user->last_name_public = '1';
+
+        if ('My_Houseshare_Roomate' == $userClass) {
+            $user->is_owner = '0';
+        }
+
+        $id = $user->save();
+
+        $this->assertEquals(2, $id);
+
+        if ('My_Houseshare_Roomate' == $userClass) {
+            $this->assertEquals('0', $user->is_owner);
+        }
     }
 
     /**
@@ -63,7 +88,7 @@ class UserHouseshareTest extends ModelTestCase {
         $user->last_name = 'Polanski';
         $user->last_name_public = '0';
 
-        if ( 'My_Houseshare_Roomate' == $userClass) {
+        if ('My_Houseshare_Roomate' == $userClass) {
             $user->is_owner = '1';
         }
 
@@ -75,7 +100,7 @@ class UserHouseshareTest extends ModelTestCase {
     /**
      * @dataProvider userClassProvider
      */
-    public function testUpdateUser($userClass) {
+    public function testUpdateUser1($userClass) {
         $user = new $userClass(2);
 
         $user->phone_public = '0';
@@ -83,7 +108,7 @@ class UserHouseshareTest extends ModelTestCase {
         $user->last_name = 'Powanski';
         $user->last_name_public = '1';
 
-        if ( 'My_Houseshare_Roomate' == $userClass) {
+        if ('My_Houseshare_Roomate' == $userClass) {
             $user->is_owner = '0';
         }
 
@@ -91,10 +116,36 @@ class UserHouseshareTest extends ModelTestCase {
 
         $this->assertEquals(2, $id);
 
-         if ( 'My_Houseshare_Roomate' == $userClass) {
+        if ('My_Houseshare_Roomate' == $userClass) {
             $this->assertEquals('0', $user->is_owner);
         }
     }
+
+    /**
+     * @expectedException Zend_Db_Exception
+     * @dataProvider userClassProvider
+     */
+    public function testNoUserException($userClass) {
+        $user = new $userClass(15);
+    }
+
+    /**
+     * @dataProvider userClassProvider
+     */
+    public function testGetAccommodations($userClass) {
+
+        if ('My_Houseshare_Roomate' === $userClass) {
+            $user = new $userClass(1);
+            $expectedNoOfAcc = 2;
+        } else {
+            $user = new $userClass(3);
+            $expectedNoOfAcc = 0;
+        }
+        
+        $acc = $user->getAccommodations();
+        $this->assertEquals($expectedNoOfAcc,count($acc));
+    }
+
 
 }
 

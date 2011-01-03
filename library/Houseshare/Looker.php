@@ -10,13 +10,13 @@
  *
  * @author marcin
  */
-class My_Houseshare_Roomate extends My_Houseshare_User {
+class My_Houseshare_Looker extends My_Houseshare_User {
 
-    protected $_modelName = 'Table_Roomate';
+    protected $_modelName = 'Table_Looker';
     /**
-     *  Model for the ROOMATE
+     * Model for the LOOKER
      *
-     * @var My_Model_Table_Roomate
+     * @var My_Model_Table_Looker
      */
     protected $_model = null;
 
@@ -24,25 +24,26 @@ class My_Houseshare_Roomate extends My_Houseshare_User {
     public function __construct($id = null) {
         parent::__construct($id);
 
-        // $_user should point to the USER table, not ROOMATE table.
+        // $_user should point to the USER table, not LOOKER table.
         $this->_user = new parent($id);
 
         $this->_mergeProperties();
         
     }
 
-    
+   
+
     
     public function save() {
 
         // first save/update data for the user table and than accociated roomate table.
         $user_id = $this->_user->_model->setUser($this->_properties, $this->user_id);
-        $roomate_id = $this->_model->setRoomate($this->_properties, $user_id);
+        $looker_id = $this->_model->setLooker($this->_properties, $user_id);
 
         // make sure that user_id is the same as roomate_id
-        if ($user_id !== $roomate_id) {
+        if ($user_id !== $looker_id) {
             throw new Zend_Exception(
-                    "Roomated id = $roomate_id does not match user id = $user_id"
+                    "Looker id = $roomate_id does not match user id = $user_id"
             );
         }
 

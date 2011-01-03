@@ -46,7 +46,11 @@
 
      <ROOMATE user_id="1"  is_owner="1" />
      <ROOMATE user_id="2"  is_owner="0" />
+     
+     <LOOKER user_id="1"   />
+     <LOOKER user_id="2"   />
      <LOOKER user_id="3"   />
+    
 
 
 
