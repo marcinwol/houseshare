@@ -20,11 +20,12 @@ class My_Houseshare_Accommodation extends My_Houseshare_Abstract_PropertyAccesso
      */
     protected $_model = null;
     /**
-     *  Object for the USER
+     *  Object for the ACCOMMODATION
      *
      * @var My_Houseshare_Accommodation
      */
-    protected $_user = null;
+    protected $_acc = null;
+
     /**
      *
      * @var My_Model_Table_Row_Accommodation
@@ -34,26 +35,26 @@ class My_Houseshare_Accommodation extends My_Houseshare_Abstract_PropertyAccesso
     public function __construct($id = null) {
         parent::__construct($id);
 
-        $this->_user = $this;
+        $this->_acc = $this;
     }
 
      /**
-     * Merges propertis from the current model and parrent accommodation model.
+     * Merges propertis from the current model and parent accommodation model.
      */
     protected function _mergeProperties() {
-        $this->_properties = array_merge($this->_properties, $this->_user->getProperties());
+        $this->_properties = array_merge($this->_properties, $this->_acc->getProperties());
     }
 
 
     public function save() {
 
-        $id = $this->_user->_model->setAccommodation(
-                $this->getProperties(), $this->user_id);
+        $id = $this->_acc->_model->setAccommodation(
+                $this->getProperties(), $this->acc_id);
 
 
         // before repopulating properties delete all old ones.
         $this->_makeProperties();
-        $this->_user->_populateProperties($id);
+        $this->_acc->_populateProperties($id);
 
         return $id;
     }

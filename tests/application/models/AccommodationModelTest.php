@@ -164,7 +164,7 @@ class AccommodationModelTest extends ModelTestCase {
     public function getAddressDataProvider() {
         return array(
             array(
-                1,    //acc_id
+                1, //acc_id
                 array(// expected data
                     'street_no' => '23c',
                     'street_name' => 'Hapden Rd',
@@ -174,7 +174,7 @@ class AccommodationModelTest extends ModelTestCase {
                 )
             ),
             array(
-                3,    //acc_id
+                3, //acc_id
                 array(// expected data
                     'street_no' => '212',
                     'street_name' => 'Wyb. Wyspianskiego',
@@ -207,14 +207,14 @@ class AccommodationModelTest extends ModelTestCase {
     public function getUserDataProvider() {
         return array(
             array(
-                1,    //acc_id
+                1, //acc_id
                 array(// expected data
                     'first_name' => 'Marcin',
                     'last_name' => 'Wolski'
                 )
             ),
             array(
-                3,    //acc_id
+                3, //acc_id
                 array(// expected data
                     'first_name' => 'Michal',
                     'last_name' => 'Chojcan'
@@ -232,6 +232,33 @@ class AccommodationModelTest extends ModelTestCase {
 
         $row = $this->_model->find(3)->current();
         $this->assertEquals(2, count($row->getPhotos()));
+    }
+
+    /**
+     * @dataProvider getPhotoPathsProvider
+     */
+    public function testGetPhotoPaths($acc_id, $expected_ids) {
+        $accRow = $this->_model->find($acc_id)->current();
+        $photoPaths = $accRow->getPhotoPaths();
+
+
+        // get only photo ids
+        $photo_ids = array();
+
+        foreach ($photoPaths as $photoPath) {
+            $photo_ids [] = $photoPath['photo_id'];
+        }
+        
+        $this->assertEquals($expected_ids, $photo_ids);
+
+    }
+
+    public function getPhotoPathsProvider() {
+        return array(
+            array(1, array(1,2,3)),
+            array(2, array()),
+            array(3, array(7,8))
+        );
     }
 
 }

@@ -14,6 +14,8 @@ class My_Model_Table_Photo extends Zend_Db_Table_Abstract {
 
     protected $_name = "PHOTO";
     protected $_rowClass = 'My_Model_Table_Row_Photo';
+    protected $_rowsetClass = 'My_Model_Table_Rowset_Photo';
+    
     protected $_referenceMap = array(
         'Accommodation' => array(
             'columns' => array('acc_id'),

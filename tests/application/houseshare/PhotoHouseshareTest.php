@@ -135,7 +135,7 @@ class PhotoHouseshareTest extends ModelTestCase {
      * records in database.
      *
      */
-    public function testUpdatePhoto($photo_id, $data, $expected) {
+    public function testUpdatePhoto() {
 
         $this->assertTrue(true);
         

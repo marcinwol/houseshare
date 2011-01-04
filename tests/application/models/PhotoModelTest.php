@@ -115,6 +115,18 @@ class PhotoModelTest extends ModelTestCase {
         $this->assertEquals('/images2/upload2/photo11.jpg', $fullPath);
     }
 
+    public function testGetFullPathsUsingPhotoRowset() {
+
+        $photosRowset = $this->_model->fetchAll(
+                $this->_model->select()->where('acc_id = ?', 1)
+                );
+
+        $fullPaths = $photosRowset->getFullPaths();
+
+        $this->assertEquals(3, count($fullPaths));
+
+    }
+
 }
 
 ?>
