@@ -256,22 +256,24 @@ class AccommodationModelTest extends ModelTestCase {
         );
     }
 
-    public function testGetFeatures() {
-         $accRow = $this->_model->find(1)->current();
-         $features = $accRow->getFeatures();
-        // var_dump($features[0]->value);
+    public function testCountFeatures() {
+        $accRow = $this->_model->find(1)->current();
+        $rowset = $accRow->getFeatures();
+        $this->assertEquals(2, count($rowset));
+
+        $accRow = $this->_model->find(3)->current();
+        $rowset = $accRow->getFeatures();
+        $this->assertEquals(3, count($rowset));
     }
 
+    public function testCountPreferences() {
+        $accRow = $this->_model->find(1)->current();
+        $rowset = $accRow->getPreferences();
+        $this->assertEquals(4, count($rowset));
 
-    public function testGetPreferences() {
-         $accRow = $this->_model->find(1)->current();
-         
-       //  var_dump($accRow->preferences[1]->toArray());
-
-         $accRow->preferences[1]->value = '1';
-         //  $accRow->save();
-
-         var_dump($accRow->preferences[1]->toArray());
+        $accRow = $this->_model->find(3)->current();
+        $rowset = $accRow->getPreferences();
+        $this->assertEquals(0, count($rowset));
     }
 
 }

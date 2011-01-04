@@ -38,8 +38,17 @@ class My_Model_Table_Row_AccsFeatures extends Zend_Db_Table_Row_Abstract {
      *
      * @return string
      */
-    public function getFeatName() {
+    public function getName() {
         return $this->getFeature()->name;
+    }
+    
+    /**
+     * Get feature value.
+     *
+     * @return string
+     */
+    public function getValue() {
+        return $this->value;
     }
 
 }

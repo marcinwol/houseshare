@@ -1,6 +1,5 @@
 <?php
 
-
 /**
  *  Model for intersection table
  *  for MANY-to-MANY relationship between ACCOMMODATION and FEATURE
@@ -11,6 +10,7 @@ class My_Model_Table_AccsPreferences extends Zend_Db_Table_Abstract {
 
     protected $_name = "ACCOMODATION_has_PREFERENCE";
     protected $_rowClass = 'My_Model_Table_Row_AccsPreferences';
+    protected $_rowsetClass = 'My_Model_Table_Rowset_AccsPreferences';
     protected $_referenceMap = array(
         'Accommodation' => array(
             'columns' => array('acc_id'),

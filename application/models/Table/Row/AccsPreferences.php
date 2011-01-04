@@ -39,13 +39,23 @@ class My_Model_Table_Row_AccsPreferences extends Zend_Db_Table_Row_Abstract {
     }
 
     /**
-     * Preference name.
+     * Get preference name.
      *
      * @return string
      */
-    public function getPrefName() {
+    public function getName() {
         return $this->getPreference()->name;
     }
+
+    /**
+     * Get preference value.
+     *
+     * @return string
+     */
+    public function getValue() {
+        return $this->value;
+    }
+
 
 
 }

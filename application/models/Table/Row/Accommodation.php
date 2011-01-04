@@ -12,35 +12,12 @@
  */
 class My_Model_Table_Row_Accommodation extends Zend_Db_Table_Row_Abstract {
 
-    /**
-     *
-     * @var My_Model_Table_Rowset
-     */
-    protected $_preferencesRowset;
+   
 
     public function init() {
 
-        $this->_preferencesRowset = $this->findDependentRowset(
-                        'My_Model_Table_AccsPreferences'
-        );
     }
 
-    public function __get($columnName) {
-        if ('preferences' === $columnName) {
-            return $this->_preferencesRowset;
-        }
-
-        return parent::__get($columnName);
-    }
-
-    public function save() {
-
-        foreach ($this->_preferencesRowset as $preference) {
-            $preference->save();
-        }
-
-        return parent::save();
-    }
 
     /**
      * Get Address Row for the current accommodation row.
@@ -90,23 +67,19 @@ class My_Model_Table_Row_Accommodation extends Zend_Db_Table_Row_Abstract {
     /**
      * Get features of a given accommodations.
      * 
-     * @return Zend_Db_Table_Rowset_Abstract 
+     * @return Zend_Db_Table_Rowset_AccsFeatures
      */
     public function getFeatures() {
-        return $this->findManyToManyRowset(
-                'My_Model_Table_Feature',
-                'My_Model_Table_AccsFeatures');
+        return $this->findDependentRowset('My_Model_Table_AccsFeatures');
     }
 
     /**
-     * Get preferences of a given accommodations.
+     * Get preferences for this accommodations.
      *
-     * @return Zend_Db_Table_Rowset_Abstract
+     * @return Zend_Db_Table_Rowset_AccsPreferences
      */
     public function getPreferences() {
-        return $this->findManyToManyRowset(
-                'My_Model_Table_Preference',
-                'My_Model_Table_AccsPreferences');
+        return $this->findDependentRowset('My_Model_Table_AccsPreferences');
     }
 
 }
