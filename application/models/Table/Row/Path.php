@@ -15,7 +15,7 @@ class My_Model_Table_Row_Path extends Zend_Db_Table_Row_Abstract {
     /**
      * Get Photos in this path.
      *
-     * @return My_Model_Table_RowSet
+     * @return My_Model_Table_Rowset
      */
     public function getPhotos() {
         return $this->findDependentRowset('My_Model_Table_Photo');

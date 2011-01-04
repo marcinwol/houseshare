@@ -303,7 +303,7 @@ abstract class My_Form_Abstract_AccommodationAbstract extends Zend_Form {
         $featuresForm = new Zend_Form_SubForm();
         $featuresForm->setLegend('Accommodation features');
 
-        $accFeatures = My_Model_Table_AccFeature::getAllByType()->toArray();
+        $accFeatures = My_Model_Table_Feature::getAllByType()->toArray();
 
         foreach ($accFeatures as $feature) {
             if ('0' === $feature['binary']) {
@@ -337,7 +337,7 @@ abstract class My_Form_Abstract_AccommodationAbstract extends Zend_Form {
 
         $roomTypeID = My_Model_Table_Type::getByName('Room');
 
-        $roomFeatures = My_Model_Table_AccFeature::getAllByType($roomTypeID)->toArray();
+        $roomFeatures = My_Model_Table_Feature::getAllByType($roomTypeID)->toArray();
 
         foreach ($roomFeatures as $feature) {
             if ('0' === $feature['binary']) {
@@ -357,7 +357,7 @@ abstract class My_Form_Abstract_AccommodationAbstract extends Zend_Form {
         $featuresForm->setLegend('Bed features');
 
         $bedTypeID = My_Model_Table_Type::getByName('Bed');
-        $bedFeatures = My_Model_Table_AccFeature::getAllByType($bedTypeID)->toArray();
+        $bedFeatures = My_Model_Table_Feature::getAllByType($bedTypeID)->toArray();
 
         if (count($bedFeatures) == 0) {
             return null;

@@ -24,7 +24,23 @@ class My_Houseshare_Tools {
         }
 
         return $str;
+    }
 
+    /**
+     * Get values of econd level (SL) arrays of 2D array.
+     *
+     * @param array $data
+     * @param string $key key in SL arrays.
+     * @return array values in SL array with $key
+     */
+    static function getSLValsInArray(array $data, $key) {
+        $vals = array();
+
+        foreach ($data as $k => $d) {
+            $vals [] = $d[$key];
+        }
+
+        return $vals;
     }
 
 }

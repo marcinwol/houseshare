@@ -9,12 +9,12 @@
  *
  * @author marcin
  */
-class My_Model_Table_AccFeature extends Zend_Db_Table_Abstract {
-
+class My_Model_Table_Feature extends Zend_Db_Table_Abstract {
 
     protected $_name = "FEATURE";
-  //  protected $_dependentTables = array('My_Model_Table_??');
+    protected $_rowClass = 'My_Model_Table_Row_Feature';
 
+    //  protected $_dependentTables = array('My_Model_Table_??');
 
     /**
      * Get all features by type
@@ -30,4 +30,5 @@ class My_Model_Table_AccFeature extends Zend_Db_Table_Abstract {
     }
 
 }
+
 ?>

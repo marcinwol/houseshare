@@ -14,7 +14,7 @@ class My_Model_Table_Row_User extends Zend_Db_Table_Row_Abstract {
     /**
      * Get Accommodations of current user
      *
-     * @return Zend_Db_Table_RowSet
+     * @return Zend_Db_Table_Rowset
      */
     public function getAccommodations() {
         return $this->findDependentRowset('My_Model_Table_Accommodation');

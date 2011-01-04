@@ -686,6 +686,8 @@ INSERT INTO FEATURE (`feat_id`, `name`, `binary`, `type_id`) VALUES (2, 'parking
 INSERT INTO FEATURE (`feat_id`, `name`, `binary`, `type_id`) VALUES (3, 'tv', 1, NULL);
 INSERT INTO FEATURE (`feat_id`, `name`, `binary`, `type_id`) VALUES (4, 'furnished', 0, NULL);
 INSERT INTO FEATURE (`feat_id`, `name`, `binary`, `type_id`) VALUES (5, 'air conditioning', 1, NULL);
+INSERT INTO FEATURE (`feat_id`, `name`, `binary`, `type_id`) VALUES (6, 'private bath', 1, 2);
+INSERT INTO FEATURE (`feat_id`, `name`, `binary`, `type_id`) VALUES (7, 'private balcony', 1, 2);
 
 COMMIT;
 

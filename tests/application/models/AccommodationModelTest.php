@@ -243,21 +243,16 @@ class AccommodationModelTest extends ModelTestCase {
 
 
         // get only photo ids
-        $photo_ids = array();
+        $photo_ids = My_Houseshare_Tools::getSLValsInArray($photoPaths, 'photo_id');
 
-        foreach ($photoPaths as $photoPath) {
-            $photo_ids [] = $photoPath['photo_id'];
-        }
-        
         $this->assertEquals($expected_ids, $photo_ids);
-
     }
 
     public function getPhotoPathsProvider() {
         return array(
-            array(1, array(1,2,3)),
+            array(1, array(1, 2, 3)),
             array(2, array()),
-            array(3, array(7,8))
+            array(3, array(7, 8))
         );
     }
 

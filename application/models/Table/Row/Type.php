@@ -14,7 +14,7 @@ class My_Model_Table_Row_Type extends Zend_Db_Table_Row_Abstract {
      /**
      * Get Accommodations that are of a this type.
      *
-     * @return My_Model_Table_RowSet
+     * @return My_Model_Table_Rowset
      */
     public function getAccommodations() {
         return $this->findDependentRowset('My_Model_Table_Accommodation');
