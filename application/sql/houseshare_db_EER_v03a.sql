@@ -251,6 +251,19 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
+-- Table `PATH`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `PATH` ;
+
+CREATE  TABLE IF NOT EXISTS `PATH` (
+  `path_id` INT UNSIGNED NOT NULL AUTO_INCREMENT ,
+  `value` VARCHAR(255) NOT NULL ,
+  PRIMARY KEY (`path_id`) ,
+  UNIQUE INDEX `value_UNIQUE` (`value` ASC) )
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
 -- Table `PHOTO`
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS `PHOTO` ;
@@ -258,14 +271,21 @@ DROP TABLE IF EXISTS `PHOTO` ;
 CREATE  TABLE IF NOT EXISTS `PHOTO` (
   `photo_id` INT UNSIGNED NOT NULL AUTO_INCREMENT ,
   `filename` VARCHAR(45) NOT NULL ,
-  `path` VARCHAR(200) NOT NULL ,
+  `path_id` INT UNSIGNED NOT NULL ,
   `acc_id` INT UNSIGNED NOT NULL ,
   PRIMARY KEY (`photo_id`) ,
   INDEX `fk_PHOTO_ACCOMODATION1` (`acc_id` ASC) ,
+  INDEX `fk_PHOTO_PATH1` (`path_id` ASC) ,
+  UNIQUE INDEX `UNIQUE_PATH` (`path_id` ASC, `filename` ASC) ,
   CONSTRAINT `fk_PHOTO_ACCOMODATION1`
     FOREIGN KEY (`acc_id` )
     REFERENCES `ACCOMMODATION` (`acc_id` )
     ON DELETE CASCADE
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_PHOTO_PATH1`
+    FOREIGN KEY (`path_id` )
+    REFERENCES `PATH` (`path_id` )
+    ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
@@ -528,6 +548,11 @@ CREATE TABLE IF NOT EXISTS `VIEW_ADDRESS` (`id` INT, `unit_no` INT, `street_no` 
 CREATE TABLE IF NOT EXISTS `VIEW_SHARE` (`acc_id` INT, `roomates_id` INT);
 
 -- -----------------------------------------------------
+-- Placeholder table for view `VIEW_PHOTO`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `VIEW_PHOTO` (`photo_id` INT, `filename` INT, `acc_id` INT, `path_id` INT, `path` INT);
+
+-- -----------------------------------------------------
 -- View `VIEW_CITY`
 -- -----------------------------------------------------
 DROP VIEW IF EXISTS `VIEW_CITY` ;
@@ -570,6 +595,21 @@ CREATE  OR REPLACE VIEW `VIEW_SHARE` AS
 SELECT s.* FROM `SHARED` s
 INNER JOIN `ACCOMMODATION` USING (`acc_id`)
 INNER JOIN `ROOMATES` USING (`roomates_id`)
+
+$$
+DELIMITER ;
+
+;
+
+-- -----------------------------------------------------
+-- View `VIEW_PHOTO`
+-- -----------------------------------------------------
+DROP VIEW IF EXISTS `VIEW_PHOTO` ;
+DROP TABLE IF EXISTS `VIEW_PHOTO`;
+DELIMITER $$
+CREATE  OR REPLACE VIEW `VIEW_PHOTO` AS 
+SELECT p.photo_id, p.filename, p.acc_id, pa.path_id, pa.value as path FROM `PHOTO` p
+INNER JOIN (`PATH` pa) USING (`path_id`)
 
 $$
 DELIMITER ;

@@ -51,9 +51,12 @@ class My_Model_Table_Path extends Zend_Db_Table_Abstract {
 
         $row = $this->findByValue($data['path_value']);
 
+        // make sure that paths ends with DIRECTORY_SEPARATOR
+        $path = My_Houseshare_Tools::addDirSeperator($data['path_value']);
+        
         if (is_null($row)) {
             //if 0 than such path does not exist so create it.
-            return $this->insert(array('value' => $data['path_value']));
+            return $this->insert(array('value' => $path));
         } else {
             // such path exists thus return its id
             return $row->path_id;

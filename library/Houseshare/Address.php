@@ -25,7 +25,7 @@ class My_Houseshare_Address extends My_Houseshare_Abstract_PropertyAccessor {
      * Save new address in the database if necessery or update
      * exhisting address if possible. 
      *
-     * @return int Primary key of inserted/updated address row
+     * @return int Primary key of inserted/updated row
      */
     public function save() {
 
@@ -76,13 +76,15 @@ class My_Houseshare_Address extends My_Houseshare_Abstract_PropertyAccessor {
         }
 
 
-        $row_id = $this->getModel()->insertAddress(array(
-                    'unit_no' => $this->unit_no,
-                    'street_no' => $this->street_no,
-                    'street_id' => $street_id,
-                    'zip_id' => $zip_id,
-                    'city_id' => $city_id
-                ));
+        $row_id = $this->getModel()->insertAddress(
+                        array(
+                            'unit_no' => $this->unit_no,
+                            'street_no' => $this->street_no,
+                            'street_id' => $street_id,
+                            'zip_id' => $zip_id,
+                            'city_id' => $city_id
+                        )
+        );
 
 
         $this->_populateProperties($row_id);
