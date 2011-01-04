@@ -49,27 +49,34 @@
 
 
 
-     <ROOMATE user_id="1"  is_owner="1" />
-     <ROOMATE user_id="2"  is_owner="0" />
+    <ROOMATE user_id="1"  is_owner="1" />
+    <ROOMATE user_id="2"  is_owner="0" />
      
-     <LOOKER user_id="1"   />
-     <LOOKER user_id="2"   />
-     <LOOKER user_id="3"   />
+    <LOOKER user_id="1"   />
+    <LOOKER user_id="2"   />
+    <LOOKER user_id="3"   />
     
 
-     <TYPE type_id="1" name="Bed" is_shared="1" />
-     <TYPE type_id="2" name="Room" is_shared="1" />
-     <TYPE type_id="3" name="House" is_shared="0" />
-     <TYPE type_id="4" name="Appartment" is_shared="0" />
+    <TYPE type_id="1" name="Bed" is_shared="1" />
+    <TYPE type_id="2" name="Room" is_shared="1" />
+    <TYPE type_id="3" name="House" is_shared="0" />
+    <TYPE type_id="4" name="Appartment" is_shared="0" />
 
 
-     <FEATURE feat_id="1" name="Internet" binary="1" />
-     <FEATURE feat_id="2" name="Parking" binary="1" />
-     <FEATURE feat_id="3" name="TV" binary="1" />
-     <FEATURE feat_id="4" name="Furnished" binary="0" />
-     <FEATURE feat_id="5" name="Air conditioning" binary="1" />
-     <FEATURE feat_id="6" name="Private bath" binary="1"    type_id="2"/>
-     <FEATURE feat_id="7" name="Private balcony" binary="1" type_id="2"/>
+    <FEATURE feat_id="1" name="Internet" binary="1" />
+    <FEATURE feat_id="2" name="Parking" binary="1" />
+    <FEATURE feat_id="3" name="TV" binary="1" />
+    <FEATURE feat_id="4" name="Furnished" binary="0" />
+    <FEATURE feat_id="5" name="Air conditioning" binary="1" />
+    <FEATURE feat_id="6" name="Private bath" binary="1"    type_id="2"/>
+    <FEATURE feat_id="7" name="Private balcony" binary="1" type_id="2"/>
+
+
+    <PREFERENCE pref_id="1" name="Smokers"  binary="1" />
+    <PREFERENCE pref_id="2" name="Kids"     binary="1" />
+    <PREFERENCE pref_id="3" name="Couples"  binary="1" />
+    <PREFERENCE pref_id="4" name="Pets"     binary="1" />
+    <PREFERENCE pref_id="5" name="Gender"   binary="0" />
 
 
     <ACCOMMODATION acc_id="1" title="Great room for rent"
@@ -98,12 +105,24 @@
     <PHOTO photo_id="7" acc_id="3" filename="photo11.jpg" path_id="2"/>
     <PHOTO photo_id="8" acc_id="3" filename="photo12.jpg" path_id="1"/>
 
+    <ACCOMODATION_has_PREFERENCE acc_id="1" pref_id="1" value="0" />
+    <ACCOMODATION_has_PREFERENCE acc_id="1" pref_id="2" value="0" />
+    <ACCOMODATION_has_PREFERENCE acc_id="1" pref_id="3" value="1" />
+    <ACCOMODATION_has_PREFERENCE acc_id="1" pref_id="4" value="0" />
+    <ACCOMODATION_has_PREFERENCE acc_id="2" pref_id="3" value="0" />
+    <ACCOMODATION_has_PREFERENCE acc_id="2" pref_id="5" value="2" />
 
 
-    <PREFERENCE pref_id="1" name="Smokers"  binary="1" />
-    <PREFERENCE pref_id="2" name="Kids"     binary="1" />
-    <PREFERENCE pref_id="3" name="Couples"  binary="1" />
-    <PREFERENCE pref_id="4" name="Pets"     binary="1" />
-    <PREFERENCE pref_id="5" name="Gender"   binary="0" />
+    <ACCOMODATION_has_FEATURE acc_id="1" feat_id="1" value="0" />
+    <ACCOMODATION_has_FEATURE acc_id="1" feat_id="2" value="0" />
+    <ACCOMODATION_has_FEATURE acc_id="2" feat_id="3" value="1" />
+    <ACCOMODATION_has_FEATURE acc_id="2" feat_id="6" value="1" />
+    <ACCOMODATION_has_FEATURE acc_id="2" feat_id="7" value="1" />
+    <ACCOMODATION_has_FEATURE acc_id="3" feat_id="2" value="0" />
+    <ACCOMODATION_has_FEATURE acc_id="3" feat_id="4" value="0" />
+    <ACCOMODATION_has_FEATURE acc_id="3" feat_id="5" value="1" />
+
+
+  
 
 </dataset>

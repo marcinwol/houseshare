@@ -256,6 +256,24 @@ class AccommodationModelTest extends ModelTestCase {
         );
     }
 
+    public function testGetFeatures() {
+         $accRow = $this->_model->find(1)->current();
+         $features = $accRow->getFeatures();
+        // var_dump($features[0]->value);
+    }
+
+
+    public function testGetPreferences() {
+         $accRow = $this->_model->find(1)->current();
+         
+       //  var_dump($accRow->preferences[1]->toArray());
+
+         $accRow->preferences[1]->value = '1';
+         //  $accRow->save();
+
+         var_dump($accRow->preferences[1]->toArray());
+    }
+
 }
 
 ?>

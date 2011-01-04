@@ -7,7 +7,7 @@
  *
  * @author marcin
  */
-class My_Model_Table_AccsFeatures extends Zend_Db_Table_Abstract {
+class My_Model_Table_AccsPreferences extends Zend_Db_Table_Abstract {
 
     protected $_name = "ACCOMODATION_has_PREFERENCE";
     protected $_rowClass = 'My_Model_Table_Row_AccsPreferences';
