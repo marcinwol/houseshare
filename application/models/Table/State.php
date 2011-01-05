@@ -32,7 +32,7 @@ class My_Model_Table_State extends Zend_Db_Table_Abstract {
      * Find State by name
      *
      * @param string $value State value
-     * @return Zend_Db_Table_Row
+     * @return Zend_Db_Table_Row_State
      */
     public function findByValue($value) {
 

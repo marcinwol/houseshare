@@ -89,6 +89,26 @@ class AccsFeaturesModelTest extends ModelTestCase {
         );
     }
 
+
+     /**
+     *
+     * @dataProvider deleteAccFeatureProvider
+     */
+    public function testDeleteAccFeature($id, $expected_count) {
+        $result = $this->_model->deleteAccFeature($id);
+        $this->assertEquals($expected_count, $result);
+    }
+
+    public function deleteAccFeatureProvider() {
+        return array(
+            array(array('acc_id' => 1, 'feat_id' => 1), 1),
+            array(array('acc_id' => 1, 'feat_id' => 2), 1),
+            array(array('acc_id' => 2, 'feat_id' => 3), 1),
+            array(array('acc_id' => 2, 'feat_id' => 5), 0)
+        );
+    }
+
+
 }
 
 ?>

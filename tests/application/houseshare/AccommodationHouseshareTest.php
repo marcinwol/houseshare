@@ -51,10 +51,24 @@ class AccommodationHouseshareTest extends ModelTestCase {
      /**
      * @dataProvider accommodationClassProvider
      */
-    public function testGetRoomates($accClass) {
+    public function testGetRoomates1($accClass) {
         $acc = new $accClass(2);
 
-        var_dump($acc->user->toArray());
+       // var_dump($acc->user->toArray());
+       // $acc->type = array('name' => 'Townhause', 'is_shared' => 1);
+
+        var_dump($acc->preferences->toArray());
+
+
+        $acc->preferences = array(
+            array(
+                'acc_id' => 2,
+                'pref_id' => 2,
+                'value' => 0
+            ),
+        );
+
+        $acc->save();
 
     }
 

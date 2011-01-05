@@ -40,6 +40,13 @@ class My_Houseshare_Accommodation extends My_Houseshare_Abstract_PropertyAccesso
      * @var My_Model_Table_Row_Accommodation
      */
     protected $_row;
+    /**
+     * Asociative array keeping properties and their values for
+     * data from and for models other than $this->_model
+     *
+     * @var array
+     */
+    protected $_newProperties = array();
 
     public function __construct($id = null) {
         parent::__construct($id);
@@ -63,14 +70,39 @@ class My_Houseshare_Accommodation extends My_Houseshare_Abstract_PropertyAccesso
         $getMethodName = 'get' . ucfirst($propertyName);
 
         if (method_exists($this, $getMethodName)) {
-            return call_user_func(array($this, $getMethodName));
+            $getterResult = call_user_func(array($this, $getMethodName));
+            return $getterResult;
         }
 
         if (method_exists($this->_acc, $getMethodName)) {
-            return call_user_func(array($this->_acc, $getMethodName));
+            $getterResult = call_user_func(array($this->_acc, $getMethodName));
+            return $getterResult;
         }
 
         throw new Zend_Exception("Invalid property: $propertyName");
+    }
+
+    public function __set($propertyName, $value) {
+
+        if (array_key_exists($propertyName, $this->_acc->_properties)) {
+            parent::__set($propertyName, $value);
+            return;
+        }
+
+        // if not than use getter function to get the rest of data.
+        $setMethodName = 'set' . ucfirst($propertyName);
+
+        if (method_exists($this, $setMethodName)) {
+            call_user_func(array($this, $setMethodName), $propertyName, $value);
+            return;
+        }
+
+        if (method_exists($this->_acc, $setMethodName)) {
+            call_user_func(array($this->_acc, $setMethodName), $propertyName, $value);
+            return;
+        }
+
+        throw new Zend_Exception("Invalid property \"$propertyName\" for setting.");
     }
 
     /**
@@ -80,6 +112,33 @@ class My_Houseshare_Accommodation extends My_Houseshare_Abstract_PropertyAccesso
      */
     public function getPreferences() {
         return $this->_acc->_row->getPreferences();
+    }
+
+    /**
+     * Set new preferences. The format of $value should be such as
+     * that returned by $this->getPreferences()->toArray().
+     *
+     * @param string $property name
+     * @param array $value array of new preferences
+     */
+    public function setPreferences($property, array $value) {
+       $this->_newProperties['preferences'] = $value;
+    }
+
+    protected function savePreferences() {
+        $acc_id = $this->_acc->_row->acc_id;
+        $accsPreferencesModel = new My_Model_Table_AccsPreferences();
+        
+        $noOfDeletes = $this->_acc->_row->detelePreferences();
+
+        $result_ids = array();
+
+        foreach ($this->_newProperties['preferences'] as $preference ) {
+            $id = array('acc_id' => $acc_id, 'pref_id' => $preference['pref_id']);
+            $data = array('value' => $preference['value']);
+            $result_ids []= $accsPreferencesModel->setAccPreference($data, $id);
+        }
+        return $result_ids;
     }
 
     /**
@@ -130,7 +189,19 @@ class My_Houseshare_Accommodation extends My_Houseshare_Abstract_PropertyAccesso
         return $this->_acc->_row->getType();
     }
 
+    public function getNewProperties() {
+        return (array) $this->_newProperties;
+    }
+
+
+
     public function save() {
+
+        // start transaction
+
+        var_dump($this->savePreferences());
+
+        return true;
 
         $id = $this->_acc->_model->setAccommodation(
                         $this->getProperties(), $this->acc_id);

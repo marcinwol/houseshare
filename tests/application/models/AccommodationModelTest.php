@@ -288,6 +288,52 @@ class AccommodationModelTest extends ModelTestCase {
         );
     }
 
+
+    /**
+     * @dataProvider deletePreferencesProvider
+     */
+    public function testDeletePreferences($acc_id, $expected_count) {
+          $accRow = $this->_model->find($acc_id)->current();
+          $result = $accRow->detelePreferences();
+
+          $this->assertEquals($expected_count, $result);
+          $this->assertEquals(0, $accRow->getPreferences()->count());
+
+
+          ;
+    }
+
+    public function deletePreferencesProvider() {
+        return array(
+            array(1, 4),
+            array(2, 2),
+            array(3, 0),
+        );
+    }
+
+
+     /**
+     * @dataProvider deleteFeaturesProvider
+     */
+    public function testDeleteFeatures($acc_id, $expected_count) {
+          $accRow = $this->_model->find($acc_id)->current();
+          $result = $accRow->deteleFeatures();
+
+          $this->assertEquals($expected_count, $result);
+          $this->assertEquals(0, $accRow->getFeatures()->count());
+
+
+          ;
+    }
+
+    public function deleteFeaturesProvider() {
+        return array(
+            array(1, 2),
+            array(2, 3),
+            array(3, 3),
+        );
+    }
+
 }
 
 ?>

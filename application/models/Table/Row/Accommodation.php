@@ -70,6 +70,20 @@ class My_Model_Table_Row_Accommodation extends Zend_Db_Table_Row_Abstract {
         return $this->findDependentRowset('My_Model_Table_AccsFeatures');
     }
 
+
+    /**
+     * Deletes all features for this accommodation
+     * @return int The number of rows deleted.
+     */
+    public function deteleFeatures() {
+        $rowset = $this->getFeatures();
+        $noOfRowsDeleted = 0;
+        foreach($rowset as $row) {
+            $noOfRowsDeleted += $row->delete();
+        }
+        return $noOfRowsDeleted;
+    }
+
     /**
      * Get preferences for this accommodations.
      *
@@ -77,6 +91,19 @@ class My_Model_Table_Row_Accommodation extends Zend_Db_Table_Row_Abstract {
      */
     public function getPreferences() {
         return $this->findDependentRowset('My_Model_Table_AccsPreferences');
+    }
+
+    /**
+     * Deletes all preferences for this accommodation
+     * @return int The number of rows deleted.
+     */
+    public function detelePreferences() {
+        $rowset = $this->getPreferences();
+        $noOfRowsDeleted = 0;
+        foreach($rowset as $row) {
+            $noOfRowsDeleted += $row->delete();
+        }
+        return $noOfRowsDeleted;
     }
 
     /**

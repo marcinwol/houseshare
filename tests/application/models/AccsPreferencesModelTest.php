@@ -89,6 +89,25 @@ class AccsPreferencesModelTest extends ModelTestCase {
         );
     }
 
+    /**
+     *
+     * @dataProvider deleteAccPreferenceProvider
+     */
+    public function testDeleteAccPreference($id, $expected_count) {
+        $result = $this->_model->deleteAccPreference($id);
+        $this->assertEquals($expected_count, $result);
+    }
+
+    public function deleteAccPreferenceProvider() {
+        return array(
+            array(array('acc_id' => 1, 'pref_id' => 1), 1),
+            array(array('acc_id' => 1, 'pref_id' => 2), 1),
+            array(array('acc_id' => 2, 'pref_id' => 3), 1),
+            array(array('acc_id' => 2, 'pref_id' => 5), 1),
+            array(array('acc_id' => 3, 'pref_id' => 5), 0)
+        );
+    }
+
 }
 
 ?>

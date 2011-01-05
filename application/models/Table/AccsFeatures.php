@@ -26,6 +26,21 @@ class My_Model_Table_AccsFeatures extends Zend_Db_Table_Abstract {
     );
 
 
+     /**
+     * Delete a Account Feature
+     * s
+     * @param array $id compund id (acc_id,pref_id)
+     * @return int Number of rows deleted
+     */
+    public function deleteAccFeature(array $id) {
+        $row = $this->find($id['acc_id'], $id['feat_id'])->current();
+
+        if (is_null($row)) {
+            return 0;
+        }
+
+        return $row->delete();
+    }
     
     /**
      * Insert/Updated intersecting table's data.
