@@ -18,16 +18,23 @@ class My_Model_Table_Rowset_Photo extends Zend_Db_Table_Rowset {
      * @return array Array of photo full paths
      */
     public function getFullPaths() {
-        $fulPaths = array();
+        $fullPaths = array();
 
         foreach ($this as $photo) {
-            $fulPaths[] = array(
+            $fullPaths[] = array(
                 'photo_id' => $photo->photo_id,
-                'path' => $photo->getFullPath()
+                'path' => $photo->getFullPath(),
+                'acc_id' => $photo->acc_id,
+                'path_id' => $photo->path_id
             );
         }
 
-        return $fulPaths;
+        return $fullPaths;
+    }
+
+
+    public function toArray() {
+        return $this->getFullPaths();
     }
 
 }

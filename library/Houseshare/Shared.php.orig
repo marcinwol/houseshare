@@ -28,21 +28,38 @@ class My_Houseshare_Shared extends My_Houseshare_Accommodation {
         $this->_acc = new parent($id);
 
         $this->_mergeProperties();
-        
     }
+//
+//     public function __get($propertyName) {
+//        if (array_key_exists($propertyName, $this->_properties)) {
+//            return parent::__get($propertyName);
+//        }
+//     
+//        // if not than use getter function to get the rest of data.
+//        $getMethodName = 'get' . ucfirst($propertyName);
+//
+//        if (method_exists($this->_acc, $getMethodName)) {
+//            return call_user_func(array($this->_acc,$getMethodName));
+//        } else {
+//            throw new Zend_Exception("Invalid property: $propertyName");
+//        }
+//    }
 
-    /**
-     * Get roomates if exist.
-     *
-     * @return My_Model_Table_Row_Roomates | NULL
-     */
     public function getRoomates() {
-        return $this->_row->getRoomates();
+        return 'a';
     }
-   
 
-    
     public function save() {
+
+//        // insert/update roomate_id
+//        $roomates_id = $this->_properties['state_id'];
+//        if (in_array('roomates_id', $this->_changedProperties)) {
+//            $stateModel = new My_Model_Table_Roomates();
+//
+//            $roomates_id = $stateModel->setRoomates(
+//                            array('roomates_id' => $this->roomates_id)
+//            );
+//        }
 
 //        // first save/update data for the user table and than accociated roomate table.
 //        $user_id = $this->_user->_model->setUser($this->_properties, $this->user_id);

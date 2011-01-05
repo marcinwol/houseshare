@@ -8,8 +8,7 @@
 class AccommodationHouseshareTest extends ModelTestCase {
 
     protected $_modelName = 'My_Model_Table_Accommodation';
-
-
+    
     public function accommodationClassProvider() {
         return array(
             array('My_Houseshare_Accommodation'),
@@ -22,6 +21,8 @@ class AccommodationHouseshareTest extends ModelTestCase {
      */
     public function testGetAcc($accClass) {
         $acc = new $accClass(1);
+        
+        // fetch acc row using model for comparison
         $row = $this->_model->find(1)->current();
 
         $this->assertEquals(
@@ -32,37 +33,30 @@ class AccommodationHouseshareTest extends ModelTestCase {
                 array(
                     $acc->title,
                     $acc->price,
-                )
-                );
-
-
-
+                )  // var_dump($acc->getProperties());
+        );
     }
 
-    /**
+
+     /**
      * @dataProvider accommodationClassProvider
      */
-    public function testUpdateAcc($accClass) {
-        $acc = new $accClass(2);
+    public function testGetPreferencesAndFeatures($accClass) {
+        $acc = new $accClass(1);
+
+       // var_dump($acc->type->toArray());
+
     }
 
-    /**
+     /**
      * @dataProvider accommodationClassProvider
      */
-    public function testInsertAcc($accClass) {
-        $acc = new $accClass();
-    }
+    public function testGetRoomates($accClass) {
+        $acc = new My_Houseshare_Shared(2);
 
-   
-    /**
-     * @expectedException Zend_Db_Exception
-     * @dataProvider accommodationClassProvider
-     */
-    public function testNoAccommodationException($accClass) {
-        $acc = new $accClass(15);
-    }
+        var_dump($acc->roomates->toArray());
 
-  
+    }
 
 }
 

@@ -27,6 +27,10 @@ class My_Model_Table_Rowset_AccsPreferences extends Zend_Db_Table_Rowset_Abstrac
         return $data;
     }
 
+    public function toArray() {
+        return $this->asArray();
+    }
+
 }
 
 ?>

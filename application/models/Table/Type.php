@@ -24,7 +24,7 @@ class My_Model_Table_Type extends Zend_Db_Table_Abstract {
      */
     static function getByName($name) {
         $obj = new self();
-        $select = $obj->select()->where('name', $name);
+        $select = $obj->select()->where(" name = ? ", $name);
 
         return $obj->fetchRow($select);
     }

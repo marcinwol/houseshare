@@ -31,7 +31,7 @@ class ModelTestCase extends Zend_Test_PHPUnit_DatabaseTestCase {
      * 
      * @var string 
      */
-    protected $_modelName;
+    protected $_modelName='';
 
     public function setUp() {
 
@@ -47,7 +47,9 @@ class ModelTestCase extends Zend_Test_PHPUnit_DatabaseTestCase {
     }
 
     protected function _initModel() {
-         $this->_model = new  $this->_modelName();
+        if (!empty($this->_modelName)) {
+            $this->_model = new  $this->_modelName();
+        }
     }
 
     public function appBootstrap() {
@@ -80,6 +82,9 @@ class ModelTestCase extends Zend_Test_PHPUnit_DatabaseTestCase {
     }
 
     public function tearDown() {
+         if (!empty($this->_modelName)) {
+            $this->_model->getAdapter()->closeConnection();
+         }
         $this->_model = null;
         $this->_connectionMock->close();
         parent::tearDown();

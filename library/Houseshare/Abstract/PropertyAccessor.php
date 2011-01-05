@@ -144,6 +144,10 @@ abstract class My_Houseshare_Abstract_PropertyAccessor {
         return $this->_properties;
     }
 
+    public function toArray() {
+        return (array) $this->getProperties();
+    }
+
 
     /**
      * Save new address in the database if necessery.
