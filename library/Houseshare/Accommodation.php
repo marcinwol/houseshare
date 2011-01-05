@@ -16,7 +16,7 @@
  * $acc->photos; // get rowset of photos
  *
  * $acc->type; //get Type row.
- * 
+ * $acc->user; // get My_Houseshare_User or its descendant
  *
  * @author marcin
  */
@@ -110,12 +110,15 @@ class My_Houseshare_Accommodation extends My_Houseshare_Abstract_PropertyAccesso
     }
 
     /**
-     * @todo What users should I return?? 
+     * Get Houseshare_User object of this accommodation.
      *
-     * @return <type>
+     * @return My_Houseshare_User
      */
     public function getUser() {
-        return null;
+
+        $user_id = $this->_acc->_row->user_id;
+
+        return My_Houseshare_Factory::user($user_id);
     }
 
     /**

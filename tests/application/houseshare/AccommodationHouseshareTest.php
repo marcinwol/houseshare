@@ -52,9 +52,9 @@ class AccommodationHouseshareTest extends ModelTestCase {
      * @dataProvider accommodationClassProvider
      */
     public function testGetRoomates($accClass) {
-        $acc = new My_Houseshare_Shared(2);
+        $acc = new $accClass(2);
 
-        var_dump($acc->roomates->toArray());
+        var_dump($acc->user->toArray());
 
     }
 

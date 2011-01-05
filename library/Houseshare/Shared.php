@@ -13,12 +13,19 @@
 class My_Houseshare_Shared extends My_Houseshare_Accommodation {
 
     protected $_modelName = 'Table_Shared';
+    
     /**
      * Model for the SHARED
      *
      * @var My_Model_Table_Shared
      */
     protected $_model = null;
+
+    /**
+     *
+     * @var My_Model_Table_Row_Shared
+     */
+    protected $_row;
 
 
     public function __construct($id = null) {

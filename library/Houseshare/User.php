@@ -37,7 +37,7 @@ class My_Houseshare_User extends My_Houseshare_Abstract_PropertyAccessor {
         $this->_user = $this;
     }
 
-     /**
+    /**
      * Merges propertis from the current model and parrent user model.
      */
     protected function _mergeProperties() {
