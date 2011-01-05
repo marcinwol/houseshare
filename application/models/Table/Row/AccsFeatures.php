@@ -41,6 +41,15 @@ class My_Model_Table_Row_AccsFeatures extends Zend_Db_Table_Row_Abstract {
     public function getName() {
         return $this->getFeature()->name;
     }
+
+    /**
+     * Get features's binary field value.
+     *
+     * @return string
+     */
+    public function getBinary() {
+        return $this->getFeature()->binary;
+    }
     
     /**
      * Get feature value.

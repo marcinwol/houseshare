@@ -24,6 +24,31 @@ class My_Model_Table_AccsFeatures extends Zend_Db_Table_Abstract {
             'refColumns'        => array('feat_id')
         )
     );
+
+
+    
+    /**
+     * Insert/Updated intersecting table's data.
+     *
+     * @param array $data data
+     * @param array $id   compund id (acc_id,feat_id)
+     * @return array composite id of the new or updated row.
+     */
+    public function setAccFeature(array $data, array $id) {
+
+        $row = $this->find($id['acc_id'],$id['feat_id'])->current();
+
+        if (is_null($row)) {
+            $row = $this->createRow();
+        }
+
+        $row->acc_id  = $id['acc_id'];
+        $row->feat_id = $id['feat_id'];
+        $row->value   = $data['value'];
+
+        return $row->save();
+    }
+
     
 }
 ?>

@@ -217,6 +217,7 @@ CREATE  TABLE IF NOT EXISTS `FEATURE` (
   `type_id` INT UNSIGNED NULL DEFAULT NULL ,
   PRIMARY KEY (`feat_id`) ,
   INDEX `fk_FEATURE_TYPE1` (`type_id` ASC) ,
+  UNIQUE INDEX `name_UNIQUE` (`name` ASC) ,
   CONSTRAINT `fk_FEATURE_TYPE1`
     FOREIGN KEY (`type_id` )
     REFERENCES `TYPE` (`type_id` )
@@ -241,12 +242,12 @@ CREATE  TABLE IF NOT EXISTS `ACCOMODATION_has_FEATURE` (
     FOREIGN KEY (`acc_id` )
     REFERENCES `ACCOMMODATION` (`acc_id` )
     ON DELETE CASCADE
-    ON UPDATE NO ACTION,
+    ON UPDATE CASCADE,
   CONSTRAINT `fk_ACCOMODATION_has_FEATURE_FEATURE1`
     FOREIGN KEY (`feat_id` )
     REFERENCES `FEATURE` (`feat_id` )
     ON DELETE RESTRICT
-    ON UPDATE CASCADE)
+    ON UPDATE RESTRICT)
 ENGINE = InnoDB;
 
 
@@ -315,7 +316,8 @@ CREATE  TABLE IF NOT EXISTS `PREFERENCE` (
   `pref_id` INT UNSIGNED NOT NULL AUTO_INCREMENT ,
   `name` VARCHAR(45) NOT NULL ,
   `binary` TINYINT(1) NOT NULL DEFAULT 1 COMMENT 'This indicates whether\nthe preference is \nonly yes/no type.' ,
-  PRIMARY KEY (`pref_id`) )
+  PRIMARY KEY (`pref_id`) ,
+  UNIQUE INDEX `name_UNIQUE` (`name` ASC) )
 ENGINE = InnoDB;
 
 
@@ -329,17 +331,17 @@ CREATE  TABLE IF NOT EXISTS `ACCOMODATION_has_PREFERENCE` (
   `pref_id` INT UNSIGNED NOT NULL ,
   `value` TINYINT UNSIGNED NOT NULL ,
   PRIMARY KEY (`acc_id`, `pref_id`) ,
-  INDEX `fk_ACCOMODATION_has_PREFERENCE_PREFERENCE1` (`pref_id` ASC) ,
-  CONSTRAINT `fk_ACCOMODATION_has_PREFERENCE_ACCOMODATION1`
+  INDEX `fk_pref_id` (`pref_id` ASC) ,
+  CONSTRAINT `fk_acc_id`
     FOREIGN KEY (`acc_id` )
     REFERENCES `ACCOMMODATION` (`acc_id` )
     ON DELETE CASCADE
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_ACCOMODATION_has_PREFERENCE_PREFERENCE1`
+    ON UPDATE CASCADE,
+  CONSTRAINT `fk_pref_id`
     FOREIGN KEY (`pref_id` )
     REFERENCES `PREFERENCE` (`pref_id` )
     ON DELETE RESTRICT
-    ON UPDATE NO ACTION)
+    ON UPDATE RESTRICT)
 ENGINE = InnoDB;
 
 
@@ -461,18 +463,18 @@ PACK_KEYS = DEFAULT;
 DROP TABLE IF EXISTS `ROOMATE_has_CHARACTERISTIC` ;
 
 CREATE  TABLE IF NOT EXISTS `ROOMATE_has_CHARACTERISTIC` (
-  `ROOMATE_user_id` INT UNSIGNED NOT NULL ,
-  `CHARACTERISTIC_charac_id` INT UNSIGNED NOT NULL ,
+  `user_id` INT UNSIGNED NOT NULL ,
+  `charac_id` INT UNSIGNED NOT NULL ,
   `value` TINYINT UNSIGNED NOT NULL ,
-  PRIMARY KEY (`ROOMATE_user_id`, `CHARACTERISTIC_charac_id`) ,
-  INDEX `fk_ROOMATE_has_CHARACTERISTIC_CHARACTERISTIC1` (`CHARACTERISTIC_charac_id` ASC) ,
+  PRIMARY KEY (`user_id`, `charac_id`) ,
+  INDEX `fk_ROOMATE_has_CHARACTERISTIC_CHARACTERISTIC1` (`charac_id` ASC) ,
   CONSTRAINT `fk_ROOMATE_has_CHARACTERISTIC_ROOMATE1`
-    FOREIGN KEY (`ROOMATE_user_id` )
+    FOREIGN KEY (`user_id` )
     REFERENCES `ROOMATE` (`user_id` )
     ON DELETE CASCADE
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_ROOMATE_has_CHARACTERISTIC_CHARACTERISTIC1`
-    FOREIGN KEY (`CHARACTERISTIC_charac_id` )
+    FOREIGN KEY (`charac_id` )
     REFERENCES `CHARACTERISTIC` (`charac_id` )
     ON DELETE CASCADE
     ON UPDATE NO ACTION)
@@ -553,6 +555,16 @@ CREATE TABLE IF NOT EXISTS `VIEW_SHARE` (`acc_id` INT, `roomates_id` INT);
 CREATE TABLE IF NOT EXISTS `VIEW_PHOTO` (`photo_id` INT, `filename` INT, `acc_id` INT, `path_id` INT, `path` INT);
 
 -- -----------------------------------------------------
+-- Placeholder table for view `VIEW_ACC_FEATURES`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `VIEW_ACC_FEATURES` (`acc_id` INT, `feat_id` INT, `name` INT, `value` INT);
+
+-- -----------------------------------------------------
+-- Placeholder table for view `VIEW_ACC_PREFERENCES`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `VIEW_ACC_PREFERENCES` (`acc_id` INT, `pref_id` INT, `name` INT, `value` INT);
+
+-- -----------------------------------------------------
 -- View `VIEW_CITY`
 -- -----------------------------------------------------
 DROP VIEW IF EXISTS `VIEW_CITY` ;
@@ -610,6 +622,38 @@ DELIMITER $$
 CREATE  OR REPLACE VIEW `VIEW_PHOTO` AS 
 SELECT p.photo_id, p.filename, p.acc_id, pa.path_id, pa.value as path FROM `PHOTO` p
 INNER JOIN (`PATH` pa) USING (`path_id`)
+
+$$
+DELIMITER ;
+
+;
+
+-- -----------------------------------------------------
+-- View `VIEW_ACC_FEATURES`
+-- -----------------------------------------------------
+DROP VIEW IF EXISTS `VIEW_ACC_FEATURES` ;
+DROP TABLE IF EXISTS `VIEW_ACC_FEATURES`;
+DELIMITER $$
+CREATE  OR REPLACE VIEW `VIEW_ACC_FEATURES` AS
+SELECT af.acc_id, f.feat_id, f.name, af.value  
+FROM `ACCOMODATION_has_FEATURE` af INNER JOIN `FEATURE` f USING (`feat_id`) 
+
+
+$$
+DELIMITER ;
+
+;
+
+-- -----------------------------------------------------
+-- View `VIEW_ACC_PREFERENCES`
+-- -----------------------------------------------------
+DROP VIEW IF EXISTS `VIEW_ACC_PREFERENCES` ;
+DROP TABLE IF EXISTS `VIEW_ACC_PREFERENCES`;
+DELIMITER $$
+CREATE  OR REPLACE VIEW `VIEW_ACC_PREFERENCES` AS
+SELECT ap.acc_id, p.pref_id, p.name, ap.value  
+FROM `ACCOMODATION_has_PREFERENCE` ap INNER JOIN `PREFERENCE` p USING (`pref_id`) 
+
 
 $$
 DELIMITER ;

@@ -48,6 +48,15 @@ class My_Model_Table_Row_AccsPreferences extends Zend_Db_Table_Row_Abstract {
     }
 
     /**
+     * Get preference's binary field value.
+     *
+     * @return string
+     */
+    public function getBinary() {
+        return $this->getPreference()->binary;
+    }
+
+    /**
      * Get preference value.
      *
      * @return string
