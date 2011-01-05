@@ -12,12 +12,9 @@
  */
 class My_Model_Table_Row_Accommodation extends Zend_Db_Table_Row_Abstract {
 
-   
-
     public function init() {
-
+        
     }
-
 
     /**
      * Get Address Row for the current accommodation row.
@@ -82,14 +79,22 @@ class My_Model_Table_Row_Accommodation extends Zend_Db_Table_Row_Abstract {
         return $this->findDependentRowset('My_Model_Table_AccsPreferences');
     }
 
-
-     /**
-     * Get shared table rowset for a given accommodations.
+    /**
+     * Get shared table row, if possiple, for a given accommodations.
      *
-     * @return Zend_Db_Table_Rowset
+     * @return Zend_Db_Table_Row_Shared | NULL Null if no shared rows exist
      */
     public function getShared() {
-        return $this->findDependentRowset('My_Model_Table_AccsFeatures');
+
+        $rowset = $this->findDependentRowset('My_Model_Table_Shared');
+
+        if (count($rowset) > 1) {
+            throw new Zend_Db_Table_Rowset_Exception(
+                    'More than one shared table row for currect accommodation'
+            );
+        }
+
+        return $this->findDependentRowset('My_Model_Table_Shared')->current();
     }
 
 }

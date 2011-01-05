@@ -10,7 +10,7 @@
  *
  * @author marcin
  */
-class My_Model_Table_Roomate extends Zend_Db_Table_Abstract {
+class My_Model_Table_Roomates extends Zend_Db_Table_Abstract {
 
     protected $_name = "ROOMATES";
     protected $_rowClass = 'My_Model_Table_Row_Roomates';
@@ -21,10 +21,10 @@ class My_Model_Table_Roomate extends Zend_Db_Table_Abstract {
      * Update/insert roomates row.
      *
      * @param array $data data of the roomates
-     * @param <type> $id roomates id
+     * @param int $id roomates id
      * @return int  ID of the updated/new roomates
      */
-    public function setRoomates($data, $id) {
+    public function setRoomates(array $data, $id = null) {
 
         $row = $this->find($id)->current();
 

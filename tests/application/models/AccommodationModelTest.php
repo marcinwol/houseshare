@@ -276,6 +276,33 @@ class AccommodationModelTest extends ModelTestCase {
         $this->assertEquals(0, count($rowset));
     }
 
+    /**
+     * @dataProvider getSharedAccProvider
+     */
+    public function testGetSharedAcc($acc_id, $expected) {
+        $accRow = $this->_model->find($acc_id)->current();
+        $result = $accRow->getShared();
+
+        if (3 == $acc_id) {
+            // no shared row for acc_id = 3.
+            $this->assertTrue(is_null($result));
+            return;
+        }
+
+        $this->assertEquals(
+                array($expected['acc_id'], $expected['roomates_id']),
+                array($result->acc_id    , $result->roomates_id)
+        );             
+    }
+
+    public function getSharedAccProvider() {
+        return array(
+            array(1,array('acc_id' => 1, 'roomates_id' => null)),
+            array(2,array('acc_id' => 2, 'roomates_id' => 1)),
+            array(3,null)
+        );
+    }
+
 }
 
 ?>
