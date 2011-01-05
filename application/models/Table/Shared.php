@@ -40,7 +40,7 @@ class My_Model_Table_Shared extends Zend_Db_Table_Abstract {
      * @param <type> $id shared id
      * @return int  ID of the updated/new shared
      */
-    public function setShared($data, $id) {
+    public function setShared(array $data, $id) {
 
         $row = $this->find($id)->current();
 
@@ -49,6 +49,7 @@ class My_Model_Table_Shared extends Zend_Db_Table_Abstract {
         }
 
         $row->acc_id = $id;
+        $row->roomates_id = $data['roomates_id'];
 
         // if there are some more properties for shared you can set them here.
 

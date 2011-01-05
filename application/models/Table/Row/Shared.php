@@ -23,12 +23,13 @@ class My_Model_Table_Row_Shared extends Zend_Db_Table_Row_Abstract {
 
 
    /**
-     * Return roomates rowset for the current shared accommodation
+     * Return roomates row for the current shared accommodation
      *
-     * @return My_Model_Table_Rowset
+     * @return My_Model_Table_Row_Roomates
      */
     public function getRoomates() {
-        return $this->findDependentRowset('My_Model_Table_Roomates');
+         return $this->findParentRow('My_Model_Table_Roomates');
+        
     }
 
 }

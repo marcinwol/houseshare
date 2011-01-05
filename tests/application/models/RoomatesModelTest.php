@@ -31,7 +31,7 @@ class RoomatesModelTest extends ModelTestCase {
 
     public function testGetAll() {
         $rowset = $this->_model->fetchAll();
-        $this->assertEquals(count($rowset), 2);
+        $this->assertEquals(count($rowset), 3);
     }
 
     /**
@@ -56,7 +56,7 @@ class RoomatesModelTest extends ModelTestCase {
             array( // insert new record
                 null,
                 array('no_roomates' => 2, 'min_age' => 25, 'max_age' => 45, 'gender' => 1),
-                3
+                4
             ),
             array( // updated existing record
                 1,
@@ -66,7 +66,7 @@ class RoomatesModelTest extends ModelTestCase {
             array( // insert new  record
                 5, // no such ID, so make new record
                 array('no_roomates' => 0, 'min_age' => 20, 'max_age' => 35, 'gender' => 0),
-                3
+                4
             )
         );
     }

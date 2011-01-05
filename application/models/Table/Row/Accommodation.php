@@ -94,7 +94,7 @@ class My_Model_Table_Row_Accommodation extends Zend_Db_Table_Row_Abstract {
             );
         }
 
-        return $this->findDependentRowset('My_Model_Table_Shared')->current();
+        return $rowset->current();
     }
 
 }

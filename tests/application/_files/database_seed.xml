@@ -97,6 +97,7 @@
 
     <ROOMATES roomates_id="1" no_roomates="2" min_age="10" max_age="40" gender="2" />
     <ROOMATES roomates_id="2" no_roomates="6" min_age="25" max_age="30" gender="0" />
+    <ROOMATES roomates_id="3" no_roomates="4" min_age="15" max_age="50" gender="1" />
 
     <SHARED acc_id="1" />
     <SHARED acc_id="2" roomates_id="1"/>
