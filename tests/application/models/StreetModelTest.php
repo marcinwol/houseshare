@@ -12,22 +12,7 @@
  */
 class StreetModelTest extends ModelTestCase {
 
-    /**
-     * STREET table model
-     *
-     * @var My_Model_Table_Street
-     */
-    private $_model;
-
-    public function setUp() {
-        parent::setUp();
-        $this->_model = new My_Model_Table_Street();
-    }
-
-    public function tearDown() {
-        $this->_model = null;
-        parent::tearDown();
-    }
+   protected $_modelName = 'My_Model_Table_Street';
 
     public function testGetAllStreets() {
         $streets = $this->_model->fetchAll();

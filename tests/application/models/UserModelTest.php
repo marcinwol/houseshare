@@ -12,23 +12,7 @@
  */
 class UserModelTest extends ModelTestCase {
 
-    /**
-     * USEr table model
-     *
-     * @var My_Model_Table_User
-     */
-    private $_model;
-
-    public function setUp() {
-        parent::setUp();
-        $this->_model = new My_Model_Table_User();
-    }
-
-    public function tearDown() {
-        $this->_model = null;
-        parent::tearDown();
-    }
-
+    protected $_modelName = 'My_Model_Table_User';
     /**
      * @dataProvider setUserDataProvider
      */

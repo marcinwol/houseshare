@@ -13,8 +13,7 @@ class My_Model_Table_Preference extends Zend_Db_Table_Abstract {
 
     protected $_name = "PREFERENCE";
     protected $_rowClass = 'My_Model_Table_Row_Preference';
-
-    //  protected $_dependentTables = array('My_Model_Table_??');
+    protected $_dependentTables = array('My_Model_Table_AccsPreferences');
 
     /**
      * Get all preferences.

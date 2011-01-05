@@ -12,22 +12,7 @@
  */
 class StateModelTest extends ModelTestCase {
 
-    /**
-     * STATE table model
-     *
-     * @var My_Model_Table_State
-     */
-    private $_model;
-
-    public function setUp() {
-        parent::setUp();
-        $this->_model = new My_Model_Table_State();
-    }
-
-    public function tearDown() {
-        $this->_model = null;
-        parent::tearDown();
-    }
+    protected $_modelName = 'My_Model_Table_State';
 
     public function testGetAllStates() {
         $arrayStates = $this->_model->getStates()->toArray();

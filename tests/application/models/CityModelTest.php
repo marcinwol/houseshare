@@ -12,22 +12,7 @@
  */
 class CityModelTest extends ModelTestCase {
 
-    /**
-     * CITY table model
-     *
-     * @var My_Model_Table_City
-     */
-    private $_model;
-
-    public function setUp() {
-        parent::setUp();
-        $this->_model = new My_Model_Table_City();
-    }
-
-    public function tearDown() {
-        $this->_model = null;
-        parent::tearDown();
-    }
+    protected $_modelName = 'My_Model_Table_City';
 
     public function testGetAllCities() {
         $arrayStates = $this->_model->getCities()->toArray();

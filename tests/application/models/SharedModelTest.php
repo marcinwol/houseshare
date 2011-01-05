@@ -12,22 +12,8 @@
  */
 class SharedModelTest extends ModelTestCase {
 
-    /**
-     * SHARED table model
-     *
-     * @var My_Model_Table_Shared
-     */
-    private $_model;
+    protected $_modelName = 'My_Model_Table_Shared';
 
-    public function setUp() {
-        parent::setUp();
-        $this->_model = new My_Model_Table_Shared();
-    }
-
-    public function tearDown() {
-        $this->_model = null;
-        parent::tearDown();
-    }
 
     public function testGetAll() {
         $rowset = $this->_model->fetchAll();

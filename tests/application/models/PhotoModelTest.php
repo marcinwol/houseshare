@@ -12,22 +12,8 @@
  */
 class PhotoModelTest extends ModelTestCase {
 
-    /**
-     * PHOTO table model
-     *
-     * @var My_Model_Table_Photo
-     */
-    private $_model;
-
-    public function setUp() {
-        parent::setUp();
-        $this->_model = new My_Model_Table_Photo();
-    }
-
-    public function tearDown() {
-        $this->_model = null;
-        parent::tearDown();
-    }
+   
+    protected $_modelName = 'My_Model_Table_Photo';
 
     public function testGetAllPhotos() {
         $photos = $this->_model->fetchAll();

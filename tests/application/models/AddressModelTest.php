@@ -12,22 +12,7 @@
  */
 class AddressModelTest extends ModelTestCase {
 
-    /**
-     * ADDRESS table model
-     *
-     * @var My_Model_Table_Address
-     */
-    private $_model;
-
-    public function setUp() {
-        parent::setUp();
-        $this->_model = new My_Model_Table_Address();
-    }
-
-    public function tearDown() {
-        $this->_model = null;
-        parent::tearDown();
-    }
+    protected $_modelName = 'My_Model_Table_Address';
 
     public function testGetAllAddresses() {
         $result = $this->_model->fetchAll()->toArray();

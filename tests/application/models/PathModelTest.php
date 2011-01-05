@@ -12,23 +12,9 @@
  */
 class PathModelTest extends ModelTestCase {
 
-    /**
-     * PATH table model
-     *
-     * @var My_Model_Table_Path
-     */
-    private $_model;
+     protected $_modelName = 'My_Model_Table_Path';
 
-    public function setUp() {
-        parent::setUp();
-        $this->_model = new My_Model_Table_Path();
-    }
-
-    public function tearDown() {
-        $this->_model = null;
-        parent::tearDown();
-    }
-
+   
     public function testGetAllPaths() {
         $this->assertEquals(2, $this->_model->fetchAll()->count());
     }

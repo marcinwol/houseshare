@@ -12,22 +12,7 @@
  */
 class RoomatesModelTest extends ModelTestCase {
 
-    /**
-     * ROOMATES table model
-     *
-     * @var My_Model_Table_Roomates
-     */
-    private $_model;
-
-    public function setUp() {
-        parent::setUp();
-        $this->_model = new My_Model_Table_Roomates();
-    }
-
-    public function tearDown() {
-        $this->_model = null;
-        parent::tearDown();
-    }
+    protected $_modelName = 'My_Model_Table_Roomates';
 
     public function testGetAll() {
         $rowset = $this->_model->fetchAll();

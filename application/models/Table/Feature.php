@@ -14,7 +14,7 @@ class My_Model_Table_Feature extends Zend_Db_Table_Abstract {
     protected $_name = "FEATURE";
     protected $_rowClass = 'My_Model_Table_Row_Feature';
 
-    //  protected $_dependentTables = array('My_Model_Table_??');
+    protected $_dependentTables = array('My_Model_Table_AccsFeatures');
 
     /**
      * Get all features by type
@@ -24,7 +24,12 @@ class My_Model_Table_Feature extends Zend_Db_Table_Abstract {
      */
     static function getAllByType($type_id = null) {
         $obj = new self();
-        $select = $obj->select()->where('type_id', $type_id);
+        if (null === $type_id) {
+            $select = $obj->select()->where('type_id IS NULL');
+        } else {
+            $select = $obj->select()->where('type_id', $type_id);
+        }
+        
 
         return $obj->fetchAll($select);
     }
