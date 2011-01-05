@@ -10,7 +10,8 @@ class My_Model_Table_Accommodation extends Zend_Db_Table_Abstract {
     protected $_name = "ACCOMMODATION";
     protected $_rowClass = 'My_Model_Table_Row_Accommodation';
     protected $_dependentTables = array(
-        'My_Model_Table_Photo'
+        'My_Model_Table_Photo',
+        'My_Model_Table_Shared'
     );
     protected $_referenceMap = array(
         'Address' => array(

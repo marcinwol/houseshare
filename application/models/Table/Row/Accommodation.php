@@ -6,7 +6,7 @@
  */
 
 /**
- * Description of Accommodation
+ * Description of Accommodation row
  *
  * @author marcin
  */
@@ -80,6 +80,16 @@ class My_Model_Table_Row_Accommodation extends Zend_Db_Table_Row_Abstract {
      */
     public function getPreferences() {
         return $this->findDependentRowset('My_Model_Table_AccsPreferences');
+    }
+
+
+     /**
+     * Get shared table rowset for a given accommodations.
+     *
+     * @return Zend_Db_Table_Rowset
+     */
+    public function getShared() {
+        return $this->findDependentRowset('My_Model_Table_AccsFeatures');
     }
 
 }

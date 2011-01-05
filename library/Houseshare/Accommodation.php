@@ -20,7 +20,7 @@ class My_Houseshare_Accommodation extends My_Houseshare_Abstract_PropertyAccesso
      */
     protected $_model = null;
     /**
-     *  Object for the ACCOMMODATION
+     *  Object for the ACCOMMODATION model
      *
      * @var My_Houseshare_Accommodation
      */

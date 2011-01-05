@@ -95,6 +95,12 @@
             street_address_public="0" short_term_ok="1" type_id="1" />
 
 
+    <ROOMATES roomates_id="1" no_roomates="2" min_age="10" max_age="40" gender="2" />
+    <ROOMATES roomates_id="2" no_roomates="6" min_age="25" max_age="30" gender="0" />
+
+    <SHARED acc_id="1" />
+    <SHARED acc_id="2" roomates_id="1"/>
+
 
     <PATH path_id="1" value="/images/upload/"  />
     <PATH path_id="2" value="/images2/upload2/"/>
@@ -122,7 +128,6 @@
     <ACCOMODATION_has_FEATURE acc_id="3" feat_id="4" value="0" />
     <ACCOMODATION_has_FEATURE acc_id="3" feat_id="5" value="1" />
 
-
-  
+ 
 
 </dataset>
