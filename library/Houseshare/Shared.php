@@ -50,6 +50,7 @@ class My_Houseshare_Shared extends My_Houseshare_Accommodation {
 
     
     public function save() {
+        return parent::save();
 
 //        // first save/update data for the user table and than accociated roomate table.
 //        $user_id = $this->_user->_model->setUser($this->_properties, $this->user_id);
