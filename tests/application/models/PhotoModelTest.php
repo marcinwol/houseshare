@@ -95,10 +95,10 @@ class PhotoModelTest extends ModelTestCase {
 
     public function testGetFullPath() {
         $fullPath = $this->_model->getPhoto(2)->getFullPath();
-        $this->assertEquals('/images/upload/photo2.jpg', $fullPath);
+        $this->assertEquals('vfs://images/forrent/photo2.jpg', $fullPath);
 
         $fullPath = $this->_model->getPhoto(7)->getFullPath();
-        $this->assertEquals('/images2/upload2/photo11.jpg', $fullPath);
+        $this->assertEquals('vfs://images/forsell/photo11.jpg', $fullPath);
     }
 
     public function testGetFullPathsUsingPhotoRowset() {

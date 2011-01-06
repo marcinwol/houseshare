@@ -25,6 +25,10 @@ class My_Houseshare_Photo extends My_Houseshare_Abstract_PropertyAccessor {
         $this->_properties['acc_id'] = (string) $id;
     }
 
+    public function getFullPath() {
+        return $this->_properties['path'] . $this->_properties['filename'];
+    }
+
     /**
      * Insert new photo in the database along with its path.
      * There is not update since updating a photo (i.e. changing the photo)

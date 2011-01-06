@@ -297,29 +297,40 @@ class My_Houseshare_Accommodation extends My_Houseshare_Abstract_PropertyAccesso
 
     public function save() {
 
-        $prefs_ids = array();
+        Zend_Db_Table::getDefaultAdapter()->beginTransaction();
 
-        if (array_key_exists('preferences', $this->getNewProperties())) {
-            $prefs_ids = $this->_savePreferences();
+        try {
+
+            $prefs_ids = array();
+
+            if (array_key_exists('preferences', $this->getNewProperties())) {
+                $prefs_ids = $this->_savePreferences();
+            }
+
+            $feat_ids = array();
+
+            if (array_key_exists('features', $this->getNewProperties())) {
+                $feat_ids = $this->_saveFeatures();
+            }
+
+            $photos_ids = array();
+
+            if (array_key_exists('photos', $this->getNewProperties())) {
+                $photos_ids = $this->_savePhotos();
+            }
+
+            $id = $this->_acc->_properties['acc_id'];
+            if (!empty($this->_acc->_changedProperties)) {
+
+                $id = $this->_acc->_model->setAccommodation(
+                                $this->getProperties(), $this->acc_id);
+            }
+
+            Zend_Db_Table::getDefaultAdapter()->commit();
+        } catch (Exception $e) {
+            Zend_Db_Table::getDefaultAdapter()->rollBack();
+            throw $e;
         }
-
-        $feat_ids = array();
-
-        if (array_key_exists('features', $this->getNewProperties())) {
-            $feat_ids = $this->_saveFeatures();
-        }
-
-        $photos_ids = array();
-
-        if (array_key_exists('photos', $this->getNewProperties())) {
-            $photos_ids = $this->_savePhotos();
-        }
-
-        return $photos_ids;
-
-
-        $id = $this->_acc->_model->setAccommodation(
-                        $this->getProperties(), $this->acc_id);
 
         // before repopulating properties delete all old ones.
         $this->_makeProperties();

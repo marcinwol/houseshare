@@ -1,9 +1,6 @@
 <?php
 
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
+require_once 'vfsStream/vfsStream.php';
 
 /**
  * Description of PhotoHouseshareTest
@@ -12,7 +9,19 @@
  */
 class PhotoHouseshareTest extends ModelTestCase {
 
-   protected $_modelName = 'My_Model_Table_Photo';
+    protected $_modelName = 'My_Model_Table_Photo';
+
+    public function setUp() {
+        vfsStreamWrapper::register();
+        vfsStreamWrapper::setRoot(new vfsStreamDirectory('photoDir'));
+        $root = vfsStreamWrapper::getRoot();
+        $p1 = new vfsStreamFile('photo1.jpg');
+        $p1->setContent('content of photo1.jpg');
+        $root->addChild($p1);
+        $root->addChild(new vfsStreamFile('photo2.jpg'));
+        $root->addChild(new vfsStreamDirectory('deleted'));
+        parent::setUp();
+    }
 
     /**
      * @dataProvider getPhotoProvider
@@ -86,12 +95,12 @@ class PhotoHouseshareTest extends ModelTestCase {
         $params [] = array(
             array(
                 'filename' => 'new_photo.jpg',
-                'path' => '/new/path',
+                'path' => 'vfs://images/new/',
                 'acc_id' => 1,
             ),
             array(// expected data
                 'photo_id' => 9,
-                'path' => '/new/path' . '/',
+                'path' => 'vfs://images/new' . '/',
                 'path_id' => 3
             )
         );
@@ -99,12 +108,12 @@ class PhotoHouseshareTest extends ModelTestCase {
         $params [] = array(
             array(
                 'filename' => 'new_photo2.jpg',
-                'path' => '/images2/upload2/',
+                'path' => 'vfs://images/forsell/',
                 'acc_id' => 2,
             ),
             array(// expected data
                 'photo_id' => 9,
-                'path' => '/images2/upload2/',
+                'path' => 'vfs://images/forsell/',
                 'path_id' => 2 // new path is already in db, so
             // do not create new path row. just use
             // existing path.
@@ -114,7 +123,6 @@ class PhotoHouseshareTest extends ModelTestCase {
         return $params;
     }
 
-
     /**
      * Updating a photo is substituting files on disk, rahther than
      * records in database.
@@ -122,11 +130,21 @@ class PhotoHouseshareTest extends ModelTestCase {
      */
     public function testUpdatePhoto() {
 
-        $this->assertTrue(true);
-        
-    }
+        $path = vfsStream::url('photo1.jpg');
 
-   
+        $root = vfsStreamWrapper::getRoot();
+
+         var_dump($root->getName());
+         //var_dump($root->hasChild('photo1.jpg'));
+         var_dump($root->getChild('photo1.jpg')->getContent());
+         unlink('vfs://photoDir/photo1.jpg');
+         mkdir('vfs://photoDir/dupa1');
+         var_dump($root->hasChild('photo1.jpg'));
+         var_dump($root->hasChild('dupa'));
+
+
+       
+    }
 
 }
 

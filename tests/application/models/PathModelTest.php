@@ -29,9 +29,9 @@ class PathModelTest extends ModelTestCase {
 
     public function insertPathProvider() {
         return array(
-            array(' /images/upload/', 1),
-            array(' /images2/upload2/ ', 2),
-            array(' /images3/upload3/ ', 3)
+            array(' vfs://images/forrent/', 1),
+            array(' vfs://images/forsell/ ', 2),
+            array(' vfs://images/forlease/ ', 3)
         );
     }
 
@@ -45,10 +45,10 @@ class PathModelTest extends ModelTestCase {
 
     public function pathValuesProvider1() {
         return array(
-            array(' /images/upload/', '/images/upload/'),
-            array(' /images/upload/   ', '/images/upload/'),
-            array(' /images2/upload2/  ', '/images2/upload2/'),
-            array(' /images2/upLOAD2/  ', '/images2/upload2/')
+            array(' vfs://images/forrent/', 'vfs://images/forrent/'),
+            array(' vfs://images/forrent/   ', 'vfs://images/forrent/'),
+            array(' vfs://images/forsell/  ', 'vfs://images/forsell/'),
+            array(' vfs://images/FORsell/  ', 'vfs://images/forsell/')
         );
     }
 

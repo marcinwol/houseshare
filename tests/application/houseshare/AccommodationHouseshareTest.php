@@ -48,8 +48,12 @@ class AccommodationHouseshareTest extends ModelTestCase {
 
             $acc = new $accClass($acc_id);
 
+            /* @var $prefs My_Model_Table_Rowset_AccsPreferences */
             $prefs = $acc->preferences;
+
+            /* @var $feats My_Model_Table_Rowset_AccsFeatures */
             $feats = $acc->features;
+
 
             $accsPrefsModel = new My_Model_Table_AccsPreferences();
             $expectedPrefs = $accsPrefsModel->fetchAll("acc_id = $acc_id");
@@ -66,7 +70,7 @@ class AccommodationHouseshareTest extends ModelTestCase {
      */
     public function testSetPreferencesAndFeatures($accClass) {
 
-        $acc_ids = array(1, 2);       
+        $acc_ids = array(1, 2);
 
         foreach ($acc_ids as $acc_id) {
 
@@ -123,24 +127,53 @@ class AccommodationHouseshareTest extends ModelTestCase {
     /**
      * @dataProvider accommodationClassProvider
      */
+    public function testGetPhotos($accClass) {
+
+        $acc_ids = array(1, 2);
+
+        foreach ($acc_ids as $acc_id) {
+
+            $acc = new $accClass($acc_id);
+
+            /* @var $photos array of My_Houseshare_Photo */
+            $photos = $acc->photos;
+
+            $photoModel = new My_Model_Table_Photo();
+
+            /* @var $photo My_Houseshare_Photo */
+            foreach ($photos as $photo) {
+                $photoExpected = $photoModel->find($photo->photo_id)->current();
+
+                $this->assertEquals(
+                        array(
+                            $photoExpected->filename,
+                            $photoExpected->getFullPath()
+                        ),
+                        array(
+                            $photo->filename,
+                            $photo->getFullPath()
+                        )
+                );
+            }
+        }
+    }
+
+    /**
+     * @dataProvider accommodationClassProvider
+     */
     public function testGetRoomates1($accClass) {
         $acc = new $accClass(1);
+
+//        $phpt = new PHPUnit_Extensions_PhptTestCase(
+//                        __DIR__ . '/upload-layout.phpt', array('cgi' => 'php-cgi')
+//        );
+//        $result = $phpt->run();
+//        $this->assertTrue($result->wasSuccessful());
+
 
         // var_dump($acc->user->toArray());
         // $acc->type = array('name' => 'Townhause', 'is_shared' => 1);
         //  var_dump($acc->preferences->toArray());
-
-
-        $acc->preferences = array();
-        $acc->features = array(
-            array('acc_id' => 2, 'feat_id' => 6, 'value' => 2),
-            array('acc_id' => 2, 'feat_id' => 2, 'value' => 1)
-        );
-
-
-
-
-
         // var_dump($acc->photos->toArray());
         // var_dump($acc->save());
     }
