@@ -27,7 +27,7 @@ class My_Model_Table_Feature extends Zend_Db_Table_Abstract {
         if (null === $type_id) {
             $select = $obj->select()->where('type_id IS NULL');
         } else {
-            $select = $obj->select()->where('type_id', $type_id);
+            $select = $obj->select()->where("type_id = $type_id");
         }
         
 

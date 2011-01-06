@@ -17,10 +17,13 @@ class PhotoHouseshareTest extends ModelTestCase {
         $root = vfsStreamWrapper::getRoot();
         $root->addChild(new vfsStreamDirectory('forrent'));
         $root->addChild(new vfsStreamDirectory('forsell'));
+
+        // copy test.jpg image to vfs. 
+        copy(MY_TEST_FILES . '/test.jpg', 'vfs://images/forrent/test.jpg');
                
      //   $root->addChild(new vfsStreamFile('photo1.jpg'));
       //  $root->addChild(new vfsStreamFile('photo2.jpg'));
-       
+        
         parent::setUp();
     }
 
@@ -129,11 +132,13 @@ class PhotoHouseshareTest extends ModelTestCase {
      * records in database.
      *
      */
-    public function testUpdatePhoto() {
+    public function testUpdatePhoto1() {
 
         $root = vfsStreamWrapper::getRoot();
 
-       // $thumb = PhpThumbFactory::create("/path/to/image.jpg");
+        /*@var $thumb GdThumb */
+        $thumb = PhpThumbFactory::create('vfs://images/forrent/test.jpg');
+        var_dump($thumb->getFormat());
 
          var_dump($root->getName());
  
