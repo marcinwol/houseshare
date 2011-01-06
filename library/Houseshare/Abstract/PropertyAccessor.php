@@ -151,6 +151,7 @@ abstract class My_Houseshare_Abstract_PropertyAccessor {
     Zend_Db_Table_Abstract $model, array $rowset, $property = '') {
 
         $cols = $model->info('cols');
+        //$primary = $model->info('primary');
 
         foreach ($rowset as $row) {
 

@@ -27,10 +27,9 @@ class My_Houseshare_Photo extends My_Houseshare_Abstract_PropertyAccessor {
 
     /**
      * Insert new photo in the database along with its path.
-     * Theire is not update since updating a photo (i.e. changing the photo)
+     * There is not update since updating a photo (i.e. changing the photo)
      * is just substitution of files on the hard disk rather than records
      * in database.
-     *
      *
      * @return int Primary key of inserted/updated  row
      */

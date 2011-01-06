@@ -14,6 +14,8 @@
  * $acc->preferences; //fetch rowset of preferences
  * $acc->address; // get My_Houseshare_Address
  * $acc->photos; // get rowset of photos
+ * 
+ * $acc->preferences = array(); // delete all preferences
  *
  * $acc->type; //get Type row.
  * $acc->user; // get My_Houseshare_User or its descendant
@@ -125,15 +127,23 @@ class My_Houseshare_Accommodation extends My_Houseshare_Abstract_PropertyAccesso
      */
     public function setPreferences($property, array $value) {
 
+        $acc_id = $this->_acc->_row->acc_id;
+
         $accsPrefsModel = new My_Model_Table_AccsPreferences();
+
+        // set key acc_id for each preference row
+        foreach ($value as &$arrayRow) {
+            $arrayRow['acc_id'] = $acc_id;
+        }
+        unset($arrayRow);
 
         $this->_checkIfColsArePresentInRowset($accsPrefsModel, $value, $property);
 
         $this->_newProperties['preferences'] = $value;
     }
 
-    protected function savePreferences() {
-        $acc_id = $this->_acc->_row->acc_id;
+    protected function _savePreferences() {
+
         $accsPrefsModel = new My_Model_Table_AccsPreferences();
 
         $noOfDeletes = $this->_acc->_row->detelePreferences();
@@ -142,7 +152,7 @@ class My_Houseshare_Accommodation extends My_Houseshare_Abstract_PropertyAccesso
 
 
         foreach ($this->_newProperties['preferences'] as $preference) {
-            $id = array('acc_id' => $acc_id, 'pref_id' => $preference['pref_id']);
+            $id = array('acc_id' => $preference['acc_id'], 'pref_id' => $preference['pref_id']);
             $data = array('value' => $preference['value']);
 
             $result_ids [] = $accsPrefsModel->setAccPreference($data, $id);
@@ -170,15 +180,22 @@ class My_Houseshare_Accommodation extends My_Houseshare_Abstract_PropertyAccesso
      * @param array $value rowset in array form of new features
      */
     public function setFeatures($property, array $value) {
+        $acc_id = $this->_acc->_row->acc_id;
 
         $accsFeatsModel = new My_Model_Table_AccsFeatures();
+
+        // set key acc_id for each feature row
+        foreach ($value as &$arrayRow) {
+            $arrayRow['acc_id'] = $acc_id;
+        }
+        unset($arrayRow);
 
         $this->_checkIfColsArePresentInRowset($accsFeatsModel, $value, $property);
 
         $this->_newProperties['features'] = $value;
     }
 
-    protected function saveFeatures() {
+    protected function _saveFeatures() {
         $acc_id = $this->_acc->_row->acc_id;
         $accsFeatsModel = new My_Model_Table_AccsFeatures();
 
@@ -187,7 +204,7 @@ class My_Houseshare_Accommodation extends My_Houseshare_Abstract_PropertyAccesso
         $result_ids = array();
 
         foreach ($this->_newProperties['features'] as $feature) {
-            $id = array('acc_id' => $acc_id, 'feat_id' => $feature['feat_id']);
+            $id = array('acc_id' => $feature['acc_id'], 'feat_id' => $feature['feat_id']);
             $data = array('value' => $feature['value']);
 
             $result_ids [] = $accsFeatsModel->setAccFeature($data, $id);
@@ -199,10 +216,49 @@ class My_Houseshare_Accommodation extends My_Houseshare_Abstract_PropertyAccesso
     /**
      * Get photos for this accommodation.
      *
-     * @return My_Model_Table_Rowset_Photos
+     * @return array of My_Houseshare_Photo objects
      */
     public function getPhotos() {
-        return $this->_acc->_row->getPhotos();
+        $photos = $this->_acc->_row->getPhotos();
+
+        $objs = array();
+
+        foreach ($photos as $photo) {
+            $objs [] = new My_Houseshare_Photo($photo->photo_id);
+        }
+
+        return $objs;
+    }
+
+    /**
+     * Set new photos. The format of $value should be
+     *  array of My_Houseshare_Photo objects.
+     *
+     * To remove all photos set $value = array();
+     *
+     * @param string $property name
+     * @param array $value array of My_Houseshare_Photo objects
+     */
+    public function setPhotos($property, array $value) {
+
+        $photoModel = new My_Model_Table_Photo();
+        //$this->_checkIfColsArePresentInRow($photoModel, $value, $property);
+
+        $this->_newProperties['photos'] = $value;
+    }
+
+    protected function _savePhotos() {
+        $acc_id = $this->_acc->_row->acc_id;
+        $photos = $this->_newProperties['photos'];
+
+        $photos_ids = array();
+
+        foreach ($photos as $photo) {
+            $photo->setAccId($acc_id);
+            $photo_ids [] = $photo->save();
+        }
+
+        return $photo_ids;
     }
 
     /**
@@ -244,16 +300,22 @@ class My_Houseshare_Accommodation extends My_Houseshare_Abstract_PropertyAccesso
         $prefs_ids = array();
 
         if (array_key_exists('preferences', $this->getNewProperties())) {
-            $prefs_ids = $this->savePreferences();
+            $prefs_ids = $this->_savePreferences();
         }
 
         $feat_ids = array();
 
         if (array_key_exists('features', $this->getNewProperties())) {
-            $feat_ids = $this->saveFeatures();
+            $feat_ids = $this->_saveFeatures();
         }
 
-        return $feat_ids;
+        $photos_ids = array();
+
+        if (array_key_exists('photos', $this->getNewProperties())) {
+            $photos_ids = $this->_savePhotos();
+        }
+
+        return $photos_ids;
 
 
         $id = $this->_acc->_model->setAccommodation(
