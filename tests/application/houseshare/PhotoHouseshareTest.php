@@ -13,13 +13,14 @@ class PhotoHouseshareTest extends ModelTestCase {
 
     public function setUp() {
         vfsStreamWrapper::register();
-        vfsStreamWrapper::setRoot(new vfsStreamDirectory('photoDir'));
+        vfsStreamWrapper::setRoot(new vfsStreamDirectory('images'));
         $root = vfsStreamWrapper::getRoot();
-        $p1 = new vfsStreamFile('photo1.jpg');
-        $p1->setContent('content of photo1.jpg');
-        $root->addChild($p1);
-        $root->addChild(new vfsStreamFile('photo2.jpg'));
-        $root->addChild(new vfsStreamDirectory('deleted'));
+        $root->addChild(new vfsStreamDirectory('forrent'));
+        $root->addChild(new vfsStreamDirectory('forsell'));
+               
+     //   $root->addChild(new vfsStreamFile('photo1.jpg'));
+      //  $root->addChild(new vfsStreamFile('photo2.jpg'));
+       
         parent::setUp();
     }
 
@@ -130,17 +131,16 @@ class PhotoHouseshareTest extends ModelTestCase {
      */
     public function testUpdatePhoto() {
 
-        $path = vfsStream::url('photo1.jpg');
-
         $root = vfsStreamWrapper::getRoot();
 
+       // $thumb = PhpThumbFactory::create("/path/to/image.jpg");
+
          var_dump($root->getName());
-         //var_dump($root->hasChild('photo1.jpg'));
-         var_dump($root->getChild('photo1.jpg')->getContent());
-         unlink('vfs://photoDir/photo1.jpg');
-         mkdir('vfs://photoDir/dupa1');
-         var_dump($root->hasChild('photo1.jpg'));
-         var_dump($root->hasChild('dupa'));
+ 
+//         unlink('vfs://photoDir/photo1.jpg');
+//         mkdir('vfs://photoDir/dupa1');
+//         var_dump($root->hasChild('photo1.jpg'));
+//         var_dump($root->hasChild('dupa'));
 
 
        

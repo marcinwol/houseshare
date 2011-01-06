@@ -103,7 +103,7 @@
     <SHARED acc_id="2" roomates_id="1"/>
 
 
-    <PATH path_id="1" value="vfs://images/forrent/"  />
+    <PATH path_id="1" value="vfs://images/forrent/"/>
     <PATH path_id="2" value="vfs://images/forsell/"/>
 
     <PHOTO photo_id="1" acc_id="1" filename="photo1.jpg"  path_id="1" />
