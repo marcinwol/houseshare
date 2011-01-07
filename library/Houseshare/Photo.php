@@ -32,7 +32,7 @@ class My_Houseshare_Photo extends My_Houseshare_Abstract_PropertyAccessor {
     }
 
     /**
-     * Create a thumbnail image an image in $imgPath.
+     * Create a thumbnail image for image in $imgPath.
      *
      * @param string $imgPath
      * @return bool true if file was resized and saved successflully
@@ -58,7 +58,6 @@ class My_Houseshare_Photo extends My_Houseshare_Abstract_PropertyAccessor {
 
         try {
             $thumb = PhpThumbFactory::create($imgPath);
-            //$thumb->setOptions(array('resizeUp' => false));
             $thumb->adaptiveResize(self::THUMB_WIDTH, self::THUMB_HEIGHT);
 
             // mnaually format to jpg

@@ -158,6 +158,46 @@ class AccommodationHouseshareTest extends ModelTestCase {
         }
     }
 
+
+    public function testAccommodationFactory() {
+
+        // no accommodation with acc_id = 12
+        $acc = My_Houseshare_Factory::accommodation(12);
+        $this->assertTrue(null === $acc);
+
+        // get Shared object since acc_id=1 is shared.
+        $acc = My_Houseshare_Factory::accommodation(1);
+        $this->assertTrue($acc instanceof My_Houseshare_Shared);
+
+        // get Shared object since acc_id=2 is shared.
+        $acc = My_Houseshare_Factory::accommodation(2);
+        $this->assertTrue($acc instanceof My_Houseshare_Shared);
+
+        // get new accommodation object
+        $acc = My_Houseshare_Factory::accommodation();
+        $this->assertTrue($acc instanceof My_Houseshare_Accommodation);
+
+        // get new shared object
+        // at the moment there are no special classess for room or bed type.
+        // Both types are represented My_Houseshare_Shared
+        $acc = My_Houseshare_Factory::room();
+        $this->assertTrue($acc instanceof My_Houseshare_Shared);
+
+         // get new shared object
+        $acc = My_Houseshare_Factory::bed();
+        $this->assertTrue($acc instanceof My_Houseshare_Shared);
+
+        // get new shared object
+        $acc = My_Houseshare_Factory::accommodation(null,'BED');
+        $this->assertTrue($acc instanceof My_Houseshare_Shared);
+
+        // get new shared object
+        $acc = My_Houseshare_Factory::accommodation(null,'ROOM');
+        $this->assertTrue($acc instanceof My_Houseshare_Shared);
+
+    }
+
+
     /**
      * @dataProvider accommodationClassProvider
      */

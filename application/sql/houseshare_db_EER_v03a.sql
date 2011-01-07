@@ -112,6 +112,7 @@ CREATE  TABLE IF NOT EXISTS `USER` (
   `first_name` VARCHAR(45) NOT NULL ,
   `last_name` VARCHAR(45) NOT NULL ,
   `last_name_public` TINYINT(1) NOT NULL DEFAULT 1 ,
+  `type` ENUM('USER','ROOMATE','LOOKER','AGENT','OWNER') NOT NULL DEFAULT 'USER' ,
   PRIMARY KEY (`user_id`) ,
   UNIQUE INDEX `email_UNIQUE` (`email` ASC) )
 ENGINE = InnoDB;

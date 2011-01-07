@@ -132,8 +132,7 @@ class PhotoHouseshareTest extends ModelTestCase {
      */
     public function testMakeThumbImg($imgPath) {
         $vfsRoot = vfsStreamWrapper::getRoot();
-
-        //$imgPath = 'vfs://images/forrent/photo1.jpg';
+       
         $result = My_Houseshare_Photo::makeThumb($imgPath);
         $this->assertTrue($result);
 
