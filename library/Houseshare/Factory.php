@@ -1,10 +1,5 @@
 <?php
 
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 /**
  *  Factory class to create various Houseshare objects
  *
@@ -16,8 +11,8 @@ class My_Houseshare_Factory {
      * Get Houseshare_User or My_Houseshare_Roomate objects depending
      * on user type.
      *
-     * @param int $id user id
-     * @return My_Houseshare_User | null
+     * @param int|null $id user id
+     * @return My_Houseshare_User|null
      */
     static public function user($id = null) {
 
@@ -45,9 +40,9 @@ class My_Houseshare_Factory {
      * Get Houseshare_Accommodation or My_Houseshare_Shared objects depending
      * on accommodation type.
      *
-     * @param int | null $id null idif $id not found
+     * @param int|null $id null idif $id not found
      * @param string Type of an empty object to be created
-     * @return My_Houseshare_Accommodation | null null if not found
+     * @return My_Houseshare_Accommodation|null null if not found
      */
     static public function accommodation($id = null, $type = '') {
 
@@ -68,30 +63,42 @@ class My_Houseshare_Factory {
     }
 
     /**
-     * Shortcut self::accommodation($id, 'BED')
+     * Synonim to My_Houseshare_Factory::room($id, 'ROOM')
+     *
+     * At the momenet there are no speciall classes for Bed and Room. Both
+     * are threated as Shared accommodation.
+     *
+     * @see My_Houseshare_Factory::accommodation()
+     * @param int|null $id null idif $id not found
+     * @return My_Houseshare_Shared|null null if not found
+     */
+    static public function shared($id = null) {
+        return self::accommodation($id, 'BED');
+    }
+
+    /**
+     * Shortcut My_Houseshare_Factory::accommodation($id, 'BED')
      *
      * At the momenet there are no speciall classes for Bed and Room. Both
      * are threated as Shared accommodation.
      * 
-     * @see My_Houseshare_Factory::accommodation
-     * @param int | null $id null idif $id not found
-     * @param string Type of an empty object to be created
-     * @return My_Houseshare_Shared | null null if not found
+     * @see My_Houseshare_Factory::accommodation()
+     * @param int|null $id null idif $id not found
+     * @return My_Houseshare_Shared|null null if not found
      */
     static public function bed($id = null) {
         return self::accommodation($id, 'BED');
     }
 
     /**
-     * Shortcut self::accommodation($id, 'ROOM')
+     * Shortcut My_Houseshare_Factory::accommodation($id, 'ROOM')
      *
      * At the momenet there are no speciall classes for Bed and Room. Both
      * are threated as Shared accommodation.
      *
-     * @see My_Houseshare_Factory::accommodation
-     * @param int | null $id null idif $id not found
-     * @param string Type of an empty object to be created
-     * @return My_Houseshare_Shared | null null if not found
+     * @see My_Houseshare_Factory::accommodation()
+     * @param int|null $id null  if $id not found
+     * @return My_Houseshare_Shared|null null if not found
      */
     static public function room($id = null) {
         return self::accommodation($id, 'ROOM');
@@ -113,8 +120,8 @@ class My_Houseshare_Factory {
     /**
      * Get My_Houseshare_Photo object.
      *
-     * @param int | null $id of a user. New object if null
-     * @return My_Houseshare_Photo | null if $id not found
+     * @param int|null $id of a user. New object if null
+     * @return My_Houseshare_Photo|null if $id not found
      */
     static public function photo($id = null) {
         try {

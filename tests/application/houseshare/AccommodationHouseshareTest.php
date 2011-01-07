@@ -158,7 +158,6 @@ class AccommodationHouseshareTest extends ModelTestCase {
         }
     }
 
-
     public function testAccommodationFactory() {
 
         // no accommodation with acc_id = 12
@@ -173,49 +172,115 @@ class AccommodationHouseshareTest extends ModelTestCase {
         $acc = My_Houseshare_Factory::accommodation(2);
         $this->assertTrue($acc instanceof My_Houseshare_Shared);
 
+        // get Shared object since acc_id=2 is shared.
+        $acc = My_Houseshare_Factory::shared(2);
+        $this->assertTrue($acc instanceof My_Houseshare_Shared);
+
+        // At the moment there are no special classess for room or bed type.
+        // Both types are represented My_Houseshare_Shared
+        // get Shared object since acc_id=2 is shared.
+        $acc = My_Houseshare_Factory::room(2);
+        $this->assertTrue($acc instanceof My_Houseshare_Shared);
+
+        // get Shared object since acc_id=2 is shared.
+        $acc = My_Houseshare_Factory::bed(2);
+        $this->assertTrue($acc instanceof My_Houseshare_Shared);
+
         // get new accommodation object
         $acc = My_Houseshare_Factory::accommodation();
         $this->assertTrue($acc instanceof My_Houseshare_Accommodation);
 
-        // get new shared object
-        // at the moment there are no special classess for room or bed type.
-        // Both types are represented My_Houseshare_Shared
+        // get new shared object        
         $acc = My_Houseshare_Factory::room();
         $this->assertTrue($acc instanceof My_Houseshare_Shared);
 
-         // get new shared object
+        // get new shared object
         $acc = My_Houseshare_Factory::bed();
         $this->assertTrue($acc instanceof My_Houseshare_Shared);
 
         // get new shared object
-        $acc = My_Houseshare_Factory::accommodation(null,'BED');
+        $acc = My_Houseshare_Factory::shared();
         $this->assertTrue($acc instanceof My_Houseshare_Shared);
 
         // get new shared object
-        $acc = My_Houseshare_Factory::accommodation(null,'ROOM');
+        $acc = My_Houseshare_Factory::accommodation(null, 'BED');
         $this->assertTrue($acc instanceof My_Houseshare_Shared);
 
+        // get new shared object
+        $acc = My_Houseshare_Factory::accommodation(null, 'ROOM');
+        $this->assertTrue($acc instanceof My_Houseshare_Shared);
     }
-
 
     /**
      * @dataProvider accommodationClassProvider
      */
-    public function testGetRoomates1($accClass) {
-        $acc = new $accClass(1);
+    public function testInsertAccommodation1($accClass) {
 
-//        $phpt = new PHPUnit_Extensions_PhptTestCase(
-//                        __DIR__ . '/upload-layout.phpt', array('cgi' => 'php-cgi')
-//        );
-//        $result = $phpt->run();
-//        $this->assertTrue($result->wasSuccessful());
+        $newAcc = new $accClass();
 
+        $newAcc->title = "New Acc title";
+        $newAcc->description = "New description";
+        $newAcc->setAddrId(2);
+        $newAcc->setUserId(1);
+        $newAcc->date_avaliable = "2011-01-04";
+        $newAcc->price = 300;
+        $newAcc->bond = 1200;
+        $newAcc->street_address_public = 1;
+        $newAcc->short_term_ok = 0;
+        $newAcc->setTypeId(1);
 
-        // var_dump($acc->user->toArray());
-        // $acc->type = array('name' => 'Townhause', 'is_shared' => 1);
-        //  var_dump($acc->preferences->toArray());
-        // var_dump($acc->photos->toArray());
-        // var_dump($acc->save());
+        $acc_id = $newAcc->save();
+
+        $expectedAcc_id = 4;
+
+        $accRow = $this->_model->find($acc_id)->current();
+
+        $this->assertEquals(
+                array($expectedAcc_id, 'New Acc title'),
+                array($acc_id, $accRow->title)
+        );
+    }
+
+    /**
+     * @dataProvider accommodationClassProvider
+     */
+    public function testUpdateAccommodation1($accClass) {
+
+        $accRowBefore = $this->_model->find(2)->current();
+
+        $newAcc = new $accClass(2);
+
+        $newAcc->title = "New Acc title";
+        $newAcc->setAddrId(2);
+        $newAcc->setUserId(1);
+        $newAcc->date_avaliable = "2011-01-04";
+        $newAcc->bond = 1200;
+        $newAcc->setTypeId(2);
+
+        $acc_id = $newAcc->save();
+
+        $expectedAcc_id = 2;
+
+        $accRowAfter = $this->_model->find($expectedAcc_id)->current();
+
+        $this->assertEquals(
+                array(
+                    $expectedAcc_id,
+                    'New Acc title',
+                    $accRowBefore->description,
+                    $accRowBefore->price,
+                    1200,
+                    2
+                ),
+                array(
+                    $acc_id,
+                    $accRowAfter->title,
+                    $accRowAfter->description,
+                    $accRowAfter->price,
+                    $accRowAfter->bond,
+                    $accRowAfter->type_id
+                )
+        );
     }
 
 }

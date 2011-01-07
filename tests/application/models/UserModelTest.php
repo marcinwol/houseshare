@@ -39,7 +39,8 @@ class UserModelTest extends ModelTestCase {
                 'phone_public' => 1,
                 'first_name' => 'Marek',
                 'last_name' => 'Kurzynski',
-                'last_name_public' => 1
+                'last_name_public' => 1,
+                'type' => 'ROOMATE'
             ),
             null, // create new user
             4     // expected id of the new user
@@ -53,7 +54,8 @@ class UserModelTest extends ModelTestCase {
                 'phone_public' => 0,
                 'first_name' => 'Piotr',
                 'last_name' => 'Caban',
-                'last_name_public' => 0
+                'last_name_public' => 0,
+                'type' => 'ROOMATE'
             ),
             2, // update new user with id = 2
             2     // expected id is 2 (just update, no new user)

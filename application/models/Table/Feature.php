@@ -5,7 +5,6 @@
  *
  * Table ACCOMMODATION_has_FEATURE is dependant on this table.
  *
- * @todo add dependant table ACCOMMODATION_has_FEATURE
  *
  * @author marcin
  */

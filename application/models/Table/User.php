@@ -53,6 +53,7 @@ class My_Model_Table_User extends Zend_Db_Table_Abstract {
         $row->first_name = $data['first_name'];
         $row->last_name = $data['last_name'];
         $row->last_name_public = $data['last_name_public'];
+        $row->type = $data['type'];
 
         return $row->save();
     }

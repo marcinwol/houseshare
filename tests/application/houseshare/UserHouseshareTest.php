@@ -87,6 +87,7 @@ class UserHouseshareTest extends ModelTestCase {
         $user->first_name = 'Juzek';
         $user->last_name = 'Polanski';
         $user->last_name_public = '0';
+        $user->type = 'ROOMATE';
 
         if ('My_Houseshare_Roomate' == $userClass) {
             $user->is_owner = '1';

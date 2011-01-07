@@ -86,6 +86,7 @@ class My_Houseshare_Accommodation extends My_Houseshare_Abstract_PropertyAccesso
 
     public function __set($propertyName, $value) {
 
+
         if (array_key_exists($propertyName, $this->_acc->_properties)) {
             parent::__set($propertyName, $value);
             return;
@@ -231,6 +232,33 @@ class My_Houseshare_Accommodation extends My_Houseshare_Abstract_PropertyAccesso
     }
 
     /**
+     * Set addr_id
+     * 
+     * @param int $addr_id
+     */
+    public function setAddrId($addr_id) {
+        $this->_properties['addr_id'] = $addr_id;
+    }
+
+    /**
+     * Set user_id
+     *
+     * @param int $user_id
+     */
+    public function setUserId($user_id) {
+        $this->_properties['user_id'] = $user_id;
+    }
+
+    /**
+     * Set type_id
+     *
+     * @param int $user_id
+     */
+    public function setTypeId($type_id) {
+        $this->_properties['type_id'] = $type_id;
+    }
+
+    /**
      * Set new photos. The format of $value should be
      *  array of My_Houseshare_Photo objects.
      *
@@ -247,8 +275,15 @@ class My_Houseshare_Accommodation extends My_Houseshare_Abstract_PropertyAccesso
         $this->_newProperties['photos'] = $value;
     }
 
+    /**
+     * Save photos (only records in db, not actual files)
+     *
+     * @return array array of photo ids
+     */
     protected function _savePhotos() {
         $acc_id = $this->_acc->_row->acc_id;
+
+        /* @var $photos array of My_Houseshare_Photo objects */
         $photos = $this->_newProperties['photos'];
 
         $photos_ids = array();
@@ -295,48 +330,44 @@ class My_Houseshare_Accommodation extends My_Houseshare_Abstract_PropertyAccesso
         return (array) $this->_newProperties;
     }
 
-    public function save() {
+    /**
+     * Save data in database. 
+     *
+     * @return int acc_id
+     */
+    public function save($rePopulate = true) {
 
-        Zend_Db_Table::getDefaultAdapter()->beginTransaction();
+        $prefs_ids = array();
 
-        try {
-
-            $prefs_ids = array();
-
-            if (array_key_exists('preferences', $this->getNewProperties())) {
-                $prefs_ids = $this->_savePreferences();
-            }
-
-            $feat_ids = array();
-
-            if (array_key_exists('features', $this->getNewProperties())) {
-                $feat_ids = $this->_saveFeatures();
-            }
-
-            $photos_ids = array();
-
-            if (array_key_exists('photos', $this->getNewProperties())) {
-                $photos_ids = $this->_savePhotos();
-            }
-
-            $id = $this->_acc->_properties['acc_id'];
-            if (!empty($this->_acc->_changedProperties)) {
-
-                $id = $this->_acc->_model->setAccommodation(
-                                $this->getProperties(), $this->acc_id);
-            }
-
-            Zend_Db_Table::getDefaultAdapter()->commit();
-        } catch (Exception $e) {
-            Zend_Db_Table::getDefaultAdapter()->rollBack();
-            throw $e;
+        if (array_key_exists('preferences', $this->getNewProperties())) {
+            $prefs_ids = $this->_savePreferences();
         }
 
-        // before repopulating properties delete all old ones.
-        $this->_makeProperties();
-        $this->_acc->_populateProperties($id);
+        $feat_ids = array();
 
-        return $id;
+        if (array_key_exists('features', $this->getNewProperties())) {
+            $feat_ids = $this->_saveFeatures();
+        }
+
+        $photos_ids = array();
+
+        if (array_key_exists('photos', $this->getNewProperties())) {
+            $photos_ids = $this->_savePhotos();
+        }
+
+        $acc_id = $this->_properties['acc_id'];
+        if (!empty($this->_changedProperties)) {
+            $acc_id = $this->_acc->_model->setAccommodation(
+                            $this->getProperties(), $this->acc_id);
+        }
+
+        if (true === $rePopulate) {
+            // before repopulating properties delete all old ones .
+            $this->_makeProperties();
+            $this->_acc->_populateProperties($acc_id);
+        }
+
+        return $acc_id;
     }
 
 }
