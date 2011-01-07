@@ -18,12 +18,12 @@ class PhotoHouseshareTest extends ModelTestCase {
         $root->addChild(new vfsStreamDirectory('forrent'));
         $root->addChild(new vfsStreamDirectory('forsell'));
 
-        // copy test.jpg image to vfs. 
-        copy(MY_TEST_FILES . '/test.jpg', 'vfs://images/forrent/test.jpg');
-               
-     //   $root->addChild(new vfsStreamFile('photo1.jpg'));
-      //  $root->addChild(new vfsStreamFile('photo2.jpg'));
-        
+        // make some test images .
+        copy(MY_TEST_FILES . '/test.jpg', 'vfs://images/forrent/photo1.jpg');
+        copy(MY_TEST_FILES . '/lena.png', 'vfs://images/forrent/lena.png');
+        copy(MY_TEST_FILES . '/house.gif', 'vfs://images/forrent/house.gif');
+
+
         parent::setUp();
     }
 
@@ -128,6 +128,48 @@ class PhotoHouseshareTest extends ModelTestCase {
     }
 
     /**
+     * @dataProvider makeThumbImgProvider
+     */
+    public function testMakeThumbImg($imgPath) {
+        $vfsRoot = vfsStreamWrapper::getRoot();
+
+        //$imgPath = 'vfs://images/forrent/photo1.jpg';
+        $result = My_Houseshare_Photo::makeThumb($imgPath);
+        $this->assertTrue($result);
+
+        // check if thumbs folder created
+        $this->assertTrue($vfsRoot->hasChild(My_Houseshare_Photo::THUMBS_DIR_NAME));
+
+        // check if photo1.jpg is in thumbs folder.        
+        $this->assertTrue(file_exists($imgPath));
+
+        $pinfo = pathinfo($imgPath);
+        $thumbPath = 'vfs://images/' .
+                My_Houseshare_Photo::THUMBS_DIR_NAME . '/' .
+                $pinfo['filename'] . '.jpg';
+
+        //copy($thumbPath,$pinfo['filename'] . '.jpg');
+        
+        // check if its size is correct.
+        $thumb = PhpThumbFactory::create($thumbPath);
+        $this->assertEquals(
+                array(
+                    'width' => My_Houseshare_Photo::THUMB_WIDTH,
+                    'height' => My_Houseshare_Photo::THUMB_HEIGHT
+                ),
+                $thumb->getCurrentDimensions()
+        );
+    }
+
+    public function makeThumbImgProvider() {
+        return array(
+            array('vfs://images/forrent/photo1.jpg'),
+            array('vfs://images/forrent/lena.png'),
+            array('vfs://images/forrent/house.gif')
+        );
+    }
+
+    /**
      * Updating a photo is substituting files on disk, rahther than
      * records in database.
      *
@@ -136,19 +178,13 @@ class PhotoHouseshareTest extends ModelTestCase {
 
         $root = vfsStreamWrapper::getRoot();
 
-        /*@var $thumb GdThumb */
-        $thumb = PhpThumbFactory::create('vfs://images/forrent/test.jpg');
+        /* @var $thumb GdThumb */
+        $thumb = PhpThumbFactory::create('vfs://images/forrent/photo1.jpg');
         var_dump($thumb->getFormat());
+        $pinfo = pathinfo('vfs://images/forrent/photo1.jpg');
+        var_dump(basename($pinfo['dirname']));
 
-         var_dump($root->getName());
- 
-//         unlink('vfs://photoDir/photo1.jpg');
-//         mkdir('vfs://photoDir/dupa1');
-//         var_dump($root->hasChild('photo1.jpg'));
-//         var_dump($root->hasChild('dupa'));
-
-
-       
+        var_dump($root->getName());
     }
 
 }

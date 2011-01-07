@@ -13,7 +13,9 @@
 class My_Houseshare_Photo extends My_Houseshare_Abstract_PropertyAccessor {
 
     protected $_modelName = 'View_Photo';
-
+    const THUMB_WIDTH = 100;
+    const THUMB_HEIGHT = 74;
+    const THUMBS_DIR_NAME = 'thumbs';
 
     /**
      * Sets accommodation id. This must be done using this method
@@ -27,6 +29,54 @@ class My_Houseshare_Photo extends My_Houseshare_Abstract_PropertyAccessor {
 
     public function getFullPath() {
         return $this->_properties['path'] . $this->_properties['filename'];
+    }
+
+    /**
+     * Create a thumbnail image an image in $imgPath.
+     *
+     * @param string $imgPath
+     * @return bool true if file was resized and saved successflully
+     */
+    static public function makeThumb($imgPath) {
+
+        if(!file_exists($imgPath)) {
+            throw new Zend_Exception("The following file does not exist: $imgPath");
+        }
+
+        $pinfo = pathinfo($imgPath);
+        $dirName = dirname($pinfo['dirname']);
+        $fileName = $pinfo['filename'];
+        $fileExt = $pinfo['extension'];
+
+        $thumbDir = $dirName . DIRECTORY_SEPARATOR . self::THUMBS_DIR_NAME;
+      
+
+        if (!file_exists($thumbDir)) {
+            mkdir($thumbDir);
+        }
+        $outImg = $thumbDir . "/$fileName.jpg";
+
+        try {
+            $thumb = PhpThumbFactory::create($imgPath);
+            //$thumb->setOptions(array('resizeUp' => false));
+            $thumb->adaptiveResize(self::THUMB_WIDTH, self::THUMB_HEIGHT);
+
+            // mnaually format to jpg
+            $imgResource = imagecreatefromstring($thumb->getImageAsString());
+            ob_start();
+            imagejpeg($imgResource, null);
+            $imgData = ob_get_contents();
+            ob_end_clean();
+
+            //  Save file manualy
+            $fp = fopen($outImg, 'w');
+            fwrite($fp, $imgData);
+            fclose($fp);
+        } catch (Exception $e) {
+            return false;
+        }
+
+        return true;
     }
 
     /**
