@@ -283,6 +283,23 @@ class AccommodationHouseshareTest extends ModelTestCase {
         );
     }
 
+    /**
+     * @dataProvider accommodationClassProvider
+     */
+    public function testDeleteAccommodation1($accClass) {
+        $newAcc = new $accClass(2);
+        $newAcc->delete();
+
+        $accRowAfter = $this->_model->find(2)->current();
+        $this->assertTrue(null === $accRowAfter);
+
+        $accClass::deleteAcc(3);
+
+        $accRowAfter = $this->_model->find(3)->current();
+        $this->assertTrue(null === $accRowAfter);
+
+    }
+
 }
 
 ?>

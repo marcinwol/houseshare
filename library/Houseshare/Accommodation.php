@@ -241,6 +241,33 @@ class My_Houseshare_Accommodation extends My_Houseshare_Abstract_PropertyAccesso
     }
 
     /**
+     * Delete current accommodation.
+     *
+     * @return int|null number of rows deleted
+     */
+    public function delete() {      
+        if ($this->_acc->_row instanceof My_Model_Table_Row_Accommodation) {
+            return $this->_acc->_row->delete();
+        }
+        return null;
+    }
+
+    /**
+     * Delete accommodation of given id.
+     *
+     * @param int $id
+     * @return int|null number of rows deleted
+     */
+    static public function deleteAcc($id) {
+        $model = new My_Model_Table_Accommodation();
+        $accRow = $model->find($id)->current();
+        if (null !== $accRow) {
+            return $accRow->delete();
+        }
+        return null;
+    }
+
+    /**
      * Set user_id
      *
      * @param int $user_id
