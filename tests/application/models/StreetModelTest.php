@@ -93,6 +93,15 @@ class StreetModelTest extends ModelTestCase {
         );
     }
 
+    public function testFindBasedOnName() {
+        $streets = $this->_model->findBasedOnName('tatrz');
+        $this->assertEquals(1, count($streets));
+
+        $streets = $this->_model->findBasedOnName('a');
+        $this->assertEquals(4, count($streets));
+
+    }
+
 }
 
 ?>

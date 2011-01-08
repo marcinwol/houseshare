@@ -26,8 +26,8 @@ class PhotoModelTest extends ModelTestCase {
     public function testInsertPhoto($filename, $path_id, $acc_id, $expected_id) {
         $id = $this->_model->insertPhoto(array(
                     'filename' => $filename,
-                    'path_id' => $path_id,
-                    'acc_id' => $acc_id
+                    'path_id'  => $path_id,
+                    'acc_id'   => $acc_id
                 ));
         $this->assertEquals($id, $expected_id);
     }
@@ -47,8 +47,8 @@ class PhotoModelTest extends ModelTestCase {
         $id = $this->_model->updatePhoto(
                         array(
                             'filename' => $data['filename'],
-                            'path_id' => $data['path_id'],
-                            'acc_id' => $data['acc_id']
+                            'path_id'  => $data['path_id'],
+                            'acc_id'   => $data['acc_id']
                         ), $photo_id);
 
         $photoData = $this->_model->getPhoto($id)->toArray();
@@ -69,7 +69,7 @@ class PhotoModelTest extends ModelTestCase {
             ),
              array(
                 3, //photo id
-                array('acc_id' => 3, 'filename' => 'photo31.jpg', 'path_id' =>1)
+                array('acc_id' => 3, 'filename' => 'photo31.jpg', 'path_id' => 1)
             )
         );
     }
@@ -87,8 +87,8 @@ class PhotoModelTest extends ModelTestCase {
          $id = $this->_model->updatePhoto(
                         array(
                             'filename' => 'photo1.jpg',
-                            'path_id' => 1,
-                            'acc_id' => 1
+                            'path_id'  => 1,
+                            'acc_id'   => 1
                         ), 2);
 
     }
@@ -111,6 +111,11 @@ class PhotoModelTest extends ModelTestCase {
 
         $this->assertEquals(3, count($fullPaths));
 
+    }
+
+    public function testFindByNameAndPath() {
+        $row = $this->_model->findByNameAndPath('photo12.jpg',1);
+        $this->assertEquals(8, $row->photo_id);
     }
 
 }

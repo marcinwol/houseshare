@@ -1,13 +1,13 @@
 
 <phpunit bootstrap="./TestHelper.php" colors="true">
-    <testsuite name="Your Application">
+    <testsuite name="Houseshare Test Suite">
         <directory>./application</directory>
         <directory>./library</directory>
     </testsuite>
     <filter>
         <whitelist>
             <directory suffix=".php">../application/</directory>
-            <directory suffix=".php">../library/App/</directory>
+            <directory suffix=".php">../library/Houseshare/</directory>
             <exclude>
                 <directory suffix=".phtml">../application/</directory>              
                 <directory suffix=".php">../application/views</directory>

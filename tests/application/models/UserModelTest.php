@@ -113,6 +113,13 @@ class UserModelTest extends ModelTestCase {
         $user_id = $this->_model->setUser($data, null);
     }
 
-}
+    public function testGetRoomate() {
 
+         $user = $this->_model->find(2)->current();
+         $roomateRow = $user->getRoomate();
+         $this->assertEquals(0,$roomateRow->is_owner);
+
+    }
+
+}
 ?>

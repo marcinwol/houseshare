@@ -12,12 +12,13 @@ class My_Houseshare_Factory {
      * on user type.
      *
      * @param int|null $id user id
+     * @param string Type of an empty object to be created
      * @return My_Houseshare_User|null
      */
-    static public function user($id = null) {
+    static public function user($id = null, $type = '') {
 
         if (null === $id) {
-            return new My_Houseshare_User();
+            return self::_makeUserObj(null, $type);
         }
 
         $userModel = new My_Model_Table_User();
@@ -27,14 +28,34 @@ class My_Houseshare_Factory {
             return null;
         }
 
-        switch ($userRow->type) {
-            case 'USER':
-                return new My_Houseshare_User($id);
-                break;
-            case 'ROOMATE':
-                return new My_Houseshare_Roomate($id);
-        }
+         return self::_makeUserObj(null, $userRow->type);        
     }
+
+     /**
+     * Synonim to My_Houseshare_Factory::user($id, 'ROOMATE')
+     *
+     *
+     * @see My_Houseshare_Factory::user()
+     * @param int|null $id null idif $id not found
+     * @return My_Houseshare_Roomate|null null if not found
+     */
+    static public function roomate($id = null) {
+        return self::user($id, 'ROOMATE');
+    }
+
+    /**
+     * Synonim to My_Houseshare_Factory::user($id, 'LOOkER')
+     *
+     * @todo  Make My_Houseshare_Looker
+     * @see My_Houseshare_Factory::user()
+     * @param int|null $id null idif $id not found
+     * @return My_Houseshare_Looker|null null if not found
+     */
+    static public function looker($id = null) {
+        throw new Exception('My_Houseshare_Looker not implemented');
+        return self::user($id, 'LOOKER');
+    }
+
 
     /**
      * Get Houseshare_Accommodation or My_Houseshare_Shared objects depending
@@ -114,6 +135,20 @@ class My_Houseshare_Factory {
                 break;
             default:
                 return new My_Houseshare_Accommodation($id);
+        }
+    }
+
+    static protected function _makeUserObj($id, $type) {
+        switch ($type) {
+            case 'ROOMATE':
+                return new My_Houseshare_Roomate($id);
+                break;
+            case 'BED':
+                // @todo No My_Houseshare_Looker class yet.
+                return new My_Houseshare_Looker($id);
+                break;
+            default:
+                return new My_Houseshare_User($id);
         }
     }
 

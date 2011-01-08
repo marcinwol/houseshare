@@ -182,6 +182,43 @@ class UserHouseshareTest extends ModelTestCase {
         $this->assertEquals($expectedNoOfAcc, count($acc));
     }
 
+    public function testUserFactory() {
+
+         // no user with acc_id = 12
+         $user = My_Houseshare_Factory::user(12);
+         $this->assertTrue(null === $user);
+
+        // get Shared object since user_id=1 is shared.
+        $user = My_Houseshare_Factory::user(1);
+        $this->assertTrue($user instanceof My_Houseshare_Roomate);
+
+        // get Shared object since user_id=2 is shared.
+        $user = My_Houseshare_Factory::user(2);
+        $this->assertTrue($user instanceof My_Houseshare_Roomate);
+
+
+        // get roomate object since user_id=2 is shared.
+        $user = My_Houseshare_Factory::roomate(2);
+        $this->assertTrue($user instanceof My_Houseshare_Roomate);
+
+         // get new roomate object .
+        $user = My_Houseshare_Factory::roomate();
+        $this->assertTrue($user instanceof My_Houseshare_Roomate);
+
+        // get new user object .
+        $user = My_Houseshare_Factory::user();
+        $this->assertTrue($user instanceof My_Houseshare_User);
+
+         // get new user object .
+        $user = My_Houseshare_Factory::user(null, 'USER');
+        $this->assertTrue($user instanceof My_Houseshare_User);
+
+         // get new user object .
+        $user = My_Houseshare_Factory::user(null, 'ROOMATE');
+        $this->assertTrue($user instanceof My_Houseshare_Roomate);
+
+    }
+
 }
 
 ?>
