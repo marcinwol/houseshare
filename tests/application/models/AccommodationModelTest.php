@@ -26,6 +26,7 @@ class AccommodationModelTest extends ModelTestCase {
         $userData = $this->_model->find($acc_id)->current()->toArray();
         unset($userData['acc_id']);
         unset($userData['created']);
+        unset($userData['is_enabled']);
         $this->assertEquals($data, $userData);
     }
 
@@ -73,6 +74,7 @@ class AccommodationModelTest extends ModelTestCase {
 
         unset($accData['acc_id']);
         unset($accData['created']);
+        unset($accData['is_enabled']);
 
         // change only date and short_term
         $accData['date_avaliable'] = '2011-02-12';

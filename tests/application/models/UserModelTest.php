@@ -23,10 +23,11 @@ class UserModelTest extends ModelTestCase {
 
         $userData = $this->_model->find($user_id)->current()->toArray();
 
-        var_dump($userData);
+        //var_dump($userData);
 
         unset($userData['user_id']);
         unset($userData['created']);
+        unset($userData['is_enabled']);
         $this->assertEquals($data, $userData);
     }
 
@@ -70,6 +71,7 @@ class UserModelTest extends ModelTestCase {
 
         unset($userData['user_id']);
         unset($userData['created']);
+        unset($userData['is_enabled']);
 
         // change only phone info
         $userData['phone'] = 'new phone 432';
