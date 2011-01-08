@@ -34,13 +34,16 @@ abstract class My_Form_Abstract_AccommodationAbstract extends Zend_Form {
         $accInfoSubForm = new Zend_Form_SubForm();
         $accInfoSubForm->setLegend('Basic description');
 
+        //@todo  $accTypeChoice shoudl be field using type model.
+        $typeModel = new My_Model_Table_Type();
+
         // add element
         $accTypeChoice = new Zend_Form_Element_Select('acc_type');
         $accTypeChoice->setLabel('Accommodation type');
         $accTypeChoice->addMultiOptions(
                 array(
-                    '0' => "Room",
-                    '1' => "Bed",
+                    '1' => "Room",
+                    '2' => "Bed",
                 )
         );
         $accTypeChoice->setRequired(true);
@@ -300,7 +303,7 @@ abstract class My_Form_Abstract_AccommodationAbstract extends Zend_Form {
         $featuresForm = new Zend_Form_SubForm();
         $featuresForm->setLegend('Accommodation features');
 
-        $accFeatures = My_Model_Table_AccFeature::getAllFeatures()->toArray();
+        $accFeatures = My_Model_Table_Feature::getAllByType()->toArray();
 
         foreach ($accFeatures as $feature) {
             if ('0' === $feature['binary']) {
@@ -332,7 +335,9 @@ abstract class My_Form_Abstract_AccommodationAbstract extends Zend_Form {
         $featuresForm = new Zend_Form_SubForm();
         $featuresForm->setLegend('Room features');
 
-        $roomFeatures = My_Model_Table_RoomFeature::getAllFeatures()->toArray();
+        $roomTypeID = My_Model_Table_Type::getByName('Room');
+
+        $roomFeatures = My_Model_Table_Feature::getAllByType($roomTypeID->type_id)->toArray();
 
         foreach ($roomFeatures as $feature) {
             if ('0' === $feature['binary']) {
@@ -351,7 +356,8 @@ abstract class My_Form_Abstract_AccommodationAbstract extends Zend_Form {
         $featuresForm = new Zend_Form_SubForm();
         $featuresForm->setLegend('Bed features');
 
-        $bedFeatures = My_Model_Table_BedFeature::getAllFeatures()->toArray();
+        $bedTypeID = My_Model_Table_Type::getByName('Bed');
+        $bedFeatures = My_Model_Table_Feature::getAllByType($bedTypeID->type_id)->toArray();
 
         if (count($bedFeatures) == 0) {
             return null;

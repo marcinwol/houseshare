@@ -24,9 +24,11 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
         $resourceLoader->addResourceType('form', 'forms/', 'My_Form_');
         $resourceLoader->addResourceType('model', 'models/', 'My_Model_');
         $resourceLoader->addResourceType('validate', 'validators/', 'My_Validate_');
+        $resourceLoader->addResourceType('loader', 'loaders/', 'My_Loader_');
 
 
         $autoLoader->pushAutoloader($resourceLoader);
+        $autoLoader->pushAutoloader(new My_Loader_Autoloader_PhpThumb());
 
 
         // add 'My_' namespace for library/houseshare

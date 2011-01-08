@@ -19,6 +19,20 @@ class ModelTestCase extends Zend_Test_PHPUnit_DatabaseTestCase {
     private $_connectionMock;
     public $application;
 
+    /**
+     * Instance of a model class to be tested.
+     *
+     * @var Zend_Db_Table
+     */
+    protected $_model;
+    
+    /**
+     * Model to be tested
+     * 
+     * @var string 
+     */
+    protected $_modelName='';
+
     public function setUp() {
 
         $this->application = new Zend_Application(
@@ -26,7 +40,16 @@ class ModelTestCase extends Zend_Test_PHPUnit_DatabaseTestCase {
                         APPLICATION_PATH . '/configs/application.ini'
         );
         $this->appBootstrap();
+
+        $this->_initModel();
+
         parent::setUp();
+    }
+
+    protected function _initModel() {
+        if (!empty($this->_modelName)) {
+            $this->_model = new  $this->_modelName();
+        }
     }
 
     public function appBootstrap() {
@@ -56,6 +79,15 @@ class ModelTestCase extends Zend_Test_PHPUnit_DatabaseTestCase {
         return $this->createFlatXmlDataSet(
                 dirname(__FILE__) . '/_files/database_seed.xml'
         );
+    }
+
+    public function tearDown() {
+         if (!empty($this->_modelName)) {
+            $this->_model->getAdapter()->closeConnection();
+         }
+        $this->_model = null;
+        $this->_connectionMock->close();
+        parent::tearDown();
     }
 
 }

@@ -10,12 +10,19 @@
  * @author marcin
  */
 class PreferenceModelTest extends ModelTestCase {
-    //put your code here
 
-    public function testGetAllPreferences() {
-        $modelState = new My_Model_Table_Preference();
-        $arrayStates = $modelState->getPreferences()->toArray();
-        $this->assertEquals(count($arrayStates),5);
+
+    protected $_modelName = 'My_Model_Table_Preference';
+
+
+    public function testGetAll1() {
+        $rowset = $this->_model->getPreferences();
+        $this->assertEquals(count($rowset),5);
+    }
+
+    public function testGetAll2() {
+        $rowset = My_Model_Table_Preference::getAllPreferences();
+        $this->assertEquals(count($rowset),5);
     }
 
 }

@@ -12,22 +12,7 @@
  */
 class AccommodationModelTest extends ModelTestCase {
 
-    /**
-     * Accommodation table model
-     *
-     * @var My_Model_Table_Accommodation
-     */
-    private $_model;
-
-    public function setUp() {
-        parent::setUp();
-        $this->_model = new My_Model_Table_Accommodation();
-    }
-
-    public function tearDown() {
-        $this->_model = null;
-        parent::tearDown();
-    }
+    protected $_modelName = 'My_Model_Table_Accommodation';
 
     /**
      * @dataProvider setAccommodationDataProvider
@@ -41,6 +26,7 @@ class AccommodationModelTest extends ModelTestCase {
         $userData = $this->_model->find($acc_id)->current()->toArray();
         unset($userData['acc_id']);
         unset($userData['created']);
+        unset($userData['is_enabled']);
         $this->assertEquals($data, $userData);
     }
 
@@ -58,7 +44,8 @@ class AccommodationModelTest extends ModelTestCase {
                 'price' => 300,
                 'bond' => 1200,
                 'street_address_public' => 1,
-                'short_term_ok' => 1
+                'short_term_ok' => 1,
+                'type_id' => 2
             ),
             null, // create new Accommodation
             4     // expected id of the new Accommodation
@@ -74,7 +61,8 @@ class AccommodationModelTest extends ModelTestCase {
                 'price' => 300,
                 'bond' => 1200,
                 'street_address_public' => 1,
-                'short_term_ok' => 1
+                'short_term_ok' => 1,
+                'type_id' => 1
             ),
             2, // update new Accommodation with id = 2
             2   // expected id is 2 (just update, no new Accommodation)
@@ -86,6 +74,7 @@ class AccommodationModelTest extends ModelTestCase {
 
         unset($accData['acc_id']);
         unset($accData['created']);
+        unset($accData['is_enabled']);
 
         // change only date and short_term
         $accData['date_avaliable'] = '2011-02-12';
@@ -127,7 +116,8 @@ class AccommodationModelTest extends ModelTestCase {
             'price' => 300,
             'bond' => 1200,
             'street_address_public' => 1,
-            'short_term_ok' => 1
+            'short_term_ok' => 1,
+            'type_id' => 3
         );
 
         // create new user
@@ -161,7 +151,7 @@ class AccommodationModelTest extends ModelTestCase {
     public function getAddressDataProvider() {
         return array(
             array(
-                1,    //acc_id
+                1, //acc_id
                 array(// expected data
                     'street_no' => '23c',
                     'street_name' => 'Hapden Rd',
@@ -171,7 +161,7 @@ class AccommodationModelTest extends ModelTestCase {
                 )
             ),
             array(
-                3,    //acc_id
+                3, //acc_id
                 array(// expected data
                     'street_no' => '212',
                     'street_name' => 'Wyb. Wyspianskiego',
@@ -204,19 +194,145 @@ class AccommodationModelTest extends ModelTestCase {
     public function getUserDataProvider() {
         return array(
             array(
-                1,    //acc_id
+                1, //acc_id
                 array(// expected data
                     'first_name' => 'Marcin',
                     'last_name' => 'Wolski'
                 )
             ),
             array(
-                3,    //acc_id
+                3, //acc_id
                 array(// expected data
                     'first_name' => 'Michal',
                     'last_name' => 'Chojcan'
                 )
             )
+        );
+    }
+
+    public function testCountPhotos() {
+        $row = $this->_model->find(1)->current();
+        $this->assertEquals(3, count($row->getPhotos()));
+
+        $row = $this->_model->find(2)->current();
+        $this->assertEquals(0, count($row->getPhotos()));
+
+        $row = $this->_model->find(3)->current();
+        $this->assertEquals(2, count($row->getPhotos()));
+    }
+
+    /**
+     * @dataProvider getPhotoPathsProvider
+     */
+    public function testGetPhotoPaths($acc_id, $expected_ids) {
+        $accRow = $this->_model->find($acc_id)->current();
+        $photoPaths = $accRow->getPhotoPaths();
+
+
+        // get only photo ids
+        $photo_ids = My_Houseshare_Tools::getSLValsInArray($photoPaths, 'photo_id');
+
+        $this->assertEquals($expected_ids, $photo_ids);
+    }
+
+    public function getPhotoPathsProvider() {
+        return array(
+            array(1, array(1, 2, 3)),
+            array(2, array()),
+            array(3, array(7, 8))
+        );
+    }
+
+    public function testCountFeatures() {
+        $accRow = $this->_model->find(1)->current();
+        $rowset = $accRow->getFeatures();
+        $this->assertEquals(2, count($rowset));
+
+        $accRow = $this->_model->find(3)->current();
+        $rowset = $accRow->getFeatures();
+        $this->assertEquals(3, count($rowset));
+    }
+
+    public function testCountPreferences() {
+        $accRow = $this->_model->find(1)->current();
+        $rowset = $accRow->getPreferences();
+        $this->assertEquals(4, count($rowset));
+
+        $accRow = $this->_model->find(3)->current();
+        $rowset = $accRow->getPreferences();
+        $this->assertEquals(0, count($rowset));
+    }
+
+    /**
+     * @dataProvider getSharedAccProvider
+     */
+    public function testGetSharedAcc($acc_id, $expected) {
+        $accRow = $this->_model->find($acc_id)->current();
+        $result = $accRow->getShared();
+
+        if (3 == $acc_id) {
+            // no shared row for acc_id = 3.
+            $this->assertTrue(is_null($result));
+            return;
+        }
+
+        $this->assertEquals(
+                array($expected['acc_id'], $expected['roomates_id']),
+                array($result->acc_id    , $result->roomates_id)
+        );             
+    }
+
+    public function getSharedAccProvider() {
+        return array(
+            array(1,array('acc_id' => 1, 'roomates_id' => null)),
+            array(2,array('acc_id' => 2, 'roomates_id' => 1)),
+            array(3,null)
+        );
+    }
+
+
+    /**
+     * @dataProvider deletePreferencesProvider
+     */
+    public function testDeletePreferences($acc_id, $expected_count) {
+          $accRow = $this->_model->find($acc_id)->current();
+          $result = $accRow->detelePreferences();
+
+          $this->assertEquals($expected_count, $result);
+          $this->assertEquals(0, $accRow->getPreferences()->count());
+
+
+          ;
+    }
+
+    public function deletePreferencesProvider() {
+        return array(
+            array(1, 4),
+            array(2, 2),
+            array(3, 0),
+        );
+    }
+
+
+     /**
+     * @dataProvider deleteFeaturesProvider
+     */
+    public function testDeleteFeatures($acc_id, $expected_count) {
+          $accRow = $this->_model->find($acc_id)->current();
+          $result = $accRow->deteleFeatures();
+
+          $this->assertEquals($expected_count, $result);
+          $this->assertEquals(0, $accRow->getFeatures()->count());
+
+
+          ;
+    }
+
+    public function deleteFeaturesProvider() {
+        return array(
+            array(1, 2),
+            array(2, 3),
+            array(3, 3),
         );
     }
 

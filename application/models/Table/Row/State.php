@@ -14,7 +14,7 @@ class My_Model_Table_Row_State extends Zend_Db_Table_Row_Abstract {
     /**
      * Get Cities in the current state.
      *
-     * @return Zend_Db_Table_RowSet
+     * @return Zend_Db_Table_Rowset
      */
     public function getCities() {
         return $this->findDependentRowset('My_Model_Table_City');

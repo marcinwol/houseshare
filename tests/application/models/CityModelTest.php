@@ -12,26 +12,17 @@
  */
 class CityModelTest extends ModelTestCase {
 
-    /**
-     * CITY table model
-     *
-     * @var My_Model_Table_City
-     */
-    private $_model;
-
-    public function setUp() {
-        parent::setUp();
-        $this->_model = new My_Model_Table_City();
-    }
-
-    public function tearDown() {
-        $this->_model = null;
-        parent::tearDown();
-    }
+    protected $_modelName = 'My_Model_Table_City';
 
     public function testGetAllCities() {
-        $arrayStates = $this->_model->getCities()->toArray();
-        $this->assertEquals(count($arrayStates), 3);
+        $citis = $this->_model->getCities();
+        $this->assertEquals(count($citis), 3);
+
+        $citis = My_Model_Table_City::getAllCities();
+        $this->assertEquals(count($citis), 3);
+
+        $citis = My_Model_Table_City::getAllCitiesAsArray();
+        $this->assertEquals(count($citis), 3);
     }
 
     public function testGetAllCitiesByPartialName() {
@@ -87,7 +78,7 @@ class CityModelTest extends ModelTestCase {
             array(2, 'Nowy targ updated', 2, 2), //no references
             array(2, 'Nowy tg updated1', 3, 2), //no references
             array(3, 'Wroclaw updated', 3, 4), // many references
-            array(3, 'Wroclaw', 2, 4),     // many references
+            array(3, 'Wroclaw', 2, 4), // many references
             array(3, 'Wroclaw updated2', 1, 4), // many references
         );
     }

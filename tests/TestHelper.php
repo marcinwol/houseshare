@@ -9,6 +9,9 @@ defined('APPLICATION_PATH')
 // Define testing application environment
 define('APPLICATION_ENV', 'testing');
 
+// Define files folder
+define('MY_TEST_FILES', realpath(dirname(__FILE__) . '/application/_files') );
+
 // Ensure library/ is on include_path
 set_include_path(implode(PATH_SEPARATOR, array(
             realpath(APPLICATION_PATH . '/../library'),

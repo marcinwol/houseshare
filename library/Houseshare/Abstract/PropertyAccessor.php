@@ -17,16 +17,12 @@ abstract class My_Houseshare_Abstract_PropertyAccessor {
      * @var My_Model_Table_Row 
      */
     protected $_row;
-
     /**
      *
      * @var string 
      */
-    
     protected $_isView = false;
-
     protected $_id = null;
-
     protected $_modelName;
     protected $_properties = array();
     protected $_changedProperties = array();
@@ -46,8 +42,6 @@ abstract class My_Houseshare_Abstract_PropertyAccessor {
             $this->_id = $id;
             $this->_populateProperties($id);
         }
-
-         
     }
 
     /**
@@ -71,7 +65,6 @@ abstract class My_Houseshare_Abstract_PropertyAccessor {
     protected function getModel() {
         $modelName = 'My_Model_Table_' . str_replace('View_', '', $this->_modelName);
         return new $modelName();
-
     }
 
     /**
@@ -122,7 +115,7 @@ abstract class My_Houseshare_Abstract_PropertyAccessor {
         foreach ($this->_properties as $prop => $val) {
             $this->_properties[$prop] = $this->_row->$prop;
         }
-        
+
         $this->_cleanChangedProperties();
     }
 
@@ -134,7 +127,6 @@ abstract class My_Houseshare_Abstract_PropertyAccessor {
         $this->_changedProperties = array();
     }
 
-
     /**
      * Get Properties
      *
@@ -144,6 +136,55 @@ abstract class My_Houseshare_Abstract_PropertyAccessor {
         return $this->_properties;
     }
 
+    public function toArray() {
+        return (array) $this->getProperties();
+    }
+
+    /**
+     * Check if $data that we want to set rowset has all the colums in the table.
+     *
+     * @param Zend_Db_Table $model from which colums will be read
+     * @param array $data array to compare if columns are present
+     * @param string $property property for which comparison is made
+     */
+    protected function _checkIfColsArePresentInRowset(
+    Zend_Db_Table_Abstract $model, array $rowset, $property = '') {
+
+        $cols = $model->info('cols');
+        //$primary = $model->info('primary');
+
+        foreach ($rowset as $row) {
+
+            $diff = array_diff($cols, array_keys($row));
+
+            if (count($diff) > 0) {
+                $missing_keys = implode(", ", $diff);
+                $msg = "Keys \"$missing_keys\" missing to set property \"$property\"";
+                throw new Zend_Exception($msg);
+            }
+        }
+    }
+
+    /**
+     * Check if $data that we want to set row has all the colums in the table.
+     *
+     * @param Zend_Db_Table $model from which colums will be read
+     * @param array $data array to compare if columns are present
+     * @param string $property property for which comparison is made
+     */
+    protected function _checkIfColsArePresentInRow(
+    Zend_Db_Table_Abstract $model, array $row, $property = '') {
+
+        $cols = $model->info('cols');
+
+        $diff = array_diff($cols, array_keys($row));
+
+        if (count($diff) > 0) {
+            $missing_keys = implode(", ", $diff);
+            $msg = "Keys \"$missing_keys\" missing to set property \"$property\"";
+            throw new Zend_Exception($msg);
+        }
+    }
 
     /**
      * Save new address in the database if necessery.

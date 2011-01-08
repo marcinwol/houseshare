@@ -15,7 +15,7 @@ class My_Model_Table_Row_Address extends Zend_Db_Table_Row_Abstract {
      /**
      * Get Accommodations in the current address.
      *
-     * @return Zend_Db_Table_RowSet
+     * @return Zend_Db_Table_Rowset
      */
     public function getAccommodations() {
         return $this->findDependentRowset('My_Model_Table_Accommodation');
@@ -24,7 +24,7 @@ class My_Model_Table_Row_Address extends Zend_Db_Table_Row_Abstract {
      /**
      * Get Street Row for the current address row.
      *
-     * @return Zend_Db_Table_Row
+     * @return Zend_Db_Table_Row_Street
      */
     public function getStreet() {
         return $this->findParentRow('My_Model_Table_Street');
@@ -34,7 +34,7 @@ class My_Model_Table_Row_Address extends Zend_Db_Table_Row_Abstract {
     /**
      * Get Zip Row for the current address row.
      *
-     * @return Zend_Db_Table_Row
+     * @return Zend_Db_Table_Row_Zip
      */
     public function getZip() {
         return $this->findParentRow('My_Model_Table_Zip');
@@ -53,7 +53,7 @@ class My_Model_Table_Row_Address extends Zend_Db_Table_Row_Abstract {
     /**
      * Get State Row for the current address row.
      *
-     * @return Zend_Db_Table_Row
+     * @return Zend_Db_Table_Row_State
      */
     public function getState() {
         return $this->getCity()->getState();

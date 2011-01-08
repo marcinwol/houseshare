@@ -12,23 +12,7 @@
  */
 class UserModelTest extends ModelTestCase {
 
-    /**
-     * USEr table model
-     *
-     * @var My_Model_Table_User
-     */
-    private $_model;
-
-    public function setUp() {
-        parent::setUp();
-        $this->_model = new My_Model_Table_User();
-    }
-
-    public function tearDown() {
-        $this->_model = null;
-        parent::tearDown();
-    }
-
+    protected $_modelName = 'My_Model_Table_User';
     /**
      * @dataProvider setUserDataProvider
      */
@@ -38,8 +22,12 @@ class UserModelTest extends ModelTestCase {
         $this->assertEquals($expectedID, $user_id);
 
         $userData = $this->_model->find($user_id)->current()->toArray();
+
+        //var_dump($userData);
+
         unset($userData['user_id']);
         unset($userData['created']);
+        unset($userData['is_enabled']);
         $this->assertEquals($data, $userData);
     }
 
@@ -55,7 +43,8 @@ class UserModelTest extends ModelTestCase {
                 'phone_public' => 1,
                 'first_name' => 'Marek',
                 'last_name' => 'Kurzynski',
-                'last_name_public' => 1
+                'last_name_public' => 1,
+                'type' => 'ROOMATE'
             ),
             null, // create new user
             4     // expected id of the new user
@@ -69,7 +58,8 @@ class UserModelTest extends ModelTestCase {
                 'phone_public' => 0,
                 'first_name' => 'Piotr',
                 'last_name' => 'Caban',
-                'last_name_public' => 0
+                'last_name_public' => 0,
+                'type' => 'ROOMATE'
             ),
             2, // update new user with id = 2
             2     // expected id is 2 (just update, no new user)
@@ -81,6 +71,7 @@ class UserModelTest extends ModelTestCase {
 
         unset($userData['user_id']);
         unset($userData['created']);
+        unset($userData['is_enabled']);
 
         // change only phone info
         $userData['phone'] = 'new phone 432';
@@ -127,6 +118,13 @@ class UserModelTest extends ModelTestCase {
         $user_id = $this->_model->setUser($data, null);
     }
 
-}
+    public function testGetRoomate() {
 
+         $user = $this->_model->find(2)->current();
+         $roomateRow = $user->getRoomate();
+         $this->assertEquals(0,$roomateRow->is_owner);
+
+    }
+
+}
 ?>
