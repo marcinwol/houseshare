@@ -132,23 +132,35 @@ class PhotoHouseshareTest extends ModelTestCase {
      */
     public function testMakeThumbImg($imgPath) {
         $vfsRoot = vfsStreamWrapper::getRoot();
-       
+
         $result = My_Houseshare_Photo::makeThumb($imgPath);
         $this->assertTrue($result);
 
-        // check if thumbs folder created
-        $this->assertTrue($vfsRoot->hasChild(My_Houseshare_Photo::THUMBS_DIR_NAME));
-
-        // check if photo1.jpg is in thumbs folder.        
-        $this->assertTrue(file_exists($imgPath));
-
         $pinfo = pathinfo($imgPath);
         $thumbPath = 'vfs://images/' .
-                My_Houseshare_Photo::THUMBS_DIR_NAME . '/' .
+                My_Houseshare_Photo::THUMBS_DIR_NAME . 'forrent/' .
                 $pinfo['filename'] . '.jpg';
 
+
+//        foreach ($vfsRoot->getChildren() as $child) {
+//            var_dump($child->getName());
+//        }
+
+
+        // check if thumbs folder created
+        $this->assertTrue(
+                file_exists('vfs://images/' . My_Houseshare_Photo::THUMBS_DIR_NAME)
+        );
+
+
+
+
+        // check if photo1.jpg is in thumbs folder.
+        $this->assertTrue(file_exists($thumbPath));
+
+//        var_dump($thumbPath);
+
         //copy($thumbPath,$pinfo['filename'] . '.jpg');
-        
         // check if its size is correct.
         $thumb = PhpThumbFactory::create($thumbPath);
         $this->assertEquals(
@@ -167,24 +179,24 @@ class PhotoHouseshareTest extends ModelTestCase {
             array('vfs://images/forrent/house.gif')
         );
     }
-    
-    
+
     public function testDeletePhoto() {
         $root = vfsStreamWrapper::getRoot();
 
         // check if file exists before deleting photo
         $this->assertTrue(file_exists('vfs://images/forrent/photo1.jpg'));
-        
+
 
         $photo = My_Houseshare_Factory::photo(1);
         $photo->delete();
- 
+
+        //var_dump($photo->getThumbPath());
+
         $photoRow = $this->_model->getPhoto(1);
         $this->assertTrue(null === $photoRow);
 
-         // assert if file DON'T exists after deleting photo
-         $this->assertFalse(file_exists('vfs://images/forrent/photo1.jpg'));
-
+        // assert if file DON'T exists after deleting photo
+        $this->assertFalse(file_exists('vfs://images/forrent/photo1.jpg'));
     }
 
     /**
@@ -198,11 +210,10 @@ class PhotoHouseshareTest extends ModelTestCase {
 
         /* @var $thumb GdThumb */
         $thumb = PhpThumbFactory::create('vfs://images/forrent/photo1.jpg');
-     //   var_dump($thumb->getFormat());
+        //   var_dump($thumb->getFormat());
         $pinfo = pathinfo('vfs://images/forrent/photo1.jpg');
-      //  var_dump(basename($pinfo['dirname']));
-
-       // var_dump($root->getName());
+        //  var_dump(basename($pinfo['dirname']));
+        // var_dump($root->getName());
     }
 
 }

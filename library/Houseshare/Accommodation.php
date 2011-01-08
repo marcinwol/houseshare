@@ -248,7 +248,7 @@ class My_Houseshare_Accommodation extends My_Houseshare_Abstract_PropertyAccesso
      *
      * @return int|null number of rows deleted
      */
-    public function delete() {      
+    public function delete() {
         if ($this->_acc->_row instanceof My_Model_Table_Row_Accommodation) {
             return $this->_acc->_row->delete();
         }
@@ -293,7 +293,7 @@ class My_Houseshare_Accommodation extends My_Houseshare_Abstract_PropertyAccesso
 
     /**
      * Set new photos. The format of $value should be
-     *  array of My_Houseshare_Photo objects.
+     * array of My_Houseshare_Photo objects.
      *
      * To remove all photos set $value = array();
      *

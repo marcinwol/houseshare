@@ -8,6 +8,9 @@
 /**
  * Description of Photo
  *
+ * Note: It is assumed that thumb images should be located in the
+ * same folder as forrent/ forsell/ folders.
+ *
  * @author marcin
  */
 class My_Houseshare_Photo extends My_Houseshare_Abstract_PropertyAccessor {
@@ -15,7 +18,7 @@ class My_Houseshare_Photo extends My_Houseshare_Abstract_PropertyAccessor {
     protected $_modelName = 'View_Photo';
     const THUMB_WIDTH = 100;
     const THUMB_HEIGHT = 74;
-    const THUMBS_DIR_NAME = 'thumbs';
+    const THUMBS_DIR_NAME = 'thumbs/';
 
     /**
      * Sets accommodation id. This must be done using this method
@@ -32,7 +35,30 @@ class My_Houseshare_Photo extends My_Houseshare_Abstract_PropertyAccessor {
     }
 
     /**
+     * Get path to the thumb image of a current photo.
+     * 
+     * Note: It is assumed that thumb images should be located in the
+     * same folder as forrent/ forsell/ folders.
+     *
+     * @return string path to thumb image
+     */
+    public function getThumbPath() {
+        $pinfo = pathinfo($this->getFullPath());
+
+        $dirName = dirname($pinfo['dirname']);
+        $baseDirName = basename($pinfo['dirname']);
+        $fileName = $pinfo['filename'];
+        $fileExt = $pinfo['extension'];
+
+        return $dirName . DIRECTORY_SEPARATOR . self::THUMBS_DIR_NAME .
+        $baseDirName . DIRECTORY_SEPARATOR . $fileName . '.jpg';
+    }
+
+    /**
      * Create a thumbnail image for image in $imgPath.
+     *
+     * Note: It is assumed that thumb images should be located in the 
+     * same folder as forrent/ forsell/ folders.
      *
      * @param string $imgPath
      * @return bool true if file was resized and saved successflully
@@ -45,14 +71,18 @@ class My_Houseshare_Photo extends My_Houseshare_Abstract_PropertyAccessor {
 
         $pinfo = pathinfo($imgPath);
         $dirName = dirname($pinfo['dirname']);
+        $baseDirName = basename($pinfo['dirname']);
         $fileName = $pinfo['filename'];
         $fileExt = $pinfo['extension'];
 
-        $thumbDir = $dirName . DIRECTORY_SEPARATOR . self::THUMBS_DIR_NAME;
+        $thumbDir = $dirName . DIRECTORY_SEPARATOR . self::THUMBS_DIR_NAME .
+                    $baseDirName . DIRECTORY_SEPARATOR;
 
 
         if (!file_exists($thumbDir)) {
-            mkdir($thumbDir);
+            if (!mkdir($thumbDir, 0777, true)) {
+                throw new Exception("Failure creating $thumbDir folder");
+            }
         }
         $outImg = $thumbDir . "/$fileName.jpg";
 
@@ -88,7 +118,7 @@ class My_Houseshare_Photo extends My_Houseshare_Abstract_PropertyAccessor {
     public function delete() {
         $model = $this->getModel();
         $row = $model->find($this->photo_id)->current();
-    
+
         if ($row instanceof My_Model_Table_Row_Photo) {
             if (file_exists($this->getFullPath())) {
                 if (!unlink($this->getFullPath())) {
