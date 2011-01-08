@@ -41,8 +41,7 @@ class My_Houseshare_Shared extends My_Houseshare_Accommodation {
      * @param int $roomates_id
      */
     public function setRoomatesId($roomates_id) {
-        $this->_properties['roomates_id'] = $roomates_id;
-         var_dump($this->_properties);
+        $this->_properties['roomates_id'] = $roomates_id;        
     }
 
     /**

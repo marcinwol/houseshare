@@ -179,11 +179,11 @@ class PhotoHouseshareTest extends ModelTestCase {
 
         /* @var $thumb GdThumb */
         $thumb = PhpThumbFactory::create('vfs://images/forrent/photo1.jpg');
-        var_dump($thumb->getFormat());
+     //   var_dump($thumb->getFormat());
         $pinfo = pathinfo('vfs://images/forrent/photo1.jpg');
-        var_dump(basename($pinfo['dirname']));
+      //  var_dump(basename($pinfo['dirname']));
 
-        var_dump($root->getName());
+       // var_dump($root->getName());
     }
 
 }

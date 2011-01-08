@@ -243,6 +243,9 @@ class My_Houseshare_Accommodation extends My_Houseshare_Abstract_PropertyAccesso
     /**
      * Delete current accommodation.
      *
+     * Note: This will also delete corresponding shared
+     * accommodation row. 
+     *
      * @return int|null number of rows deleted
      */
     public function delete() {      
@@ -254,6 +257,9 @@ class My_Houseshare_Accommodation extends My_Houseshare_Abstract_PropertyAccesso
 
     /**
      * Delete accommodation of given id.
+     *
+     * Note: This will also delete corresponding shared
+     * accommodation row. 
      *
      * @param int $id
      * @return int|null number of rows deleted
