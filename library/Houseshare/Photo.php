@@ -39,7 +39,7 @@ class My_Houseshare_Photo extends My_Houseshare_Abstract_PropertyAccessor {
      */
     static public function makeThumb($imgPath) {
 
-        if(!file_exists($imgPath)) {
+        if (!file_exists($imgPath)) {
             throw new Zend_Exception("The following file does not exist: $imgPath");
         }
 
@@ -49,7 +49,7 @@ class My_Houseshare_Photo extends My_Houseshare_Abstract_PropertyAccessor {
         $fileExt = $pinfo['extension'];
 
         $thumbDir = $dirName . DIRECTORY_SEPARATOR . self::THUMBS_DIR_NAME;
-      
+
 
         if (!file_exists($thumbDir)) {
             mkdir($thumbDir);
@@ -76,6 +76,28 @@ class My_Houseshare_Photo extends My_Houseshare_Abstract_PropertyAccessor {
         }
 
         return true;
+    }
+
+    /**
+     * Delete current photo.
+     *
+     * Note: This will also try to delete (if exisits) image file from the disk.
+     *
+     * @return int|null number of rows deleted
+     */
+    public function delete() {
+        $model = $this->getModel();
+        $row = $model->find($this->photo_id)->current();
+    
+        if ($row instanceof My_Model_Table_Row_Photo) {
+            if (file_exists($this->getFullPath())) {
+                if (!unlink($this->getFullPath())) {
+                    throw new Exception("Failed deleting {$this->path}");
+                }
+            }
+            return $row->delete();
+        }
+        return null;
     }
 
     /**

@@ -167,6 +167,25 @@ class PhotoHouseshareTest extends ModelTestCase {
             array('vfs://images/forrent/house.gif')
         );
     }
+    
+    
+    public function testDeletePhoto() {
+        $root = vfsStreamWrapper::getRoot();
+
+        // check if file exists before deleting photo
+        $this->assertTrue(file_exists('vfs://images/forrent/photo1.jpg'));
+        
+
+        $photo = My_Houseshare_Factory::photo(1);
+        $photo->delete();
+ 
+        $photoRow = $this->_model->getPhoto(1);
+        $this->assertTrue(null === $photoRow);
+
+         // assert if file DON'T exists after deleting photo
+         $this->assertFalse(file_exists('vfs://images/forrent/photo1.jpg'));
+
+    }
 
     /**
      * Updating a photo is substituting files on disk, rahther than
