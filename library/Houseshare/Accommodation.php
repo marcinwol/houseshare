@@ -127,6 +127,12 @@ class My_Houseshare_Accommodation extends My_Houseshare_Abstract_PropertyAccesso
      * @param array $value rowset in array form of new preferences
      */
     public function setPreferences($property, array $value) {
+        
+        if (is_null($this->_acc->_row)) {
+            throw new Zend_Db_Table_Row_Exception(
+                    "Cannot set properties if accommodation row is NULL."
+            );
+        }
 
         $acc_id = $this->_acc->_row->acc_id;
 
@@ -181,6 +187,13 @@ class My_Houseshare_Accommodation extends My_Houseshare_Abstract_PropertyAccesso
      * @param array $value rowset in array form of new features
      */
     public function setFeatures($property, array $value) {
+
+        if (is_null($this->_acc->_row)) {
+            throw new Zend_Db_Table_Row_Exception(
+                    "Cannot set features if accommodation row is NULL."
+            );
+        }
+
         $acc_id = $this->_acc->_row->acc_id;
 
         $accsFeatsModel = new My_Model_Table_AccsFeatures();

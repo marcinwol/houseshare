@@ -113,6 +113,7 @@ CREATE  TABLE IF NOT EXISTS `USER` (
   `last_name` VARCHAR(45) NOT NULL ,
   `last_name_public` TINYINT(1) NOT NULL DEFAULT 1 ,
   `type` ENUM('USER','ROOMATE','LOOKER','AGENT','OWNER') NOT NULL DEFAULT 'USER' ,
+  `is_enabled` TINYINT(1) NOT NULL DEFAULT 1 ,
   PRIMARY KEY (`user_id`) ,
   UNIQUE INDEX `email_UNIQUE` (`email` ASC) )
 ENGINE = InnoDB;
@@ -150,6 +151,7 @@ CREATE  TABLE IF NOT EXISTS `ACCOMMODATION` (
   `street_address_public` TINYINT(1) NOT NULL DEFAULT 0 ,
   `short_term_ok` TINYINT(1) NOT NULL DEFAULT 1 ,
   `type_id` INT UNSIGNED NOT NULL ,
+  `is_enabled` TINYINT(1) NOT NULL DEFAULT 1 ,
   PRIMARY KEY (`acc_id`) ,
   INDEX `fk_ACCOMODATION_ADDRESS1` (`addr_id` ASC) ,
   INDEX `fk_ACCOMODATION_USER1` (`user_id` ASC) ,

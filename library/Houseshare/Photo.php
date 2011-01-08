@@ -30,6 +30,16 @@ class My_Houseshare_Photo extends My_Houseshare_Abstract_PropertyAccessor {
         $this->_properties['acc_id'] = (string) $id;
     }
 
+    /**
+     * Sets path id. This must be done using this method
+     * since directly setting id properties is not allowed.
+     *
+     * @param int $id  path id
+     */
+    public function setPathId($id) {
+        $this->_properties['path_id'] =  $id;
+    }
+
     public function getFullPath() {
         return $this->_properties['path'] . $this->_properties['filename'];
     }
@@ -76,7 +86,7 @@ class My_Houseshare_Photo extends My_Houseshare_Abstract_PropertyAccessor {
         $fileExt = $pinfo['extension'];
 
         $thumbDir = $dirName . DIRECTORY_SEPARATOR . self::THUMBS_DIR_NAME .
-                    $baseDirName . DIRECTORY_SEPARATOR;
+                $baseDirName . DIRECTORY_SEPARATOR;
 
 
         if (!file_exists($thumbDir)) {
@@ -141,7 +151,7 @@ class My_Houseshare_Photo extends My_Houseshare_Abstract_PropertyAccessor {
     public function save() {
 
         // insert path
-        if (in_array('path', $this->_changedProperties)) {
+        if (array_key_exists('path', $this->_changedProperties)) {
             $pathModel = new My_Model_Table_Path();
 
             $path_id = $pathModel->insertPath(

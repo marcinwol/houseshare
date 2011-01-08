@@ -22,6 +22,9 @@ class UserModelTest extends ModelTestCase {
         $this->assertEquals($expectedID, $user_id);
 
         $userData = $this->_model->find($user_id)->current()->toArray();
+
+        var_dump($userData);
+
         unset($userData['user_id']);
         unset($userData['created']);
         $this->assertEquals($data, $userData);
