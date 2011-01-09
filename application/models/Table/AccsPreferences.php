@@ -24,7 +24,6 @@ class My_Model_Table_AccsPreferences extends Zend_Db_Table_Abstract {
         )
     );
 
-
     /**
      * Delete a Account Preference
      * s
@@ -34,7 +33,7 @@ class My_Model_Table_AccsPreferences extends Zend_Db_Table_Abstract {
     public function deleteAccPreference(array $id) {
         $row = $this->find($id['acc_id'], $id['pref_id'])->current();
 
-         if (is_null($row)) {
+        if (is_null($row)) {
             return 0;
         }
 
@@ -50,20 +49,30 @@ class My_Model_Table_AccsPreferences extends Zend_Db_Table_Abstract {
      */
     public function setAccPreference(array $data, array $id) {
 
-        $row = $this->find($id['acc_id'],$id['pref_id'])->current();
+        $row = $this->find($id['acc_id'], $id['pref_id'])->current();
 
         if (is_null($row)) {
             $row = $this->createRow();
         }
 
-        $row->acc_id  = $id['acc_id'];
+        $row->acc_id = $id['acc_id'];
         $row->pref_id = $id['pref_id'];
-        $row->value   = $data['value'];
+        $row->value = $data['value'];
 
         return $row->save();
     }
 
-    
+    /**
+     * Insert/Updated intersecting table's data.
+     *
+     * @param array $data data
+     * @param array $id   compund id (acc_id,pref_id)
+     * @return array composite id of the new or updated row.
+     */
+    static public function setPreferenceForAcc(array $data, array $id) {
+        $model = new self();
+        return $model->setAccPreference($data, $id);
+    }
 
 }
 

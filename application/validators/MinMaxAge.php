@@ -20,7 +20,7 @@ class My_Validate_MinMaxAge extends Zend_Validate_Abstract {
     public function isValid($value, $context = null) {
         
         $maxAge = (int) $value;
-        $minAge = (int) $context['min_age_of_roomates'];
+        $minAge = (int) $context['min_age'];
 
         if ($maxAge <= $minAge) {
             $this->_error(self::AGE);

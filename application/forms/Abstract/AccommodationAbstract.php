@@ -27,7 +27,6 @@ abstract class My_Form_Abstract_AccommodationAbstract extends Zend_Form {
         $this->setMethod('post');
         $this->setAttrib('enctype', 'multipart/form-data');
         $this->setElementFilters(array('stripTags', 'stringTrim'));
-
     }
 
     protected function _makeAccBasicDescSubForm() {
@@ -65,13 +64,13 @@ abstract class My_Form_Abstract_AccommodationAbstract extends Zend_Form {
 
 
         // create new element
-        $titleInput = $this->createElement('text', 'name');
+        $titleInput = $this->createElement('text', 'title');
         $titleInput->setRequired(true)->setLabel('Title');
         $titleInput->setFilters(array('stripTags', 'stringTrim'));
 
         // create new element
         $descriptionInput = $this->createElement('textarea', 'description');
-        $descriptionInput->setRequired(true)->setLabel('Advertisment description');        
+        $descriptionInput->setRequired(true)->setLabel('Advertisment description');
         $descriptionInput->setAttribs(array('cols' => 20, 'rows' => 5));
 
         // create new element
@@ -106,7 +105,7 @@ abstract class My_Form_Abstract_AccommodationAbstract extends Zend_Form {
 
 
         $accInfoSubForm->addElements(array(
-            $accTypeChoice, $liveChoice, $titleInput, $descriptionInput,
+            $accTypeChoice, /* $liveChoice */ $titleInput, $descriptionInput,
             $dateAvaliableInput, $shortTermChb, $priceInput, $bondInput)
         );
 
@@ -128,14 +127,19 @@ abstract class My_Form_Abstract_AccommodationAbstract extends Zend_Form {
           $cityChoice->setValue('0');
          */
 
-            //create new element
-         $cityInput = $this->createElement('text', 'city');
-         $cityInput->setRequired(true)->setLabel('City');
-         $cityInput->setFilters(array('stripTags', 'stringTrim'));
+        //create new element
+        $cityInput = $this->createElement('text', 'city');
+        $cityInput->setRequired(true)->setLabel('City');
+        $cityInput->setFilters(array('stripTags', 'stringTrim'));
 
-         $stateInput = $this->createElement('text', 'state');
-         $stateInput->setRequired(true)->setLabel('State');
-         $stateInput->setFilters(array('stripTags', 'stringTrim'));
+        $stateInput = $this->createElement('text', 'state');
+        $stateInput->setRequired(true)->setLabel('State');
+        $stateInput->setFilters(array('stripTags', 'stringTrim'));
+
+        // create new element
+        $unitNoInput = $this->createElement('text', 'unit_no');
+        $unitNoInput->setRequired(false)->setLabel('Unit number');
+        $unitNoInput->setFilters(array('stripTags', 'stringTrim'));
 
         // create new element
         $streetNoInput = $this->createElement('text', 'street_no');
@@ -144,7 +148,7 @@ abstract class My_Form_Abstract_AccommodationAbstract extends Zend_Form {
 
         $addressPublicChb = $this->createElement('checkbox', 'address_public');
         $addressPublicChb->setRequired(true);
-        $addressPublicChb->setLabel('Street number visible to all');
+        $addressPublicChb->setLabel('Unit and street numbers visible to all');
         $addressPublicChb->setChecked(false);
 
         // create new element
@@ -160,15 +164,15 @@ abstract class My_Form_Abstract_AccommodationAbstract extends Zend_Form {
 
         // create new element
         /*
-        $newCityChb = $this->createElement('checkbox', 'new_public');
-        $newCityChb->setRequired(true);
-        $newCityChb->setLabel('My city not in the list');
-        $newCityChb->setChecked(false);
-        */
+          $newCityChb = $this->createElement('checkbox', 'new_public');
+          $newCityChb->setRequired(true);
+          $newCityChb->setLabel('My city not in the list');
+          $newCityChb->setChecked(false);
+         */
 
 
         $addressForm->addElements(array(
-            $streetNoInput, $addressPublicChb, $streetNameInput,
+            $unitNoInput, $streetNoInput, $addressPublicChb, $streetNameInput,
             $zipInput, $cityInput, $stateInput
                 )
         );
@@ -208,7 +212,7 @@ abstract class My_Form_Abstract_AccommodationAbstract extends Zend_Form {
         $aroomatesForm->setLegend('Roomates');
 
         // create new element
-        $noOfRoomatesInput = new Zend_Form_Element_Select('no_of_roomates');
+        $noOfRoomatesInput = new Zend_Form_Element_Select('no_roomates');
         $noOfRoomatesInput->setLabel(
                 'No of roomates already leaving in the property'
         );
@@ -226,7 +230,7 @@ abstract class My_Form_Abstract_AccommodationAbstract extends Zend_Form {
 
 
         // create new element
-        $genderOfRoomatesInput = new Zend_Form_Element_Select('gender_of_roomates');
+        $genderOfRoomatesInput = new Zend_Form_Element_Select('gender');
         $genderOfRoomatesInput->setLabel('Gender of roomates');
         $genderOfRoomatesInput->addMultiOptions(
                 array(
@@ -244,14 +248,14 @@ abstract class My_Form_Abstract_AccommodationAbstract extends Zend_Form {
         }
 
         // create new element
-        $minAgeInput = new Zend_Form_Element_Select('min_age_of_roomates');
+        $minAgeInput = new Zend_Form_Element_Select('min_age');
         $minAgeInput->setLabel('Approximate min. age of roomates');
         $minAgeInput->addMultiOptions($ageOptions);
         $minAgeInput->setRequired(true);
 
 
         // create new element
-        $maxAgeInput = new Zend_Form_Element_Select('max_age_of_roomates');
+        $maxAgeInput = new Zend_Form_Element_Select('max_age');
         $maxAgeInput->setLabel('Approximate max. age of roomates');
         $maxAgeInput->addMultiOptions($ageOptions);
         $maxAgeInput->setRequired(true);
@@ -277,8 +281,10 @@ abstract class My_Form_Abstract_AccommodationAbstract extends Zend_Form {
             if ('0' === $pref['binary']) {
                 continue;
             }
-            $newElem = $this->createElement('checkbox', $pref['name']);
+            $newElem = $this->createElement('checkbox', "{$pref['name']}");
             $newElem->setRequired(true)->setLabel(ucfirst($pref['name']) . ' accepted');
+            $newElem->setCheckedValue("{$pref['pref_id']}");
+            $newElem->setUnCheckedValue('-1');
             $newElem->setChecked(true);
             $preferencesForm->addElement($newElem);
         }
@@ -311,12 +317,14 @@ abstract class My_Form_Abstract_AccommodationAbstract extends Zend_Form {
             }
             $newElem = $this->createElement('checkbox', $feature['name']);
             $newElem->setRequired(true)->setLabel(ucfirst($feature['name']));
+            $newElem->setCheckedValue("{$feature['feat_id']}");
+            $newElem->setUnCheckedValue('-1');
             $newElem->setChecked(false);
             $featuresForm->addElement($newElem);
         }
 
         // create element for furnishead as it is not binary.
-        $furniture = new Zend_Form_Element_Select('furniture');
+        $furniture = new Zend_Form_Element_Select('furnished');
         $furniture->setLabel('Furniture');
         $furniture->addMultiOptions(
                 array(
@@ -487,7 +495,7 @@ abstract class My_Form_Abstract_AccommodationAbstract extends Zend_Form {
         $cityElement->setValue($city);
     }
 
-     /**
+    /**
      * Set default value of state input text field.
      *
      * @param string $state state name

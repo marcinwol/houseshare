@@ -568,6 +568,11 @@ CREATE TABLE IF NOT EXISTS `VIEW_ACC_FEATURES` (`acc_id` INT, `feat_id` INT, `na
 CREATE TABLE IF NOT EXISTS `VIEW_ACC_PREFERENCES` (`acc_id` INT, `pref_id` INT, `name` INT, `value` INT);
 
 -- -----------------------------------------------------
+-- Placeholder table for view `VIEW_ACCOMMODATION`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `VIEW_ACCOMMODATION` (`first_name` INT, `last_name` INT, `acc_id` INT, `title` INT, `description` INT, `addr_id` INT, `user_id` INT, `date_avaliable` INT, `price` INT, `created` INT, `bond` INT, `street_address_public` INT, `short_term_ok` INT, `type_id` INT, `is_enabled` INT, `feat_name` INT, `pref_name` INT, `filename` INT);
+
+-- -----------------------------------------------------
 -- View `VIEW_CITY`
 -- -----------------------------------------------------
 DROP VIEW IF EXISTS `VIEW_CITY` ;
@@ -657,6 +662,24 @@ CREATE  OR REPLACE VIEW `VIEW_ACC_PREFERENCES` AS
 SELECT ap.acc_id, p.pref_id, p.name, ap.value  
 FROM `ACCOMODATION_has_PREFERENCE` ap INNER JOIN `PREFERENCE` p USING (`pref_id`) 
 
+
+$$
+DELIMITER ;
+
+;
+
+-- -----------------------------------------------------
+-- View `VIEW_ACCOMMODATION`
+-- -----------------------------------------------------
+DROP VIEW IF EXISTS `VIEW_ACCOMMODATION` ;
+DROP TABLE IF EXISTS `VIEW_ACCOMMODATION`;
+DELIMITER $$
+CREATE  OR REPLACE VIEW `VIEW_ACCOMMODATION` as
+SElECT user.first_name, user.last_name,  acc.*, ad.*, feat.name as feat_name, pref.name as pref_name, photo.filename FROM `ACCOMMODATION` acc INNER JOIN `VIEW_ADDRESS` ad ON (acc.addr_id = ad.id) 
+INNER JOIN USER user using (user_id)
+LEFT JOIN VIEW_ACC_FEATURES feat USING (acc_id)
+LEFT JOIN VIEW_ACC_PREFERENCES pref USING (acc_id)
+LEFT JOIN VIEW_PHOTO photo USING (acc_id)
 
 $$
 DELIMITER ;
