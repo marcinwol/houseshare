@@ -17,6 +17,10 @@ $(document).ready(function () {
         source: "/houseshare/public/index/getstates"
     });
 
+    $("#address-street_name").autocomplete({
+        source: "/houseshare/public/index/getstreets"
+    });
+
     $( "#basic_info-date_avaliable" ).datepicker({ dateFormat: 'dd/mm/yy' });
 
 });

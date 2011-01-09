@@ -39,11 +39,10 @@ class IndexController extends Zend_Controller_Action {
             $cities = $cityModel->findCitiesBasedOnName($term, 5)->toArray();
 
             $matches = array();
-            foreach ($cities as $city) {             
+            foreach ($cities as $city) {
 
                 if (1 == $nostate) {
                     $label = $value = $city['city_name'];
-
                 } else {
                     $label = $value = "{$city['city_name']}, {$city['state_name']}";
                 }
@@ -60,9 +59,7 @@ class IndexController extends Zend_Controller_Action {
         }
     }
 
-
-
-     public function getstatesAction() {
+    public function getstatesAction() {
 
         if ($this->getRequest()->isXmlHttpRequest()) {
 
@@ -73,11 +70,10 @@ class IndexController extends Zend_Controller_Action {
 
             $matches = array();
             foreach ($states as $state) {
-                
+
                 $city['value'] = $state['name'];
                 $city['label'] = $state['name'];
                 $matches[] = $city;
-                
             }
 
             $this->_helper->json($matches);
@@ -86,6 +82,28 @@ class IndexController extends Zend_Controller_Action {
         }
     }
 
+    public function getstreetsAction() {
+
+        if ($this->getRequest()->isXmlHttpRequest()) {
+
+            $term = $this->getRequest()->getParam('term');
+            $streetModel = new My_Model_Table_Street();
+
+            $streets = $streetModel->findBasedOnName($term, 5)->toArray();
+
+            $matches = array();
+            foreach ($streets as $street) {
+
+                $street['value'] = $street['name'];
+                $street['label'] = $street['name'];
+                $matches[] = $street;
+            }
+
+            $this->_helper->json($matches);
+        } else {
+            throw new Exception('Not an ajax requrests');
+        }
+    }
 
 }
 
