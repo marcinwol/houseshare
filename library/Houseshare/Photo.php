@@ -18,6 +18,8 @@ class My_Houseshare_Photo extends My_Houseshare_Abstract_PropertyAccessor {
     protected $_modelName = 'View_Photo';
     const THUMB_WIDTH = 100;
     const THUMB_HEIGHT = 74;
+    const IMAGE_WIDTH = 400;
+    const IMAGE_HEIGHT = 350;
     const THUMBS_DIR_NAME = 'thumbs/';
 
     /**
@@ -37,7 +39,7 @@ class My_Houseshare_Photo extends My_Houseshare_Abstract_PropertyAccessor {
      * @param int $id  path id
      */
     public function setPathId($id) {
-        $this->_properties['path_id'] =  $id;
+        $this->_properties['path_id'] = $id;
     }
 
     public function getFullPath() {
@@ -62,6 +64,31 @@ class My_Houseshare_Photo extends My_Houseshare_Abstract_PropertyAccessor {
 
         return $dirName . DIRECTORY_SEPARATOR . self::THUMBS_DIR_NAME .
         $baseDirName . DIRECTORY_SEPARATOR . $fileName . '.jpg';
+    }
+
+    /**
+     * Manual receive and resize of uploaded photo files.
+     * 
+     * @param array $fileInfo as returned $adapter->getFileInfo() for a given file
+     * @param string $outBaseName A basename of a file name to be saved as.
+     * @return bool Whether uploaded file exists or not.
+     */
+    static public function resizeAndSave(array $fileInfo, $outBaseName) {
+
+        $tmpName = $fileInfo['tmp_name'];
+        $destination = $fileInfo['destination'];
+
+        $newImgPath = $destination . "/$outBaseName.jpg";
+
+        // resize and save as jpg
+        $img = PhpThumbFactory::create($tmpName);
+        $img->setOptions(array('jpegQuality' => 90 ));        
+        $img->resize(self::IMAGE_WIDTH, self::IMAGE_HEIGHT);
+        unlink($tmpName); // remove tmp file.
+
+        $img->save($newImgPath, 'JPG');
+
+        return file_exists($newImgPath);
     }
 
     /**

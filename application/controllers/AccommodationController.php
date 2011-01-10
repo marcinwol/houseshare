@@ -203,27 +203,9 @@ class AccommodationController extends Zend_Controller_Action {
                     if (empty($info['tmp_name'])) {
                         continue;
                     }
-                    $name = $info['name'];
-                    $path_info = pathinfo($name);
-                    $extension = $path_info['extension'];
-                    $tmpName = $info['tmp_name'];
-                    $destination = $info['destination'];
-                    $newName = "dupa" . ($i++) ;                    
-                    $imgPath = $destination . "/$newName.$extension";
 
-
-                   if (!move_uploaded_file($tmpName, $imgPath)) {
-                       throw new Exception('Error moving $tmpName to $imgPath');
-                    }          
-
-                    // resize and save as jpg
-                    $img = PhpThumbFactory::create($imgPath);
-                    $img->resize(640, 480);
-                    if ( 'jpg' != $extension) {
-                        unlink($imgPath);
-                    }
-                    $img->save($destination . "/$newName.jpg", 'JPG');                    
-                    
+                    $outBaseName = "dupa" . ($i++);
+                    My_Houseshare_Photo::resizeAndSave($info, $outBaseName); 
                 }
 
             }
