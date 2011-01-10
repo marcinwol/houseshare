@@ -17,14 +17,14 @@ class IndexController extends Zend_Controller_Action {
                 $cityName = $mainForm->getValue('i_city');
 
                 if ('1' === $whatToDo) {
-                    return $this->_redirect('/accommodation/add/city/' . $cityName);
+                    return $this->_redirect('/add/city/' . $cityName);
                 } elseif ('0' === $whatToDo) {
-                    return $this->_redirect('/accommodation/list/city/' . $cityName);
+                    return $this->_redirect('/list/city/' . $cityName);
                 }
             }
         }
 
-        $mainForm->setAction($this->view->baseUrl() . '/index/index');
+       // $mainForm->setAction($this->view->baseUrl() . '/index/index');
         $this->view->mainForm = $mainForm;
     }
 

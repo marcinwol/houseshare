@@ -11,7 +11,35 @@ class AccommodationController extends Zend_Controller_Action {
     }
 
     public function listAction() {
-        // action body
+
+        $city = $this->_request->getParam('city', null);
+        @list($cityName, $stateName) = explode(', ', $city);
+
+        // fetch accommodations from database that match a give city
+
+        $cityModel = new My_Model_Table_City();
+        $cityRow = $cityModel->fetchRow("name = '$cityName'");
+
+        $city_id = (is_null($cityRow)) ? null : $cityRow->city_id;
+
+
+        $accModel = new My_Model_Table_Accommodation();
+        $accSelect = $accModel->select(Zend_Db_Table::SELECT_WITH_FROM_PART)->setIntegrityCheck(false);
+
+        if (null !== $city_id) {
+            $accSelect->joinInner('ADDRESS', 'ACCOMMODATION.addr_id = ADDRESS.addr_id')
+                    ->where("ADDRESS.city_id = ?", $city_id);
+        }
+
+
+        $accs = $accModel->fetchAll($accSelect);
+
+        $accHouseshareArray = array();
+        foreach ($accs as $acc) {
+            $accHouseshareArray [] = array('acc' => My_Houseshare_Factory::shared($acc->acc_id));
+        }
+
+        $this->view->accs = $accHouseshareArray;
     }
 
     public function addAction() {
@@ -25,7 +53,7 @@ class AccommodationController extends Zend_Controller_Action {
         if ($this->getRequest()->isPost()) {
             if ($addAccForm->isValid($_POST)) {
 
-                 // get form data
+                // get form data
                 $formData = $addAccForm->getValues();
 
                 // start transaction
@@ -80,6 +108,7 @@ class AccommodationController extends Zend_Controller_Action {
                     $newAcc->setUserId($user_id);
                     $newAcc->setRoomatesId($roomates_id);
                     $newAcc->setTypeId($formData['basic_info']['acc_type']);
+
                     $acc_id = $newAcc->save();
 
                     // set preferences (first binary ones)
@@ -89,7 +118,6 @@ class AccommodationController extends Zend_Controller_Action {
                     $binaryPrefs ['kids'] = $formData['preferences']['kids'];
                     $binaryPrefs ['couples'] = $formData['preferences']['couples'];
                     $binaryPrefs ['pets'] = $formData['preferences']['pets'];
-
 
                     foreach ($binaryPrefs as $name => $pref_id) {
                         if (intval($pref_id) > -1) {
@@ -108,7 +136,6 @@ class AccommodationController extends Zend_Controller_Action {
                             array('value' => $formData['preferences']['gender']),
                             array('acc_id' => $acc_id, 'pref_id' => $prefRow->pref_id)
                     );
-
 
                     // set features (first binary ones)
                     $accFeatModel = new My_Model_Table_AccsFeatures();
@@ -146,9 +173,9 @@ class AccommodationController extends Zend_Controller_Action {
                     throw $e;
                 }
 
-                Zend_Debug::dump($addAccForm->getValues());
-                return $this->_redirect('accommodation/success');
-            } 
+                //Zend_Debug::dump($addAccForm->getValues());
+                return $this->_redirect('accommodation/addphotos');
+            }
         }
 
         $this->view->form = $addAccForm;
@@ -160,6 +187,50 @@ class AccommodationController extends Zend_Controller_Action {
 
     public function editAction() {
         // action body
+    }
+
+    public function addphotosAction() {
+        $photosForm = new My_Form_Photos();
+
+        if ($this->getRequest()->isPost()) {
+            if ($photosForm->isValid($_POST)) {
+
+                $photoElem = $photosForm->getElement('photo');
+                $adapter = $photoElem->getTransferAdapter();
+
+                $i = 0;
+                foreach ($adapter->getFileInfo() as $filename => $info) {
+                    if (empty($info['tmp_name'])) {
+                        continue;
+                    }
+                    $name = $info['name'];
+                    $path_info = pathinfo($name);
+                    $extension = $path_info['extension'];
+                    $tmpName = $info['tmp_name'];
+                    $destination = $info['destination'];
+                    $newName = "dupa" . ($i++) ;                    
+                    $imgPath = $destination . "/$newName.$extension";
+
+
+                   if (!move_uploaded_file($tmpName, $imgPath)) {
+                       throw new Exception('Error moving $tmpName to $imgPath');
+                    }          
+
+                    // resize and save as jpg
+                    $img = PhpThumbFactory::create($imgPath);
+                    $img->resize(640, 480);
+                    if ( 'jpg' != $extension) {
+                        unlink($imgPath);
+                    }
+                    $img->save($destination . "/$newName.jpg", 'JPG');                    
+                    
+                }
+
+            }
+        }
+
+
+        $this->view->form = $photosForm;
     }
 
     public function successAction() {

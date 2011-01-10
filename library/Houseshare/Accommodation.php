@@ -348,7 +348,7 @@ class My_Houseshare_Accommodation extends My_Houseshare_Abstract_PropertyAccesso
      * @return My_Houseshare_Address
      */
     public function getAddress() {
-        return new My_Houseshare_Address($this->_acc->_row->acc_id);
+        return new My_Houseshare_Address($this->_acc->_row->addr_id);
     }
 
     /**

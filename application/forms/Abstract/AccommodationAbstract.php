@@ -25,7 +25,6 @@ abstract class My_Form_Abstract_AccommodationAbstract extends Zend_Form {
 
     public function init() {
         $this->setMethod('post');
-        $this->setAttrib('enctype', 'multipart/form-data');
         $this->setElementFilters(array('stripTags', 'stringTrim'));
     }
 
@@ -353,6 +352,8 @@ abstract class My_Form_Abstract_AccommodationAbstract extends Zend_Form {
             }
             $newElem = $this->createElement('checkbox', $feature['name']);
             $newElem->setRequired(true)->setLabel(ucfirst($feature['name']));
+            $newElem->setCheckedValue("{$feature['feat_id']}");
+            $newElem->setUnCheckedValue('-1');
             $newElem->setChecked(false);
             $featuresForm->addElement($newElem);
         }

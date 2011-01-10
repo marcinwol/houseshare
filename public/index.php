@@ -8,6 +8,10 @@ defined('APPLICATION_PATH')
 defined('APPLICATION_ENV')
     || define('APPLICATION_ENV', (getenv('APPLICATION_ENV') ? getenv('APPLICATION_ENV') : 'production'));
 
+// define path to directory where photos should be uploaded
+defined('PHOTOS_PATH')
+    || define('PHOTOS_PATH', realpath(dirname(__FILE__) . '/../public/images'));
+
 // Ensure library/ is on include_path
 set_include_path(implode(PATH_SEPARATOR, array(
     realpath(APPLICATION_PATH . '/../library'),

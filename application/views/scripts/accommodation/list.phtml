@@ -1,1 +1,13 @@
-<br /><br /><center>View script for controller <b>Accommodation</b> and script/action name <b>list</b></center>
+<h2> Current accommodations in the database </h2>
+
+<?php if (0 === count($this->accs)):?>
+    <h3> No accommodation found </h3>
+
+<?php else:?>
+<table>
+    <tbody>
+        <?php echo $this->partialLoop('_partials/acc.phtml', $this->accs);    ?>
+    </tbody>
+</table>
+
+<?php endif;?>
