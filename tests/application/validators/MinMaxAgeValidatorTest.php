@@ -19,13 +19,13 @@ class MinMaxAgeValidatorTest extends ValidatorTestCase {
     }
 
     public function testCorrectMinAndMaxAgeValues() {
-        $context = array('min_age_of_roomates' => '20');
+        $context = array('min_age' => '20');
         $output = $this->_validator->isValid('30',$context);
         $this->assertTrue($output);
     }
 
      public function testInCorrectMinAndMaxAgeValues() {
-        $context = array('min_age_of_roomates' => '20');
+        $context = array('min_age' => '20');
         $output = $this->_validator->isValid('10',$context);
         $this->assertFalse($output);
     }
