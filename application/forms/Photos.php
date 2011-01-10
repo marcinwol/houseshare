@@ -22,7 +22,7 @@ class My_Form_Photos extends Zend_Form {
         $photos = new Zend_Form_Element_File('photo');
         $photos->setLabel('Upload image: ');
 
-        $photos->setDestination(PHOTOS_PATH . '/forrent');
+        $photos->setDestination(PHOTOS_PATH);
         //$element->addValidator('Count', false, 1);
 
         // limit to 1M     

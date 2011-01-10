@@ -4,4 +4,4 @@ library/Zend
 /.zfproject.xml
 *.bak
 public/images
-/application/sql/houseshare_db_EER_v02b.mwb.orig
+*.orig

@@ -71,24 +71,38 @@ class My_Houseshare_Photo extends My_Houseshare_Abstract_PropertyAccessor {
      * 
      * @param array $fileInfo as returned $adapter->getFileInfo() for a given file
      * @param string $outBaseName A basename of a file name to be saved as.
-     * @return bool Whether uploaded file exists or not.
+     * @param string $uploadDir Output dir (e.g. forrent) which will be created in image folder if needed.
+     * @return string Path to a resized and saved file.
      */
-    static public function resizeAndSave(array $fileInfo, $outBaseName) {
+    static public function resizeAndSave($inputImgPath,
+            $destinationDir, $outBaseName = '', $uploadSubDir='') {
+      
+        if (!empty($uploadSubDir)) {
+            $destinationDir .= DIRECTORY_SEPARATOR . $uploadSubDir;
+        }
 
-        $tmpName = $fileInfo['tmp_name'];
-        $destination = $fileInfo['destination'];
+         if (!file_exists($destinationDir)) {
+            if (!mkdir($destinationDir, 0777, true)) {
+                throw new Exception("Failure creating $destinationDir folder");
+            }
+        }
 
-        $newImgPath = $destination . "/$outBaseName.jpg";
+        if (empty($outBaseName)) {
+            $fileInfo = pathinfo($inputImgPath);
+            $outBaseName = $fileInfo['basename'];
+        }
+
+        $newImgPath = $destinationDir . DIRECTORY_SEPARATOR .$outBaseName . '.jpg';
 
         // resize and save as jpg
-        $img = PhpThumbFactory::create($tmpName);
+        $img = PhpThumbFactory::create($inputImgPath);
         $img->setOptions(array('jpegQuality' => 90 ));        
         $img->resize(self::IMAGE_WIDTH, self::IMAGE_HEIGHT);
-        unlink($tmpName); // remove tmp file.
+        unlink($inputImgPath); // remove tmp file.
 
         $img->save($newImgPath, 'JPG');
 
-        return file_exists($newImgPath);
+        return $newImgPath;
     }
 
     /**
@@ -98,7 +112,7 @@ class My_Houseshare_Photo extends My_Houseshare_Abstract_PropertyAccessor {
      * same folder as forrent/ forsell/ folders.
      *
      * @param string $imgPath
-     * @return bool true if file was resized and saved successflully
+     * @return string Path to a saved thumbnail file.
      */
     static public function makeThumb($imgPath) {
 
@@ -139,10 +153,10 @@ class My_Houseshare_Photo extends My_Houseshare_Abstract_PropertyAccessor {
             fwrite($fp, $imgData);
             fclose($fp);
         } catch (Exception $e) {
-            return false;
+            return '';
         }
 
-        return true;
+        return $outImg;
     }
 
     /**

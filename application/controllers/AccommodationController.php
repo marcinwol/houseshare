@@ -173,8 +173,13 @@ class AccommodationController extends Zend_Controller_Action {
                     throw $e;
                 }
 
+                $addAccInfoNamespace = new Zend_Session_Namespace('addAccInfo');
+                $addAccInfoNamespace->acc_id = intval($acc_id);
+                $addAccInfoNamespace->lock();
+
                 //Zend_Debug::dump($addAccForm->getValues());
                 return $this->_redirect('accommodation/addphotos');
+                //return $this->_forward('addphotos');
             }
         }
 
@@ -190,6 +195,18 @@ class AccommodationController extends Zend_Controller_Action {
     }
 
     public function addphotosAction() {
+
+        // retrive just creatend accommodation info (e.g. acc_id) from session.
+        $addAccInfoNamespace = new Zend_Session_Namespace('addAccInfo');
+
+        if (null === $addAccInfoNamespace->acc_id) {
+            //throw new Zend_Session_Exception('Cannot retrive accommodation info from session');
+            $this->_helper->FlashMessenger('Cannot retrive accommodation info from session');
+            return $this->_redirect('index');
+        }
+
+        $acc_id = $addAccInfoNamespace->acc_id;
+
         $photosForm = new My_Form_Photos();
 
         if ($this->getRequest()->isPost()) {
@@ -204,19 +221,85 @@ class AccommodationController extends Zend_Controller_Action {
                         continue;
                     }
 
-                    $outBaseName = "dupa" . ($i++);
-                    My_Houseshare_Photo::resizeAndSave($info, $outBaseName); 
-                }
+                    $dateprefix = date("YmdHms") . '_';
+                    $outBaseName = uniqid("$acc_id") . ($i++);
 
+
+                    // if there will be other accommodetions (e.g. for sell)
+                    // photos can be uploaded to 'forsell' directory.
+                    $uploadSubDir = 'forrent';
+
+
+
+                    // manually receive the uploaded file, resize it and save it.
+                    // files will be saved in dir PHOTOS_PATH/$uploaddir/.
+                    $imgPath = My_Houseshare_Photo::resizeAndSave(
+                                    $info['tmp_name'],
+                                    PHOTOS_PATH,
+                                    $outBaseName,
+                                    $uploadSubDir
+                    );
+
+
+
+                    if (!file_exists($imgPath)) {
+                        throw new Exception("Cound not make file: $imgPath");
+                    }
+                    if (!is_readable($imgPath)) {
+                        throw new Exception("File \"$imgPath\" is not readable");
+                    }
+
+
+
+                    // make a thumbnail of the image uploaded.
+                    $thumbImgPath = My_Houseshare_Photo::makeThumb($imgPath);
+
+
+                    if (!file_exists($thumbImgPath)) {
+                        throw new Exception("Cound not make file: $thumbImgPath");
+                    }
+                    if (!is_readable($thumbImgPath)) {
+                        throw new Exception("File \"$thumbImgPath\" is not readable");
+                    }
+
+
+
+                    // write the path and filename in PHOTO table.
+                    // filepath is relative to PHOTOS_PATH constant.
+                    // Thus full paths will be PHOTOS_PATH/$photo->path/$photo->filename
+                    $photo = My_Houseshare_Factory::photo();
+                    $photo->filename = basename($imgPath);
+                    $photo->path = My_Houseshare_Tools::addDirSeperator($uploadSubDir);
+                    $photo->setAccId($acc_id);
+
+                    $photo_id = $photo->save();
+
+                    if (is_numeric($photo_id)) {
+                        return $this->_redirect('accommodation/success');
+                    }
+                }
             }
         }
-
 
         $this->view->form = $photosForm;
     }
 
     public function successAction() {
-        
+        // retrive just creatend accommodation info (e.g. acc_id) from session.
+        $addAccInfoNamespace = new Zend_Session_Namespace('addAccInfo');
+        $acc_id = $addAccInfoNamespace->acc_id;
+        $acc = null;
+
+        if (null !== $acc_id) {
+            $acc = My_Houseshare_Factory::accommodation($acc_id);
+        } else {
+            $this->_helper->FlashMessenger('Cannot retrive accommodation info from session');
+            return $this->_redirect('index');
+        }
+
+        // don't need this session namespace anymore
+        Zend_Session::namespaceUnset('addAccInfo');
+        $this->view->acc = $acc;
     }
 
 }
