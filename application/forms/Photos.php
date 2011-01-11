@@ -24,18 +24,19 @@ class My_Form_Photos extends Zend_Form {
 
         $photos->setDestination(PHOTOS_PATH);
         //$element->addValidator('Count', false, 1);
-
-        // limit to 1M     
+        // limit to 1M
         $photos->addValidator('Size', false, 1024000);
         $photos->addValidator('Extension', false, 'jpg,png,gif');
         $photos->addValidator('IsImage', false);
         $photos->setMultiFile(3);
-        
+
         // photos will be reveived manualy
         $photos->setValueDisabled(true);
-        
+
         $this->addElements(array($photos));
         $this->addElement('submit', 'Submit');
+        $skipButton = new Zend_Form_Element_Submit('skip','Skip');
+        $this->addElement($skipButton);
     }
 
 }

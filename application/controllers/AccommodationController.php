@@ -212,6 +212,10 @@ class AccommodationController extends Zend_Controller_Action {
         if ($this->getRequest()->isPost()) {
             if ($photosForm->isValid($_POST)) {
 
+                if ($photosForm->skip->isChecked()) {
+                     return $this->_redirect('accommodation/success');
+                }
+
                 $photoElem = $photosForm->getElement('photo');
                 $adapter = $photoElem->getTransferAdapter();
 

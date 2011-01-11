@@ -1,5 +1,16 @@
-<?php // acc.phtml ?>
-<tr>
-    <td><?php var_dump($this->acc->toArray());?></td>
-    <td><?php var_dump($this->acc->address->city);?></td>
-</tr>
+<?php // acc.phtml  ?>
+<div>
+    <?php var_dump($this->acc->toArray()); ?>
+    <?php var_dump($this->acc->address->city); ?>    
+    <div>
+        <?php foreach ($this->acc->photos as $photo): ?>
+
+        <?php var_dump($photo->toArray()); ?>
+        <?php //@todo make image paths more automatic (maybe view helper?); ?>
+            <img alt="Photo"  src="<?php echo $this->photoUrl($photo); ?>" />
+            <img alt="Thumb Photo"  src="<?php echo $this->photoUrl($photo, true); ?>" />
+
+        <?php endforeach; ?>
+         </div>
+
+</div>

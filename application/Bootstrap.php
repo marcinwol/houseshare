@@ -78,9 +78,12 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
         defined('THUMBS_DIR_NAME')
                 || define('THUMBS_DIR_NAME', $imagePaths['thumbdirname']);
 
+        defined('PHOTO_DIR_NAME')
+                || define('PHOTO_DIR_NAME', basename(PHOTOS_PATH));
+
         defined('THUMBS_PATH')
                 || define('THUMBS_PATH', realpath($imagePaths['basedir'] . '/' .THUMBS_DIR_NAME));
-      
+
     }
 
 }

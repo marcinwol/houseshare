@@ -4,10 +4,8 @@
     <h3> No accommodation found </h3>
 
 <?php else:?>
-<table>
-    <tbody>
+    <div>
         <?php echo $this->partialLoop('_partials/acc.phtml', $this->accs);    ?>
-    </tbody>
-</table>
+   </div>
 
 <?php endif;?>
