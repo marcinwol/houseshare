@@ -32,7 +32,7 @@ class IndexControllerTest extends ControllerTestCase {
 
         $this->request->setMethod('POST')->setPost($search);
         $this->dispatch('/index/index');        
-        $this->assertRedirectTo('/accommodation/list/city/Wroclaw, Dolnyslas');
+        $this->assertRedirectTo('/list/city/Wroclaw, Dolnyslas');
     }
 
     public function testRedirectToAccAdd() {
@@ -43,7 +43,7 @@ class IndexControllerTest extends ControllerTestCase {
 
         $this->request->setMethod('POST')->setPost($search);
         $this->dispatch('/index/index');
-        $this->assertRedirectTo('/accommodation/add/city/Wroclaw, Dolnyslas');
+        $this->assertRedirectTo('/add/city/Wroclaw, Dolnyslas');
     }
 
 }

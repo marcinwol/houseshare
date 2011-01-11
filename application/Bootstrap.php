@@ -6,8 +6,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
         $this->bootstrap('view');
         $view = $this->getResource('view');
         $view->doctype('XHTML1_STRICT');
-        $view->addHelperPath(APPLICATION_PATH . '/views/helpers/','My_View_Helper');
-        
+        $view->addHelperPath(APPLICATION_PATH . '/views/helpers/', 'My_View_Helper');
     }
 
     protected function _initAutoload() {
@@ -66,6 +65,22 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
         Zend_Form::setDefaultTranslator($translate);
         // Save it for later
         Zend_Registry::set('Zend_Translate', $translate);
+    }
+
+    protected function _initImageDirConstants() {
+        // define path to directory where photos should be uploaded
+        // and the name of thumbs directory
+        $imagePaths = $this->getOption('myimages');
+
+        defined('PHOTOS_PATH')
+                || define('PHOTOS_PATH', realpath($imagePaths['basedir']));
+
+        defined('THUMBS_DIR_NAME')
+                || define('THUMBS_DIR_NAME', $imagePaths['thumbdirname']);
+
+        defined('THUMBS_PATH')
+                || define('THUMBS_PATH', realpath($imagePaths['basedir'] . '/' .THUMBS_DIR_NAME));
+      
     }
 
 }

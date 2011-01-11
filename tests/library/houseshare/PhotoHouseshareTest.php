@@ -134,13 +134,13 @@ class PhotoHouseshareTest extends ModelTestCase {
         $vfsRoot = vfsStreamWrapper::getRoot();
 
         $result = My_Houseshare_Photo::makeThumb($imgPath);
-        $this->assertTrue($result);
-
+        
         $pinfo = pathinfo($imgPath);
         $thumbPath = 'vfs://images/' .
-                My_Houseshare_Photo::THUMBS_DIR_NAME . 'forrent/' .
+                My_Houseshare_Photo::$THUMBS_DIR_NAME . 'forrent/' .
                 $pinfo['filename'] . '.jpg';
 
+        $this->assertEquals($thumbPath,$result);
 
 //        foreach ($vfsRoot->getChildren() as $child) {
 //            var_dump($child->getName());
@@ -149,7 +149,7 @@ class PhotoHouseshareTest extends ModelTestCase {
 
         // check if thumbs folder created
         $this->assertTrue(
-                file_exists('vfs://images/' . My_Houseshare_Photo::THUMBS_DIR_NAME)
+                file_exists('vfs://images/' . My_Houseshare_Photo::$THUMBS_DIR_NAME)
         );
 
 

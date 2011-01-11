@@ -20,7 +20,18 @@ class My_Houseshare_Photo extends My_Houseshare_Abstract_PropertyAccessor {
     const THUMB_HEIGHT = 74;
     const IMAGE_WIDTH = 400;
     const IMAGE_HEIGHT = 350;
-    const THUMBS_DIR_NAME = 'thumbs/';
+    public static $THUMBS_DIR_NAME = 'thumbs/';
+
+    public function  __construct($id = null) {
+        parent::__construct($id);
+
+        // if constant define than use constant
+        if ( defined('THUMBS_DIR_NAME') ) {
+            self::$THUMBS_DIR_NAME = THUMBS_DIR_NAME . DIRECTORY_SEPARATOR;
+        }
+
+
+    }
 
     /**
      * Sets accommodation id. This must be done using this method
@@ -126,8 +137,8 @@ class My_Houseshare_Photo extends My_Houseshare_Abstract_PropertyAccessor {
         $fileName = $pinfo['filename'];
         $fileExt = $pinfo['extension'];
 
-        $thumbDir = $dirName . DIRECTORY_SEPARATOR . self::THUMBS_DIR_NAME .
-                $baseDirName . DIRECTORY_SEPARATOR;
+        $thumbDir = $dirName . DIRECTORY_SEPARATOR . self::$THUMBS_DIR_NAME .
+                $baseDirName;
 
 
         if (!file_exists($thumbDir)) {
