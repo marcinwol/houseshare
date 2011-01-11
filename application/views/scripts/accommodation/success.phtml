@@ -1,23 +1,25 @@
 <?php if (null !== $this->acc): ?>
-    <h2>New Accommodation was successfully added</h2>
-<?php var_dump($this->acc->toArray()) ?>
-    Address:
-<?php var_dump($this->acc->address->toArray()); ?>
-    Preferences:
-<?php var_dump($this->acc->preferences->toArray()); ?>
-    Features:
-<?php var_dump($this->acc->features->toArray()); ?>
-    Photos:
-<?php foreach ($this->acc->photos as $photo):  ?>
+        <h2>New Accommodation was successfully added</h2>
+    <?php var_dump($this->acc->toArray()) ?>
+        Address:
+    <?php var_dump($this->acc->address->toArray()); ?>
+        Preferences:
+    <?php var_dump($this->acc->preferences->toArray()); ?>
+        Features:
+    <?php var_dump($this->acc->features->toArray()); ?>
+        Photos:
+    <?php foreach ($this->acc->photos as $photo): ?>
 
-        <?php var_dump($photo->toArray());  ?>
-    <img alt="Photo"  src="<?php echo $this->baseUrl() . "/images/" .$photo->getFullPath() ;?>" />
-    <img alt="Thumb Photo"  src="<?php echo $this->baseUrl() . "/images/thumbs/" .$photo->getFullPath() ;?>" />
-<?php endforeach; ?>
+            <?php var_dump($photo->toArray()); ?>
+            <?php //@todo make image paths more automatic (maybe view helper?); ?>
+            <img alt="Photo"  src="<?php echo $this->baseUrl() . "/images/" . $photo->getFullPath(); ?>" />
+            <img alt="Thumb Photo"  src="<?php echo $this->baseUrl() . "/images/thumbs/" . $photo->getFullPath(); ?>" />
+
+    <?php endforeach; ?>
 
 <?php else: ?>
-        <h2>New Accommodation was not added</h2>
+            <h2>New Accommodation was not added</h2>
 <?php endif; ?>
-        <div>
-        <a href="<?php echo $this->baseUrl();?>" >Go to main page</a>
-        </div>
+            <div>
+                <a href="<?php echo $this->baseUrl(); ?>" >Go to main page</a>
+            </div>

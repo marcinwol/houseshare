@@ -8,7 +8,6 @@
 /**
  * Description of My_Form_AccommodationAbstract
  *
- * @todo Upload of photos should be separate from this form.
  * @author marcin
  */
 abstract class My_Form_Abstract_AccommodationAbstract extends Zend_Form {
