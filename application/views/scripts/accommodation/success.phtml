@@ -11,7 +11,6 @@
     <?php foreach ($this->acc->photos as $photo): ?>
 
             <?php var_dump($photo->toArray()); ?>
-            <?php //@todo make image paths more automatic (maybe view helper?); ?>
             <img alt="Photo"  src="<?php echo $this->photoUrl($photo); ?>" />
             <img alt="Thumb Photo"  src="<?php echo $this->photoUrl($photo, true); ?>" />
 

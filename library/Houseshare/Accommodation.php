@@ -64,7 +64,7 @@ class My_Houseshare_Accommodation extends My_Houseshare_Abstract_PropertyAccesso
     }
 
     public function __get($propertyName) {
-        if (array_key_exists($propertyName, $this->_acc->_properties)) {
+        if (array_key_exists($propertyName, $this->_properties)) {
             return parent::__get($propertyName);
         }
 

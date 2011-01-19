@@ -33,8 +33,8 @@ class AccsPreferencesModelTest extends ModelTestCase {
 
     public function getNameAndValueProvider() {
         return array(
-            array(array(1, 1), array('name' => 'Smokers', 'value' => 0)),
-            array(array(1, 3), array('name' => 'Couples', 'value' => 1)),
+            array(array(1, 1), array('name' => 'smokers', 'value' => 0)),
+            array(array(1, 3), array('name' => 'couples', 'value' => 1)),
         );
     }
 

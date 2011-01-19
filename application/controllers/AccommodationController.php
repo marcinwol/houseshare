@@ -177,10 +177,11 @@ class AccommodationController extends Zend_Controller_Action {
                 $addAccInfoNamespace->acc_id = intval($acc_id);
                 $addAccInfoNamespace->lock();
 
-                //Zend_Debug::dump($addAccForm->getValues());
+                
                 return $this->_redirect('accommodation/addphotos');
                 //return $this->_forward('addphotos');
             }
+            Zend_Debug::dump($addAccForm->getValues());
         }
 
         $this->view->form = $addAccForm;
@@ -213,6 +214,7 @@ class AccommodationController extends Zend_Controller_Action {
             if ($photosForm->isValid($_POST)) {
 
                 if ($photosForm->skip->isChecked()) {
+                     // if skip button was clicked
                      return $this->_redirect('accommodation/success');
                 }
 

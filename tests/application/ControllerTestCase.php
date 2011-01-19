@@ -14,7 +14,6 @@ require_once('Zend/Test/PHPUnit/ControllerTestCase.php');
  * @author marcin
  */
 class ControllerTestCase extends Zend_Test_PHPUnit_ControllerTestCase {
-
     //put your code here
 
     /**
@@ -54,21 +53,23 @@ class ControllerTestCase extends Zend_Test_PHPUnit_ControllerTestCase {
         $options = $this->application->getOption('resources');
 
         $db = Zend_Db::factory('Pdo_Mysql', $options['db']['params']);
-    
+
         $connection = new Zend_Test_PHPUnit_Db_Connection(
-                        $db, 'houseshare_test');
+                        $db, 'houseshare_test'
+        );
 
         $databaseTester = new Zend_Test_PHPUnit_Db_SimpleTester($connection);
 
         $databaseFixture =
                 new PHPUnit_Extensions_Database_DataSet_FlatXmlDataSet(
-                       dirname(__FILE__) .  '/_files/database_seed.xml'
+                        dirname(__FILE__) . '/_files/database_seed.xml'
         );
+        Zend_Db_Table_Abstract::setDefaultAdapter($db);
 
         $databaseTester->setupDatabase($databaseFixture);
     }
 
-    //put your code here
+   
 }
 
 ?>

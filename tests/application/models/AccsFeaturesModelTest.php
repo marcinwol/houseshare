@@ -33,8 +33,8 @@ class AccsFeaturesModelTest extends ModelTestCase {
 
     public function getNameAndValueProvider() {
         return array(
-            array(array(1, 1), array('name' => 'Internet', 'value' => 0)),
-            array(array(2, 3), array('name' => 'TV', 'value' => 1)),
+            array(array(1, 1), array('name' => 'internet', 'value' => 0)),
+            array(array(2, 3), array('name' => 'tv', 'value' => 1)),
         );
     }
 

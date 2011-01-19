@@ -27,8 +27,8 @@ class My_Houseshare_Factory {
         if (null === $userRow) {
             return null;
         }
-
-         return self::_makeUserObj(null, $userRow->type);        
+        
+        return self::_makeUserObj($id, $userRow->type);
     }
 
      /**
@@ -94,7 +94,7 @@ class My_Houseshare_Factory {
      * @return My_Houseshare_Shared|null null if not found
      */
     static public function shared($id = null) {
-        return self::accommodation($id, 'BED');
+        return self::accommodation($id, 'ROOM');
     }
 
     /**
