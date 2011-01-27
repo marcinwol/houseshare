@@ -2,6 +2,15 @@
 
 class AccommodationControllerTest extends ControllerTestCase {
 
+    public function setUp() {
+
+        // create mock file system
+        vfsStreamWrapper::register();
+        vfsStreamWrapper::setRoot(new vfsStreamDirectory('images'));
+
+        parent::setUp();
+    }
+
     public function testIndexAction() {
         $this->dispatch('/accommodation/');
         $this->assertController('accommodation');
@@ -16,7 +25,7 @@ class AccommodationControllerTest extends ControllerTestCase {
     public function testAddAccommodationSuccessfull($postData) {
         $this->request->setPost($postData)->setMethod('POST');
         $this->dispatch('/accommodation/add');
-       
+
 
         // expected user id is 4
         $user = My_Houseshare_Factory::roomate(4);
@@ -144,6 +153,170 @@ class AccommodationControllerTest extends ControllerTestCase {
                         'password1' => 'haslo12',
                         'password2' => 'haslo12'
                     )
+                )
+            )
+        );
+    }
+
+    /**
+     * Using phpt file to test POSTS is a bet overkill.
+     */
+    public function _testUploadPhotos() {
+
+        $phpt = new PHPUnit_Extensions_PhptTestCase(
+                        MY_TEST_FILES . '/_phpt/upload-example.phpt',
+                        array('cgi' => 'php-cgi')
+        );
+
+        $result = $phpt->run();
+
+        $this->assertTrue($result->wasSuccessful());
+    }
+
+    public function testGoToIndexIfNoSession() {
+
+        // session is not set as in testSuccessfullUploadOfTwoPhotos()
+
+        $this->dispatch('/accommodation/addphotos');
+        $this->assertRedirectTo('/index');
+
+        $this->resetRequest()->resetResponse();
+
+        $this->dispatch('/accommodation/success');
+        $this->assertRedirectTo('/index');
+    }
+
+    public function testIfSessionDeletedInSuccessAction() {
+
+        // use this acc for the tests
+        $acc_id = 1;
+
+        // set session that is needed to upload photos
+        $this->_setAddAccInfoSession($acc_id);
+
+        $this->dispatch('/accommodation/success');
+
+        $this->assertFalse(Zend_Session::namespaceIsset('addAccInfo'));
+    }
+
+    public function testIfSkipPressedGoToSuccess() {
+
+        // use this acc for the tests
+        $acc_id = 1;
+
+        // set session that is needed to upload photos        
+        $this->_setAddAccInfoSession($acc_id);
+
+        // setup $_FILES variable
+        $this->_mockFileUPload();
+
+        // set  POST data
+        $this->request->setPost(array(
+            'MAX_FILE_SIZE' => '67108864',
+            'skip' => 'Skip'
+        ))->setMethod('POST');
+
+        $this->dispatch('/accommodation/addphotos');
+ 
+        $this->assertRedirectTo('/accommodation/success');
+    }
+
+    /**
+     * This session is needed for uploading photos
+     *
+     * @param int $acc_id
+     */
+    protected function _setAddAccInfoSession($acc_id) {
+        Zend_Session_Namespace::unlockAll();
+        $addAccInfoNamespace = new Zend_Session_Namespace('addAccInfo');
+        $addAccInfoNamespace->acc_id = $acc_id;
+        $addAccInfoNamespace->lock();
+    }
+
+    /**
+     * Test sucessful upload
+     */
+    public function testSuccessfullUploadOfTwoPhotos() {
+
+        // use this acc for the tests
+        $acc_id = 1;
+
+        // set session that is needed to upload photos
+        $this->_setAddAccInfoSession($acc_id);
+
+        // delete photos if there are already in the database
+        $photoModel = new My_Model_Table_Photo();
+        $photoRowset = $photoModel->delete("acc_id = $acc_id");
+
+        // setup $_FILES variable
+        $this->_mockFileUPload();
+
+        // set some other POST data
+        $this->request->setPost(array(
+            'Submit' => 'Submit',
+            'MAX_FILE_SIZE' => '67108864'
+        ))->setMethod('POST');
+
+        $this->dispatch('/accommodation/addphotos');
+
+        //var_dump($this->getResponse()->getBody());
+
+        $root = vfsStreamWrapper::getRoot();
+
+        //$files = My_Houseshare_Tools::getDirContent('vfs://images');
+        //var_dump($files);
+
+        $this->assertRedirectTo('/accommodation/success');
+
+        $acc = My_Houseshare_Factory::accommodation($acc_id);
+
+        // acc 1 should have now 2 photos
+        $this->assertEquals(2, count($acc->photos));
+
+        foreach ($acc->photos as $p) {
+            /* @var $p My_Houseshare_Photo */
+            $this->assertTrue(file_exists(PHOTOS_PATH . "/{$p->getFullPath()}"));
+            $this->assertTrue(file_exists(THUMBS_PATH . "/{$p->getThumbPath()}"));
+
+//            var_dump(PHOTOS_PATH . "/{$p->getFullPath()}");
+//            var_dump(THUMBS_PATH . "/{$p->getThumbPath()}");
+        }
+    }
+
+    protected function _mockFileUpload() {
+
+        $img1 = MY_TEST_FILES . '/test.jpg';
+        $img1Size = filesize($img1);
+
+        copy($img1, '/tmp/tempImg1');
+        copy($img1, '/tmp/tempImg2');
+
+        $_FILES = array(
+            'photo' => array(
+                'name' => array(
+                    0 => 'test.jpg',
+                    1 => 'test2.jpg',
+                    2 => ''
+                ),
+                'type' => array(
+                    0 => 'image/jpeg',
+                    1 => 'image/jpeg',
+                    2 => ''
+                ),
+                'tmp_name' => array(
+                    0 => '/tmp/tempImg1',
+                    1 => '/tmp/tempImg2',
+                    2 => ''
+                ),
+                'error' => array(
+                    0 => 0,
+                    1 => 0,
+                    2 => 4
+                ),
+                'size' => array(
+                    0 => $img1Size,
+                    1 => $img1Size,
+                    2 => 0
                 )
             )
         );

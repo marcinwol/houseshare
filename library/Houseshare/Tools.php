@@ -1,5 +1,6 @@
 <?php
-/* 
+
+/*
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
@@ -10,7 +11,7 @@
  * @author marcin
  */
 class My_Houseshare_Tools {
-    
+
     /**
      * Add DIRECTORY_SEPARATOR to the end of string if not there.
      * 
@@ -19,7 +20,7 @@ class My_Houseshare_Tools {
      */
     static function addDirSeperator($str) {
 
-        if ($str[strlen($str)-1] !== DIRECTORY_SEPARATOR) {
+        if ($str[strlen($str) - 1] !== DIRECTORY_SEPARATOR) {
             $str .= DIRECTORY_SEPARATOR;
         }
 
@@ -43,5 +44,26 @@ class My_Houseshare_Tools {
         return $vals;
     }
 
+    /**
+     * Return dir content as array
+     * 
+     * @param string $dirPath file path
+     * @return array files/dirs in the $dirPath
+     */
+    static function getDirContent($dirPath) {
+        $content = array();
+        if ($handle = opendir($dirPath)) {
+            while (false !== ($file = readdir($handle))) {
+                if ($file != "." && $file != "..") {
+                    $content [] = $file;
+                }
+            }
+            closedir($handle);
+        }
+
+        return $content;
+    }
+
 }
+
 ?>

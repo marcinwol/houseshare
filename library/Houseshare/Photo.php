@@ -22,15 +22,13 @@ class My_Houseshare_Photo extends My_Houseshare_Abstract_PropertyAccessor {
     const IMAGE_HEIGHT = 350;
     public static $THUMBS_DIR_NAME = 'thumbs/';
 
-    public function  __construct($id = null) {
+    public function __construct($id = null) {
         parent::__construct($id);
 
         // if constant define than use constant
-        if ( defined('THUMBS_DIR_NAME') ) {
+        if (defined('THUMBS_DIR_NAME')) {
             self::$THUMBS_DIR_NAME = THUMBS_DIR_NAME . DIRECTORY_SEPARATOR;
         }
-
-
     }
 
     /**
@@ -68,13 +66,12 @@ class My_Houseshare_Photo extends My_Houseshare_Abstract_PropertyAccessor {
     public function getThumbPath() {
         $pinfo = pathinfo($this->getFullPath());
 
-        $dirName = dirname($pinfo['dirname']);
+        $dirName = $pinfo['dirname'];
         $baseDirName = basename($pinfo['dirname']);
         $fileName = $pinfo['filename'];
         $fileExt = $pinfo['extension'];
 
-        return $dirName . DIRECTORY_SEPARATOR . self::THUMBS_DIR_NAME .
-        $baseDirName . DIRECTORY_SEPARATOR . $fileName . '.jpg';
+        return $dirName . DIRECTORY_SEPARATOR .  $fileName . '.jpg';
     }
 
     /**
@@ -85,14 +82,13 @@ class My_Houseshare_Photo extends My_Houseshare_Abstract_PropertyAccessor {
      * @param string $uploadDir Output dir (e.g. forrent) which will be created in image folder if needed.
      * @return string Path to a resized and saved file.
      */
-    static public function resizeAndSave($inputImgPath,
-            $destinationDir, $outBaseName = '', $uploadSubDir='') {
-      
+    static public function resizeAndSave($inputImgPath, $destinationDir, $outBaseName = '', $uploadSubDir='') {
+
         if (!empty($uploadSubDir)) {
             $destinationDir .= DIRECTORY_SEPARATOR . $uploadSubDir;
         }
 
-         if (!file_exists($destinationDir)) {
+        if (!file_exists($destinationDir)) {
             if (!mkdir($destinationDir, 0777, true)) {
                 throw new Exception("Failure creating $destinationDir folder");
             }
@@ -103,15 +99,29 @@ class My_Houseshare_Photo extends My_Houseshare_Abstract_PropertyAccessor {
             $outBaseName = $fileInfo['basename'];
         }
 
-        $newImgPath = $destinationDir . DIRECTORY_SEPARATOR .$outBaseName . '.jpg';
+        $newImgPath = $destinationDir . DIRECTORY_SEPARATOR . $outBaseName . '.jpg';
 
         // resize and save as jpg
         $img = PhpThumbFactory::create($inputImgPath);
-        $img->setOptions(array('jpegQuality' => 90 ));        
+        $img->setOptions(array('jpegQuality' => 90));
         $img->resize(self::IMAGE_WIDTH, self::IMAGE_HEIGHT);
         unlink($inputImgPath); // remove tmp file.
 
-        $img->save($newImgPath, 'JPG');
+
+        // this will not fork for vfs mock file system.
+        //$img->save($newImgPath, 'JPG');
+        
+        // mnaually format to jpg since it also works for vfs mock file system.
+        $imgResource = imagecreatefromstring($img->getImageAsString());
+        ob_start();
+        imagejpeg($imgResource, null);
+        $imgData = ob_get_contents();
+        ob_end_clean();
+
+        //  Save file manualy
+        $fp = fopen($newImgPath, 'w');
+        fwrite($fp, $imgData);
+        fclose($fp);
 
         return $newImgPath;
     }

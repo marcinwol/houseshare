@@ -1,0 +1,13 @@
+Content-Type: multipart/form-data; boundary=----WebKitFormBoundaryfywL8UCjFtqUBTQn
+
+------WebKitFormBoundaryfywL8UCjFtqUBTQn
+Content-Disposition: form-data; name="file"; filename="example.txt"
+Content-Type: text/plain
+
+Some file data ....
+
+------WebKitFormBoundaryfywL8UCjFtqUBTQn
+Content-Disposition: form-data; name="submit"
+
+Upload
+------WebKitFormBoundaryfywL8UCjFtqUBTQn--

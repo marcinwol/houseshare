@@ -177,7 +177,7 @@ class AccommodationController extends Zend_Controller_Action {
                 $addAccInfoNamespace->acc_id = intval($acc_id);
                 $addAccInfoNamespace->lock();
 
-                
+
                 return $this->_redirect('accommodation/addphotos');
                 //return $this->_forward('addphotos');
             }
@@ -214,8 +214,8 @@ class AccommodationController extends Zend_Controller_Action {
             if ($photosForm->isValid($_POST)) {
 
                 if ($photosForm->skip->isChecked()) {
-                     // if skip button was clicked
-                     return $this->_redirect('accommodation/success');
+                    // if skip button was clicked
+                    return $this->_redirect('accommodation/success');
                 }
 
                 $photoElem = $photosForm->getElement('photo');
@@ -227,8 +227,8 @@ class AccommodationController extends Zend_Controller_Action {
                         continue;
                     }
 
-                    $dateprefix = date("YmdHms") . '_';
-                    $outBaseName = uniqid("$acc_id") . ($i++);
+                    $dateprefix = date("YmdHms") . '_';                   
+                    $outBaseName = $dateprefix . ($i++);
 
 
                     // if there will be other accommodetions (e.g. for sell)
@@ -279,11 +279,12 @@ class AccommodationController extends Zend_Controller_Action {
                     $photo->setAccId($acc_id);
 
                     $photo_id = $photo->save();
-
-                    if (is_numeric($photo_id)) {
-                        return $this->_redirect('accommodation/success');
+                    if (!is_numeric($photo_id)) {
+                         throw new Exception("Information about \"$imgPath\" was not saved in the database");
                     }
                 }
+                // everything went fine, so just redirect.
+                return $this->_redirect('accommodation/success');
             }
         }
 

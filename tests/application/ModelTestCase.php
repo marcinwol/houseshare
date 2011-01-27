@@ -14,7 +14,7 @@ require_once('Zend/Test/PHPUnit/DatabaseTestCase.php');
  *
  * @author marcin
  */
-class ModelTestCase extends Zend_Test_PHPUnit_DatabaseTestCase {
+abstract class ModelTestCase extends Zend_Test_PHPUnit_DatabaseTestCase {
 
     private $_connectionMock;
     public $application;

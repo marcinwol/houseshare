@@ -71,9 +71,17 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
         // define path to directory where photos should be uploaded
         // and the name of thumbs directory
         $imagePaths = $this->getOption('myimages');
+        
+        $imBaseDir = $imagePaths['basedir'];
+
+        if ('vfs' !== substr($imBaseDir,0,3)) {
+            // vfs is for vsfStream that is used for testing
+            // to mock file system operations
+            $imBaseDir = realpath($imBaseDir);
+        }
 
         defined('PHOTOS_PATH')
-                || define('PHOTOS_PATH', realpath($imagePaths['basedir']));
+                || define('PHOTOS_PATH', $imBaseDir);
 
         defined('THUMBS_DIR_NAME')
                 || define('THUMBS_DIR_NAME', $imagePaths['thumbdirname']);
@@ -82,7 +90,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
                 || define('PHOTO_DIR_NAME', basename(PHOTOS_PATH));
 
         defined('THUMBS_PATH')
-                || define('THUMBS_PATH', realpath($imagePaths['basedir'] . '/' .THUMBS_DIR_NAME));
+                || define('THUMBS_PATH', $imBaseDir . '/' .THUMBS_DIR_NAME);
 
     }
 

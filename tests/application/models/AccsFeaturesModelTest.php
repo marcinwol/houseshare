@@ -108,6 +108,26 @@ class AccsFeaturesModelTest extends ModelTestCase {
         );
     }
 
+//    public function testPag() {
+//        $accFModel = new My_Model_Table_AccsFeatures();
+//        $select = $accFModel->select(Zend_Db_Table::SELECT_WITH_FROM_PART)->setIntegrityCheck(false);
+//        $select->joinInner('ACCOMMODATION', 'ACCOMMODATION.acc_id = ACCOMODATION_has_FEATURE.acc_id');
+//        $select->where('ACCOMODATION_has_FEATURE.acc_id = ?', 1);
+//        $adapter = new Zend_Paginator_Adapter_DbTableSelect($select);
+//        var_dump($adapter->getItems(0, 1)->toArray());
+//    }
+
+//     public function testPag() {
+//        $placementModel = new Your_Model_Table_Placement();
+//        $select = $placementModel->select(Zend_Db_Table::SELECT_WITH_FROM_PART)->setIntegrityCheck(false);
+//        $select->joinInner('BOOKS', 'BOOKS.book_id = PLACEMENT.placement_book_id');
+//        $select->where('PLACEMENT.placement_category_i = ?', $categoryID);
+//        $adapter = new Zend_Paginator_Adapter_DbTableSelect($select);
+//
+//        // check the result
+//        var_dump($adapter->getItems(0, 5)->toArray());
+//    }
+
 
 }
 

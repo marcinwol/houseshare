@@ -13,7 +13,7 @@ require_once('Zend/Test/PHPUnit/ControllerTestCase.php');
  *
  * @author marcin
  */
-class ControllerTestCase extends Zend_Test_PHPUnit_ControllerTestCase {
+abstract class ControllerTestCase extends Zend_Test_PHPUnit_ControllerTestCase {
     //put your code here
 
     /**
