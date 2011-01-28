@@ -15,7 +15,7 @@
  */
 class My_Form_MainPage extends Zend_Form {
 
-    public function init() {     
+    public function init() {
 
         $this->setMethod('post');
 
@@ -33,18 +33,18 @@ class My_Form_MainPage extends Zend_Form {
 
 
         //create new element
-         $cities1 = $this->createElement('text', 'i_city');
-         $cities1->setRequired(true)->setLabel('City');
-         $cities1->setFilters(array('stripTags', 'stringTrim'));
-         $this->addElement($cities1);
+        $cities1 = $this->createElement('text', 'i_city');
+        $cities1->setRequired(true)->setLabel('City');
+        $cities1->setFilters(array('stripTags', 'stringTrim'));
+        $this->addElement($cities1);
 
-      
+
         $submit = $this->addElement('submit', 'submit',
                         array('label' => 'Search for an accommodation')
         );
     }
 
-  
+
 }
 
 ?>

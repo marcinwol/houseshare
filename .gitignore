@@ -1,6 +1,7 @@
 tests/log
 nbproject
 library/Zend
+library/ZendX
 /.zfproject.xml
 *.bak
 public/images

@@ -204,7 +204,7 @@ class AccommodationControllerTest extends ControllerTestCase {
         // use this acc for the tests
         $acc_id = 1;
 
-        // set session that is needed to upload photos        
+        // set session that is needed to upload photos
         $this->_setAddAccInfoSession($acc_id);
 
         // setup $_FILES variable
@@ -217,7 +217,7 @@ class AccommodationControllerTest extends ControllerTestCase {
         ))->setMethod('POST');
 
         $this->dispatch('/accommodation/addphotos');
- 
+
         $this->assertRedirectTo('/accommodation/success');
     }
 
@@ -259,10 +259,6 @@ class AccommodationControllerTest extends ControllerTestCase {
 
         $this->dispatch('/accommodation/addphotos');
 
-        //var_dump($this->getResponse()->getBody());
-
-        $root = vfsStreamWrapper::getRoot();
-
         //$files = My_Houseshare_Tools::getDirContent('vfs://images');
         //var_dump($files);
 
@@ -278,8 +274,8 @@ class AccommodationControllerTest extends ControllerTestCase {
             $this->assertTrue(file_exists(PHOTOS_PATH . "/{$p->getFullPath()}"));
             $this->assertTrue(file_exists(THUMBS_PATH . "/{$p->getThumbPath()}"));
 
-//            var_dump(PHOTOS_PATH . "/{$p->getFullPath()}");
-//            var_dump(THUMBS_PATH . "/{$p->getThumbPath()}");
+            // var_dump(PHOTOS_PATH . "/{$p->getFullPath()}");
+            // var_dump(THUMBS_PATH . "/{$p->getThumbPath()}");
         }
     }
 
