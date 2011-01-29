@@ -6,6 +6,14 @@ class IndexController extends Zend_Controller_Action {
         /* Initialize action controller here */
     }
 
+    /**
+     * This is for tests, experiments, etc.
+     */
+    public function testAction() {
+
+    
+    }
+
     public function indexAction() {
 
         $mainForm = new My_Form_MainPage();

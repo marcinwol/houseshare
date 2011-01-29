@@ -47,7 +47,6 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
         $view->addHelperPath(APPLICATION_PATH . '/../library/ZendX/JQuery/View/Helper', 'ZendX_JQuery_View_Helper');
     }
 
-
     protected function _initLocale() {
         // define locale
         $locale = new Zend_Locale('en');
@@ -69,7 +68,20 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
                             'locale' => $locale)
         );
 
+        // Set up transtlation for validation messages
+        $translate_msg = new Zend_Translate(
+                        array(
+                            'adapter' => 'array',
+                            'content' => APPLICATION_PATH .
+                            '/resources/languages/' . $locale . '/Zend_Validate.php',
+                            'locale' => $locale)
+        );
+
+        // Add translation of validation messages
+        $translate->addTranslation($translate_msg);
+
         Zend_Form::setDefaultTranslator($translate);
+
         // Save it for later
         Zend_Registry::set('Zend_Translate', $translate);
     }
