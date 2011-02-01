@@ -9,9 +9,15 @@ class IndexController extends Zend_Controller_Action {
     /**
      * This is for tests, experiments, etc.
      */
-    public function testAction() {
+    public function testAction() {       
+        $cityM = new My_Model_Table_City();
+        $cityRow = $cityM->find(1)->current();
+    //    var_dump($this->getRequest()->getParams());
 
-    
+        $v = new My_Validate_StringLengthNoTags(array('max'=>4,'min'=>2));
+        $input = '<b>sdf</b>';
+        var_dump($v->isValid($input));
+
     }
 
     public function indexAction() {

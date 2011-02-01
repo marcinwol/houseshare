@@ -69,7 +69,7 @@ abstract class ControllerTestCase extends Zend_Test_PHPUnit_ControllerTestCase {
         $databaseTester->setupDatabase($databaseFixture);
     }
 
-   
-}
+
+        }
 
 ?>

@@ -68,17 +68,14 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
                             'locale' => $locale)
         );
 
-        // Set up transtlation for validation messages
-        $translate_msg = new Zend_Translate(
-                        array(
-                            'adapter' => 'array',
-                            'content' => APPLICATION_PATH .
-                            '/resources/languages/' . $locale . '/Zend_Validate.php',
-                            'locale' => $locale)
-        );
-
-        // Add translation of validation messages
-        $translate->addTranslation($translate_msg);
+//        // Set up transtlation for validation messages
+//        $translate_msg = new Zend_Translate(
+//                        array(
+//                            'adapter' => 'array',
+//                            'content' => APPLICATION_PATH .
+//                            '/resources/languages/' . $locale . '/Zend_Validate.php',
+//                            'locale' => $locale)
+//        );
 
         Zend_Form::setDefaultTranslator($translate);
 

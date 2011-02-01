@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+    <nav>
+        <home>
+            <label>Home</label>
+            <controller>index</controller>
+            <action>index</action>
+ 
+            <pages>
+                <acc>
+                    <label>Accommodation</label>
+                    <controller>accommodation</controller>
+                    <action>index</action>
+                    <pages>
+                       
+                        <add>
+                            <label>Add</label>
+                            <controller>accommodation</controller>
+                            <action>add</action>
+                        </add>
+
+                        <list>
+                            <label>List</label>
+                            <controller>accommodation</controller>
+                            <action>list</action>
+                        </list>
+                       
+                    </pages>
+
+                    </acc>
+             
+            </pages>
+        </home>
+       
+    </nav>
+</config>

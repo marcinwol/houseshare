@@ -13,7 +13,8 @@ return array(
     'Hello world!'=>'Witaj swiecie',
     "I need a room in ..." => "Potrzebuje pokoju w ...",
     "I have a room in ..." => "Mam pokoj do wynajecia w ...",
-    "Search" => "Szukaj"
+    "Search" => "Szukaj",
+    " * A record matching '123' was found" => 'sdfsdaf'
     );
 ?>
 
