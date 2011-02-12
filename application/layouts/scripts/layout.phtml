@@ -28,9 +28,14 @@
             <div id="header">
                 <h1><?php echo $this->translate('Our header'); ?></h1>
             </div>
-            <div id="nav">
-                <?php echo $this->layout()->nav; ?>&nbsp;
+            <div >
+                <?php // echo $this->navigation(); ?>&nbsp;
             </div>
+            <div id="nav">
+                <?php //var_dump($this->navigation()->breadcrumbs()); ?>
+                <?php echo $this->navigation()->breadcrumbs(); ?>&nbsp;
+            </div>
+
 
             <div id="main">
                 <div>

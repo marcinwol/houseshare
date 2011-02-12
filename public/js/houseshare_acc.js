@@ -22,5 +22,5 @@ $(document).ready(function () {
     });
 
     $( "#basic_info-date_avaliable" ).datepicker({ dateFormat: 'dd/mm/yy' });
-
+   
 });

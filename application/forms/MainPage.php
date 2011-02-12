@@ -44,7 +44,6 @@ class My_Form_MainPage extends Zend_Form {
         );
     }
 
-
 }
 
 ?>

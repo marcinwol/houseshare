@@ -5,18 +5,20 @@
             <label>Home</label>
             <controller>index</controller>
             <action>index</action>
- 
+            <route>default</route>
             <pages>
-                <acc>
+                <accommodation>
                     <label>Accommodation</label>
                     <controller>accommodation</controller>
                     <action>index</action>
+                    <route>default</route>
                     <pages>
                        
                         <add>
                             <label>Add</label>
                             <controller>accommodation</controller>
                             <action>add</action>
+                            <visible>1</visible>
                         </add>
 
                         <list>
@@ -27,7 +29,7 @@
                        
                     </pages>
 
-                    </acc>
+                </accommodation>
              
             </pages>
         </home>

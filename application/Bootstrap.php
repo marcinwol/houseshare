@@ -4,9 +4,17 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
 
     protected function _initDoctype() {
         $this->bootstrap('view');
+        /* @var $view Zend_View */
         $view = $this->getResource('view');
         $view->doctype('XHTML1_STRICT');
         $view->addHelperPath(APPLICATION_PATH . '/views/helpers/', 'My_View_Helper');
+
+        $container = new Zend_Navigation(
+                        new Zend_Config_Xml(APPLICATION_PATH . '/configs/navigation.xml', 'nav')
+        );
+
+        $view->navigation()->setContainer($container);
+
     }
 
     protected function _initAutoload() {
@@ -67,15 +75,6 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
                             'content' => APPLICATION_PATH . '/languages/' . $locale . '.php',
                             'locale' => $locale)
         );
-
-//        // Set up transtlation for validation messages
-//        $translate_msg = new Zend_Translate(
-//                        array(
-//                            'adapter' => 'array',
-//                            'content' => APPLICATION_PATH .
-//                            '/resources/languages/' . $locale . '/Zend_Validate.php',
-//                            'locale' => $locale)
-//        );
 
         Zend_Form::setDefaultTranslator($translate);
 

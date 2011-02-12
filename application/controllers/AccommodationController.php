@@ -249,7 +249,7 @@ class AccommodationController extends Zend_Controller_Action {
 
 
                     if (!file_exists($imgPath)) {
-                        throw new Exception("Cound not make file: $imgPath");
+                        throw new Exception("Could not make file: $imgPath");
                     }
                     if (!is_readable($imgPath)) {
                         throw new Exception("File \"$imgPath\" is not readable");
