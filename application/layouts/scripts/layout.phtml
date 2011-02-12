@@ -6,18 +6,36 @@
         <title><?php echo $this->translate('Houseshare'); ?></title>
 
 
-        <?php echo $this->headLink()->appendStylesheet($this->baseUrl('/css/layout.css')); ?>
-        <?php echo $this->headLink()->appendStylesheet($this->baseUrl('/css/smoothness/jquery-ui-1.8.7.custom.css')); ?>
-        <?php echo $this->headScript()->appendFile($this->baseUrl('/js/jquery-1.4.4.min.js')); ?>
-        <?php echo $this->headScript()->appendFile($this->baseUrl('/js/jquery-ui-1.8.7.custom.min.js')); ?>
+        <?php // CSS  ;?>
+        <?php $this->headLink()->appendStylesheet($this->baseUrl('/css/layout.css')); ?>        
+        <?php $this->headLink()->appendStylesheet($this->baseUrl('/css/smoothness/jquery-ui-1.8.7.custom.css')); ?>
 
-        <?php echo $this->headScript()->appendFile($this->baseUrl('/js/houseshare.js')); ?>
 
+        <?php // jQuery  ;?>
+        <?php $this->headScript()->appendFile($this->baseUrl('/js/jquery-1.4.4.min.js')); ?>
+        <?php $this->headScript()->appendFile($this->baseUrl('/js/jquery-ui-1.8.7.custom.min.js')); ?>
+
+        
+        <?php // the application specific ?>
+        <?php $this->headScript()->appendFile($this->baseUrl('/js/houseshare.js')); ?>
         <?php
         if ($this->controller() == 'accommodation') {
-            echo $this->headScript()->appendFile($this->baseUrl('/js/houseshare_acc.js'));
+            $this->headScript()->appendFile($this->baseUrl('/js/houseshare_acc.js'));
         }
         ?>
+
+        <?php // openid-selector ?>
+        <?php
+        if ($this->controller() == 'user') {
+           $this->headLink()->appendStylesheet($this->baseUrl('/css/openid.css'));
+           $this->headScript()->appendFile($this->baseUrl('/js/openid-jquery.js'));
+           $this->headScript()->appendFile($this->baseUrl('/js/openid-en.js'));
+        }
+        ?>
+
+        <?php //render the headLink and headScript ?>
+        <?php echo $this->headLink(); ?>
+        <?php echo $this->headScript(); ?>
 
 
     </head>
@@ -29,6 +47,7 @@
                 <h1><?php echo $this->translate('Our header'); ?></h1>
             </div>
             <div >
+                <a href="<?php echo $this->baseUrl('login');?>">login</a>
                 <?php // echo $this->navigation(); ?>&nbsp;
             </div>
             <div id="nav">
