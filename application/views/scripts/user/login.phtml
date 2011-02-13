@@ -34,6 +34,8 @@
 </div>
 <h2>OR</h2>
 <div>
+
+
     <p>Login using houseshare auth system. <br />If you don't have an account, please
         register to using free OpenID provider
         <a href="https://www.myopenid.com/signup"> myOpenID </a> or
@@ -42,6 +44,11 @@
     </p>
 
     <div>
+         <?php if (true == $this->failedLoginAttempt): ?>
+        <h2>
+            Incorrect email or password.
+        </h2>
+         <?php endif;?>
         <?php echo $this->form; ?>
     </div>
 

@@ -7,7 +7,12 @@ class UserController extends Zend_Controller_Action {
     }
 
     public function indexAction() {
-        // action body
+         $auth = Zend_Auth::getInstance();
+
+        if (!$auth->hasIdentity()) {
+          //  $this->_helper->FlashMessenger('You ');
+            return $this->_redirect('user/login');
+        }
     }
 
     public function addAction() {
@@ -64,7 +69,7 @@ class UserController extends Zend_Controller_Action {
                         $userData = $authAdapter->getResultRowObject(null, 'password');
                         $auth->getStorage()->write($userData);
                         return $this->_redirect('user/success');
-                    } 
+                    }
                 }
 
                 // normally, if everything went OK, user should be already 
@@ -89,11 +94,11 @@ class UserController extends Zend_Controller_Action {
         }
 
         $user_id = (int) $auth->getIdentity()->user_id;
-        
+
         if (null !== $user_id) {
             $user = My_Houseshare_Factory::user($user_id);
-        } 
-        
+        }
+
         $this->view->user = $user;
     }
 
@@ -112,11 +117,31 @@ class UserController extends Zend_Controller_Action {
         }
 
         $loginForm = new My_Form_Login();
+        
+        $this->view->failedLoginAttempt = false;
 
         if ($this->getRequest()->isPost()) {
             if ($loginForm->isValid($_POST)) {
 
-                var_dump($loginForm->getValues());
+                $formData = $loginForm->getValues();
+
+                $authAdapter = new My_Auth_Adapter_DbTable();
+                $authAdapter->setIdentity($formData['email']);
+                $authAdapter->setCredential($formData['password']);
+
+                $auth = Zend_Auth::getInstance();
+                $result = $auth->authenticate($authAdapter);
+
+                if ($result->isValid()) {
+                    $userData = $authAdapter->getResultRowObject(null, 'password');
+                    $auth->getStorage()->write($userData);
+                    return $this->_redirect('user/index');
+                }
+
+                 // normally, if everything went OK, user should be already
+                // redirected.
+               $this->view->failedLoginAttempt = true;
+                
             }
         }
 
