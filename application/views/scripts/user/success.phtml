@@ -1,0 +1,11 @@
+<?php if (null !== $this->user): ?>
+    <h2>Your account was successfully created</h2>
+<?php var_dump($this->user->toArray()) ?>
+
+    
+<?php else: ?>
+        <h2>New user account was not created</h2>
+<?php endif; ?>
+        <div>
+            <a href="<?php echo $this->baseUrl(); ?>" >Go to main page</a>
+</div>

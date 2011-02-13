@@ -32,6 +32,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
         $resourceLoader->addResourceType('model', 'models/', 'My_Model_');
         $resourceLoader->addResourceType('validate', 'validators/', 'My_Validate_');
         $resourceLoader->addResourceType('loader', 'loaders/', 'My_Loader_');
+        $resourceLoader->addResourceType('authAdapter', 'auth/', 'My_Auth_');
 
 
         $autoLoader->pushAutoloader($resourceLoader);

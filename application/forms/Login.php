@@ -20,10 +20,20 @@ class My_Form_Login extends Zend_Form {
         $this->setMethod('post');
 
         //create new element
-        $uname = $this->createElement('text', 'username');
-        $uname->setRequired(true)->setLabel('Username');
-        $uname->setFilters(array('stripTags', 'stringTrim'));
-        $this->addElement($uname);
+        $email = $this->createElement('text', 'email');
+        $email->setRequired(true)->setLabel('Your email');
+        $email->setFilters(array('stripTags', 'stringTrim'));
+
+        $emailValidator = new Zend_Validate_EmailAddress(
+                        array('domain' => false)
+        );
+        $emailValidator->setMessages(array(
+            Zend_Validate_EmailAddress::INVALID_FORMAT => 'Incorrect email format'
+        ));
+        $email->addValidator($emailValidator);
+
+
+        $this->addElement($email);
 
         //create new element
         $upass = $this->createElement('password', 'password');
@@ -32,7 +42,7 @@ class My_Form_Login extends Zend_Form {
         $this->addElement($upass);
 
 
-        $submit = $this->addElement('submit', 'submit', array('label' => 'Sign-in') );
+        $submit = $this->addElement('submit', 'submit', array('label' => 'Sign-in'));
     }
 
 }

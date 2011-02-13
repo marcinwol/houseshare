@@ -34,6 +34,12 @@ class My_Houseshare_User extends My_Houseshare_Abstract_PropertyAccessor {
     public function __construct($id = null) {
         parent::__construct($id);
 
+//
+//        $view = Zend_Controller_Front::getInstance()->getParam('bootstrap')->getResource('view');
+//        var_dump($view->partial('index/index.phtml'));
+//
+//        var_dump($view->render('index/index.phtml'));
+
         $this->_user = $this;
     }
 
