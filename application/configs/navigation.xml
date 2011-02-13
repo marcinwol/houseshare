@@ -25,6 +25,13 @@
                             <controller>accommodation</controller>
                             <action>list</action>
                         </list>
+
+                         <success>
+                            <label>Success</label>
+                            <controller>accommodation</controller>
+                            <action>success</action>
+                            <visible>0</visible>
+                        </success>
                        
                     </pages>
                 </accommodation>

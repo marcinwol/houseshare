@@ -2,6 +2,8 @@
 
     var imgPath = '<?php echo $this->baseUrl('images/');?>';
 
+    console.log(imgPath);
+
     $(document).ready(function() {
         openid.img_path = imgPath;
         openid.init('openid_identifier');

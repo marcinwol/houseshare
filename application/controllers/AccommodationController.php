@@ -7,7 +7,7 @@ class AccommodationController extends Zend_Controller_Action {
     }
 
     public function indexAction() {
-        // action body
+        $this->_forward('list');
     }
 
     public function listAction() {
@@ -50,6 +50,11 @@ class AccommodationController extends Zend_Controller_Action {
         $addAccForm->setDefaultCity($cityName);
         $addAccForm->setDefaultState($stateName);
 
+        if (Zend_Auth::getInstance()->hasIdentity()) {
+            // if logged in, no need about_you subform.
+            $addAccForm->removeSubForm('about_you');
+        }
+
         if ($this->getRequest()->isPost()) {
             if ($addAccForm->isValid($_POST)) {
 
@@ -62,23 +67,34 @@ class AccommodationController extends Zend_Controller_Action {
 
                 try {
 
-                    // save user in not registered (assume it is roomate)
-                    // this is controlled by live_in_acc selecte element
-                    // that for now is not used.
-                    //@todo Add logic for checking if registered or not.
-                    //@todo Add other types of users, not only roomates in the future.
-                    $newUser = My_Houseshare_Factory::roomate();
-                    $newUser->first_name = $formData['about_you']['first_name'];
-                    $newUser->last_name = $formData['about_you']['last_name'];
-                    $newUser->last_name_public = $formData['about_you']['last_name_public'];
-                    $newUser->email = $formData['about_you']['email'];
-                    $newUser->password = md5($formData['about_you']['password1']);
-                    $newUser->phone = $formData['about_you']['phone_no'];
-                    $newUser->phone_public = $formData['about_you']['phone_public'];
-                    $newUser->type = 'ROOMATE';
-                    $newUser->is_owner = 0; // at the moment don't use this field
 
-                    $user_id = $newUser->save();
+
+                     if (Zend_Auth::getInstance()->hasIdentity()) {
+                          // if logged in, no need about_you subform.
+                          // just use logged user info.
+                         $user_id = Zend_Auth::getInstance()->getIdentity()->user_id;
+
+                     } else {
+                        // otherise need to create a user.
+
+                        // save user in not registered (assume it is roomate)
+                        // this is controlled by live_in_acc selecte element
+                        // that for now is not used.
+                        //@todo Add logic for checking if registered or not.
+                        //@todo Add other types of users, not only roomates in the future.
+                        $newUser = My_Houseshare_Factory::roomate();
+                        $newUser->first_name = $formData['about_you']['first_name'];
+                        $newUser->last_name = $formData['about_you']['last_name'];
+                        $newUser->last_name_public = $formData['about_you']['last_name_public'];
+                        $newUser->email = $formData['about_you']['email'];
+                        $newUser->password = md5($formData['about_you']['password1']);
+                        $newUser->phone = $formData['about_you']['phone_no'];
+                        $newUser->phone_public = $formData['about_you']['phone_public'];
+                        $newUser->type = 'ROOMATE';
+                        $newUser->is_owner = 0; // at the moment don't use this field
+
+                        $user_id = $newUser->save();
+                     }
 
                     // save address in db
                     $newAddress = new My_Houseshare_Address();

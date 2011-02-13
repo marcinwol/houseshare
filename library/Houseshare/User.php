@@ -50,6 +50,11 @@ class My_Houseshare_User extends My_Houseshare_Abstract_PropertyAccessor {
         $this->_properties = array_merge($this->_properties, $this->_user->getProperties());
     }
 
+    /**
+     * Get Accommodations of current user
+     *
+     * @return Zend_Db_Table_Rowset
+     */
     public function getAccommodations() {
         return $this->_user->_row->getAccommodations();
     }

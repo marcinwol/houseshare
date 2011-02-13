@@ -1,3 +1,9 @@
 <div>
     User account page.
+    <?php var_dump($this->user);?>
+
+     <?php if ($this->accs): ?>
+            Your accommodations:
+            <?php var_dump($this->accs->toArray());?>
+    <?php endif; ?>
 </div>

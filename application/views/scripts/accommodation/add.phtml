@@ -1,11 +1,11 @@
 <div>
+    <?php if (!$this->isLogged()): ?>
     <h2>
-        We encourage to login before filling this form:
+        We encourage to <a href="<?php echo $this->baseUrl('/login');?>">login</a> before filling this form:
     </h2>
-    <div>
-        Logos: for logging with GOOGLE, YAHOO, FACEBOOK, HOUSESHARE
-    </div>
-    Otherwise, the account will be created during submission.
+       Otherwise, the account will be created during submission.
+    <?php endif; ?>
+ 
 </div>
 <div>
     <?php echo $this->form; ?>

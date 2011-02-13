@@ -7,12 +7,25 @@ class UserController extends Zend_Controller_Action {
     }
 
     public function indexAction() {
+
          $auth = Zend_Auth::getInstance();
 
         if (!$auth->hasIdentity()) {
           //  $this->_helper->FlashMessenger('You ');
             return $this->_redirect('user/login');
         }
+
+        $user_id = $auth->getIdentity()->user_id;
+        $userType = $auth->getIdentity()->type;
+        
+        $user = My_Houseshare_Factory::user($user_id,$userType);
+        /*@var My_Houseshare_User $user */
+
+        $accs = $user->getAccommodations();
+
+        $this->view->user = $user->toArray();
+        $this->view->accs = count($accs) > 0 ? $accs : null;
+
     }
 
     public function addAction() {
