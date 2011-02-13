@@ -188,8 +188,16 @@ openid = {
 			value = 'http://';
 			style = 'background: #FFF url(' + this.img_path + 'openid-inputicon.gif) no-repeat scroll 0 50%; padding-left:18px;';
 		}
-		html += '<input id="' + id + '" type="text" style="' + style + '" name="' + id + '" value="' + value + '" />'
+
+                if (provider['name'] == 'HouseShare') {
+                        html += '<input id="' + id + '" type="text" style="' + style + '" name="' + id + '" value="' + value + '" />' + "< /br>";
+                    	html += '<input id="' + id + '" type="password" style="' + style + '" name="' + id + '" value="' + value + '" /> ';
+                        html +=  '<input id="openid_submit" type="submit" value="' + this.signin_text + '"/>';
+                } else {
+                    // for all others:
+                    html += '<input id="' + id + '" type="text" style="' + style + '" name="' + id + '" value="' + value + '" />'
 				+ '<input id="openid_submit" type="submit" value="' + this.signin_text + '"/>';
+                }
 		input_area.empty();
 		input_area.append(html);
 		$('#' + id).focus();

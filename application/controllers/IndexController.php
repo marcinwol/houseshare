@@ -11,6 +11,8 @@ class IndexController extends Zend_Controller_Action {
      */
     public function testAction() {
 
+       //  $this->view->headScript()->appendFile($this->view->baseUrl('/js/openid-en2.js'));
+
 //        $cityModel = new My_Model_Table_City();
 //        var_dump($cityModel->getCities()->toArray());
 //

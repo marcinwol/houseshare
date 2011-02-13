@@ -12,8 +12,7 @@
                     <controller>accommodation</controller>
                     <action>index</action>
                     <route>default</route>
-                    <pages>
-                       
+                    <pages>                       
                         <add>
                             <label>Add</label>
                             <controller>accommodation</controller>
@@ -28,8 +27,28 @@
                         </list>
                        
                     </pages>
-
                 </accommodation>
+                
+                <user>
+                    <label>User</label>
+                    <controller>user</controller>
+                    <action>index</action>
+                    <route>default</route>
+                    <pages>
+                        <login>
+                            <label>Login</label>
+                            <controller>user</controller>
+                            <action>login</action>
+                        </login>
+
+                        <register>
+                            <label>Register</label>
+                            <controller>user</controller>
+                            <action>create</action>
+                        </register>
+
+                    </pages>
+                </user>
              
             </pages>
         </home>
