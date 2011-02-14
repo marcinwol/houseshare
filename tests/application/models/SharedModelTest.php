@@ -17,7 +17,7 @@ class SharedModelTest extends ModelTestCase {
 
     public function testGetAll() {
         $rowset = $this->_model->fetchAll();
-        $this->assertEquals(count($rowset), 2);
+        $this->assertEquals(count($rowset), 3);
     }
 
     /**
@@ -78,12 +78,6 @@ class SharedModelTest extends ModelTestCase {
 
         foreach ($acc_ids as $acc_id) {
             $sharedAccRow = $this->_model->find($acc_id)->current();
-
-            if (3 === $acc_id) {
-                // no shared table row for acc_id = 3
-                $this->assertTrue(is_null($sharedAccRow));
-                continue;
-            }
             $accRow = $sharedAccRow->getAccommodation();
             $this->assertTrue($accRow instanceof My_Model_Table_Row_Accommodation);
         }
@@ -96,22 +90,15 @@ class SharedModelTest extends ModelTestCase {
         foreach ($acc_ids as $acc_id) {
             $sharedAccRow = $this->_model->find($acc_id)->current();
 
-            if (3 === $acc_id) {
-                // no shared table row for acc_id = 3
-                $this->assertTrue(is_null($sharedAccRow));
-                continue;
-            }
-
             $roomatesRow = $sharedAccRow->getRoomates();
 
-            if (1 === $acc_id) {
+            if (in_array($acc_id, array(1,3))) {
                 // no roomates table row for acc_id = 2
                 $this->assertTrue(is_null($roomatesRow));
                 continue;
             }
 
             // roomates table row exists only for acc_id = 1
-
             $this->assertTrue($roomatesRow instanceof My_Model_Table_Row_Roomates);
         }
     }

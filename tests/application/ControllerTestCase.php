@@ -14,7 +14,15 @@ require_once('Zend/Test/PHPUnit/ControllerTestCase.php');
  * @author marcin
  */
 abstract class ControllerTestCase extends Zend_Test_PHPUnit_ControllerTestCase {
-    //put your code here
+
+    /**
+     * Database table authentication adapter
+     * Note: To be setUp-ed in child classes, e.g. UserControllerTest.php
+     *
+     * @var My_Auth_Adapter_DbTable
+     */
+    protected $_adapter;
+    
 
     /**
      *
@@ -69,7 +77,33 @@ abstract class ControllerTestCase extends Zend_Test_PHPUnit_ControllerTestCase {
         $databaseTester->setupDatabase($databaseFixture);
     }
 
+    protected function _setupAuthAdapter() {
+        $this->_adapter = new My_Auth_Adapter_DbTable();
+    }
 
-        }
+    protected function _clearAuth() {
+         Zend_Auth::getInstance()->clearIdentity();
+    }
+
+    /**
+     * Authenticate a user uzing DbTable adapter and Zend_Auth.
+     *
+     * @param string $identity
+     * @param string $credentials
+     */
+    protected function _authUser($identity, $credentials) {
+
+        $this->_adapter->setEmailAndPass($identity,$credentials);
+        $result = Zend_Auth::getInstance()->authenticate($this->_adapter);        
+        
+        if ($result->isValid()) {
+            $userData = $this->_adapter->getResultRowObject(null, 'password');
+            Zend_Auth::getInstance()->getStorage()->write($userData);           
+        } 
+    }
+
+
+
+}
 
 ?>

@@ -8,6 +8,8 @@ class UserController extends Zend_Controller_Action {
 
     public function indexAction() {
 
+       // Zend_Auth::hasIdentity();
+
          $auth = Zend_Auth::getInstance();
 
         if (!$auth->hasIdentity()) {
@@ -42,7 +44,7 @@ class UserController extends Zend_Controller_Action {
 
         if ($auth->hasIdentity()) {
             $this->_helper->FlashMessenger('It seems you are already logged into the system ');
-            return $this->_redirect('index');
+            return $this->_redirect('/index/index');
         }
 
         $createForm = new My_Form_UserCreate();
@@ -103,7 +105,7 @@ class UserController extends Zend_Controller_Action {
 
         if (!$auth->hasIdentity()) {
             $this->_helper->FlashMessenger('Cannot retrive user creation info from session');
-            return $this->_redirect('index');
+            return $this->_redirect('/index/index');
         }
 
         $user_id = (int) $auth->getIdentity()->user_id;
@@ -126,7 +128,7 @@ class UserController extends Zend_Controller_Action {
 
         if ($auth->hasIdentity()) {
             $this->_helper->FlashMessenger('It seems you are already logged into the system ');
-            return $this->_redirect('index');
+            return $this->_redirect('/index/index');
         }
 
         $loginForm = new My_Form_Login();

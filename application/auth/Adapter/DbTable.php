@@ -24,5 +24,16 @@ class My_Auth_Adapter_DbTable extends Zend_Auth_Adapter_DbTable {
 
     }
 
+    /**
+     * Set Identity and Credentail to be chacked.
+     *
+     * @param string $email
+     * @param string $password
+     */
+    public function setEmailAndPass($email, $password) {
+        $this->setIdentity($email);
+        $this->setCredential($password);
+    }
+
 }
 ?>

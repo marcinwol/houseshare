@@ -7,7 +7,7 @@ class AccommodationController extends Zend_Controller_Action {
     }
 
     public function indexAction() {
-        $this->_forward('list');
+        return $this->_forward('list');
     }
 
     public function listAction() {

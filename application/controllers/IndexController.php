@@ -44,8 +44,10 @@ class IndexController extends Zend_Controller_Action {
 //
 //        var_dump($result);
         //
+//
+//        $this->getRequest()->setParam('dupa', '1');
+//        return $this->_forward('index');
 
-        
 
         $input = array(
             array(
