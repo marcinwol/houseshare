@@ -13,15 +13,9 @@ class UserControllerTest extends ControllerTestCase {
         $this->_clearAuth();
     }
 
-    public function testIndexAction() {
-        $this->dispatch('/user/');
-        $this->assertController('user');
-        $this->assertAction('index');
-    }
-
     public function testIfNotLoggedUserGoesToIndex() {
         $this->dispatch('/user/');
-        $this->assertRedirectTo('/user/login');
+        $this->assertAction('login');        
     }
 
     public function testIfLoggedUserGoesToIndex() {
@@ -35,7 +29,7 @@ class UserControllerTest extends ControllerTestCase {
 
     public function testIfLoggedUserGoestToLogin() {
         // authenticate correct user
-        $this->_authUser('test@test.com', 'kanako');
+        $this->_authUser('test@test.com', 'test12');
 
         $this->dispatch('/user/login');
         $this->assertRedirectTo('/index/index');
@@ -76,7 +70,7 @@ class UserControllerTest extends ControllerTestCase {
         // for correct user
         $params []= array(
             array(
-                'user' => array('email' => 'user1@user.com', 'password' => 'kanako'),
+                'user' => array('email' => 'user1@user.com', 'password' => 'test12'),
                 'expectedhasIdentity' => true,
                 'expectedUserID' => 3
             )
@@ -85,7 +79,7 @@ class UserControllerTest extends ControllerTestCase {
         // for correct user
         $params [] = array(
             array(
-                'user' => array('email' => 'test@test.com', 'password' => 'kanako'),
+                'user' => array('email' => 'test@test.com', 'password' => 'test12'),
                 'expectedhasIdentity' => true,
                 'expectedUserID' => 1
             )
@@ -95,7 +89,7 @@ class UserControllerTest extends ControllerTestCase {
         // for INcorrect user
         $params [] = array(
             array(
-                'user' => array('email' => 'tdest@test.com', 'password' => 'kadnako'),
+                'user' => array('email' => 'tdest@test.com', 'password' => 'test12'),
                 'expectedhasIdentity' => false,
             // expectedUserID not needed as getIdentity will be NULL;
             )
@@ -106,7 +100,7 @@ class UserControllerTest extends ControllerTestCase {
 
     public function testIfLoggedUserGoestToCreate() {
         // authenticate correct user
-        $this->_authUser('test@test.com', 'kanako');
+        $this->_authUser('test@test.com', 'test12');
 
         $this->dispatch('/user/create');
         $this->assertRedirectTo('/index/index');
@@ -166,28 +160,31 @@ class UserControllerTest extends ControllerTestCase {
     }
 
 
-     public function testIfLoggedUserGoestToSuccess() {
+     public function testIfLoggedUserGoesToSuccess() {
         // authenticate correct user
-        $this->_authUser('test@test.com', 'kanako');
+        $this->_authUser('test@test.com', 'test12');
 
         $this->dispatch('/user/success');
-        $this->assertNotRedirectTo('/index/index');
+       
+        $this->assertRedirectTo('/');
     }
 
-    public function testIfNotLoggedUserGoestToSuccess() {
+    public function testIfNotLoggedUserGoesToSuccess() {
 
         $this->dispatch('/user/success');
-        $this->assertRedirectTo('/index/index');
+        $this->assertAction('login');
     }
 
     public function testLogout() {
 
         // authenticate correct user
-        $this->_authUser('test@test.com', 'kanako');
+        $this->_authUser('test@test.com', 'test12');
 
         $this->dispatch('/user/logout');
 
-        $this->assertEquals(false, $auth->hasIdentity());        
+        $auth = Zend_Auth::getInstance();
+
+        $this->assertEquals(false, $auth->hasIdentity());
     }
 
 }

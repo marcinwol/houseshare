@@ -8,14 +8,7 @@ class UserController extends Zend_Controller_Action {
 
     public function indexAction() {
 
-       // Zend_Auth::hasIdentity();
-
-         $auth = Zend_Auth::getInstance();
-
-        if (!$auth->hasIdentity()) {
-          //  $this->_helper->FlashMessenger('You ');
-            return $this->_redirect('user/login');
-        }
+        $auth = Zend_Auth::getInstance();
 
         $user_id = $auth->getIdentity()->user_id;
         $userType = $auth->getIdentity()->type;
@@ -82,6 +75,7 @@ class UserController extends Zend_Controller_Action {
 
                     if ($result->isValid()) {
                         $userData = $authAdapter->getResultRowObject(null, 'password');
+                        $userData->just_created = true;
                         $auth->getStorage()->write($userData);
                         return $this->_redirect('user/success');
                     }
@@ -105,10 +99,23 @@ class UserController extends Zend_Controller_Action {
 
         if (!$auth->hasIdentity()) {
             $this->_helper->FlashMessenger('Cannot retrive user creation info from session');
-            return $this->_redirect('/index/index');
+            return $this->_redirect('/');
         }
 
-        $user_id = (int) $auth->getIdentity()->user_id;
+        $userData = $auth->getIdentity();
+
+        // if users is NOT the first time here, than redirect him.
+        if (false == property_exists($userData,'just_created') || false == $userData->just_created) {
+            return $this->_redirect('/');
+        }
+       
+
+        // mark that already user visited the success action.
+        $userData->just_created = false;
+        $auth->getStorage()->write($userData);
+
+        // get just regisered user id
+        $user_id = (int) $userData->user_id;
 
         if (null !== $user_id) {
             $user = My_Houseshare_Factory::user($user_id);
@@ -118,8 +125,8 @@ class UserController extends Zend_Controller_Action {
     }
 
     public function logoutAction() {
-        $authAdapter = Zend_Auth::getInstance();
-        $authAdapter->clearIdentity();
+        $auth = Zend_Auth::getInstance();
+        $auth->clearIdentity();
     }
 
     public function loginAction() {

@@ -28,6 +28,8 @@ class UserModelTest extends ModelTestCase {
         unset($userData['user_id']);
         unset($userData['created']);
         unset($userData['is_enabled']);
+        unset($userData['privilage']);
+
         $this->assertEquals($data, $userData);
     }
 
@@ -72,6 +74,7 @@ class UserModelTest extends ModelTestCase {
         unset($userData['user_id']);
         unset($userData['created']);
         unset($userData['is_enabled']);
+        unset($userData['privilage']);
 
         // change only phone info
         $userData['phone'] = 'new phone 432';

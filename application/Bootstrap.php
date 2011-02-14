@@ -14,7 +14,6 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
         );
 
         $view->navigation()->setContainer($container);
-
     }
 
     protected function _initAutoload() {
@@ -33,6 +32,8 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
         $resourceLoader->addResourceType('validate', 'validators/', 'My_Validate_');
         $resourceLoader->addResourceType('loader', 'loaders/', 'My_Loader_');
         $resourceLoader->addResourceType('authAdapter', 'auth/', 'My_Auth_');
+        $resourceLoader->addResourceType('controller', 'controllers/', 'My_Controller_');
+        $resourceLoader->addResourceType('acl', 'acl/', 'My_');
 
 
         $autoLoader->pushAutoloader($resourceLoader);
@@ -81,6 +82,21 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
 
         // Save it for later
         Zend_Registry::set('Zend_Translate', $translate);
+    }
+
+    protected function _initLoadAclIni() {
+        $config = new Zend_Config_Ini(APPLICATION_PATH . '/configs/acl.ini');
+        Zend_Registry::set('acl', $config);
+    }
+
+     protected function _initAclControllerPlugin() {
+        $this->bootstrap('frontcontroller');
+        $this->bootstrap('loadAclIni');
+
+        $front = Zend_Controller_Front::getInstance();
+        $aclPlugin = new My_Controller_Plugin_Acl(new My_Acl());
+
+        $front->registerPlugin($aclPlugin);
     }
 
     protected function _initImageDirConstants() {
