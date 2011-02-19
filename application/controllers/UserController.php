@@ -138,12 +138,35 @@ class UserController extends Zend_Controller_Action {
             return $this->_redirect('/index/index');
         }
 
+
+        $openid_identifier = $this->getRequest()->getParam('openid_identifier',null);
+
+        if ($openid_identifier) {
+            $auth = Zend_Auth::getInstance();
+
+            $openIDadapter =  new Zend_Auth_Adapter_OpenId($openid_identifier);
+
+            $result = $auth->authenticate($openIDadapter);
+
+             var_dump($result->isValid());
+
+            if ($result->isValid()) {
+                    var_dump( $auth->getIdentity());
+            }
+
+        }
+
+
+        
+
         $loginForm = new My_Form_Login();
         
         $this->view->failedLoginAttempt = false;
 
-        if ($this->getRequest()->isPost()) {
+        if ($this->getRequest()->isPost() && null == $openid_identifier) {
             if ($loginForm->isValid($_POST)) {
+
+                
 
                 $formData = $loginForm->getValues();
 
