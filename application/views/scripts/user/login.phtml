@@ -7,14 +7,14 @@
     $(document).ready(function() {
         openid.img_path = imgPath;
         openid.init('openid_identifier');
-        openid.setDemoMode(true); //Stops form submission for client javascript-only test purposes
+        openid.setDemoMode(false); //Stops form submission for client javascript-only test purposes
 
     });
 </script>
 
 <div>
     <!-- Simple OpenID Selector -->
-    <form action="examples/consumer/try_auth.php" method="get" id="openid_form">
+    <form action="<?php echo $this->baseUrl('/user/login');?>" method="get" id="openid_form">
         <input type="hidden" name="action" value="verify" />
         <fieldset>
             <legend>Sign-in </legend>

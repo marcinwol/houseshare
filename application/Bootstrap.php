@@ -87,13 +87,23 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
     protected function _initLoadAclIni() {
         $config = new Zend_Config_Ini(APPLICATION_PATH . '/configs/acl.ini');
         Zend_Registry::set('acl', $config);
+
     }
 
-     protected function _initAclControllerPlugin() {
+//    protected function _initSetNewLayooutContentKey() {
+//
+//        $layout = $this->bootstrap('layout')->getResource('layout');
+//
+//        // instead of 'content' use 'viewoutput'
+//        $layout->setContentKey('viewoutput');
+//    }
+
+    protected function _initAclControllerPlugin() {
         $this->bootstrap('frontcontroller');
         $this->bootstrap('loadAclIni');
 
         $front = Zend_Controller_Front::getInstance();
+
         $aclPlugin = new My_Controller_Plugin_Acl(new My_Acl());
 
         $front->registerPlugin($aclPlugin);
@@ -103,6 +113,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
         // define path to directory where photos should be uploaded
         // and the name of thumbs directory
         $imagePaths = $this->getOption('myimages');
+
 
         $imBaseDir = $imagePaths['basedir'];
 
