@@ -151,6 +151,24 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
 //
 //    }
 
+    
+//    protected function _initAutoload() {
+//        $autoLoader = Zend_Loader_Autoloader::getInstance();
+//
+//        $resourceLoader = new Zend_Loader_Autoloader_Resource(array(
+//                    'basePath' => APPLICATION_PATH,
+//                    'namespace' => '',
+//                ));
+//
+//
+//        $resourceLoader->addResourceType('loader', 'loaders/', 'My_Loader_');
+//
+//        $autoLoader->pushAutoloader($resourceLoader);
+//        $autoLoader->pushAutoloader(new My_Loader_Autoloader_PhpThumb());
+//
+//
+//    }
+
 
 }
 

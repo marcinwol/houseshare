@@ -149,19 +149,20 @@ class UserController extends Zend_Controller_Action {
         // this one is for facebook connect
         $code = $this->getRequest()->getParam('code', null);
 
+        // this is for twitter oath
+        $oauth_token = $this->getRequest()->getParam('oauth_token', null);
+
         // request and redirection to the account provider
-        if ($openid_identifier && null === $openid_mode && null === $code) {
+        if ($openid_identifier && null === $openid_mode && null === $code && null === $oauth_token) {
 
+            if ('https://www.twitter.com' == $openid_identifier) {
+                
+                $adapter = $this->_getTwitterAdapter();
 
+            } else if ('https://www.facebook.com' == $openid_identifier) {
 
-            if ('https://www.facebook.com' == $openid_identifier) {
-
-                $appId = '184175234953062';
-                $secret = '18caeb8fe4c163b91338f4e4ea9eb0c5';
-                $redirectUri = 'http://localhost.com/houseshare/public/login/';
-                $scope = 'email';
-
-                $adapter = new My_Auth_Adapter_Facebook($appId, $secret, $redirectUri, $scope);
+                $adapter = $this->_getFacebookAdapter();
+                
             } else {
                 // for openid
                 // fetch only email
@@ -184,17 +185,18 @@ class UserController extends Zend_Controller_Action {
             // the following two lines should never be executed unless the redirection faild.
             $this->_helper->FlashMessenger('Redirection faild');
             return $this->_redirect('/index/index');
-        } else if ($openid_mode || $code) {
+        } else if ($openid_mode || $code || $oauth_token) {
             // this will be exectued after provider redirected the user back to us
 
             if ($code) {
                 // for facebook
-                $appId = '184175234953062';
-                $secret = '18caeb8fe4c163b91338f4e4ea9eb0c5';
-                $redirectUri = 'http://localhost.com/houseshare/public/login/';
-                $scope = 'email';
+                $adapter = $this->_getFacebookAdapter();
 
-                $adapter = new My_Auth_Adapter_Facebook($appId, $secret, $redirectUri, $scope);
+            } else if ($oauth_token) {
+                // for twitter                
+                $adapter = $this->_getTwitterAdapter();
+                $adapter->setQueryData($_GET);
+
             } else {
                 // for openid
                 $adapter = new Zend_Auth_Adapter_OpenId();
@@ -209,7 +211,6 @@ class UserController extends Zend_Controller_Action {
                 var_dump($result->getMessages());
             }
         }
-
 
 
 
@@ -242,6 +243,38 @@ class UserController extends Zend_Controller_Action {
         }
 
         $this->view->form = $loginForm;
+    }
+
+    /**
+     * Get My_Auth_Adapter_Facebook adapter
+     *
+     * @return My_Auth_Adapter_Facebook
+     */
+    protected function _getFacebookAdapter() {
+        $appId = '184175234953062';
+        $secret = '18caeb8fe4c163b91338f4e4ea9eb0c5';
+        $redirectUri = 'http://localhost.com/houseshare/public/login/';
+        $scope = 'email';
+
+        return new My_Auth_Adapter_Facebook($appId, $secret, $redirectUri, $scope);
+    }
+
+    /**
+     * Get My_Auth_Adapter_Oauth_Twitter adapter
+     *
+     * @return My_Auth_Adapter_Oauth_Twitter
+     */
+    protected function _getTwitterAdapter() {
+        $appId = 'FzA7ZyYLHmHujOxlMkhDGQ';
+        $secret = 'Re83EU2t9vpsdbkz6cKZJxvyGFEkFb9Quq7t3irTSg';
+        $redirectUri = 'http://localhost.com/houseshare/public/login/';
+
+        $adapter = new My_Auth_Adapter_Oauth_Twitter();
+
+        $adapter->setConsumerKey($appId);
+        $adapter->setConsumerSecret($secret);
+        $adapter->setCallbackUrl($redirectUri);
+        return $adapter;
     }
 
 }

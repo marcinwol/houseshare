@@ -23,7 +23,7 @@
 /**
  * @see Zend_Auth_Adapter_Interface
  */
-require_once 'Ja/Auth/Adapter/Oauth.php';
+require_once APPLICATION_PATH . '/auth/Adapter/Oauth.php';
 
 /**
  * @category   Ja/Zend

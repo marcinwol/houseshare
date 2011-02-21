@@ -37,6 +37,10 @@ var providers_large = {
     facebook : {
         name: 'Facebook',
         url: "https://www.facebook.com"
+    },
+    twitter : {
+        name: 'Twitter',
+        url: "https://www.twitter.com"
     }
 };
 
