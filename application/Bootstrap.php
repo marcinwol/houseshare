@@ -34,6 +34,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
         $resourceLoader->addResourceType('authAdapter', 'auth/', 'My_Auth_');
         $resourceLoader->addResourceType('controller', 'controllers/', 'My_Controller_');
         $resourceLoader->addResourceType('acl', 'acl/', 'My_');
+        $resourceLoader->addResourceType('openidextension', 'openid/extension/', 'My_OpenId_Extension');
 
 
         $autoLoader->pushAutoloader($resourceLoader);
@@ -78,16 +79,19 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
                             'locale' => $locale)
         );
 
+
+
+
+        //    $translate->addTranslation();
+
         Zend_Form::setDefaultTranslator($translate);
 
-        // Save it for later
-        Zend_Registry::set('Zend_Translate', $translate);
+
     }
 
     protected function _initLoadAclIni() {
         $config = new Zend_Config_Ini(APPLICATION_PATH . '/configs/acl.ini');
         Zend_Registry::set('acl', $config);
-
     }
 
 //    protected function _initSetNewLayooutContentKey() {
@@ -135,6 +139,18 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
         defined('THUMBS_PATH')
                 || define('THUMBS_PATH', $imBaseDir . '/' . THUMBS_DIR_NAME);
     }
+
+    
+//    protected function _initMakeFileUploadConsant() {
+//
+//        $imagePaths = $this->getOption('myvars');
+//
+//        $imgDir = realpath($imagePaths['fileuploaddir']);
+//
+//        defined('FILE_UPLOAD_DESTINATION') || define('FILE_UPLOAD_DESTINATION', $imgDir);
+//
+//    }
+
 
 }
 

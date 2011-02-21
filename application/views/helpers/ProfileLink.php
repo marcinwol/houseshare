@@ -30,7 +30,7 @@ class My_View_Helper_ProfileLink extends Zend_View_Helper_Abstract {
         $html = '<a href="'.$baseUrl.'/login"> Login </a>';
 
         if ($auth->hasIdentity()) {
-            $userName  = $auth->getIdentity()->first_name;
+            $userName  = isset($auth->getIdentity()->first_name)?:'OpenId';
             $html = "Hi $userName  | ";
             $html .= '<a href="'.$baseUrl.'/logout"> Logout </a>';
             return $html;

@@ -2,6 +2,7 @@ tests/log
 nbproject
 library/Zend
 library/ZendX
+library/openid-php
 application/resources
 /.zfproject.xml
 *.bak

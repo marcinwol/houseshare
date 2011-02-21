@@ -28,16 +28,16 @@ var providers_large = {
         name : 'OpenID',
         label : 'Enter your OpenID.',
         url : null
-    }
+    },
 //    houseshare : {
 //        name : 'HouseShare',
 //        label : 'Login using our webiste.',
 //        url: "javascript:houseshare_click();"
 //    }
-//    facebook : {
-//        name: 'Facebook',
-//        url: "javascript:facebook_click();"
-//    }
+    facebook : {
+        name: 'Facebook',
+        url: "https://www.facebook.com"
+    }
 };
 
 function houseshare_click() {

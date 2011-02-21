@@ -11,70 +11,12 @@ class IndexController extends Zend_Controller_Action {
      */
     public function testAction() {
 
-       //  $this->view->headScript()->appendFile($this->view->baseUrl('/js/openid-en2.js'));
+       // var_dump('path:' . FILE_UPLOAD_DESTINATION);
 
-//        $cityModel = new My_Model_Table_City();
-//        var_dump($cityModel->getCities()->toArray());
-//
-//        $data = array (
-//            'name' => 'nevermind',
-//            'state_id' => '1',
-//            'created' => new Zend_Db_Expr('NOW()')
-//        );
-//
-//        $cityModel->insert($data);
-        //$myForm->addDecorator($myCustomFormDecorator);
-
-      //  $client = new Zend_Rest_Client('http://framework.zend.com/rest');
-
-      //   var_dump($client->sayHello('Marcin', 'Day')->get());
-
-//        $db = Zend_Db_Table::getDefaultAdapter();
-//
-//        $select = $db->select();
-//        $select->from('advertisercontest', '*')
-//                ->joinLeft(
-//                        'advertisercontest',
-//                        'advertiseraccount.loginid = advertisercontest.loginid',
-//                        array('advertiseraccount.advertiserid', 'advertiseraccount.companyname')
-//                        )
-//                ->where('advertisercontest.golive is not NULL');;
-//
-//        $result = $db->fetchAll($select);
-//
-//        var_dump($result);
-        //
-//
-//        $this->getRequest()->setParam('dupa', '1');
-//        return $this->_forward('index');
-
-
-        $input = array(
-            array(
-                'firstname' => 'somename',
-                'lastname' => 'somelastname',
-                'location' => 'somelocation'
-            ),
-            array(
-                'firstname' => 'somename2',
-                'lastname' => 'somelastname2',
-                'location' => 'somelocation2'
-            )
-        );
-
-        $paginator = Zend_Paginator::factory($input);
-        $paginator->setCurrentPageNumber(1);
-
-        foreach ($paginator as $key => &$value) {
-
-            // performe some logic to check if if the home directory has been correctly created
-            // and the boolean value to represent this.
-
-            $value['newVariable'] = false;
-            var_dump($value);
-        }
-
-        $this->view->paginator = $paginator;
+        // action body
+        $this->view->echo_in_view = "HERE";
+        echo "INSIDE ACTION";
+        var_dump(get_class($this));
     }
 
     public function indexAction() {
@@ -83,7 +25,7 @@ class IndexController extends Zend_Controller_Action {
 
         if ($this->getRequest()->isPost()) {
             if ($mainForm->isValid($_POST)) {
-         
+
                 $whatToDo = $mainForm->getValue('rd_what_to_do');
                 $cityName = $mainForm->getValue('i_city');
 
@@ -94,7 +36,7 @@ class IndexController extends Zend_Controller_Action {
                 }
             }
         }
-        
+
         $this->view->mainForm = $mainForm;
     }
 

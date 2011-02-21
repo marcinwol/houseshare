@@ -1,18 +1,6 @@
 <div>
-    <?php foreach ($this->paginator as $key => $item): ?>
-
-        Item Number (Method 1): <?php echo $key; ?> </br>
-        Item Number (Method 2): <?php echo $this->paginator->normalizeItemNumber($item); ?> </br>
-        
-    <?php endforeach;
-        ; ?>
-
-    
-    </div>
-
-    <div>
-    Third Method through partialLoop view helper:
-    <?php echo $this->partialLoop('_partials/testPartial.phtml', $this->paginator); ?>
-
+  <h1>about to echo in view</h1>
+  <?php echo $this->echo_in_view;?>
+<?php var_dump(get_class($this));?>
 </div>
 
