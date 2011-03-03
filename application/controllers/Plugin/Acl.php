@@ -58,8 +58,8 @@ class My_Controller_Plugin_Acl extends Zend_Controller_Plugin_Abstract {
     protected function _getCurrentUserRole() {      
 
         if ($this->_auth->hasIdentity()) {
-            $identity = $this->_auth->getIdentity();
-            $role = isset($identity->privilage)?strtolower($identity->privilage): 'guest';
+            $authData = $this->_auth->getIdentity();
+            $role = isset($authData['properties']['privilage'])?strtolower($authData['properties']['privilage']): 'guest';
         } else {
             $role = 'guest';
         }

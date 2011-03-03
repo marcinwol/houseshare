@@ -19,8 +19,9 @@ class UserController extends Zend_Controller_Action {
 
         $authData = $auth->getIdentity();
 
-        $user_id = $authData['identity'];
+        $user_id = $authData['properties']['user_id'];
         $userType = $authData['properties']['type'];
+               
 
         $user = My_Houseshare_Factory::user($user_id, $userType);
         /* @var My_Houseshare_User $user */
@@ -199,6 +200,7 @@ class UserController extends Zend_Controller_Action {
             // the following two lines should never be executed unless the redirection faild.
             $this->_helper->FlashMessenger('Redirection faild');
             return $this->_redirect('/index/index');
+            
         } else if ($openid_mode || $code || $oauth_token) {
             // this will be exectued after provider redirected the user back to us
             //  var_dump($_GET);return;
@@ -232,7 +234,6 @@ class UserController extends Zend_Controller_Action {
                 }
             }
 
-            // var_dump($_GET);return;
 
             $result = $auth->authenticate($adapter);
 
@@ -257,11 +258,13 @@ class UserController extends Zend_Controller_Action {
                     }
                     $toStore['properties'] = $twitterUserData;
                 }
+                
+                // query our database to check if a user already exists
+                // or if the user is a new one. 
 
                 $auth->getStorage()->write($toStore);
 
-                $this->_helper->FlashMessenger('Successful authentication');
-                return $this->_redirect('/index/index');
+                return $this->_redirect('/user/index');
             } else {
                 $this->_helper->FlashMessenger('Failed authentication');
                 $this->_helper->FlashMessenger($result->getMessages());
@@ -292,7 +295,7 @@ class UserController extends Zend_Controller_Action {
                     $userData = $authAdapter->getResultRowObject(null, 'password');
                     
                     $toStore = array('identity' => $auth->getIdentity());
-                    $toStore['properties'] = $userData;
+                    $toStore['properties'] = (array) $userData;
                     $auth->getStorage()->write($toStore);
                     return $this->_redirect('user/index');
                 }
