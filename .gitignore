@@ -10,3 +10,5 @@ application/resources
 *.bak
 public/images
 *.orig
+/application/forms/Decorator/.LCKCaptcha.php~
+/application/forms/Element/.LCKCaptcha.php~
