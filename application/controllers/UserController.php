@@ -19,8 +19,8 @@ class UserController extends Zend_Controller_Action {
 
         $authData = $auth->getIdentity();
 
-        $user_id = $authData['properties']['user_id'];
-        $userType = $authData['properties']['type'];
+        $user_id = $authData->property->user_id;
+        $userType = $authData->property->type;
                
 
         $user = My_Houseshare_Factory::user($user_id, $userType);
@@ -238,25 +238,26 @@ class UserController extends Zend_Controller_Action {
             $result = $auth->authenticate($adapter);
 
             if ($result->isValid()) {
-                $toStore = array('identity' => $auth->getIdentity());
+                
+                // make an stdObj to sture user info fetched
+                $toStore = (object) array('identity' => $auth->getIdentity());
+                                
 
-                if ($ext) {
+                if (isset($ext)) {
                     // for openId
-                    $toStore['properties'] = $ext->getProperties();
+                    $toStore->property = (object) $ext->getProperties();
                 } else if ($code) {
                     // for facebook
                     $msgs = $result->getMessages();
-                    $toStore['properties'] = (array) $msgs['user'];
+                    $toStore->property  =  $msgs['user'];
                 } else if ($oauth_token) {
                     // for twitter
                     $identity = $result->getIdentity();
                     // get user info
-                    $twitterUserData = (array) $adapter->verifyCredentials();
-                    $toStore = array('identity' => $identity['user_id']);
-                    if (isset($twitterUserData['status'])) {
-                        $twitterUserData['status'] = (array) $twitterUserData['status'];
-                    }
-                    $toStore['properties'] = $twitterUserData;
+                    $twitterUserData =  $adapter->verifyCredentials();
+                    
+                    $toStore = (object) array('identity' => $identity['user_id']);
+                    $toStore->property = $twitterUserData;
                 }
                 
                 // query our database to check if a user already exists
@@ -294,8 +295,8 @@ class UserController extends Zend_Controller_Action {
                     
                     $userData = $authAdapter->getResultRowObject(null, 'password');
                     
-                    $toStore = array('identity' => $auth->getIdentity());
-                    $toStore['properties'] = (array) $userData;
+                    $toStore = (object) array('identity' => $auth->getIdentity());
+                    $toStore->property = $userData;
                     $auth->getStorage()->write($toStore);
                     return $this->_redirect('user/index');
                 }

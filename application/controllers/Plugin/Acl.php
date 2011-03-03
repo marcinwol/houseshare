@@ -59,7 +59,7 @@ class My_Controller_Plugin_Acl extends Zend_Controller_Plugin_Abstract {
 
         if ($this->_auth->hasIdentity()) {
             $authData = $this->_auth->getIdentity();
-            $role = isset($authData['properties']['privilage'])?strtolower($authData['properties']['privilage']): 'guest';
+            $role = isset($authData->property->privilage)?strtolower($authData->property->privilage): 'guest';
         } else {
             $role = 'guest';
         }
