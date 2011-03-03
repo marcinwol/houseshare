@@ -16,7 +16,9 @@ class My_Model_Table_Street extends Zend_Db_Table_Abstract {
     protected $_name = "STREET";
     protected $_dependentTables = array('My_Model_Table_Address');
     protected $_rowClass = 'My_Model_Table_Row_Street';
-
+//    protected $_cols = array('street_id','name');
+//    protected $_primary = 'street_id';
+    
     /**
      * Find Street by name
      *

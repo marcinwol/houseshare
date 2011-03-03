@@ -22,25 +22,36 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
         $resourceLoader = new Zend_Loader_Autoloader_Resource(array(
                     'basePath' => APPLICATION_PATH,
                     'namespace' => '',
+                    'resourceTypes' => array(
+                        'view' => array(
+                            'path' => 'views/helpers/',
+                            'namespace' => 'My_View_Helper_'
+                        ),
+                        'form' => array(
+                            'path' => 'forms/',
+                            'namespace' => 'My_Form_'
+                        ),
+                        'model' => array(
+                            'path' => 'models/',
+                            'namespace' => 'My_Model_'
+                        )
+                    )
                 ));
 
-        $resourceLoader->addResourceType(
-                'view', 'views/helpers/', 'My_View_Helper_'
-        );
-        $resourceLoader->addResourceType('form', 'forms/', 'My_Form_');
-        $resourceLoader->addResourceType('model', 'models/', 'My_Model_');
         $resourceLoader->addResourceType('validate', 'validators/', 'My_Validate_');
         $resourceLoader->addResourceType('loader', 'loaders/', 'My_Loader_');
         $resourceLoader->addResourceType('authAdapter', 'auth/', 'My_Auth_');
         $resourceLoader->addResourceType('controller', 'controllers/', 'My_Controller_');
         $resourceLoader->addResourceType('acl', 'acl/', 'My_');
         $resourceLoader->addResourceType('openidextension', 'openid/extension/', 'My_OpenId_Extension');
+        //$resourceLoader->addResourceType('authAdapter', 'auth/Adapter', 'My_Auth_Adapter');
 
 
         $autoLoader->pushAutoloader($resourceLoader);
+        //  require_once APPLICATION_PATH . '/loaders/Autoloader/PhpThumb.php';
         $autoLoader->pushAutoloader(new My_Loader_Autoloader_PhpThumb());
 
-
+        //   var_dump($autoLoader->getAutoloaders());
         // add 'My_' namespace for library/houseshare
         $resourceLoader_hs = new Zend_Loader_Autoloader_Resource(array(
                     'basePath' => APPLICATION_PATH . '/../library',
@@ -50,12 +61,6 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
         $resourceLoader_hs->addResourceType('houseshare', 'Houseshare/', 'Houseshare_');
         //var_dump($resourceLoader_cms->getResourceTypes());
         $autoLoader->pushAutoloader($resourceLoader_hs);
-    }
-
-    protected function _initJQueryLoad() {
-        $this->bootstrap('view');
-        $view = $this->getResource('view');
-        $view->addHelperPath(APPLICATION_PATH . '/../library/ZendX/JQuery/View/Helper', 'ZendX_JQuery_View_Helper');
     }
 
     protected function _initLocale() {
@@ -80,13 +85,9 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
         );
 
 
-
-
         //    $translate->addTranslation();
 
         Zend_Form::setDefaultTranslator($translate);
-
-
     }
 
     protected function _initLoadAclIni() {
@@ -140,35 +141,15 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
                 || define('THUMBS_PATH', $imBaseDir . '/' . THUMBS_DIR_NAME);
     }
 
-    
-//    protected function _initMakeFileUploadConsant() {
-//
-//        $imagePaths = $this->getOption('myvars');
-//
-//        $imgDir = realpath($imagePaths['fileuploaddir']);
-//
-//        defined('FILE_UPLOAD_DESTINATION') || define('FILE_UPLOAD_DESTINATION', $imgDir);
-//
-//    }
+      protected function _initAppKeysToRegistry() {
 
-    
-//    protected function _initAutoload() {
-//        $autoLoader = Zend_Loader_Autoloader::getInstance();
-//
-//        $resourceLoader = new Zend_Loader_Autoloader_Resource(array(
-//                    'basePath' => APPLICATION_PATH,
-//                    'namespace' => '',
-//                ));
-//
-//
-//        $resourceLoader->addResourceType('loader', 'loaders/', 'My_Loader_');
-//
-//        $autoLoader->pushAutoloader($resourceLoader);
-//        $autoLoader->pushAutoloader(new My_Loader_Autoloader_PhpThumb());
-//
-//
-//    }
+         $appkeys = new Zend_Config_Ini(APPLICATION_PATH . '/configs/appkeys.ini');
+         Zend_Registry::set('keys', $appkeys);
+        
+
+     }
+
+
 
 
 }
-

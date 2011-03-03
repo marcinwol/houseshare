@@ -27,16 +27,11 @@ class My_View_Helper_ProfileLink extends Zend_View_Helper_Abstract {
         
         $auth = Zend_Auth::getInstance();
 
-        $html = '<a href="'.$baseUrl.'/login"> Login </a>';
+        $html = '<a href="'.$baseUrl.'/user/login"> Login </a>';
 
-        if ($auth->hasIdentity()) {
-            $userName  = isset($auth->getIdentity()->first_name)?:'OpenId';
-            $html = "Hi $userName  | ";
-            $html .= '<a href="'.$baseUrl.'/logout"> Logout </a>';
-            return $html;
-        }
-
-        
+        if ($auth->hasIdentity()) {          
+            $html = '<a href="'.$baseUrl.'/user/logout"> Logout </a>';
+        }        
 
         return $html;
     }

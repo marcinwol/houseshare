@@ -4,6 +4,8 @@ library/Zend
 library/ZendX
 library/openid-php
 application/resources
+/application/configs/appkeys.ini
+/tmp
 /.zfproject.xml
 *.bak
 public/images
