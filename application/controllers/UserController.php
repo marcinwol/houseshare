@@ -119,7 +119,7 @@ class UserController extends Zend_Controller_Action {
         $authData = $auth->getIdentity();
 
         // if users is NOT the first time here, than redirect him.
-        if (isset( $toStore->just_created) ||  false ==  $toStore->just_created) {
+        if (!isset($authData->just_created) ||  false ==  $authData->just_created) {
             return $this->_redirect('/');
         }
 
