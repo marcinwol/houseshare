@@ -40,7 +40,6 @@ class UserModelTest extends ModelTestCase {
         $argSet[] = array(
             array(
                 'email' => 'some@email.com',
-                'password' => 'some_password',
                 'phone' => '3423 234234',
                 'phone_public' => 1,
                 'first_name' => 'Marek',
@@ -55,7 +54,6 @@ class UserModelTest extends ModelTestCase {
         $argSet[] = array(
             array(
                 'email' => 'some@email2.com',
-                'password' => 'some_password2',
                 'phone' => '23423 234234',
                 'phone_public' => 0,
                 'first_name' => 'Piotr',
@@ -109,7 +107,6 @@ class UserModelTest extends ModelTestCase {
 
         $data = array(
             'email' => 'test@test.com',
-            'password' => 'some_password2',
             'phone' => '23423 234234',
             'phone_public' => 0,
             'first_name' => 'Piotr',

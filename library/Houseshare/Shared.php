@@ -27,7 +27,7 @@ class My_Houseshare_Shared extends My_Houseshare_Accommodation {
 
 
     public function __construct($id = null) {
-        parent::__construct($id);
+        My_Houseshare_Abstract_PropertyAccessor::__construct($id);
 
         // $_acc should point to the ACCOMMODATION table, not SHARED table.
         $this->_acc = new My_Houseshare_Accommodation($id);

@@ -52,24 +52,22 @@ class UserHouseshareTest extends ModelTestCase {
 
         $this->assertEquals(
                 array(
-                    'Marcin',
-                    'Wolski'
-                ),
-                array(
-                    $user->first_name,
-                    $user->last_name
+            'Marcin',
+            'Wolski'
+                ), array(
+            $user->first_name,
+            $user->last_name
                 )
         );
 
         $user = new $userClass(2);
         $this->assertEquals(
                 array(
-                    'Michal',
-                    'Chojcan'
-                ),
-                array(
-                    $user->first_name,
-                    $user->last_name
+            'Michal',
+            'Chojcan'
+                ), array(
+            $user->first_name,
+            $user->last_name
                 )
         );
     }
@@ -99,21 +97,19 @@ class UserHouseshareTest extends ModelTestCase {
 
         $this->assertEquals(
                 array(
-                    4,
-                    'Juzek',
-                    'Polanski',
-                    'new@email.com',
-                    '0'
-                ),
-                array(
-                    $user->user_id,
-                    $user->first_name,
-                    $user->last_name,
-                    $user->email,
-                    $user->last_name_public
+            4,
+            'Juzek',
+            'Polanski',
+            'new@email.com',
+            '0'
+                ), array(
+            $user->user_id,
+            $user->first_name,
+            $user->last_name,
+            $user->email,
+            $user->last_name_public
                 )
         );
-        
     }
 
     /**
@@ -137,24 +133,49 @@ class UserHouseshareTest extends ModelTestCase {
 
         $this->assertEquals(
                 array(
-                    2,
-                    'Jerzy',
-                    'Powanski',
-                    'michal@michal.com',
-                    '1'
-                ),
-                array(
-                    $user->user_id,
-                    $user->first_name,
-                    $user->last_name,
-                    $user->email,
-                    $user->last_name_public
+            2,
+            'Jerzy',
+            'Powanski',
+            'michal@michal.com',
+            '1'
+                ), array(
+            $user->user_id,
+            $user->first_name,
+            $user->last_name,
+            $user->email,
+            $user->last_name_public
                 )
         );
 
         if ('My_Houseshare_Roomate' == $userClass) {
             $this->assertEquals('0', $user->is_owner);
         }
+    }
+
+    /**
+     * 
+     * @dataProvider userClassProvider
+     */
+    public function testGetUserPassword($userClass) {
+        $user = new $userClass(1);
+        $this->assertEquals('60474c9c10d7142b7508ce7a50acf414', $user->password);
+
+        $user = new $userClass(2);
+        $this->assertEquals('some_pass2', $user->password);
+    }
+
+    /**
+     * 
+     * @dataProvider userClassProvider
+     */
+    public function testSetUserPassword($userClass) {
+        $user = new $userClass(2);
+        $user->password = 'newPassword';    // md5 is 14a88b9d2f52c55b5fbcf9c5d9c11875  
+        $user->save();
+        unset($user);
+
+        $user = new $userClass(2);
+        $this->assertEquals('14a88b9d2f52c55b5fbcf9c5d9c11875', $user->password);
     }
 
     /**
@@ -184,9 +205,9 @@ class UserHouseshareTest extends ModelTestCase {
 
     public function testUserFactory() {
 
-         // no user with acc_id = 12
-         $user = My_Houseshare_Factory::user(12);
-         $this->assertTrue(null === $user);
+        // no user with acc_id = 12
+        $user = My_Houseshare_Factory::user(12);
+        $this->assertTrue(null === $user);
 
         // get Shared object since user_id=1 is shared.
         $user = My_Houseshare_Factory::user(1);
@@ -201,7 +222,7 @@ class UserHouseshareTest extends ModelTestCase {
         $user = My_Houseshare_Factory::roomate(2);
         $this->assertTrue($user instanceof My_Houseshare_Roomate);
 
-         // get new roomate object .
+        // get new roomate object .
         $user = My_Houseshare_Factory::roomate();
         $this->assertTrue($user instanceof My_Houseshare_Roomate);
 
@@ -209,14 +230,13 @@ class UserHouseshareTest extends ModelTestCase {
         $user = My_Houseshare_Factory::user();
         $this->assertTrue($user instanceof My_Houseshare_User);
 
-         // get new user object .
+        // get new user object .
         $user = My_Houseshare_Factory::user(null, 'USER');
         $this->assertTrue($user instanceof My_Houseshare_User);
 
-         // get new user object .
+        // get new user object .
         $user = My_Houseshare_Factory::user(null, 'ROOMATE');
         $this->assertTrue($user instanceof My_Houseshare_Roomate);
-
     }
 
 }

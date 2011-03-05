@@ -35,21 +35,24 @@
 
 
 
-    <USER user_id="1" email="test@test.com" password="60474c9c10d7142b7508ce7a50acf414"
+    <USER user_id="1" email="test@test.com" 
             phone="0 432 123 123" phone_public="0" first_name="Marcin"
             last_name="Wolski" last_name_public="1" type='ROOMATE' is_enabled="1"
             privilage="BASIC"/>
 
-    <USER user_id="2" email="michal@michal.com" password="some_pass2"
+    <USER user_id="2" email="michal@michal.com" 
             phone="+(0) 18 2443 232" phone_public="1" first_name="Michal"
             last_name="Chojcan" last_name_public="0" type='ROOMATE' is_enabled="1"
             privilage="BASIC" />
 
-    <USER user_id="3" email="user1@user.com" password="60474c9c10d7142b7508ce7a50acf414"
+    <USER user_id="3" email="user1@user.com" 
             phone="+(1) 2323 232 (wew.3)" phone_public="1" first_name="Jarek"
             last_name="Smitch 3th" last_name_public="1" type="USER" is_enabled="0"
             privilage="PREMIUM"/>
 
+    <PASSWORD user_id="1" password="60474c9c10d7142b7508ce7a50acf414"/>
+    <PASSWORD user_id="2" password="some_pass2"/>
+    <PASSWORD user_id="3" password="60474c9c10d7142b7508ce7a50acf414"/>
 
 
     <ROOMATE user_id="1"  is_owner="1" />

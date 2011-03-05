@@ -303,7 +303,7 @@ class My_Houseshare_Accommodation extends My_Houseshare_Abstract_PropertyAccesso
     public function setTypeId($type_id) {
         $this->_properties['type_id'] = $type_id;
     }
-
+    
     /**
      * Set new photos. The format of $value should be
      * array of My_Houseshare_Photo objects.
@@ -315,7 +315,7 @@ class My_Houseshare_Accommodation extends My_Houseshare_Abstract_PropertyAccesso
      */
     public function setPhotos($property, array $value) {
 
-        $photoModel = new My_Model_Table_Photo();
+       // $photoModel = new My_Model_Table_Photo();
         //$this->_checkIfColsArePresentInRow($photoModel, $value, $property);
 
         $this->_newProperties['photos'] = $value;

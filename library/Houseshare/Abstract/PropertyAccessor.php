@@ -30,7 +30,7 @@ abstract class My_Houseshare_Abstract_PropertyAccessor {
 
 
     public function __construct($id = null) {
-
+    
         $modelObj = "My_Model_{$this->_modelName}";
         $this->_model = new $modelObj();
 

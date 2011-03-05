@@ -22,17 +22,15 @@ class My_Houseshare_Looker extends My_Houseshare_User {
 
 
     public function __construct($id = null) {
-        parent::__construct($id);
+        
+        My_Houseshare_Abstract_PropertyAccessor::__construct($id);
 
         // $_user should point to the USER table, not LOOKER table.
-        $this->_user = new parent($id);
+        $this->_user = new My_Houseshare_User($id);
 
         $this->_mergeProperties();
-        
     }
-   
 
-    
     public function save() {
 
         // first save/update data for the user table and than accociated roomate table.
@@ -46,9 +44,16 @@ class My_Houseshare_Looker extends My_Houseshare_User {
             );
         }
 
+        if (array_key_exists('password', $this->getNewProperties())) {
+            $new_row_id = $this->_savePassword($user_id);
+            if ($new_row_id !== $user_id) {
+                throw new Zend_Db_Exception("Password's id and user id don't metch");
+            }
+        }
+
         // before re-populating properties delete all old ones.
         $this->_makeProperties();
-        $this->_user->_populateProperties($user_id);        
+        $this->_user->_populateProperties($user_id);
         $this->_populateProperties($user_id);
         $this->_mergeProperties();
 

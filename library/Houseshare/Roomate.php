@@ -12,7 +12,6 @@
  */
 class My_Houseshare_Roomate extends My_Houseshare_User {
 
-    protected $_modelName = 'Table_Roomate';
     /**
      *  Model for the ROOMATE
      *
@@ -22,12 +21,17 @@ class My_Houseshare_Roomate extends My_Houseshare_User {
 
 
     public function __construct($id = null) {
-        parent::__construct($id);
+        
+         $this->_modelName = 'Table_Roomate';
+        
+        My_Houseshare_Abstract_PropertyAccessor::__construct($id);
 
         // $_user should point to the USER table, not ROOMATE table.
-        $this->_user = new parent($id);
-
+        $this->_user = new My_Houseshare_User($id);
+                
+ 
         $this->_mergeProperties();
+           
         
     }
 
@@ -44,6 +48,13 @@ class My_Houseshare_Roomate extends My_Houseshare_User {
             throw new Zend_Exception(
                     "Roomated id = $roomate_id does not match user id = $user_id"
             );
+        }
+                
+        if (array_key_exists('password', $this->getNewProperties())) {
+            $new_row_id = $this->_savePassword($user_id);            
+            if ($new_row_id !== $user_id) {
+                throw new Zend_Db_Exception("Password's id and user id don't metch");
+            }            
         }
 
         // before re-populating properties delete all old ones.
