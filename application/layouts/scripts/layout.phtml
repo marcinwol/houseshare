@@ -47,8 +47,10 @@
                 <h1><?php echo $this->translate('Our header'); ?></h1>
             </div>
             <div >
-                <?php echo $this->profileLink();?>
-                <?php // echo $this->navigation(); ?>&nbsp;
+                <?php echo $this->profileLink();?>                
+            </div>
+            <div>
+                <?php  echo 'Main Menu:' . $this->navigation(); ?>&nbsp;
             </div>
             <div id="nav">
                 <?php //var_dump($this->navigation()->breadcrumbs()); ?>

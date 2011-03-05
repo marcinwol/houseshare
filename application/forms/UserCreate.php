@@ -17,12 +17,21 @@ class My_Form_UserCreate extends My_Form_Abstract_AccommodationAbstract {
 
     public function init() {
 
-         parent::init();
+        parent::init();
 
-         $aboutYouSubForm = $this->_makeAboutYouSubForm();
-         $this->addSubForm($aboutYouSubForm, self::ABOUT_YOU_SUBFORM_NAME);
+        $aboutYouSubForm = $this->_makeAboutYouSubForm();
+        $this->addSubForm($aboutYouSubForm, self::ABOUT_YOU_SUBFORM_NAME);
 
-         $submit = $this->addElement('submit', 'Submit');
+        $submit = $this->addElement('submit', 'Submit');
+    }
+
+    /**
+     * Remove password1 and password2 fields.
+     */
+    public function removePasswordFields() {
+        $subform = $this->getSubForm(self::ABOUT_YOU_SUBFORM_NAME);
+        $subform->removeElement('password1');
+        $subform->removeElement('password2');
     }
 
 }

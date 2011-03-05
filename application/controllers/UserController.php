@@ -21,7 +21,7 @@ class UserController extends Zend_Controller_Action {
 
         $user_id = $authData->property->user_id;
         $userType = $authData->property->type;
-               
+
 
         $user = My_Houseshare_Factory::user($user_id, $userType);
         /* @var My_Houseshare_User $user */
@@ -33,10 +33,6 @@ class UserController extends Zend_Controller_Action {
     }
 
     public function addAction() {
-        // action body
-    }
-
-    public function editAction() {
         // action body
     }
 
@@ -75,24 +71,9 @@ class UserController extends Zend_Controller_Action {
                     // immidiately authenticate the new user,
                     // so that he is logged in to the system.
 
-                    $authAdapter = new My_Auth_Adapter_DbTable();
-                    $authAdapter->setIdentity($formData['about_you']['email']);
-                    $authAdapter->setCredential($formData['about_you']['password1']);
+                    $this->_writeAuthData($newUser, true);
 
-                    $auth = Zend_Auth::getInstance();
-                    $result = $auth->authenticate($authAdapter);
-
-                    if ($result->isValid()) {
-                        $userData = $authAdapter->getResultRowObject(null, 'password');
-
-                        
-                        $toStore = (object) array('identity' => $auth->getIdentity());
-                        $toStore->property = $userData;
-                        $toStore->just_created = true;
-                        
-                        $auth->getStorage()->write($toStore);
-                        return $this->_redirect('user/success');
-                    }
+                    return $this->_redirect('user/success');
                 }
 
                 // normally, if everything went OK, user should be already 
@@ -119,17 +100,17 @@ class UserController extends Zend_Controller_Action {
         $authData = $auth->getIdentity();
 
         // if users is NOT the first time here, than redirect him.
-        if (!isset($authData->just_created) ||  false ==  $authData->just_created) {
+        if (!isset($authData->just_created) || false == $authData->just_created) {
             return $this->_redirect('/');
         }
 
 
         // mark that already user visited the success action.
-         $toStore->just_created = false;
+        $authData->just_created = false;
         $auth->getStorage()->write($authData);
 
         // get just regisered user id
-        $user_id = (int) $authData['identity'];
+        $user_id = (int) $authData->property->user_id;
 
         if (null !== $user_id) {
             $user = My_Houseshare_Factory::user($user_id);
@@ -200,7 +181,6 @@ class UserController extends Zend_Controller_Action {
             // the following two lines should never be executed unless the redirection faild.
             $this->_helper->FlashMessenger('Redirection faild');
             return $this->_redirect('/index/index');
-            
         } else if ($openid_mode || $code || $oauth_token) {
             // this will be exectued after provider redirected the user back to us
             //  var_dump($_GET);return;
@@ -238,32 +218,63 @@ class UserController extends Zend_Controller_Action {
             $result = $auth->authenticate($adapter);
 
             if ($result->isValid()) {
-                
+
                 // make an stdObj to sture user info fetched
                 $toStore = (object) array('identity' => $auth->getIdentity());
-                                
+
 
                 if (isset($ext)) {
                     // for openId
                     $toStore->property = (object) $ext->getProperties();
+                    $toStore->provider = 'openid';
                 } else if ($code) {
                     // for facebook
                     $msgs = $result->getMessages();
-                    $toStore->property  =  $msgs['user'];
+                    $toStore->property = $msgs['user'];
+                    $toStore->provider = 'facebook';
                 } else if ($oauth_token) {
                     // for twitter
                     $identity = $result->getIdentity();
                     // get user info
-                    $twitterUserData =  $adapter->verifyCredentials();
-                    
+                    $twitterUserData = $adapter->verifyCredentials();
+
                     $toStore = (object) array('identity' => $identity['user_id']);
                     $toStore->property = $twitterUserData;
+                    $toStore->provider = 'twitter';
                 }
-                
-                // query our database to check if a user already exists
-                // or if the user is a new one. 
 
-                $auth->getStorage()->write($toStore);
+                // set temprorary default privilage 
+                $toStore->property->privilage = 'BASIC';
+
+                // create this auth as soon a proper one should be created
+                $auth->clearIdentity();
+
+                //  $auth->getStorage()->write($toStore);
+                // query our database to check if a user already exists
+                // or if the user is a new one.                                                                                
+                $row = My_Model_Table_AuthProvider::fetchUsingKey($toStore->identity);
+
+                if (null === $row) {
+                    // no user key found in db, so it is a new user.
+                    // For this reason go to registration completion page.
+
+                    $tmpSession = new Zend_Session_Namespace('toStore');
+                    $tmpSession->toStore = $toStore;
+                    $tmpSession->lock();
+
+                    return $this->_redirect('/user/complete');
+                } else {
+                    // key was found in database so read a user record
+                    // and authenticate this user
+                    $user_id = $row->getUser()->user_id;
+                    $userType = $authData->property->type;
+                    $user = My_Houseshare_Factory::user($user_id, $userType);
+
+                    // immidiately authenticate the new user,                    
+                    $this->_writeAuthData($user);
+
+                    return $this->_redirect('user/index');
+                }
 
                 return $this->_redirect('/user/index');
             } else {
@@ -292,12 +303,17 @@ class UserController extends Zend_Controller_Action {
                 $result = $auth->authenticate($authAdapter);
 
                 if ($result->isValid()) {
-                    
+
                     $userData = $authAdapter->getResultRowObject(null, 'password');
-                    
-                    $toStore = (object) array('identity' => $auth->getIdentity());
-                    $toStore->property = $userData;
-                    $auth->getStorage()->write($toStore);
+
+                    $user_id = $userData->user_id;
+                    $userType = $userData->type;
+                    $user = My_Houseshare_Factory::user($user_id, $userType);
+
+                    // immidiately authenticate the new user,
+                    // so that he is logged in to the system.                                           
+                    $this->_writeAuthData($user);
+
                     return $this->_redirect('user/index');
                 }
 
@@ -308,6 +324,84 @@ class UserController extends Zend_Controller_Action {
         }
 
         $this->view->form = $loginForm;
+    }
+
+    public function completeAction() {
+
+
+        $tmpSession = new Zend_Session_Namespace('toStore');
+        $authData = $tmpSession->toStore;         
+
+        if (null === $authData) {
+            $this->_helper->FlashMessenger('Cannot retrive authentication data');
+            return $this->_redirect('/index/index');
+        }
+
+
+        $createForm = new My_Form_UserCreate();
+        $createForm->removePasswordFields();
+
+
+        // pupulate with email grabbed from the provieder
+        if (isset($authData->property->email)) {
+            $createForm->populate(
+                    array('email' => $authData->property->email)
+            );
+        }
+
+        if ($this->getRequest()->isPost()) {
+            if ($createForm->isValid($_POST)) {
+
+                $formData = $createForm->getValues();
+
+                // Create a user
+                $newUser = My_Houseshare_Factory::user();
+
+                $newUser->first_name = $formData['about_you']['first_name'];
+                $newUser->last_name = $formData['about_you']['last_name'];
+                $newUser->last_name_public = $formData['about_you']['last_name_public'];
+                $newUser->email = $formData['about_you']['email'];
+                $newUser->phone = $formData['about_you']['phone_no'];
+                $newUser->phone_public = $formData['about_you']['phone_public'];
+                $newUser->type = 'USER';
+
+                $user_id = $newUser->save();
+
+                if (is_numeric($user_id)) {
+
+                    // if user was saved than save his providers info                    
+                    $authProvModel = new My_Model_Table_AuthProvider();
+                    $newRow = $authProvModel->createRow(
+                                    array(
+                                        'key' => $authData->identity,
+                                        'provider_type' => $authData->provider,
+                                        'user_id' => $user_id
+                                    )
+                    );
+
+                    $newId = $newRow->save();                                        
+
+
+                    // immidiately authenticate the new user,
+                    // so that he is logged in to the system.                                           
+                    $this->_writeAuthData($newUser, true);
+                    
+                    // don't need this session namespace anymore
+                    Zend_Session::namespaceUnset('toStore');
+
+                    return $this->_redirect('user/success');
+                }
+
+                // normally, if everything went OK, user should be already 
+                // redirected tu sussess.
+                $this->_helper->FlashMessenger(
+                        'There was a problem during account creating and or authentication'
+                );
+                return $this->_redirect('index');
+            }
+        }
+
+        $this->view->form = $createForm;
     }
 
     /**
@@ -368,6 +462,14 @@ class UserController extends Zend_Controller_Action {
         }
 
         return $ext;
+    }
+
+    protected function _writeAuthData(My_Houseshare_User $user, $justCreate = false) {
+        $auth = Zend_Auth::getInstance();
+        $toStore = (object) array('identity' => $user->user_id);
+        $toStore->property = (object) $user->toArray();
+        $toStore->just_created = $justCreate;
+        $auth->getStorage()->write($toStore);
     }
 
 }

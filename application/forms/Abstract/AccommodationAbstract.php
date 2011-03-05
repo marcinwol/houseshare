@@ -390,29 +390,29 @@ abstract class My_Form_Abstract_AccommodationAbstract extends Zend_Form {
 
         // create new element
         $fnameInput = $this->createElement('text', 'first_name');
-        $fnameInput->setRequired(true)->setLabel('First name');
+        $fnameInput->setRequired(false)->setLabel('First name');
         $fnameInput->setFilters(array('stripTags', 'stringTrim'));
 
         // create new element
         $lnameInput = $this->createElement('text', 'last_name');
-        $lnameInput->setRequired(true)->setLabel('Last name');
+        $lnameInput->setRequired(false)->setLabel('Last name');
         $lnameInput->setFilters(array('stripTags', 'stringTrim'));
 
         // create new element
         $lnamePublicChb = $this->createElement('checkbox', 'last_name_public');
-        $lnamePublicChb->setRequired(true);
+        $lnamePublicChb->setRequired(false);
         $lnamePublicChb->setLabel('Last name visible to all');
         $lnamePublicChb->setChecked(true);
 
         // create new element
         $phoneInput = $this->createElement('text', 'phone_no');
-        $phoneInput->setRequired(true)->setLabel('Phone');
+        $phoneInput->setRequired(false)->setLabel('Phone');
         $phoneInput->setFilters(array('stripTags', 'stringTrim'));
 
 
         // create new element
         $phonePublicChb = $this->createElement('checkbox', 'phone_public');
-        $phonePublicChb->setRequired(true);
+        $phonePublicChb->setRequired(false);
         $phonePublicChb->setLabel('Phone visible to all');
         $phonePublicChb->setChecked(true);
 

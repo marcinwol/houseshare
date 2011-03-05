@@ -105,12 +105,12 @@ DROP TABLE IF EXISTS `USER` ;
 CREATE  TABLE IF NOT EXISTS `USER` (
   `user_id` INT UNSIGNED NOT NULL AUTO_INCREMENT ,
   `email` VARCHAR(85) NOT NULL ,
-  `phone` VARCHAR(45) NOT NULL ,
-  `phone_public` TINYINT(1) NOT NULL DEFAULT 0 ,
+  `phone` VARCHAR(45) NULL ,
+  `phone_public` TINYINT(1) NULL DEFAULT 0 ,
   `created` TIMESTAMP NOT NULL ,
-  `first_name` VARCHAR(45) NOT NULL ,
-  `last_name` VARCHAR(45) NOT NULL ,
-  `last_name_public` TINYINT(1) NOT NULL DEFAULT 1 ,
+  `first_name` VARCHAR(45) NULL ,
+  `last_name` VARCHAR(45) NULL ,
+  `last_name_public` TINYINT(1) NULL DEFAULT 1 ,
   `type` ENUM('USER','ROOMATE','LOOKER','AGENT','OWNER') NOT NULL DEFAULT 'USER' ,
   `is_enabled` TINYINT(1) NOT NULL DEFAULT 1 ,
   `privilage` ENUM('BASIC','PREMIUM','ADMIN') NOT NULL DEFAULT 'BASIC' ,
@@ -544,7 +544,7 @@ DROP TABLE IF EXISTS `AUTH_PROVIDER` ;
 
 CREATE  TABLE IF NOT EXISTS `AUTH_PROVIDER` (
   `key` VARCHAR(255) NOT NULL ,
-  `provider_type` ENUM('google','myopenid','yahoo','facebook','twitter') NOT NULL ,
+  `provider_type` ENUM('google','myopenid','yahoo','facebook','twitter','openid') NOT NULL ,
   `user_id` INT UNSIGNED NOT NULL ,
   PRIMARY KEY (`key`, `user_id`) ,
   INDEX `fk_AUTH_PROVIDER_USER1` (`user_id` ASC) ,
@@ -612,7 +612,7 @@ CREATE TABLE IF NOT EXISTS `VIEW_ACCOMMODATION` (`first_name` INT, `last_name` I
 -- -----------------------------------------------------
 -- Placeholder table for view `VIEW_USER_FOR_AUTH`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `VIEW_USER_FOR_AUTH` (`user_id` INT, `email` INT, `phone` INT, `phone_public` INT, `created` INT, `first_name` INT, `last_name` INT, `last_name_public` INT, `type` INT, `is_enabled` INT, `privilage` INT, `password` INT);
+CREATE TABLE IF NOT EXISTS `VIEW_USER_FOR_AUTH` (`key` INT, `provider_type` INT, `user_id` INT, `password` INT, `email` INT, `phone` INT, `phone_public` INT, `created` INT, `first_name` INT, `last_name` INT, `last_name_public` INT, `type` INT, `is_enabled` INT, `privilage` INT);
 
 -- -----------------------------------------------------
 -- View `VIEW_CITY`
@@ -735,7 +735,9 @@ DROP VIEW IF EXISTS `VIEW_USER_FOR_AUTH` ;
 DROP TABLE IF EXISTS `VIEW_USER_FOR_AUTH`;
 DELIMITER $$
 CREATE  OR REPLACE VIEW `VIEW_USER_FOR_AUTH` AS
-SELECT * FROM `USER` INNER JOIN `PASSWORD` USING (`user_id`)
+SELECT * FROM `USER` 
+LEFT JOIN `PASSWORD` USING (`user_id`)
+LEFT JOIN `AUTH_PROVIDER` USING (`user_id`)
 
 $$
 DELIMITER ;
