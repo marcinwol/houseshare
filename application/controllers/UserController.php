@@ -63,7 +63,7 @@ class UserController extends Zend_Controller_Action {
                 $newUser->last_name = $formData['about_you']['last_name'];
                 $newUser->last_name_public = $formData['about_you']['last_name_public'];
                 $newUser->email = $formData['about_you']['email'];
-                $newUser->password = md5($formData['about_you']['password1']);
+                $newUser->password = $formData['about_you']['password1'];
                 $newUser->phone = $formData['about_you']['phone_no'];
                 $newUser->phone_public = $formData['about_you']['phone_public'];
                 $newUser->type = 'USER';
@@ -85,10 +85,10 @@ class UserController extends Zend_Controller_Action {
                     if ($result->isValid()) {
                         $userData = $authAdapter->getResultRowObject(null, 'password');
 
-
-                        $toStore = array('identity' => $auth->getIdentity());
-                        $toStore['properties'] = $userData;
-                        $toStore['just_created'] = true;
+                        
+                        $toStore = (object) array('identity' => $auth->getIdentity());
+                        $toStore->property = $userData;
+                        $toStore->just_created = true;
                         
                         $auth->getStorage()->write($toStore);
                         return $this->_redirect('user/success');
@@ -119,13 +119,13 @@ class UserController extends Zend_Controller_Action {
         $authData = $auth->getIdentity();
 
         // if users is NOT the first time here, than redirect him.
-        if (isset($authData['just_created']) ||  false == $authData['just_created']) {
+        if (isset( $toStore->just_created) ||  false ==  $toStore->just_created) {
             return $this->_redirect('/');
         }
 
 
         // mark that already user visited the success action.
-        $authData['just_created'] = false;
+         $toStore->just_created = false;
         $auth->getStorage()->write($authData);
 
         // get just regisered user id

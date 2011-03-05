@@ -11,7 +11,7 @@
  */
 class My_Auth_Adapter_DbTable extends Zend_Auth_Adapter_DbTable {
 
-    protected $_tableName           = 'USER';
+    protected $_tableName           = 'VIEW_USER_FOR_AUTH';
     protected $_identityColumn      = 'email';
     protected $_credentialColumn    = 'password';
     protected $_credentialTreatment = 'MD5(?)';
