@@ -22,7 +22,9 @@ $(document).ready(function () {
 
    
     $("#i_city").autocomplete({
-        source: "/houseshare/public/index/getcities"
+        source: "/houseshare/public/index/getcities",
+        delay: 0,
+        minLength: 2
     });
 
   

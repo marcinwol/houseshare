@@ -14,13 +14,19 @@ $(document).ready(function () {
     });
 
     $("#address-state").autocomplete({
-        source: "/houseshare/public/index/getstates"
+        source: "/houseshare/public/index/getstates",
+        delay: 0,
+        minLength: 2
     });
 
     $("#address-street_name").autocomplete({
-        source: "/houseshare/public/index/getstreets"
+        source: "/houseshare/public/index/getstreets",
+        delay: 0,
+        minLength: 2
     });
 
-    $( "#basic_info-date_avaliable" ).datepicker({ dateFormat: 'dd/mm/yy' });
+    $( "#basic_info-date_avaliable" ).datepicker({
+        dateFormat: 'dd/mm/yy' 
+    });
    
 });
