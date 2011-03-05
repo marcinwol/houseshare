@@ -22,7 +22,7 @@ class My_Model_Table_User extends Zend_Db_Table_Abstract {
     public function findByEmail($email) {
         return $this->fetchRow("email = '$email'");
     }
-
+    
     /**
      * Update/insert user.
      *

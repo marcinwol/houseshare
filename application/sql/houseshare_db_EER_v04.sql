@@ -105,7 +105,6 @@ DROP TABLE IF EXISTS `USER` ;
 CREATE  TABLE IF NOT EXISTS `USER` (
   `user_id` INT UNSIGNED NOT NULL AUTO_INCREMENT ,
   `email` VARCHAR(85) NOT NULL ,
-  `password` VARCHAR(65) NOT NULL ,
   `phone` VARCHAR(45) NOT NULL ,
   `phone_public` TINYINT(1) NOT NULL DEFAULT 0 ,
   `created` TIMESTAMP NOT NULL ,
@@ -534,6 +533,43 @@ CREATE  TABLE IF NOT EXISTS `SHARED` (
     FOREIGN KEY (`roomates_id` )
     REFERENCES `ROOMATES` (`roomates_id` )
     ON DELETE RESTRICT
+    ON UPDATE CASCADE)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `AUTH_PROVIDER`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `AUTH_PROVIDER` ;
+
+CREATE  TABLE IF NOT EXISTS `AUTH_PROVIDER` (
+  `key` VARCHAR(255) NOT NULL ,
+  `provider_type` ENUM('google','myopenid','yahoo','facebook','twitter') NOT NULL ,
+  `user_id` INT UNSIGNED NOT NULL ,
+  PRIMARY KEY (`key`, `user_id`) ,
+  INDEX `fk_AUTH_PROVIDER_USER1` (`user_id` ASC) ,
+  CONSTRAINT `fk_AUTH_PROVIDER_USER1`
+    FOREIGN KEY (`user_id` )
+    REFERENCES `USER` (`user_id` )
+    ON DELETE CASCADE
+    ON UPDATE CASCADE)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `PASSWORD`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `PASSWORD` ;
+
+CREATE  TABLE IF NOT EXISTS `PASSWORD` (
+  `user_id` INT UNSIGNED NOT NULL ,
+  `password` VARCHAR(65) NOT NULL ,
+  PRIMARY KEY (`user_id`) ,
+  INDEX `fk_PASSWORD_USER1` (`user_id` ASC) ,
+  CONSTRAINT `fk_PASSWORD_USER1`
+    FOREIGN KEY (`user_id` )
+    REFERENCES `USER` (`user_id` )
+    ON DELETE CASCADE
     ON UPDATE CASCADE)
 ENGINE = InnoDB;
 
