@@ -12,25 +12,6 @@ class IndexController extends Zend_Controller_Action {
     public function testAction() {
 
 
-        //$client = new Zend_Http_Client('http://www.example.com', array('adapter'=>'Zend_Http_Client_Adapter_Curl'));
-//
-////
-//        $streetModel = new My_Model_Table_Street();
-//        $newRow = $streetModel->createRow(array('name'=> 'sdfasfd'));
-//
-//        $newRow->save();
-//        return;
-
-//        $model = new My_Model_Table_State();
-//        $select = $model->select();
-//        $select->setIntegrityCheck(false);
-//        $select->from('STATE');
-//        $select->where('LENGTH(image) > 0');
-//
-//        $result = $model->fetchAll($select);
-//
-//        var_dump($result->toArray());
-        // action body
         $this->view->echo_in_view = "HERE";
         echo "INSIDE ACTION";
         var_dump(get_class($this));
@@ -38,20 +19,8 @@ class IndexController extends Zend_Controller_Action {
 
     public function indexAction() {
 
-//        $options = $this->getInvokeArg('bootstrap')->getOption('mytranslator');
-//        var_dump($options);
-//
-//        'content' => array(
-//                "emailNotUnique" => 'Your user already exists' ,
-//                "Value is required and can't be empty" => 'You must specify your ID'
-//        );
-
         $mainForm = new My_Form_MainPage();
-        // $mainForm->addDecorator(array('div' => 'HtmlTag'), array('tag' => 'div'));
-        // $mainForm->addDecorator(array('li' => 'HtmlTag'), array('tag' => 'li', 'class' => 'af_title'));
-        //  $mainForm->addDecorator('Label', array('tag' => 'td'));
-        // $mainForm->setTranslator(new Zend_Translate($options));
-
+    
         if ($this->getRequest()->isPost()) {
             if ($mainForm->isValid($_POST)) {
                   
