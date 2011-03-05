@@ -610,6 +610,11 @@ CREATE TABLE IF NOT EXISTS `VIEW_ACC_PREFERENCES` (`acc_id` INT, `pref_id` INT, 
 CREATE TABLE IF NOT EXISTS `VIEW_ACCOMMODATION` (`first_name` INT, `last_name` INT, `acc_id` INT, `title` INT, `description` INT, `addr_id` INT, `user_id` INT, `date_avaliable` INT, `price` INT, `created` INT, `bond` INT, `street_address_public` INT, `short_term_ok` INT, `type_id` INT, `is_enabled` INT, `feat_name` INT, `pref_name` INT, `filename` INT);
 
 -- -----------------------------------------------------
+-- Placeholder table for view `VIEW_USER_FOR_AUTH`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `VIEW_USER_FOR_AUTH` (`user_id` INT, `email` INT, `phone` INT, `phone_public` INT, `created` INT, `first_name` INT, `last_name` INT, `last_name_public` INT, `type` INT, `is_enabled` INT, `privilage` INT, `password` INT);
+
+-- -----------------------------------------------------
 -- View `VIEW_CITY`
 -- -----------------------------------------------------
 DROP VIEW IF EXISTS `VIEW_CITY` ;
@@ -717,6 +722,20 @@ INNER JOIN USER user using (user_id)
 LEFT JOIN VIEW_ACC_FEATURES feat USING (acc_id)
 LEFT JOIN VIEW_ACC_PREFERENCES pref USING (acc_id)
 LEFT JOIN VIEW_PHOTO photo USING (acc_id)
+
+$$
+DELIMITER ;
+
+;
+
+-- -----------------------------------------------------
+-- View `VIEW_USER_FOR_AUTH`
+-- -----------------------------------------------------
+DROP VIEW IF EXISTS `VIEW_USER_FOR_AUTH` ;
+DROP TABLE IF EXISTS `VIEW_USER_FOR_AUTH`;
+DELIMITER $$
+CREATE  OR REPLACE VIEW `VIEW_USER_FOR_AUTH` AS
+SELECT * FROM `USER` INNER JOIN `PASSWORD` USING (`user_id`)
 
 $$
 DELIMITER ;

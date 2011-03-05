@@ -67,6 +67,15 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
         // define locale
         $locale = new Zend_Locale('en');
 
+        $cache = Zend_Cache::factory(
+                'Core', 
+                'File', 
+                array('automatic_serialization' => true), 
+                array('cache_dir' => APPLICATION_PATH . '/../tmp')
+        );
+
+        $locale->setCache($cache);
+
         // register it so that it can be used all over the website
         Zend_Registry::set('Zend_Locale', $locale);
     }
@@ -141,15 +150,10 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
                 || define('THUMBS_PATH', $imBaseDir . '/' . THUMBS_DIR_NAME);
     }
 
-      protected function _initAppKeysToRegistry() {
+    protected function _initAppKeysToRegistry() {
 
-         $appkeys = new Zend_Config_Ini(APPLICATION_PATH . '/configs/appkeys.ini');
-         Zend_Registry::set('keys', $appkeys);
-        
-
-     }
-
-
-
+        $appkeys = new Zend_Config_Ini(APPLICATION_PATH . '/configs/appkeys.ini');
+        Zend_Registry::set('keys', $appkeys);
+    }
 
 }
