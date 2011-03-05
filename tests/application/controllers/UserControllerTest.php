@@ -59,7 +59,7 @@ class UserControllerTest extends ControllerTestCase {
 
         if ($auth->hasIdentity()) {
             // after good login identity should be OK
-            $this->assertEquals($data['expectedUserID'], $auth->getIdentity()->user_id);
+            $this->assertEquals($data['expectedUserID'], $auth->getIdentity()->property->user_id);
         }
     }
 
@@ -128,7 +128,7 @@ class UserControllerTest extends ControllerTestCase {
         $this->assertEquals(true, $auth->hasIdentity());
 
         // new user should have next user_id in USER table
-        $this->assertEquals($expected['user_id'], $auth->getIdentity()->user_id);
+        $this->assertEquals($expected['user_id'], $auth->getIdentity()->property->user_id);
 
         // if everything is OK user should go to successAction
          $this->assertRedirectTo('/user/success');
@@ -163,7 +163,7 @@ class UserControllerTest extends ControllerTestCase {
      public function testIfLoggedUserGoesToSuccess() {
         // authenticate correct user
         $this->_authUser('test@test.com', 'test12');
-
+        
         $this->dispatch('/user/success');
        
         $this->assertRedirectTo('/');

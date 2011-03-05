@@ -93,12 +93,16 @@ abstract class ControllerTestCase extends Zend_Test_PHPUnit_ControllerTestCase {
      */
     protected function _authUser($identity, $credentials) {
 
+        $auth = Zend_Auth::getInstance();
+        
         $this->_adapter->setEmailAndPass($identity,$credentials);
-        $result = Zend_Auth::getInstance()->authenticate($this->_adapter);        
+        $result = $auth->authenticate($this->_adapter);        
         
         if ($result->isValid()) {
-            $userData = $this->_adapter->getResultRowObject(null, 'password');
-            Zend_Auth::getInstance()->getStorage()->write($userData);           
+            $userData = $this->_adapter->getResultRowObject(null, 'password');            
+            $toStore = (object) array('identity' => $auth->getIdentity());
+            $toStore->property = $userData;            
+            $auth->getStorage()->write($toStore);           
         } 
     }
 
