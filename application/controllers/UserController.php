@@ -52,6 +52,20 @@ class UserController extends Zend_Controller_Action {
 
                 $formData = $createForm->getValues();
 
+
+
+                // check if we already have such an email in a database
+                // as user could have forgot that he already has
+                // an accound with us
+                $email = $formData['about_you']['email'];
+                $user = My_Model_Table_User::fetchUsingEmail($email);
+                if (null !== $user) {
+                    $tmpSession = new Zend_Session_Namespace('toStore');
+                    $tmpSession->user = $user;
+                    return $this->_redirect('user/double-email');
+                }
+
+
                 // Create a user
                 $newUser = My_Houseshare_Factory::user();
 
@@ -261,7 +275,7 @@ class UserController extends Zend_Controller_Action {
 
                     $tmpSession = new Zend_Session_Namespace('toStore');
                     $tmpSession->toStore = $toStore;
-                  
+
 
                     if (isset($toStore->property->email)) {
                         // check if we already have such an email in a database
@@ -419,31 +433,30 @@ class UserController extends Zend_Controller_Action {
     }
 
     public function doubleEmailAction() {
-        $tmpSession = new Zend_Session_Namespace('toStore');
         
-        /*@var $user My_Model_Table_Row_User  */
+        $tmpSession = new Zend_Session_Namespace('toStore');
+
+        /* @var $user My_Model_Table_Row_User  */
         $user = $tmpSession->user;
         $user->setTable(new My_Model_Table_User());
 
         if (null === $user) {
             $this->_helper->FlashMessenger('Cannot retrive user data');
             return $this->_redirect('/index/index');
-        }                          
-        
-        $authProvider = $user->getAuthProvider();   
-        
-        
-        $this->view->user = (object) $user->toArray();
-        
-        if (null !== $authProvider) {
-           $this->view->authProvider =  (object) $authProvider->toArray();
         }
-        
-        
-       // don't need this session namespace anymore
-       Zend_Session::namespaceUnset('toStore');
-        
-        
+
+        $authProvider = $user->getAuthProvider();
+
+
+        $this->view->user = (object) $user->toArray();
+
+        if (null !== $authProvider) {
+            $this->view->authProvider = (object) $authProvider->toArray();
+        }
+
+
+        // don't need this session namespace anymore
+        Zend_Session::namespaceUnset('toStore');
     }
 
     /**
