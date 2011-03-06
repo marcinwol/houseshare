@@ -16,7 +16,9 @@ class My_Model_Table_User extends Zend_Db_Table_Abstract {
     protected $_rowClass = 'My_Model_Table_Row_User';
     protected $_dependentTables = array(
         'My_Model_Table_Accommodation',
-        'My_Model_Table_Roomates'
+        'My_Model_Table_Roomates',
+        'My_Model_Table_Password',
+        'My_Model_Table_AuthProvider',
     );
 
     public function findByEmail($email) {
@@ -56,6 +58,18 @@ class My_Model_Table_User extends Zend_Db_Table_Abstract {
 
         return $row->save();
     }
+    
+     /**
+     * Find user by email
+     *
+     * @param string $email email
+     * @return Zend_Db_Table_Row
+     */
+    static public function fetchUsingEmail($email) {
+        $obj = new self();
+        return $obj->findByEmail($email);
+    }
+    
 
 }
 

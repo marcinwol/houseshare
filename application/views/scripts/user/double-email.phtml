@@ -1,0 +1,17 @@
+<h2>A user with the email <?php echo $this->user->email;?> 
+    already exists in our database.
+</h2>
+
+<?php if ($this->authProvider):?>
+    <div>         
+        This user used 
+        <strong><?php echo $this->authProvider->provider_type;?> </strong>
+        to register. If you are this user please try to 
+    <a href="<?php echo $this->baseUrl('/login');?>">login</a>
+    using your facebook account.
+    </div>
+
+
+<?php endif;?>
+
+

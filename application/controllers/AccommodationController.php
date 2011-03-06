@@ -72,7 +72,7 @@ class AccommodationController extends Zend_Controller_Action {
                      if (Zend_Auth::getInstance()->hasIdentity()) {
                           // if logged in, no need about_you subform.
                           // just use logged user info.
-                         $user_id = Zend_Auth::getInstance()->getIdentity()->user_id;
+                         $user_id = Zend_Auth::getInstance()->getIdentity()->property->user_id;
 
                      } else {
                         // otherise need to create a user.

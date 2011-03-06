@@ -257,10 +257,24 @@ class UserController extends Zend_Controller_Action {
                 if (null === $row) {
                     // no user key found in db, so it is a new user.
                     // For this reason go to registration completion page.
+                    // But first check the email.
 
                     $tmpSession = new Zend_Session_Namespace('toStore');
                     $tmpSession->toStore = $toStore;
-                    $tmpSession->lock();
+                  
+
+                    if (isset($toStore->property->email)) {
+                        // check if we already have such an email in a database
+                        // as user could have forgot that he already has
+                        // an accound with us
+                        $email = $toStore->property->email;
+                        $user = My_Model_Table_User::fetchUsingEmail($email);
+                        if (null !== $user) {
+                            $tmpSession->user = $user;
+                            return $this->_redirect('user/double-email');
+                        }
+                    }
+
 
                     return $this->_redirect('/user/complete');
                 } else {
@@ -330,7 +344,7 @@ class UserController extends Zend_Controller_Action {
 
 
         $tmpSession = new Zend_Session_Namespace('toStore');
-        $authData = $tmpSession->toStore;         
+        $authData = $tmpSession->toStore;
 
         if (null === $authData) {
             $this->_helper->FlashMessenger('Cannot retrive authentication data');
@@ -379,13 +393,13 @@ class UserController extends Zend_Controller_Action {
                                     )
                     );
 
-                    $newId = $newRow->save();                                        
+                    $newId = $newRow->save();
 
 
                     // immidiately authenticate the new user,
                     // so that he is logged in to the system.                                           
                     $this->_writeAuthData($newUser, true);
-                    
+
                     // don't need this session namespace anymore
                     Zend_Session::namespaceUnset('toStore');
 
@@ -402,6 +416,34 @@ class UserController extends Zend_Controller_Action {
         }
 
         $this->view->form = $createForm;
+    }
+
+    public function doubleEmailAction() {
+        $tmpSession = new Zend_Session_Namespace('toStore');
+        
+        /*@var $user My_Model_Table_Row_User  */
+        $user = $tmpSession->user;
+        $user->setTable(new My_Model_Table_User());
+
+        if (null === $user) {
+            $this->_helper->FlashMessenger('Cannot retrive user data');
+            return $this->_redirect('/index/index');
+        }                          
+        
+        $authProvider = $user->getAuthProvider();   
+        
+        
+        $this->view->user = (object) $user->toArray();
+        
+        if (null !== $authProvider) {
+           $this->view->authProvider =  (object) $authProvider->toArray();
+        }
+        
+        
+       // don't need this session namespace anymore
+       Zend_Session::namespaceUnset('toStore');
+        
+        
     }
 
     /**
