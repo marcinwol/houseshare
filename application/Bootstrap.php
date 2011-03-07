@@ -94,31 +94,16 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
         );
 
 
-        //    $translate->addTranslation();
-
         Zend_Form::setDefaultTranslator($translate);
     }
 
-    protected function _initLoadAclIni() {
-        $config = new Zend_Config_Ini(APPLICATION_PATH . '/configs/acl.ini');
-        Zend_Registry::set('acl', $config);
-    }
-
-//    protected function _initSetNewLayooutContentKey() {
-//
-//        $layout = $this->bootstrap('layout')->getResource('layout');
-//
-//        // instead of 'content' use 'viewoutput'
-//        $layout->setContentKey('viewoutput');
-//    }
-
     protected function _initAclControllerPlugin() {
         $this->bootstrap('frontcontroller');
-        $this->bootstrap('loadAclIni');
-
+        
         $front = Zend_Controller_Front::getInstance();
+        $aclConfig = new Zend_Config_Ini(APPLICATION_PATH . '/configs/acl.ini');
 
-        $aclPlugin = new My_Controller_Plugin_Acl(new My_Acl());
+        $aclPlugin = new My_Controller_Plugin_Acl(new My_Acl($aclConfig));
 
         $front->registerPlugin($aclPlugin);
     }

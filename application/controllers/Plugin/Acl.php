@@ -17,10 +17,7 @@ class My_Controller_Plugin_Acl extends Zend_Controller_Plugin_Abstract {
      * @var Zend_Auth
      */
     protected $_auth;
-    /**
-     *
-     * @var My_CMS_Acl
-     */
+
     protected $_acl;
     protected $_action;
     protected $_controller;

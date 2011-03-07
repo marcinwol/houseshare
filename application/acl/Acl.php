@@ -1,10 +1,5 @@
 <?php
 
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 /**
  * Description of Acl
  *
@@ -12,8 +7,8 @@
  */
 class My_Acl extends Zend_Acl {
 
-    public function __construct() {
-        $aclConfig = Zend_Registry::get('acl');
+    public function __construct(Zend_Config_Ini $acl) {
+        $aclConfig = $acl;
         $roles = $aclConfig->acl->roles;
         $resources = $aclConfig->acl->resources;
         $this->_addRoles($roles);
@@ -29,11 +24,9 @@ class My_Acl extends Zend_Acl {
                     $parents = explode(',', $parents);
                 }
                 
-                $this->addRole(new Zend_Acl_Role($name), $parents);
-             
+                $this->addRole(new Zend_Acl_Role($name), $parents);             
             }
-        }
-        
+        }       
     }
 
     public function _addResources($resources) {
@@ -55,7 +48,6 @@ class My_Acl extends Zend_Acl {
                         $action = null;
                     }
                     if ($permissions == 'allow') {
-                        //var_dump("$role, $controller, $action");
                         $this->allow($role, $controller, $action);
                     }
                     if ($permissions == 'deny') {
