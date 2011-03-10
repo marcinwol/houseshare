@@ -68,10 +68,10 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
         $locale = new Zend_Locale('en');
 
         $cache = Zend_Cache::factory(
-                'Core', 
-                'File', 
-                array('automatic_serialization' => true), 
-                array('cache_dir' => APPLICATION_PATH . '/../tmp')
+                        'Core',
+                        'File',
+                        array('automatic_serialization' => true),
+                        array('cache_dir' => APPLICATION_PATH . '/../tmp')
         );
 
         $locale->setCache($cache);
@@ -152,7 +152,14 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
 
     protected function _initAppKeysToRegistry() {
 
-        $appkeys = new Zend_Config_Ini(APPLICATION_PATH . '/configs/appkeys.ini');
+        $appkeys = null;
+
+        $file = APPLICATION_PATH . '/configs/appkeys.ini';
+
+        if (file_exists($file)) {
+            $appkeys = new Zend_Config_Ini($file);
+        }
+
         Zend_Registry::set('keys', $appkeys);
     }
 
