@@ -11,6 +11,9 @@ class IndexController extends Zend_Controller_Action {
      */
     public function testAction() {
 
+        
+      //  var_dump($this->getInvokeArg('bootstrap')->getOptions());
+        
 
         $this->view->echo_in_view = "HERE";
         echo "INSIDE ACTION";

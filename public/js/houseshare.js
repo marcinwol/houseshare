@@ -5,7 +5,7 @@
 
 
 $(document).ready(function () {
-
+       
     /**
      * This changes the text on a submit button on the main page
      * depending on whether you want to look for an accommodation
@@ -26,6 +26,8 @@ $(document).ready(function () {
         delay: 0,
         minLength: 2
     });
+    
+      
 
   
 });

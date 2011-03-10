@@ -61,6 +61,8 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
         $resourceLoader_hs->addResourceType('houseshare', 'Houseshare/', 'Houseshare_');
         //var_dump($resourceLoader_cms->getResourceTypes());
         $autoLoader->pushAutoloader($resourceLoader_hs);
+        
+              
     }
 
     protected function _initLocale() {
@@ -138,6 +140,9 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
     protected function _initAppKeysToRegistry() {
 
         $appkeys = new Zend_Config_Ini(APPLICATION_PATH . '/configs/appkeys.ini');
+        
+       // $this->setOptions($appkeys->toArray());
+        
         Zend_Registry::set('keys', $appkeys);
     }
 

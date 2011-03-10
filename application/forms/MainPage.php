@@ -21,9 +21,6 @@ class My_Form_MainPage extends Zend_Form {
 
         $this->setMethod('post');
 
-//        $div = new My_Form_Element_Div('mydiv');
-//        $div->setValue('Contact form')->setAttrib('class', 'af_title');
-//        $this->addElement($div);
         // add what do you want to do radio button
         $mainChoice = new Zend_Form_Element_Radio('rd_what_to_do');
         $mainChoice->addMultiOptions(
@@ -35,7 +32,7 @@ class My_Form_MainPage extends Zend_Form {
         $mainChoice->setRequired(true);
         $mainChoice->setValue('0');
         $this->addElement($mainChoice);
-
+        
 
         //create new element
         $cities1 = $this->createElement('text', 'i_city');

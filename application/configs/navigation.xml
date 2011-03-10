@@ -3,12 +3,15 @@
     <nav>
         <home>
             <label>Home</label>
+            <liclass>LICLASSSSS</liclass>
             <controller>index</controller>
+            
             <action>index</action>
             <route>default</route>
             <pages>
                 <accommodation>
                     <label>Accommodation</label>
+                    
                     <controller>accommodation</controller>
                     <action>index</action>
                     <route>default</route>
@@ -24,10 +27,14 @@
                             <label>List</label>
                             <controller>accommodation</controller>
                             <action>list</action>
+                          
                         </list>
+                        
 
-                         <success>
+
+                        <success>
                             <label>Success</label>
+                           
                             <controller>accommodation</controller>
                             <action>success</action>
                             <visible>0</visible>
@@ -44,11 +51,13 @@
                     <pages>
                         <login>
                             <label>Login</label>
+                          
                             <controller>user</controller>
                             <action>login</action>
                         </login>
 
                         <register>
+                           
                             <label>Register</label>
                             <controller>user</controller>
                             <action>create</action>
