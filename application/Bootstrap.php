@@ -139,12 +139,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
 
     protected function _initAppKeysToRegistry() {
 
-<<<<<<< HEAD
-        $appkeys = new Zend_Config_Ini(APPLICATION_PATH . '/configs/appkeys.ini');
-        
-       // $this->setOptions($appkeys->toArray());
-        
-=======
+
         $appkeys = null;
 
         $file = APPLICATION_PATH . '/configs/appkeys.ini';
@@ -153,7 +148,6 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
             $appkeys = new Zend_Config_Ini($file);
         }
 
->>>>>>> 93a91c01287e9c6d0b21b13c128c9d4864707e1d
         Zend_Registry::set('keys', $appkeys);
     }
 
