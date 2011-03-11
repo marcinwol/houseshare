@@ -27,8 +27,7 @@ class My_View_Helper_RecentAdverts extends Zend_View_Helper_Abstract {
 
     public function recentAdverts() {
 
-        $lastAccs = $this->_getLastAccommodations();
-
+        $lastAccs = $this->_getLastAccommodations();        
 
         return $this->view->partial(
                 '_partials/_recentAdverts.phtml', null, array('accommodations' => $lastAccs)
@@ -39,7 +38,7 @@ class My_View_Helper_RecentAdverts extends Zend_View_Helper_Abstract {
     protected function _getLastAccommodations() {
         $accModel = new My_Model_Table_Accommodation();
         $lastAccs = $accModel->getLastAccommodations(self::NO_OF_ACCS);
-        return $lastAccs->toArray();
+        return $lastAccs->toModels();
     }
 
     /**
