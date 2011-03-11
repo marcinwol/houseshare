@@ -63,11 +63,11 @@ class My_Houseshare_Accommodation extends My_Houseshare_Abstract_PropertyAccesso
         $this->_properties = array_merge($this->_properties, $this->_acc->getProperties());
     }
 
-    public function __get($propertyName) {
+    public function __get($propertyName) {        
         if (array_key_exists($propertyName, $this->_properties)) {
             return parent::__get($propertyName);
         }
-
+        
         // if not than use getter function to get the rest of data.
         $getMethodName = 'get' . ucfirst($propertyName);
 
@@ -361,6 +361,14 @@ class My_Houseshare_Accommodation extends My_Houseshare_Abstract_PropertyAccesso
         $user_id = $this->_acc->_row->user_id;
 
         return My_Houseshare_Factory::user($user_id);
+    }
+    
+    public function getCity() {
+        return $this->getAddress()->city;
+    }
+    
+    public function getState() {
+        return $this->getAddress()->state;
     }
 
     /**

@@ -1,9 +1,11 @@
 <dl class="listing-preview">
-    <dt><?php echo $this->title;?></dt>
+    <dt class="listing-preview-title"><?php echo $this->acc->title;?></dt>
     <dd>
         <dl>
-            <dt>Rent:</dt><dd><?php echo $this->price;?></dd>            
-            <dt>City:</dt><dd><?php echo $this->price;?></dd>          
+            <dt>Rent:</dt><dd><?php echo $this->acc->price;?></dd>            
+            <dt>City:</dt><dd><?php echo $this->acc->city;?></dd> 
+            <dt>State:</dt><dd><?php echo $this->acc->state;?></dd> 
+            <dt>User:</dt><dd><?php echo $this->acc->user->first_name;?></dd> 
         </dl>
 
     </dd>

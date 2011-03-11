@@ -71,3 +71,12 @@ p {
     height: 2.5em;
     margin: 0;
 }
+
+dl.listing-preview dt, dl.listing-preview dd  {
+    display: inline;
+    font-family: Georgia,'Times New Roman',times,serif;
+}
+dt.listing-preview-title {    
+    font-size: 12px;
+    color: #024ad4;
+}
