@@ -1,14 +1,14 @@
+<div>
+    <h2>Most recent Room Share adds</h2>
+</div>
 <table>
-    <thead>
-        <tr><th>Title</th><th>Price</th><th>Added</th></tr>
-    </thead>
+
         
     <tbody>
         <?php foreach ($this->accommodations as $acc): ?>
         <tr>
-            <td><?php echo $acc['title'];?></td>
-            <td><?php echo $acc['price'];?></td>
-            <td><?php echo $acc['created'];?></td>
+            <td><?php echo $this->partial('_partials/listing-preview.phtml',null, $acc);?></td>
+            
         </tr>
         <?php endforeach;?>
     </tbody>
