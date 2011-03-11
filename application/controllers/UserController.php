@@ -163,7 +163,7 @@ class UserController extends Zend_Controller_Action {
         // while this one will be set by twitter
         $oauth_token = $this->getRequest()->getParam('oauth_token', null);
 
-
+       
         // do the first query to the openid provider
         if ($openid_identifier) {
 
@@ -174,7 +174,7 @@ class UserController extends Zend_Controller_Action {
             } else {
                 // for openid
                 $adapter = $this->_getOpenIdAdapter($openid_identifier);
-
+                
                 // specify what to grab from the provider and what extension to use
                 // for this purpose
                 $toFetch = $this->_keys->openid->tofetch->toArray();
@@ -188,16 +188,17 @@ class UserController extends Zend_Controller_Action {
 
                 $adapter->setExtensions($ext);
             }
-
+          
             // here a user is redirect to the provider for loging
             $result = $auth->authenticate($adapter);
 
             // the following two lines should never be executed unless the redirection faild.
             $this->_helper->FlashMessenger('Redirection faild');
             return $this->_redirect('/index/index');
+            
         } else if ($openid_mode || $code || $oauth_token) {
             // this will be exectued after provider redirected the user back to us
-            //  var_dump($_GET);return;
+            //echo serialize($_GET);return;
 
             if ($code) {
                 // for facebook
@@ -227,8 +228,8 @@ class UserController extends Zend_Controller_Action {
                     $adapter->setExtensions($ext);
                 }
             }
-
-
+            
+          
             $result = $auth->authenticate($adapter);
 
             if ($result->isValid()) {
@@ -528,4 +529,3 @@ class UserController extends Zend_Controller_Action {
     }
 
 }
-

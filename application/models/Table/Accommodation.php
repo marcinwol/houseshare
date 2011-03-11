@@ -59,6 +59,18 @@ class My_Model_Table_Accommodation extends Zend_Db_Table_Abstract {
 
         return $row->save();
     }
+    
+    
+    /**
+     * Return $no of newest accommodations
+     * @param int $no Sets the limit of select 
+     * @return Zend_Db_Table_Rowset last added accommodations
+     */
+    public function getLastAccommodations($no = 10) {
+        $select = $this->select();
+        $select->order('created DESC')->limit($no);
+        return $this->fetchAll($select);
+    }
 
 }
 

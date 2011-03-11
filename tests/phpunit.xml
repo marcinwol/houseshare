@@ -1,4 +1,3 @@
-
 <phpunit bootstrap="./TestHelper.php" colors="true">
     <testsuite name="Houseshare Test Suite">
         <directory>./application</directory>
@@ -16,7 +15,7 @@
         </whitelist>
     </filter>
     <logging>
-        <log type="coverage-html" target="./log/report" title="PrintConcept" charset="UTF-8" yui="true" highlight="true" lowUpperBound="35" highLowerBound="70" />
+        <log type="coverasge-html" target="./log/report" title="PrintConcept" charset="UTF-8" yui="true" highlight="true" lowUpperBound="35" highLowerBound="70" />
         <log type="testdox" target="./log/testdox.html" />
     </logging>
 </phpunit>

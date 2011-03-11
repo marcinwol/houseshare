@@ -67,6 +67,12 @@
                 </div>
                 <?php echo $this->layout()->content ?>&nbsp;
             </div>
+            
+            <div>
+                <h3>Newest accommodations</h3>
+                <?php echo $this->recentAdverts();?>
+            </div>
+            
             <div id="footer">
                 <p><em>
                         <?php echo $this->translate('Powered by the Zend Framework'); ?>
