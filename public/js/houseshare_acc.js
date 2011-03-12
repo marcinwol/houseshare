@@ -12,6 +12,18 @@ $(document).ready(function () {
             $('#address-state').val(ui.item.state_name);
         }
     });
+    
+    if ($('#basic_info-acc_type').val() == "2") {
+           $('#fieldset-room_features').hide();
+    }
+    
+    $('#basic_info-acc_type').change(function() {
+       if ($(this).val() == "2") {
+           $('#fieldset-room_features').hide();
+       } else if ($(this).val() == "1") {
+           $('#fieldset-room_features').show();
+       }
+    });
 
     $("#address-state").autocomplete({
         source: "/houseshare/public/index/getstates",

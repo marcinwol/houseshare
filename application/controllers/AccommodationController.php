@@ -197,7 +197,7 @@ class AccommodationController extends Zend_Controller_Action {
                 return $this->_redirect('accommodation/addphotos');
                 //return $this->_forward('addphotos');
             }
-            Zend_Debug::dump($addAccForm->getValues());
+            //Zend_Debug::dump($addAccForm->getValues());
         }
 
         $this->view->form = $addAccForm;

@@ -11,22 +11,76 @@ class IndexController extends Zend_Controller_Action {
      */
     public function testAction() {
 
-        
-      //  var_dump($this->getInvokeArg('bootstrap')->getOptions());
-        
 
-        $this->view->echo_in_view = "HERE";
-        echo "INSIDE ACTION";
-        var_dump(get_class($this));
+        $form = new Zend_Form;
+
+        $form->removeDecorator('htmlTag');
+
+        $form->setAction('/index/login')
+                ->setMethod('post')
+                ->setAttrib('id', 'login_form');
+
+        $username = $form->createElement('text', 'username');
+
+        $username->addValidator('alnum')
+                ->setRequired(TRUE)
+                ->setLabel('Username')
+                ->setAttrib('class', 'login_input');
+
+
+        // anonymouse function that will generate your image tage
+        $makeImg = function($content, $element, array $options) {
+                    return '<img src="/images/' . $options['img'] . '" class="' . $options['class'] . ' " alt=""/> ';
+                };
+
+
+        $username->setDecorators(array(
+            'ViewHelper',
+            'Errors',
+            array('Label', array('class' => 'login_label')),
+            array('Callback',
+                array(
+                    'callback' => $makeImg,
+                    'img' => 'user_icon.png',
+                    'class' => 'login_icon',                    
+                    'placement' => 'PREPEND'
+                )
+            ),
+            array('HtmlTag', array('tag' => 'div', 'class' => 'input_row')),
+        ));
+               
+                
+
+        $form->addElement($username);
+
+
+        $submit = $form->createElement('submit', 'login', array(
+                    'label' => 'Login',
+                    'class' => 'login_submit'
+                        )
+        );
+
+
+        $submit->setDecorators(array(
+            'ViewHelper',
+            'Errors',
+            array('HtmlTag', array('tag' => 'div', 'class' => 'input_row')),
+        ));
+
+        $form->addElement($submit);
+//       
+
+
+        $this->view->form = $form;
     }
 
     public function indexAction() {
 
         $mainForm = new My_Form_MainPage();
-    
+
         if ($this->getRequest()->isPost()) {
             if ($mainForm->isValid($_POST)) {
-                  
+
                 $whatToDo = $mainForm->getValue('rd_what_to_do');
                 $cityName = $mainForm->getValue('i_city');
 
