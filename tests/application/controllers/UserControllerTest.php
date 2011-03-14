@@ -166,6 +166,85 @@ class UserControllerTest extends ControllerTestCase {
         return $params;
     }
 
+    /**
+     * @dataProvider editUserInfoProvider
+     */
+    public function testEditUserInfo($user, $postData) {
+        $this->_authUser($user['email'], $user['password']);
+
+        $auth = Zend_Auth::getInstance();
+
+        // logged OK
+        $this->assertTrue($auth->hasIdentity());
+
+        $this->request->setMethod('POST')->setPost($postData);
+        $this->dispatch('/user/edit');
+      
+
+        // if everything is OK user should go to user/
+        $this->assertRedirectTo('/user');
+
+        // check if user data was changed
+        $user_id = $auth->getIdentity()->property->user_id;
+        $user = My_Houseshare_Factory::user($user_id);
+
+        $this->assertEquals(
+                array(
+                     $postData['about_you']['phone_no'],
+                     $postData['about_you']['email'],
+                     $postData['about_you']['last_name_public'],
+                     $postData['about_you']['phone_public'],
+                     $postData['about_you']['first_name'],
+                     $postData['about_you']['last_name']
+                ), array(
+                     $user->phone,
+                     $user->email,
+                     $user->last_name_public,
+                     $user->phone_public,
+                     $user->first_name,
+                     $user->last_name
+                
+                )
+        );
+    }
+
+    public function editUserInfoProvider() {
+        return array(
+            array(
+                array(
+                    'email' => 'test@test.com',
+                    'password' => 'test12'
+                ),
+                array(
+                    'about_you' => array(
+                        'first_name' => 'marcin',
+                        'last_name' => 'wolski',
+                        'last_name_public' => 0,
+                        'phone_no' => '+234 234 243',
+                        'phone_public' => 1,
+                        'email' => 'marcin@test.com',
+                    ),
+                )
+            ),
+            array(
+                array(
+                    'email' => 'user1@user.com',
+                    'password' => 'test12'
+                ),
+                array(
+                    'about_you' => array(
+                        'first_name' => 'marcin',
+                        'last_name' => 'wolski',
+                        'last_name_public' => 0,
+                        'phone_no' => '+234 234 243',
+                        'phone_public' => 1,
+                        'email' => 'marcin@test.com',
+                    ),
+                )
+            )
+        );
+    }
+
     public function testIfLoggedUserGoesToSuccess() {
         // authenticate correct user
         $this->_authUser('test@test.com', 'test12');
@@ -223,25 +302,25 @@ class UserControllerTest extends ControllerTestCase {
     public function tessstSuccessfulGoogleLogin() {
 
         Zend_OpenId::$exitOnRedirect = false;
-        
-        $_GET =   array(
-                    'action' => 'verify',
-                    'openid_username' => 'marcinwol',
-                    'openid_identifier' => 'http://marcinwol.myopenid.com/'
-                );
-           $_SERVER['SCRIPT_URI'] = "http://www.zf-test.com/test.php";
+
+        $_GET = array(
+            'action' => 'verify',
+            'openid_username' => 'marcinwol',
+            'openid_identifier' => 'http://marcinwol.myopenid.com/'
+        );
+        $_SERVER['SCRIPT_URI'] = "http://www.zf-test.com/test.php";
 
         $this->dispatch('/user/login');
         //var_dump($this->getResponse()->getBody());
-       // return;
+        // return;
         $this->resetRequest()->resetResponse();
-        
+
         $this->_mockMyOpenIdAuthResponce();
-        
+
         $this->dispatch('/user/login');
 
-     //   $response = new Zend_OpenId_ResponseHelper(true);
-    
+        //   $response = new Zend_OpenId_ResponseHelper(true);
+
         var_dump(Zend_Auth::getInstance()->getIdentity());
 
         var_dump($this->getResponse()->getBody());
@@ -250,13 +329,10 @@ class UserControllerTest extends ControllerTestCase {
     protected function _mockGoogleAuthResponce($success = true) {
         $_GET = unserialize('a:14:{s:9:"openid_ns";s:32:"http://specs.openid.net/auth/2.0";s:11:"openid_mode";s:6:"id_res";s:18:"openid_op_endpoint";s:37:"https://www.google.com/accounts/o8/ud";s:21:"openid_response_nonce";s:34:"2011-03-10T06:21:40ZHovyGLBvMgNTug";s:16:"openid_return_to";s:49:"http://localhost.com/houseshare/public/user/login";s:19:"openid_assoc_handle";s:72:"AOQobUfYZ9P52Tv4hvtmUraGKN-zoNMEGADWtjG2qwfwGXd8kMgS0pls0T7iCQ85BJ2EuvXC";s:13:"openid_signed";s:120:"op_endpoint,claimed_id,identity,return_to,response_nonce,assoc_handle,ns.ext1,ext1.mode,ext1.type.email,ext1.value.email";s:10:"openid_sig";s:44:"MGESVtEwsP7jlOaYYnxb6V4rlJmEORq/dMVgRQdpeNA=";s:15:"openid_identity";s:80:"https://www.google.com/accounts/o8/id?id=AItOawnOWJEgpUUA8geIY8JRWuyIaWz-1FqkjTI";s:17:"openid_claimed_id";s:80:"https://www.google.com/accounts/o8/id?id=AItOawnOWJEgpUUA8geIY8JRWuyIaWz-1FqkjTI";s:14:"openid_ns_ext1";s:28:"http://openid.net/srv/ax/1.0";s:16:"openid_ext1_mode";s:14:"fetch_response";s:22:"openid_ext1_type_email";s:33:"http://axschema.org/contact/email";s:23:"openid_ext1_value_email";s:19:"marcinwol@gmail.com";}');
     }
-    
+
     protected function _mockMyOpenIdAuthResponce($success = true) {
         $_GET = unserialize('a:12:{s:19:"openid_assoc_handle";s:33:"{HMAC-SHA256}{4d79aa61}{h+tYVQ==}";s:17:"openid_claimed_id";s:30:"http://marcinwol.myopenid.com/";s:15:"openid_identity";s:30:"http://marcinwol.myopenid.com/";s:11:"openid_mode";s:6:"id_res";s:9:"openid_ns";s:32:"http://specs.openid.net/auth/2.0";s:14:"openid_ns_sreg";s:37:"http://openid.net/extensions/sreg/1.1";s:18:"openid_op_endpoint";s:30:"http://www.myopenid.com/server";s:21:"openid_response_nonce";s:26:"2011-03-11T04:51:52ZmS2y0q";s:16:"openid_return_to";s:49:"http://localhost.com/houseshare/public/user/login";s:10:"openid_sig";s:44:"u93gLn2fSG0egY4tJ7N6R7VYvs8zgk0ZIbeyfMJVUPM=";s:13:"openid_signed";s:103:"assoc_handle,claimed_id,identity,mode,ns,ns.sreg,op_endpoint,response_nonce,return_to,signed,sreg.email";s:17:"openid_sreg_email";s:14:"wolskint@o2.pl";}');
     }
-    
-    
-    
 
 }
 

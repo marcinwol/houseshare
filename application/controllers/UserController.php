@@ -371,7 +371,7 @@ class UserController extends Zend_Controller_Action {
 
         $userForm = new My_Form_UserCreate();
         $userForm->removePasswordFields();
-
+        
 
         if ($this->getRequest()->isPost()) {
             if ($userForm->isValid($_POST)) {
@@ -379,7 +379,7 @@ class UserController extends Zend_Controller_Action {
                   if ($userForm->cancel->isChecked()) {
                     // if cancel button was clicked
                     //$this->_helper->FlashMessenger('No changes were made to your user information');
-                    return $this->_redirect('user/');
+                    return $this->_redirect('/user');
                 }
 
 
@@ -398,7 +398,7 @@ class UserController extends Zend_Controller_Action {
                     throw new Zend_Db_Exception("User id $user_id and retun value from update ($id) don't match");
                 }
                 $this->_helper->FlashMessenger('Your data was changed');
-                return $this->_redirect('user/');
+                return $this->_redirect('/user');
                 
             }
         } else {
