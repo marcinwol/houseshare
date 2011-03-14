@@ -30,8 +30,6 @@
                           
                         </list>
                         
-
-
                         <success>
                             <label>Success</label>
                            
@@ -50,18 +48,23 @@
                     <route>default</route>
                     <pages>
                         <login>
-                            <label>Login</label>
-                          
+                            <label>Login</label>                          
                             <controller>user</controller>
                             <action>login</action>
                         </login>
 
-                        <register>
-                           
+                        <register>                           
                             <label>Register</label>
                             <controller>user</controller>
                             <action>create</action>
                         </register>
+                         <edit>                           
+                            <label>Edit</label>
+                            <controller>user</controller>
+                            <action>edit</action>
+                            <resource>user</resource>
+                            <privilege>edit</privilege>
+                        </edit>
 
                     </pages>
                 </user>

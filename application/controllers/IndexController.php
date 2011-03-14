@@ -16,58 +16,12 @@ class IndexController extends Zend_Controller_Action {
 
         $form->removeDecorator('htmlTag');
 
-        $form->setAction('/index/login')
-                ->setMethod('post')
-                ->setAttrib('id', 'login_form');
+        $selectTemplate = new Zend_Form_Element_Hidden('report_template');
+        $selectTemplate->setLabel('Select Template:')
+                ->setDescription('No message templates have been added, add a message template <a href="admin-report-addreporttemplate">here</a>');
 
-        $username = $form->createElement('text', 'username');
-
-        $username->addValidator('alnum')
-                ->setRequired(TRUE)
-                ->setLabel('Username')
-                ->setAttrib('class', 'login_input');
-
-
-        // anonymouse function that will generate your image tage
-        $makeImg = function($content, $element, array $options) {
-                    return '<img src="/images/' . $options['img'] . '" class="' . $options['class'] . ' " alt=""/> ';
-                };
-
-
-        $username->setDecorators(array(
-            'ViewHelper',
-            'Errors',
-            array('Label', array('class' => 'login_label')),
-            array('Callback',
-                array(
-                    'callback' => $makeImg,
-                    'img' => 'user_icon.png',
-                    'class' => 'login_icon',                    
-                    'placement' => 'PREPEND'
-                )
-            ),
-            array('HtmlTag', array('tag' => 'div', 'class' => 'input_row')),
-        ));
-               
-                
-
-        $form->addElement($username);
-
-
-        $submit = $form->createElement('submit', 'login', array(
-                    'label' => 'Login',
-                    'class' => 'login_submit'
-                        )
-        );
-
-
-        $submit->setDecorators(array(
-            'ViewHelper',
-            'Errors',
-            array('HtmlTag', array('tag' => 'div', 'class' => 'input_row')),
-        ));
-
-        $form->addElement($submit);
+        $selectTemplate->getDecorator('description')->setOption('escape', false);
+        $form->addElement($selectTemplate);
 //       
 
 

@@ -104,10 +104,15 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
         
         $front = Zend_Controller_Front::getInstance();
         $aclConfig = new Zend_Config_Ini(APPLICATION_PATH . '/configs/acl.ini');
+           
+        $acl = new My_Acl($aclConfig);
 
-        $aclPlugin = new My_Controller_Plugin_Acl(new My_Acl($aclConfig));
+        $aclPlugin = new My_Controller_Plugin_Acl($acl);        
 
         $front->registerPlugin($aclPlugin);
+        
+        Zend_View_Helper_Navigation_HelperAbstract::setDefaultAcl($acl);
+        Zend_View_Helper_Navigation_HelperAbstract::setDefaultRole('guest');
     }
 
     protected function _initImageDirConstants() {

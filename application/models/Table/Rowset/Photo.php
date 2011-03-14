@@ -10,7 +10,7 @@
  *
  * @author marcin
  */
-class My_Model_Table_Rowset_Accommodation extends Zend_Db_Table_Rowset {
+class My_Model_Table_Rowset_Photo extends Zend_Db_Table_Rowset {
 
     /**
      * Get fullPaths for this Photo rowset.

@@ -43,7 +43,9 @@ class My_Controller_Plugin_Acl extends Zend_Controller_Plugin_Abstract {
                 $request->setControllerName('error');
                 $request->setActionName('noauth');
             }
-        }
+        } 
+        
+        Zend_View_Helper_Navigation_HelperAbstract::setDefaultRole($this->_currentRole);
     }
 
     protected function _init($request) {
