@@ -163,7 +163,7 @@ class UserController extends Zend_Controller_Action {
         // while this one will be set by twitter
         $oauth_token = $this->getRequest()->getParam('oauth_token', null);
 
-       
+
         // do the first query to the openid provider
         if ($openid_identifier) {
 
@@ -174,7 +174,7 @@ class UserController extends Zend_Controller_Action {
             } else {
                 // for openid
                 $adapter = $this->_getOpenIdAdapter($openid_identifier);
-                
+
                 // specify what to grab from the provider and what extension to use
                 // for this purpose
                 $toFetch = $this->_keys->openid->tofetch->toArray();
@@ -188,14 +188,13 @@ class UserController extends Zend_Controller_Action {
 
                 $adapter->setExtensions($ext);
             }
-          
+
             // here a user is redirect to the provider for loging
             $result = $auth->authenticate($adapter);
 
             // the following two lines should never be executed unless the redirection faild.
             $this->_helper->FlashMessenger('Redirection faild');
             return $this->_redirect('/index/index');
-            
         } else if ($openid_mode || $code || $oauth_token) {
             // this will be exectued after provider redirected the user back to us
             //echo serialize($_GET);return;
@@ -228,8 +227,8 @@ class UserController extends Zend_Controller_Action {
                     $adapter->setExtensions($ext);
                 }
             }
-            
-          
+
+
             $result = $auth->authenticate($adapter);
 
             if ($result->isValid()) {
@@ -355,6 +354,67 @@ class UserController extends Zend_Controller_Action {
         $this->view->form = $loginForm;
     }
 
+    public function editAction() {
+        $auth = Zend_Auth::getInstance();
+
+        $authData = $auth->getIdentity();
+
+        if (null === $authData) {
+            $this->_helper->FlashMessenger('You were logged out. Please login.');
+            return $this->_redirect('/');
+        }
+
+        $user_id = $authData->property->user_id;
+        $userType = $authData->property->type;
+
+        $user = My_Houseshare_Factory::user($user_id, $userType);
+
+        $userForm = new My_Form_UserCreate();
+        $userForm->removePasswordFields();
+
+
+        if ($this->getRequest()->isPost()) {
+            if ($userForm->isValid($_POST)) {
+                
+                  if ($userForm->cancel->isChecked()) {
+                    // if cancel button was clicked
+                    //$this->_helper->FlashMessenger('No changes were made to your user information');
+                    return $this->_redirect('user/');
+                }
+
+
+                $formData = $userForm->getValues();                                          
+
+                $user->first_name = $formData['about_you']['first_name'];
+                $user->last_name = $formData['about_you']['last_name'];
+                $user->last_name_public = $formData['about_you']['last_name_public'];
+                $user->email = $formData['about_you']['email'];       
+                $user->phone = $formData['about_you']['phone_no'];
+                $user->phone_public = $formData['about_you']['phone_public'];
+                
+                $id = $user->save();
+                
+                if ($id !== $user_id) {
+                    throw new Zend_Db_Exception("User id $user_id and retun value from update ($id) don't match");
+                }
+                $this->_helper->FlashMessenger('Your data was changed');
+                return $this->_redirect('user/');
+                
+            }
+        } else {
+           
+            // populate form with user data
+            $userData = $user->toArray();
+            
+            // phone input field name is different than in $user
+            $userData['phone_no'] = $user->phone;
+            $userForm->populate(array('about_you' => $userData));
+        }
+
+        $userForm->getElement('Submit')->setLabel('Update');
+        $this->view->form = $userForm;
+    }
+
     public function completeAction() {
 
 
@@ -434,7 +494,7 @@ class UserController extends Zend_Controller_Action {
     }
 
     public function doubleEmailAction() {
-        
+
         $tmpSession = new Zend_Session_Namespace('toStore');
 
         /* @var $user My_Model_Table_Row_User  */

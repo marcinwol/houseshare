@@ -21,7 +21,8 @@ class My_Form_UserCreate extends My_Form_Abstract_AccommodationAbstract {
 
         $aboutYouSubForm = $this->_makeAboutYouSubForm();
         $this->addSubForm($aboutYouSubForm, self::ABOUT_YOU_SUBFORM_NAME);
-
+        $cancelButton = new Zend_Form_Element_Submit('cancel', 'Cancel');
+        $this->addElement($cancelButton);
         $submit = $this->addElement('submit', 'Submit');
     }
 
