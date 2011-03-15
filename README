@@ -1,15 +1,10 @@
-PROJECT TITLE
-house share 
-
 AIM
-To develop a user-friendly, reliable and competitive portal for
+===
+To develop a user-friendly, reliable and competitive portal for 
 posting house share advertisements. 
 
-INSTALL
-This is a Zend Framework 1.11 project. Thus you need to have
-Zend Framework library available for PHP. You can do it just by 
-putting it in application/library.
 
 AUTHORS
+=======
 Marcin Wolski
 Michal Chojcan
