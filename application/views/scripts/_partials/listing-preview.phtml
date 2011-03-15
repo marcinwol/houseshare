@@ -1,4 +1,5 @@
 <dl class="listing-preview">
+    <?php echo $this->gravatar($this->acc->user->email,  array('imgSize' => 50, 'defaultImg' => 'identicon'));?>
     <dt class="listing-preview-title">
         <a href="<?php echo $this->baseUrl('/show/' . $this->acc->acc_id);?>"><?php echo $this->acc->title;?></a>
     </dt>
