@@ -1,15 +1,15 @@
-<?php // acc.phtml  ?>
+<?php // acc.phtml   ?>
 <div>
     <?php var_dump($this->acc->toArray()); ?>
     <?php var_dump($this->acc->address->city); ?>    
     <div>
         <?php foreach ($this->acc->photos as $photo): ?>
 
-        <?php var_dump($photo->toArray()); ?>
+            <?php var_dump($photo->toArray()); ?>
             <img alt="Photo"  src="<?php echo $this->photoUrl($photo); ?>" />
             <img alt="Thumb Photo"  src="<?php echo $this->photoUrl($photo, true); ?>" />
 
         <?php endforeach; ?>
-         </div>
+    </div>
 
 </div>

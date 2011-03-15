@@ -1,5 +1,7 @@
 <dl class="listing-preview">
-    <dt class="listing-preview-title"><?php echo $this->acc->title;?></dt>
+    <dt class="listing-preview-title">
+        <a href="<?php echo $this->baseUrl('/show/' . $this->acc->acc_id);?>"><?php echo $this->acc->title;?></a>
+    </dt>
     <dd>
         <dl>
             <dt>Rent:</dt><dd><?php echo $this->acc->price;?></dd>            

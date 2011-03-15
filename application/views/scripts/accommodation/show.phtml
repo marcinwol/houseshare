@@ -1,0 +1,17 @@
+<div>
+    <?php
+    var_dump($this->acc->toArray());
+
+    var_dump($this->acc->address->city);
+    ?>
+</div>
+
+<div>
+    <?php foreach ($this->acc->photos as $photo): ?>
+
+        <?php var_dump($photo->toArray()); ?>
+        <img alt="Photo"  src="<?php echo $this->photoUrl($photo); ?>" />
+        <img alt="Thumb Photo"  src="<?php echo $this->photoUrl($photo, true); ?>" />
+
+    <?php endforeach; ?>
+</div>

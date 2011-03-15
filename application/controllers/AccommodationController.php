@@ -9,6 +9,23 @@ class AccommodationController extends Zend_Controller_Action {
     public function indexAction() {
         return $this->_forward('list');
     }
+    
+    public function showAction() {
+        
+        $acc_id = $this->getRequest()->getParam('id');
+        
+        if (empty($acc_id)) {
+            $this->_helper->FlashMessenger('Cannot show accommodation defails');
+            return $this->_redirect('/');
+        }
+        
+        $acc_id = (int) $acc_id;
+        
+        $acc = My_Houseshare_Factory::accommodation($acc_id);
+        
+        $this->view->acc = $acc;                
+        
+    }
 
     public function listAction() {
 
