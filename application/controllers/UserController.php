@@ -356,8 +356,6 @@ class UserController extends Zend_Controller_Action {
 
     public function editAction() {
         
-        var_dump($this->getRequest()->getParams());
-        return;
         $auth = Zend_Auth::getInstance();
 
         $authData = $auth->getIdentity();

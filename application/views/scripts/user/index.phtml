@@ -1,11 +1,16 @@
 <div>
     User account page.
+    <?php echo $this->gravatar($this->user['email'],  array('imgSize' => 100, 'defaultImg' => 'identicon'));?>
     <?php var_dump($this->user);?>
 
      <?php if ($this->accs): ?>
             Your accommodations:
             <?php var_dump($this->accs->toArray());?>
     <?php endif; ?>
+            
+</div>
+<div>
+    <a href="<?php echo $this->baseUrl('/user/edit');?>">Edit your data</a>
 </div>
 <div>
     <a href="<?php echo $this->baseUrl('/add');?>">Add new accommodation</a>
