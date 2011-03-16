@@ -28,7 +28,7 @@ class My_Form_SendEmail extends Zend_Form {
         $body->setRequired();
         $body->addValidator('StringLength', array('min' => 30, 'max' => 256));
 
-
+        
         $captcha = $this->_makeRecaptchaElement();
 
         $send = $this->createElement('submit', 'send');
@@ -50,12 +50,16 @@ class My_Form_SendEmail extends Zend_Form {
         $privatekey = $keys->recaptcha->key->private;
 
         $recaptcha = new Zend_Service_ReCaptcha($publickey, $privatekey);
+        $recaptcha->setOptions(array('theme' => 'clean'));
 
 
         $captcha = new Zend_Form_Element_Captcha('captcha',
                         array(
                             'captcha' => 'ReCaptcha',
-                            'captchaOptions' => array('captcha' => 'ReCaptcha', 'service' => $recaptcha),
+                            'captchaOptions' => array(
+                                'captcha' => 'ReCaptcha', 
+                                'service' => $recaptcha
+                                ),
                             'ignore' => true
                         )
         );
