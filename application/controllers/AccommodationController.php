@@ -9,22 +9,58 @@ class AccommodationController extends Zend_Controller_Action {
     public function indexAction() {
         return $this->_forward('list');
     }
-    
+
     public function showAction() {
-        
+
         $acc_id = $this->getRequest()->getParam('id');
-        
+
         if (empty($acc_id)) {
             $this->_helper->FlashMessenger('Cannot show accommodation defails');
             return $this->_redirect('/');
         }
-        
+
         $acc_id = (int) $acc_id;
-        
+
         $acc = My_Houseshare_Factory::accommodation($acc_id);
-        
-        $this->view->acc = $acc;                
-        
+
+
+        // email sending form to send a question to the author of the advertisment
+        $form = new My_Form_SendEmail();
+
+        if ($this->getRequest()->isPost()) {
+            if ($form->isValid($_POST)) {
+
+                $advertCreaterEmail = $acc->user->email;
+                $returnEmail = $form->getValue('email');
+                $emailBody = $form->getValue('message');
+
+                $emailObj = new My_Mail_AccQuery();
+                $emailObj->setFrom($returnEmail);
+                $emailObj->addTo($advertCreaterEmail);
+                $emailObj->setBodyText($emailBody);
+
+                try {
+                    $emailObj->send();
+                } catch (Zend_Mail_Exception $e) {
+                    $this->_helper->FlashMessenger('There was a problem sending your message: '. $e->getMessage());
+                    return $this->_redirect('/show/' . $acc_id);
+                }
+
+                $this->_helper->FlashMessenger('Your message was sent');
+                return $this->_redirect('/show/' . $acc_id);
+                
+            } else {
+                $form->removeAttrib('style');
+                $this->view->errors = 1;
+            }
+        } else {
+            // this value is used in JS to scroll the window to form 
+            // if there were some errors.
+            $this->view->errors = 0;
+        }
+
+        $this->view->acc = $acc;
+        $this->view->form = $form;
     }
 
     public function listAction() {
@@ -86,14 +122,12 @@ class AccommodationController extends Zend_Controller_Action {
 
 
 
-                     if (Zend_Auth::getInstance()->hasIdentity()) {
-                          // if logged in, no need about_you subform.
-                          // just use logged user info.
-                         $user_id = Zend_Auth::getInstance()->getIdentity()->property->user_id;
-
-                     } else {
+                    if (Zend_Auth::getInstance()->hasIdentity()) {
+                        // if logged in, no need about_you subform.
+                        // just use logged user info.
+                        $user_id = Zend_Auth::getInstance()->getIdentity()->property->user_id;
+                    } else {
                         // otherise need to create a user.
-
                         // save user in not registered (assume it is roomate)
                         // this is controlled by live_in_acc selecte element
                         // that for now is not used.
@@ -111,7 +145,7 @@ class AccommodationController extends Zend_Controller_Action {
                         $newUser->is_owner = 0; // at the moment don't use this field
 
                         $user_id = $newUser->save();
-                     }
+                    }
 
                     // save address in db
                     $newAddress = new My_Houseshare_Address();
@@ -156,8 +190,7 @@ class AccommodationController extends Zend_Controller_Action {
                         if (intval($pref_id) > -1) {
                             // if checked
                             $accPrefModel->setAccPreference(
-                                    array('value' => 1),
-                                    array('acc_id' => $acc_id, 'pref_id' => $pref_id)
+                                    array('value' => 1), array('acc_id' => $acc_id, 'pref_id' => $pref_id)
                             );
                         }
                     }
@@ -166,8 +199,7 @@ class AccommodationController extends Zend_Controller_Action {
                     $prefModel = new My_Model_Table_Preference();
                     $prefRow = $prefModel->fetchRow(" name = 'gender' ");
                     $accPrefModel->setAccPreference(
-                            array('value' => $formData['preferences']['gender']),
-                            array('acc_id' => $acc_id, 'pref_id' => $prefRow->pref_id)
+                            array('value' => $formData['preferences']['gender']), array('acc_id' => $acc_id, 'pref_id' => $prefRow->pref_id)
                     );
 
                     // set features (first binary ones)
@@ -186,8 +218,7 @@ class AccommodationController extends Zend_Controller_Action {
                         if (intval($feat_id) > -1) {
                             // if checked
                             $accFeatModel->setAccFeature(
-                                    array('value' => 1),
-                                    array('acc_id' => $acc_id, 'feat_id' => $feat_id)
+                                    array('value' => 1), array('acc_id' => $acc_id, 'feat_id' => $feat_id)
                             );
                         }
                     }
@@ -196,8 +227,7 @@ class AccommodationController extends Zend_Controller_Action {
                     $featModel = new My_Model_Table_Feature();
                     $featRow = $featModel->fetchRow(" name = 'furnished' ");
                     $accFeatModel->setAccFeature(
-                            array('value' => $formData['acc_features']['furnished']),
-                            array('acc_id' => $acc_id, 'feat_id' => $featRow->feat_id)
+                            array('value' => $formData['acc_features']['furnished']), array('acc_id' => $acc_id, 'feat_id' => $featRow->feat_id)
                     );
 
                     $db->commit();
@@ -260,7 +290,7 @@ class AccommodationController extends Zend_Controller_Action {
                         continue;
                     }
 
-                    $dateprefix = date("YmdHms") . '_';                   
+                    $dateprefix = date("YmdHms") . '_';
                     $outBaseName = $dateprefix . ($i++);
 
 
@@ -273,10 +303,7 @@ class AccommodationController extends Zend_Controller_Action {
                     // manually receive the uploaded file, resize it and save it.
                     // files will be saved in dir PHOTOS_PATH/$uploaddir/.
                     $imgPath = My_Houseshare_Photo::resizeAndSave(
-                                    $info['tmp_name'],
-                                    PHOTOS_PATH,
-                                    $outBaseName,
-                                    $uploadSubDir
+                                    $info['tmp_name'], PHOTOS_PATH, $outBaseName, $uploadSubDir
                     );
 
 
@@ -313,7 +340,7 @@ class AccommodationController extends Zend_Controller_Action {
 
                     $photo_id = $photo->save();
                     if (!is_numeric($photo_id)) {
-                         throw new Exception("Information about \"$imgPath\" was not saved in the database");
+                        throw new Exception("Information about \"$imgPath\" was not saved in the database");
                     }
                 }
                 // everything went fine, so just redirect.

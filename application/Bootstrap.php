@@ -34,6 +34,10 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
                         'model' => array(
                             'path' => 'models/',
                             'namespace' => 'My_Model_'
+                        ),
+                        'email' => array(
+                            'path' => 'emails/',
+                            'namespace' => 'My_Mail_'
                         )
                     )
                 ));

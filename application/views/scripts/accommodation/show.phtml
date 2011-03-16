@@ -1,17 +1,46 @@
+<pre>
 <div>
-    <?php
-    var_dump($this->acc->toArray());
+        <?php
+        var_dump($this->acc->toArray());
 
-    var_dump($this->acc->address->city);
-    ?>
+        var_dump($this->acc->address->city);
+
+        var_dump($this->acc->features->asArray());
+
+        var_dump($this->acc->preferences->asArray());
+
+        var_dump($this->acc->roomates->toArray());
+        ?>
 </div>
 
 <div>
-    <?php foreach ($this->acc->photos as $photo): ?>
+        <?php foreach ($this->acc->photos as $photo): ?>
 
-        <?php var_dump($photo->toArray()); ?>
-        <img alt="Photo"  src="<?php echo $this->photoUrl($photo); ?>" />
-        <img alt="Thumb Photo"  src="<?php echo $this->photoUrl($photo, true); ?>" />
+            <?php var_dump($photo->toArray()); ?>
+            <img alt="Photo"  src="<?php echo $this->photoUrl($photo); ?>" />
+            <img alt="Thumb Photo"  src="<?php echo $this->photoUrl($photo, true); ?>" />
 
-    <?php endforeach; ?>
+        <?php endforeach; ?>
 </div>
+</pre>
+<a href="javascript:none;" id="ask-question">Ask a question</a>
+<div id="email-send-form">
+    <?php echo $this->form; ?>        
+</div>
+<script type="text/javascript">      
+    
+     errors = <?php echo $this->errors;?>;
+     
+     if (1 === errors) {
+        $(window).scrollTop($('#send').position().top);
+     }
+    
+    $(function() { 
+        
+        $('#ask-question').click(function() {
+            $('#email-form').toggle('slow');
+        });        
+        
+    });
+    
+</script>
