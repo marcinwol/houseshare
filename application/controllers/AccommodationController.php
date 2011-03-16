@@ -18,12 +18,10 @@ class AccommodationController extends Zend_Controller_Action {
             $this->_helper->FlashMessenger('Cannot show accommodation defails');
             return $this->_redirect('/');
         }
-
         $acc_id = (int) $acc_id;
-
         $acc = My_Houseshare_Factory::accommodation($acc_id);
-
-
+        
+        
         // email sending form to send a question to the author of the advertisment
         $form = new My_Form_SendEmail();
 
@@ -42,13 +40,12 @@ class AccommodationController extends Zend_Controller_Action {
                 try {
                     $emailObj->send();
                 } catch (Zend_Mail_Exception $e) {
-                    $this->_helper->FlashMessenger('There was a problem sending your message: '. $e->getMessage());
+                    $this->_helper->FlashMessenger('There was a problem sending your message: ' . $e->getMessage());
                     return $this->_redirect('/show/' . $acc_id);
                 }
 
                 $this->_helper->FlashMessenger('Your message was sent');
                 return $this->_redirect('/show/' . $acc_id);
-                
             } else {
                 $form->removeAttrib('style');
                 $this->view->errors = 1;
@@ -255,7 +252,38 @@ class AccommodationController extends Zend_Controller_Action {
     }
 
     public function editAction() {
-        // action body
+        $acc_id = $this->getRequest()->getParam('id', null);
+
+        if (empty($acc_id)) {
+            $this->_helper->FlashMessenger('Cannot edit accommodation defails');
+            return $this->_redirect('/');
+        }
+
+        $acc_id = (int) $acc_id;
+
+        $acc = My_Houseshare_Factory::accommodation($acc_id);
+        
+        $user_id = Zend_Auth::getInstance()->getIdentity()->property->user_id;        
+        
+        // check if the accommodation belongs to the registered user
+        if ($user_id != $acc->user->user_id) {
+            $this->_helper->FlashMessenger('You cannot edit this accommodation');
+            return $this->_redirect('/');
+        }
+
+        
+        $accForm = new My_Form_Accommodation();      
+        
+        $accForm->populateForm($acc);
+
+        if ($this->getRequest()->isPost()) {
+            if ($accForm->isValid($_POST)) {
+                
+            }
+        }
+        
+        $accForm->getElement('Submit')->setLabel('Update');
+        $this->view->form = $accForm;
     }
 
     public function addphotosAction() {

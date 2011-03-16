@@ -45,6 +45,30 @@ class My_Form_Accommodation extends My_Form_Abstract_AccommodationAbstract {
         // Create a submit button.
         $this->addElement('submit', 'Submit');
     }
+    
+    /**
+     * Populate the form with accommodation information.
+     * 
+     * @param My_Houseshare_Accommodation|array $acc data for population
+     * @return My_Form_Accommodation 
+     */
+    public function populateForm($acc) {
+        if (is_array($acc)) {
+            return parent::populate($acc);
+        } else if ($acc instanceof My_Houseshare_Accommodation) {
+            $baseInfoSubForm = $this->getSubForm(self::BASIC_INFO_SUBFORM_NAME);
+            $baseInfoSubForm->populate(array(
+                'acc_type' => $acc->type_id,
+                'title'    => $acc->title,
+                'description' => $acc->description,
+                'date_avaliable' => $acc->date_avaliable,
+                'short_term' => $acc->short_term_ok,
+                'price' => $acc->price,
+                'bond' => $acc->bond,
+            )); 
+            return $this;
+        }
+    }
 
 }
 
