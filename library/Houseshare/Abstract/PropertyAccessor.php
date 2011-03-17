@@ -30,7 +30,7 @@ abstract class My_Houseshare_Abstract_PropertyAccessor {
 
 
     public function __construct($id = null) {
-    
+
         $modelObj = "My_Model_{$this->_modelName}";
         $this->_model = new $modelObj();
 
@@ -94,6 +94,13 @@ abstract class My_Houseshare_Abstract_PropertyAccessor {
             if (stripos($propertyName, '_id')) {
                 throw new Zend_Exception("Cannot change '_id' property : $propertyName");
             }
+
+            $setMethodName = 'set' . ucfirst($propertyName);
+
+            if (method_exists($this, $setMethodName)) {
+                $value = call_user_func(array($this, $setMethodName), $propertyName, $value);
+            }
+
             $this->_properties[$propertyName] = $value;
             $this->_changedProperties[$propertyName] = true;
         }

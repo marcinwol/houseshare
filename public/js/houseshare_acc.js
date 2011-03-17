@@ -13,14 +13,14 @@ $(document).ready(function () {
         }
     });
     
-    if ($('#basic_info-acc_type').val() == "2") {
+    if ($('#basic_info-acc_type').val() == "1") {
            $('#fieldset-room_features').hide();
     }
     
     $('#basic_info-acc_type').change(function() {
-       if ($(this).val() == "2") {
+       if ($(this).val() == "1") {
            $('#fieldset-room_features').hide();
-       } else if ($(this).val() == "1") {
+       } else if ($(this).val() == "2") {
            $('#fieldset-room_features').show();
        }
     });

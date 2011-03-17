@@ -22,13 +22,22 @@ class My_Model_Table_Rowset_AccsFeatures extends Zend_Db_Table_Rowset_Abstract {
         foreach ($this as $i => $row) {
             $prefName = $row->getName();
 
-            $data[] = array_merge($row->toArray(),array('name'=>$prefName));
+            $data[] = array_merge($row->toArray(), array('name' => $prefName));
         }
         return $data;
     }
 
     public function toArray() {
         return $this->asArray();
+    }
+
+    public function getByName($name) {
+        foreach ($this as $row) {
+            if ($name === $row->getName() || $name ===  str_replace (" ", "", $row->getName())) {
+                return $row;
+            }
+        }
+        return null;
     }
 
 }

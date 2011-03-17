@@ -38,13 +38,13 @@ abstract class My_Form_Abstract_AccommodationAbstract extends Zend_Form {
         $accTypeChoice = new Zend_Form_Element_Select('acc_type');
         $accTypeChoice->setLabel('Accommodation type');
         $accTypeChoice->addMultiOptions(
-                array(
-                    '1' => "Room",
-                    '2' => "Bed",
+                array(                   
+                    '1' => "Bed",
+                    '2' => "Room",
                 )
         );
         $accTypeChoice->setRequired(true);
-        $accTypeChoice->setValue('0');
+        $accTypeChoice->setValue('2');
 
         // add element
         $liveChoice = new Zend_Form_Element_Select('live_in_acc');

@@ -33,7 +33,7 @@ class My_Model_Table_Rowset_AccsPreferences extends Zend_Db_Table_Rowset_Abstrac
     
     public function getByName($name) {
         foreach ($this as $row) {
-            if ($name === $row->getName()) {
+            if ($name === $row->getName() || $name ===  str_replace (" ", "", $row->getName())) {
                 return $row;
             }
         }

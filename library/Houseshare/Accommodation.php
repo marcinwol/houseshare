@@ -148,6 +148,23 @@ class My_Houseshare_Accommodation extends My_Houseshare_Abstract_PropertyAccesso
 
         $this->_newProperties['preferences'] = $value;
     }
+    
+    public function setDate_avaliable($property, $value) {
+        
+        $value = trim($value);
+        
+        if (preg_match('/\d\d\d\d-\d\d-\d\d/', $value)) {
+            return $value;
+        }
+        
+        // the format below is from jquery ui datepicker
+        $date = new Zend_Date($value, 'dd/MM/yyyy');
+        
+        // change to format acceptable by mysql
+        $value = $date->toString('yyyy-MM-dd');    
+        
+        return $value;
+    }
 
     protected function _savePreferences() {
 
