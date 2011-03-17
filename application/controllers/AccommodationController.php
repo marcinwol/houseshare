@@ -272,7 +272,9 @@ class AccommodationController extends Zend_Controller_Action {
         }
 
         
-        $accForm = new My_Form_Accommodation();      
+        $accForm = new My_Form_Accommodation();     
+        $accForm->removeSubForm('about_you');
+      
         
         $accForm->populateForm($acc);
 
