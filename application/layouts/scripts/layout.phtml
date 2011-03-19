@@ -58,37 +58,38 @@
     <body>
        
         <div id="pageWrapper">
-            <div id="header">
-                <h1><?php echo $this->translate('Our header'); ?></h1>
-            </div>
-            <div >
+            <div id="header">                
+                  <div id="login">
                 <?php echo $this->profileLink(); ?>                 
-            </div>
+                 </div>
+                <h1><?php echo $this->translate('Houseshare.pl'); ?></h1> <br /><br />
+                <h2><?php echo $this->translate('A place for your add'); ?></h2> 
+               
+            </div>           
             <div>
                 <?php echo  $this->navigation()->setDefaultProxy('navigationMenu'); ?>
 
             </div>
-            <div id="nav">
+<!--            <div id="nav">
                 <?php //var_dump($this->navigation()->breadcrumbs()); ?>
                 <?php echo $this->navigation()->breadcrumbs(); ?>&nbsp;
-            </div>
+            </div>-->
 
+           <div>
+                    <?php echo $this->flashMessenger(); ?>
+           </div>
 
             <div id="main">
-                <div>
-                    <?php echo $this->flashMessenger(); ?>
-                </div>
-                <?php echo $this->layout()->content ?>&nbsp;                
-
-
+                
+                <?php echo $this->layout()->content ?>              
 
             </div>
 	
 
             <div id="footer">
-                <p><em>
-                        <?php echo $this->translate('Powered by the Zend Framework'); ?>
-                    </em>
+                <p>
+                   about | faq | contact us 
+                  
                 </p>
             </div>
         </div>

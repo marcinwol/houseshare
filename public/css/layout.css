@@ -18,6 +18,7 @@ root {
 body {
     font-size: 10px;
 
+    font-family: Georgia,'Times New Roman',times,serif;
 }
 * {
     margin: 0;
@@ -46,56 +47,89 @@ p {
 #slider {
     width: 180px;
 }
-#pageWrapper {
-    background: #999;
-    width: 79em;
+#pageWrapper { 
+    
+    width: 960px;
     margin: 1em auto;
-    padding: .5em;
-}
-#header {
-    background: url("../gfx/top.jpg") no-repeat scroll 0 0 transparent;
-    height: 13.5em;
-    margin: 0 0 .5em 0;
+    padding: .5em; 
 }
 
+/* HEADER */
+#header { 
+    height: 60px;
+    margin: 0 0 .5em 0;
+    background-color: #fe903e;
+}
+
+#header h1, #header h2 {
+   
+    padding-left: 20px;
+    width:200px;
+    float:left;
+}
+#header h2 {
+    font-size: 12px;
+}
+
+
+#login {
+    float: right;
+}
 
 #nav {
-    background: #fff;
+   
     height: 2.5em;
     margin: 0 0 .5em 0;
 }
-#sidebar {
-    background: #ccc;
-    float: right;
-    width: 17em;
-    height: 40em;
-    margin: 0 0 .5em .5em;
-    padding: .5em;
-}
+
+
 #main {
     background: #fff;
     /* height: 41em; */
     margin: 0 0 .5em 0;
-}
-#subNav,#adminMenu,#userForm {
-    background: #fff;
-    width: 17em;
-    height: 10em;
-    margin: 0 0 .5em 0;
-}
-#footer {
-    clear: both;
-    background: #fff;
-    height: 2.5em;
-    margin: 0;
+   
 }
 
+#welcome {
+    
+    background-color: #fed590;
+    padding-bottom: 10px;
+}
+
+#footer {
+    clear: both;
+ 
+    height: 2.5em;
+    margin: 0;
+    background-color: #fdad6c;
+    color: #883f00;
+}
+
+fieldset {
+    
+    border-right-style: none;
+    border-left-style: none;
+    border-bottom-style: none;
+    border-top-style: solid;
+    border-top-width: 1px;
+    border-top-color: #ff7500;
+}
+
+fieldset  legend {
+    
+    font-size: 14px;
+    font-weight: bolder;
+}
+
+ul.errors {    
+    color: #ff0000;
+}
 
 /* ---------->>> recent advters <<<---------------------------------------------------------------*/
 
 
 #resent-adverts {
-    width: 80%; 
+    padding-top: 10px;
 }
 
 img.thumb {

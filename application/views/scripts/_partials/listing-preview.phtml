@@ -14,11 +14,13 @@
         </dt>
         <dd >
             <dl >
+                <dt>About: </dt><dd><?php echo $this->truncate($this->acc->description); ?></dd>
+                </br>
                 <dt>Rent: </dt><dd><?php echo $this->acc->price; ?></dd>            
                 <dt>City: </dt><dd><?php echo $this->acc->city; ?></dd> 
                 <dt>State: </dt><dd><?php echo $this->acc->state; ?></dd> 
-                <dt>User: </dt><dd><?php echo $this->acc->user->first_name; ?></dd> </br>
-                <dt>About: </dt><dd><?php echo $this->truncate($this->acc->description); ?></dd>
+                <dt>User: </dt><dd><?php echo $this->acc->user->first_name; ?></dd> 
+                
             </dl>
         </dd>
     </dl>
