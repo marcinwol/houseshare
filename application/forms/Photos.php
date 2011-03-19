@@ -12,6 +12,34 @@
  */
 class My_Form_Photos extends Zend_Form {
 
+    protected $_noOfPhotos;
+    
+      /**
+     * Constructor
+     *
+     * Registers form view helper as decorator
+     *
+     * @param mixed $options
+     * @return void
+     */
+    public function __construct($noOfPhotos = 3, $options = null)
+    {
+        if (is_array($options)) {
+            $this->setOptions($options);
+        } elseif ($options instanceof Zend_Config) {
+            $this->setConfig($options);
+        }
+        
+        $this->_noOfPhotos = $noOfPhotos;
+
+        // Extensions...
+        $this->init();
+
+        $this->loadDefaultDecorators();
+    }
+
+    
+    
     public function init() {
         $this->setMethod('post');
         $this->setAttrib('enctype', 'multipart/form-data');
@@ -29,7 +57,7 @@ class My_Form_Photos extends Zend_Form {
         // $photos->setMaxFileSize(1024000);
         $photos->addValidator('Extension', false, 'jpg,png,gif');
        // $photos->addValidator('IsImage', false);
-        $photos->setMultiFile(3);
+        $photos->setMultiFile($this->_noOfPhotos);
 
         if ('testing' === APPLICATION_ENV) {
             // for unit tests we need to disable these validatoras.

@@ -194,6 +194,15 @@ abstract class My_Houseshare_Abstract_PropertyAccessor {
     }
 
     /**
+     * Gets baseUrl
+     * 
+     * @return string 
+     */
+    protected function _getBaseUrl() {
+        return Zend_Layout::getMvcInstance()->getView()->baseUrl();
+    }
+
+    /**
      * Save new address in the database if necessery.
      *
      * @return int Primary key of address row

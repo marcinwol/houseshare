@@ -37,6 +37,21 @@ class My_Model_Table_Rowset_Photo extends Zend_Db_Table_Rowset {
     public function toArray() {
         return $this->getFullPaths();
     }
+    
+    /**
+     * Return only IDs of photos.
+     * 
+     * @return array of photos IDs 
+     */
+    public function getPhotosIDs() {
+        $ids = array();
+        
+        foreach ($this as $row) {
+            $ids []= $row->photo_id;
+        }
+        
+        return $ids;
+    }
 
 }
 

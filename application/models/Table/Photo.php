@@ -89,6 +89,17 @@ class My_Model_Table_Photo extends Zend_Db_Table_Abstract {
         
         return $row->save();
     }
+    
+    
+    /**
+     * Get all photos for give acc_id.
+     * 
+     * @param int $acc_id
+     * @return My_Model_Table_Rowset_Photo 
+     */
+    public function findAccPhotos($acc_id) {
+        return $this->fetchAll('acc_id = ' . $acc_id);
+    }
 
 }
 

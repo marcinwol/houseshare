@@ -262,7 +262,7 @@ class AccommodationController extends Zend_Controller_Action {
         $acc_id = (int) $acc_id;
 
         $acc = My_Houseshare_Factory::accommodation($acc_id);
-       
+
         $user_id = Zend_Auth::getInstance()->getIdentity()->property->user_id;
 
         // check if the accommodation belongs to the registered user
@@ -270,7 +270,7 @@ class AccommodationController extends Zend_Controller_Action {
             $this->_helper->FlashMessenger('You cannot edit this accommodation');
             return $this->_redirect('/');
         }
-      
+
 
         $accForm = new My_Form_Accommodation();
         $accForm->removeSubForm('about_you');
@@ -325,8 +325,8 @@ class AccommodationController extends Zend_Controller_Action {
                     // set preferences (first binary ones)
                     $accPrefModel = new My_Model_Table_AccsPreferences();
                     // delete all prefes for this acc as new set will be created
-                   $n = $accPrefModel->deleteAccPreference(array('acc_id'=>$acc_id, 'pref_id'=> null));
-                   
+                    $n = $accPrefModel->deleteAccPreference(array('acc_id' => $acc_id, 'pref_id' => null));
+
                     $binaryPrefs = array();
                     $binaryPrefs ['smokers'] = $formData['preferences']['smokers'];
                     $binaryPrefs ['kids'] = $formData['preferences']['kids'];
@@ -351,8 +351,8 @@ class AccommodationController extends Zend_Controller_Action {
 
                     // set features (first binary ones)
                     $accFeatModel = new My_Model_Table_AccsFeatures();
-                     // delete all prefes for this acc as new set will be created
-                    $accFeatModel->deleteAccFeature(array('acc_id'=>$acc_id, 'feat_id'=> null));
+                    // delete all prefes for this acc as new set will be created
+                    $accFeatModel->deleteAccFeature(array('acc_id' => $acc_id, 'feat_id' => null));
                     $binaryFeats = array();
                     $binaryFeats ['internet'] = $formData['acc_features']['internet'];
                     $binaryFeats ['parking'] = $formData['acc_features']['parking'];
@@ -384,7 +384,7 @@ class AccommodationController extends Zend_Controller_Action {
                     $db->rollBack();
                     throw $e;
                 }
-
+                $this->_helper->FlashMessenger('Accommodation data was changed');
                 return $this->_redirect('accommodation/show/id/' . $acc_id);
             }
         }
@@ -404,15 +404,35 @@ class AccommodationController extends Zend_Controller_Action {
             return $this->_redirect('index');
         }
 
+        $referer = $addAccInfoNamespace->referer;
+
         $acc_id = $addAccInfoNamespace->acc_id;
 
-        $photosForm = new My_Form_Photos();
+        $photoModel = new My_Model_Table_Photo();
+        $noOfcurrentAccPhotos = $photoModel->findAccPhotos($acc_id);
+
+        // determine number of photos that can be added.
+        $noOfPhotosToAdd = 3 - count($noOfcurrentAccPhotos);
+
+        if ($noOfPhotosToAdd <= 0) {
+            $this->_helper->FlashMessenger('Cannot add more photos than 3');
+            return $this->_redirect('index');
+        }
+
+        $photosForm = new My_Form_Photos($noOfPhotosToAdd);
 
         if ($this->getRequest()->isPost()) {
             if ($photosForm->isValid($_POST)) {
 
                 if ($photosForm->skip->isChecked()) {
                     // if skip button was clicked
+
+                    if ('addphotos' == $referer) {
+                        // this is when a user add photos to existing accommodation
+                        // rather then creates when he/she creates a new accommodation.
+                        return $this->_redirect('accommodation/photochange/id/' . $acc_id);
+                    }
+
                     return $this->_redirect('accommodation/success');
                 }
 
@@ -478,6 +498,13 @@ class AccommodationController extends Zend_Controller_Action {
                         throw new Exception("Information about \"$imgPath\" was not saved in the database");
                     }
                 }
+
+                if ('addphotos' == $referer) {
+                    // this is when a user add photos to existing accommodation
+                    // rather then creates when he/she creates a new accommodation.
+                    return $this->_redirect('accommodation/photochange/id/' . $acc_id);
+                }
+
                 // everything went fine, so just redirect.
                 return $this->_redirect('accommodation/success');
             }
@@ -505,6 +532,56 @@ class AccommodationController extends Zend_Controller_Action {
             $this->_helper->FlashMessenger('You cannot edit this accommodation');
             return $this->_redirect('/');
         }
+
+        $form = new My_Form_ChangeImages();
+
+        // show checkboxes for each image
+        $form->setImages($acc->thumbsurls);
+        $form->init2();
+
+        if ($this->getRequest()->isPost()) {
+            if ($form->isValid($_POST)) {
+
+                if ($form->cancel->isChecked()) {
+                    // if cancel button was clicked
+                    return $this->_redirect('/');
+                }
+
+                $imagesToChange = $form->getValue('images');
+
+                $delete = $form->getElement('delete');
+
+                if ($delete && $delete->isChecked() && is_array($imagesToChange)) {
+                    // if delete was pressed then delete selected photos
+
+                    $noOfDeletedPhotos = $acc->deletePhotos($imagesToChange);
+
+                    if (count($imagesToChange) != $noOfDeletedPhotos) {
+                        throw new Zend_Db_Exception('Problem when deleting photos');
+                    }
+                    $this->_helper->FlashMessenger("$noOfDeletedPhotos photos were deleted");
+                    return $this->_redirect('accommodation/photochange/id/' . $acc_id);
+                }
+
+                $add = $form->getElement('add');
+
+                if ($add && $add->isChecked()) {
+                    // if add was pressed then go to adding photos page
+
+                    $addAccInfoNamespace = new Zend_Session_Namespace('addAccInfo');
+                    $addAccInfoNamespace->acc_id = intval($acc_id);
+                    $addAccInfoNamespace->referer = 'addphotos';
+                    $addAccInfoNamespace->lock();
+
+                    return $this->_redirect('accommodation/addphotos');
+                }
+
+
+                var_dump($imagesToChange);
+            }
+        }
+
+        $this->view->form = $form;
     }
 
     public function successAction() {

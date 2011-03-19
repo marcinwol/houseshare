@@ -260,6 +260,67 @@ class My_Houseshare_Accommodation extends My_Houseshare_Abstract_PropertyAccesso
 
         return $objs;
     }
+    
+    /**
+     * Get relative url of photos.
+     * 
+     * @param boolean $withBaseUrl
+     * @return string 
+     */
+    public function getPhotosurls($withBaseUrl = true) {
+       
+        $pahts = Array();
+        
+        $baseUrl = $this->_getBaseUrl();       
+        
+        /*@var $photo My_Houseshare_Photo */
+        foreach ($this->photos as $photo) {
+            $paths[$photo->photo_id] = $baseUrl . '/images/' .$photo->getThumbPath();
+        }
+        
+        return $paths;
+    }
+    
+    /**
+     * Get relative url of photos.
+     * 
+     * @param boolean $withBaseUrl
+     * @return string 
+     */
+    public function getthumbsurls($withBaseUrl = true) {
+       
+        $paths = array();
+        
+        $baseUrl = $this->_getBaseUrl();       
+        
+        /*@var $photo My_Houseshare_Photo */
+        foreach ($this->photos as $photo) {
+            $paths[$photo->photo_id] = $baseUrl . '/images/thumbs/' .$photo->getThumbPath();
+        }
+        
+        return $paths;
+    }
+    
+    
+    
+    /**
+     * Get pahts to photos on filesystem
+     *     
+     * @return string 
+     */
+     public function getPhotospaths() {
+       
+        $pahts = Array();
+        
+        $baseUrl = $this->_getBaseUrl();       
+        
+        /*@var $photo My_Houseshare_Photo */
+        foreach ($this->photos as $photo) {
+            $paths[$photo->photo_id] = PHOTOS_PATH . '/' .$photo->getThumbPath();
+        }
+        
+        return $paths;
+    }
 
     /**
      * Set addr_id
@@ -357,6 +418,44 @@ class My_Houseshare_Accommodation extends My_Houseshare_Abstract_PropertyAccesso
         }
 
         return $photo_ids;
+    }
+    
+    /**
+     * Get an array of photo ids.
+     * 
+     * @return array array of photos ids.
+     */
+    public function getPhotosids() {
+        return $this->_acc->_row->getPhotos()->getPhotosIDs();
+    }
+    
+    /**
+     * Delete given photos of $this accommodation
+     * 
+     * @param array $photosIDs
+     * @return int $noOfDeletedPhotos
+     */
+    public function deletePhotos(array $photosIDs) {
+        
+        // first check if the photos belong to a given acc
+        $accPhotosIDs = $this->getPhotosids();
+        
+        $noOfDeletedPhotos = 0;
+        
+        foreach ($photosIDs as $photo_id) {
+            
+            if (!in_array($photo_id, $accPhotosIDs)) {
+                // if the photo_id does not belong to current accommodation
+                continue;
+            }
+            
+            $photo = new My_Houseshare_Photo($photo_id);
+            if ($photo->delete()) {
+                $noOfDeletedPhotos++;
+            }
+        }
+        
+        return $noOfDeletedPhotos;
     }
 
     /**
