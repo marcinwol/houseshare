@@ -23,7 +23,7 @@ class IndexController extends Zend_Controller_Action {
         $selectTemplate->getDecorator('description')->setOption('escape', false);
         $form->addElement($selectTemplate);
 //       
-
+        $this->view->keywords = 'new k2ewords';
 
         $this->view->form = $form;
     }

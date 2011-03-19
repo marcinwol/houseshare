@@ -58,7 +58,7 @@
                             <controller>user</controller>
                             <action>create</action>
                         </register>
-                         <edit>                           
+                        <edit>                           
                             <label>Edit</label>
                             <controller>user</controller>
                             <action>edit</action>

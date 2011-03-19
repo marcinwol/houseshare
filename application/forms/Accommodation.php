@@ -121,7 +121,7 @@ class My_Form_Accommodation extends My_Form_Abstract_AccommodationAbstract {
         foreach ($subForm->getElements() as $elem) {
             /* @var $elem Zend_Form_Element */
             $elemName = $elem->getName();
-            var_dump($elemName);
+          //  var_dump($elemName);
             $row = $rowset->getByName($elemName);
 
             if (null === $row) {

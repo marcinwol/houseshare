@@ -9,7 +9,9 @@
         Your accommodations:        
         <?php foreach ($this->accs as $acc): ?>
             <?php var_dump($acc->toArray()); ?>
-            <a href="<?php echo $this->baseUrl('/accommodation/edit/id/' . $acc->acc_id); ?>">Edit acc data</a>
+            <a href="<?php echo $this->baseUrl('/accommodation/edit/id/' . $acc->acc_id); ?>">Edit acc data</a> 
+            |
+             <a href="<?php echo $this->baseUrl('/accommodation/photochange/id/' . $acc->acc_id); ?>">Change acc photos</a>
         <?php endforeach;?>
         
         

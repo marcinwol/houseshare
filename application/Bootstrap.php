@@ -65,8 +65,6 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
         $resourceLoader_hs->addResourceType('houseshare', 'Houseshare/', 'Houseshare_');
         //var_dump($resourceLoader_cms->getResourceTypes());
         $autoLoader->pushAutoloader($resourceLoader_hs);
-        
-              
     }
 
     protected function _initLocale() {
@@ -74,10 +72,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
         $locale = new Zend_Locale('en');
 
         $cache = Zend_Cache::factory(
-                        'Core',
-                        'File',
-                        array('automatic_serialization' => true),
-                        array('cache_dir' => APPLICATION_PATH . '/../tmp')
+                        'Core', 'File', array('automatic_serialization' => true), array('cache_dir' => APPLICATION_PATH . '/../tmp')
         );
 
         $locale->setCache($cache);
@@ -105,16 +100,16 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
 
     protected function _initAclControllerPlugin() {
         $this->bootstrap('frontcontroller');
-        
+
         $front = Zend_Controller_Front::getInstance();
         $aclConfig = new Zend_Config_Ini(APPLICATION_PATH . '/configs/acl.ini');
-           
+
         $acl = new My_Acl($aclConfig);
 
-        $aclPlugin = new My_Controller_Plugin_Acl($acl);        
+        $aclPlugin = new My_Controller_Plugin_Acl($acl);
 
         $front->registerPlugin($aclPlugin);
-        
+
         Zend_View_Helper_Navigation_HelperAbstract::setDefaultAcl($acl);
         Zend_View_Helper_Navigation_HelperAbstract::setDefaultRole('guest');
     }
@@ -158,6 +153,24 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
         }
 
         Zend_Registry::set('keys', $appkeys);
+    }
+
+    protected function _initSetDefaultKeywords() {
+        $view = $this->bootstrap('view')->getResource('view');
+        //$this->bootstrap('frontcontroller');        
+        $view->keywords = 'default keywords';
+    }
+
+    protected function _initSetZendMail() {
+        $tr = new Zend_Mail_Transport_Smtp(
+                        'mail.active24.pl',
+                        array(
+                            'auth' => 'login',
+                            'username' => 'mwol@born2die.eu',
+                            'password' => '123qwe'
+                        )
+        );
+        Zend_Mail::setDefaultTransport($tr);
     }
 
 }

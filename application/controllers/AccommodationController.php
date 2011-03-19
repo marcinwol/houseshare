@@ -20,8 +20,8 @@ class AccommodationController extends Zend_Controller_Action {
         }
         $acc_id = (int) $acc_id;
         $acc = My_Houseshare_Factory::accommodation($acc_id);
-        
-        
+
+
         // email sending form to send a question to the author of the advertisment
         $form = new My_Form_SendEmail();
 
@@ -41,11 +41,11 @@ class AccommodationController extends Zend_Controller_Action {
                     $emailObj->send();
                 } catch (Zend_Mail_Exception $e) {
                     $this->_helper->FlashMessenger('There was a problem sending your message: ' . $e->getMessage());
-                    return $this->_redirect('/show/' . $acc_id);
+                    return $this->_redirect('/accommodation/show/id/' . $acc_id);
                 }
 
                 $this->_helper->FlashMessenger('Your message was sent');
-                return $this->_redirect('/show/' . $acc_id);
+                return $this->_redirect('/accommodation/show/id/' . $acc_id);
             } else {
                 $form->removeAttrib('style');
                 $this->view->errors = 1;
@@ -262,28 +262,129 @@ class AccommodationController extends Zend_Controller_Action {
         $acc_id = (int) $acc_id;
 
         $acc = My_Houseshare_Factory::accommodation($acc_id);
-        
-        $user_id = Zend_Auth::getInstance()->getIdentity()->property->user_id;        
-        
+
+        $user_id = Zend_Auth::getInstance()->getIdentity()->property->user_id;
+
         // check if the accommodation belongs to the registered user
         if ($user_id != $acc->user->user_id) {
             $this->_helper->FlashMessenger('You cannot edit this accommodation');
             return $this->_redirect('/');
         }
 
-        
-        $accForm = new My_Form_Accommodation();     
+
+        $accForm = new My_Form_Accommodation();
         $accForm->removeSubForm('about_you');
-      
-        
+
+
         $accForm->populateForm($acc);
 
         if ($this->getRequest()->isPost()) {
             if ($accForm->isValid($_POST)) {
-                
+
+                // get form data
+                $formData = $accForm->getValues();
+
+                // start transaction
+                $db = Zend_Db_Table::getDefaultAdapter();
+                $db->beginTransaction();
+
+                try {
+
+                    // save address in db
+                    $newAddress = new My_Houseshare_Address($acc->addr_id);
+                    $newAddress->unit_no = $formData['address']['unit_no'];
+                    $newAddress->street_no = $formData['address']['street_no'];
+                    $newAddress->street = $formData['address']['street_name'];
+                    $newAddress->city = $formData['address']['city'];
+                    $newAddress->zip = $formData['address']['zip'];
+                    $newAddress->state = $formData['address']['state'];
+
+                    $addr_id = $newAddress->save();
+
+                    // save roomates information
+                    $newRoomates = new My_Model_Table_Roomates();
+                    $roomates_id = $newRoomates->setRoomates($formData['roomates'], $acc->roomates_id);
+
+                    $acc->title = $formData['basic_info']['title'];
+                    $acc->description = $formData['basic_info']['description'];
+                    $acc->date_avaliable = $formData['basic_info']['date_avaliable'];
+                    $acc->price = $formData['basic_info']['price'];
+                    $acc->bond = $formData['basic_info']['bond'];
+                    $acc->street_address_public = $formData['address']['address_public'];
+                    $acc->short_term_ok = $formData['basic_info']['short_term'];
+                    $acc->setAddrId($addr_id);
+                    $acc->setRoomatesId($roomates_id);
+                    $acc->setTypeId($formData['basic_info']['acc_type']);
+
+
+                    if ($acc->save() != $acc_id) {
+                        $db->rollBack();
+                        throw new Zend_Db_Exception('Editted acc_id is different then updated');
+                    }
+
+
+                    // set preferences (first binary ones)
+                    $accPrefModel = new My_Model_Table_AccsPreferences();
+                    $binaryPrefs = array();
+                    $binaryPrefs ['smokers'] = $formData['preferences']['smokers'];
+                    $binaryPrefs ['kids'] = $formData['preferences']['kids'];
+                    $binaryPrefs ['couples'] = $formData['preferences']['couples'];
+                    $binaryPrefs ['pets'] = $formData['preferences']['pets'];
+
+                    foreach ($binaryPrefs as $name => $pref_id) {
+                        if (intval($pref_id) > -1) {
+                            // if checked
+                            $accPrefModel->setAccPreference(
+                                    array('value' => 1), array('acc_id' => $acc_id, 'pref_id' => $pref_id)
+                            );
+                        }
+                    }
+
+                    // non binary preferences (i.e. gender)
+                    $prefModel = new My_Model_Table_Preference();
+                    $prefRow = $prefModel->fetchRow(" name = 'gender' ");
+                    $accPrefModel->setAccPreference(
+                            array('value' => $formData['preferences']['gender']), array('acc_id' => $acc_id, 'pref_id' => $prefRow->pref_id)
+                    );
+
+                    // set features (first binary ones)
+                    $accFeatModel = new My_Model_Table_AccsFeatures();
+                    $binaryFeats = array();
+                    $binaryFeats ['internet'] = $formData['acc_features']['internet'];
+                    $binaryFeats ['parking'] = $formData['acc_features']['parking'];
+                    $binaryFeats ['tv'] = $formData['acc_features']['tv'];
+                    $binaryFeats ['airconditioning'] = $formData['acc_features']['airconditioning'];
+                    if (isset($formData['room_features'])) {
+                        $binaryFeats ['privatebath'] = $formData['room_features']['privatebath'];
+                        $binaryFeats ['privatebalcony'] = $formData['room_features']['privatebalcony'];
+                    }
+
+                    foreach ($binaryFeats as $name => $feat_id) {
+                        if (intval($feat_id) > -1) {
+                            // if checked
+                            $accFeatModel->setAccFeature(
+                                    array('value' => 1), array('acc_id' => $acc_id, 'feat_id' => $feat_id)
+                            );
+                        }
+                    }
+
+                    // non binary features (i.e. furnished)
+                    $featModel = new My_Model_Table_Feature();
+                    $featRow = $featModel->fetchRow(" name = 'furnished' ");
+                    $accFeatModel->setAccFeature(
+                            array('value' => $formData['acc_features']['furnished']), array('acc_id' => $acc_id, 'feat_id' => $featRow->feat_id)
+                    );
+
+                    $db->commit();
+                } catch (Exception $e) {
+                    $db->rollBack();
+                    throw $e;
+                }
+
+                return $this->_redirect('accommodation/show/id/' . $acc_id);
             }
         }
-        
+
         $accForm->getElement('Submit')->setLabel('Update');
         $this->view->form = $accForm;
     }
@@ -379,6 +480,27 @@ class AccommodationController extends Zend_Controller_Action {
         }
 
         $this->view->form = $photosForm;
+    }
+
+    public function photochangeAction() {
+        $acc_id = $this->getRequest()->getParam('id', null);
+
+        if (empty($acc_id)) {
+            $this->_helper->FlashMessenger('Cannot edit accommodation defails');
+            return $this->_redirect('/');
+        }
+
+        $acc_id = (int) $acc_id;
+
+        $acc = My_Houseshare_Factory::accommodation($acc_id);
+
+        $user_id = Zend_Auth::getInstance()->getIdentity()->property->user_id;
+
+        // check if the accommodation belongs to the registered user
+        if ($user_id != $acc->user->user_id) {
+            $this->_helper->FlashMessenger('You cannot edit this accommodation');
+            return $this->_redirect('/');
+        }
     }
 
     public function successAction() {

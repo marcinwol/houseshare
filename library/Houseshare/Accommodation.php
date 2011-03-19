@@ -387,7 +387,7 @@ class My_Houseshare_Accommodation extends My_Houseshare_Abstract_PropertyAccesso
     public function getState() {
         return $this->getAddress()->state;
     }
-
+    
     /**
      * Get accommodation type.
      *
