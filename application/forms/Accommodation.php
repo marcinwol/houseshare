@@ -58,14 +58,16 @@ class My_Form_Accommodation extends My_Form_Abstract_AccommodationAbstract {
         } else if ($acc instanceof My_Houseshare_Accommodation) {
 
 
+            $date = new Zend_Date($acc->date_avaliable,'yyyy-MM-dd');
 
+            
             // populate basinc info
             $baseInfoSubForm = $this->getSubForm(self::BASIC_INFO_SUBFORM_NAME);
             $baseInfoSubForm->populate(array(
                 'acc_type' => $acc->type_id,
                 'title' => $acc->title,
                 'description' => $acc->description,
-                'date_avaliable' => $acc->date_avaliable,
+                'date_avaliable' => $date->toString('dd/MM/yyyy'),
                 'short_term' => $acc->short_term_ok,
                 'price' => $acc->price,
                 'bond' => $acc->bond,
