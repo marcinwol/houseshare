@@ -58,6 +58,7 @@ class My_Form_Accommodation extends My_Form_Abstract_AccommodationAbstract {
         } else if ($acc instanceof My_Houseshare_Accommodation) {
 
 
+            // jquery needs date in a different format than the one in database
             $date = new Zend_Date($acc->date_avaliable,'yyyy-MM-dd');
 
             

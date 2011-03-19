@@ -37,7 +37,16 @@ class My_Form_MainPage extends Zend_Form {
         //create new element
         $cities1 = $this->createElement('text', 'i_city');
         $cities1->setRequired(true)->setLabel('City');
+        $cities1->setAttrib('class', 'help tipped');
+        $cities1->setAttrib('title', 'give a city name');
         $cities1->setFilters(array('stripTags', 'stringTrim'));
+        $cities1->addDecorator(new My_Form_Decorator_Jtip(
+                array(
+                    'tipurl' => '/tip/get/which/cities',
+                    'tipname' => 'Example values',
+                    )                
+                ));       
+        
         $this->addElement($cities1);
 
 

@@ -1,0 +1,7 @@
+/*
+ * jQuery Form Tips 1.2.3
+ * By Manuel Boy (http://www.manuelboy.de)
+ * Copyright (c) 2010 Manuel Boy
+ * Licensed under the MIT License: http://www.opensource.org/licenses/mit-license.php
+*/
+eval(function(p,a,c,k,e,d){e=function(c){return(c<a?'':e(parseInt(c/a)))+((c=c%a)>35?String.fromCharCode(c+29):c.toString(36))};if(!''.replace(/^/,String)){while(c--){d[e(c)]=k[c]||e(c)}k=[function(e){return d[e]}];e=function(){return'\\w+'};c=1};while(c--){if(k[c]){p=p.replace(new RegExp('\\b'+e(c)+'\\b','g'),k[c])}}return p}('(a($){$.o.s=a(l){8 4=m.r({3:"t"},l);i 0.p(a(){8 e=$(0);8 d=$(e).7(\'d\');1(d!=\'n\'&&d!=\'q\'&&d!=\'x\'){$(e).k(\'A\',a(){8 2=$(0).7(\'9\');1($(e).h(\'f\')){1($(0).6()==2){$(0).6(\'\').c(4.3)}}b{1($(0).5()==2){$(0).5(\'\').c(4.3)}}i j});$(e).k(\'z\',a(){8 2=$(0).7(\'9\');1($(e).h(\'f\')){1($(0).6()==\'\'){$(0).6(2).g(4.3)}}b{1($(0).5()==\'\'){$(0).5(2).g(4.3)}}i j});8 2=$(e).7(\'9\');1($(e).h(\'f\')){1($(e).6()==\'\'||$(e).6()==$(0).7(\'9\')){$(e).6(2).g(4.3)}b{$(e).c(4.3)}}b{1($(e).5()==\'\'||$(e).5()==$(0).7(\'9\')){$(e).5(2).g(4.3)}b{$(e).c(4.3)}}$(e).y(\'u\').v().w(a(){8 2=$(e).7(\'9\');1($(e).h(\'f\')){1($(e).6()==2){$(e).6(\'\').c(4.3)}}b{1($(e).5()==2){$(e).5(\'\').c(4.3)}}})}})}})(m);',37,37,'this|if|lv|tippedClass|settings|val|text|attr|var|title|function|else|removeClass|type||textarea|addClass|is|return|false|bind|options|jQuery|file|fn|each|checkbox|extend|formtips|tipped|form|parent|submit|radio|parentsUntil|blur|focus'.split('|'),0,{}))

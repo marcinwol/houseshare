@@ -5,6 +5,11 @@
 
 
 $(document).ready(function () {
+    
+     $('form input.help, form textarea.help').formtips({ 
+        tippedClass: 'tipped'
+    });
+    
        
     /**
      * This changes the text on a submit button on the main page

@@ -38,13 +38,21 @@ abstract class My_Form_Abstract_AccommodationAbstract extends Zend_Form {
         $accTypeChoice = new Zend_Form_Element_Select('acc_type');
         $accTypeChoice->setLabel('Accommodation type');
         $accTypeChoice->addMultiOptions(
-                array(                   
+                array(
                     '1' => "Bed",
                     '2' => "Room",
                 )
         );
         $accTypeChoice->setRequired(true);
         $accTypeChoice->setValue('2');
+
+        $accTypeChoice->addDecorator(new My_Form_Decorator_Jtip(
+                        array(
+                            'tipurl' => '/tip/get/which/acctype',
+                            'tipname' => 'Explenation',
+                        )
+        ));
+
 
         // add element
         $liveChoice = new Zend_Form_Element_Select('live_in_acc');
@@ -89,15 +97,17 @@ abstract class My_Form_Abstract_AccommodationAbstract extends Zend_Form {
 
         // create new element
         $priceInput = $this->createElement('text', 'price');
+        $priceInput->setAttribs(array('class' => 'help tipped', 'title' => '500'));
         $priceInput->setRequired(true);
-        $priceInput->setLabel('Price per month (e.g. 300)');
+        $priceInput->setLabel('Price per month');
         $priceInput->setFilters(array('stripTags', 'stringTrim'));
         $priceInput->addValidator('int');
 
         // create new element
         $bondInput = $this->createElement('text', 'bond');
+        $bondInput->setAttribs(array('class' => 'help tipped', 'title' => '2000'));
         $bondInput->setRequired(false);
-        $bondInput->setLabel('Bond (e.g. 1200)');
+        $bondInput->setLabel('Bond');
         $bondInput->setFilters(array('stripTags', 'stringTrim'));
         $bondInput->addValidator('int');
 
@@ -490,7 +500,7 @@ abstract class My_Form_Abstract_AccommodationAbstract extends Zend_Form {
     public function setDefaultCity($city) {
 
         $cityElement = $this->getSubForm(self::ADDRESS_SUBFORM_NAME)
-                        ->getElement('city');
+                ->getElement('city');
 
         $cityElement->setValue($city);
     }
@@ -503,7 +513,7 @@ abstract class My_Form_Abstract_AccommodationAbstract extends Zend_Form {
     public function setDefaultState($state) {
 
         $stateElement = $this->getSubForm(self::ADDRESS_SUBFORM_NAME)
-                        ->getElement('state');
+                ->getElement('state');
 
         $stateElement->setValue($state);
     }
