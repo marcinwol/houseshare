@@ -190,15 +190,29 @@ class My_Houseshare_Photo extends My_Houseshare_Abstract_PropertyAccessor {
     public function delete() {
         $model = $this->getModel();
         $row = $model->find($this->photo_id)->current();
-
+     
+        $photoPath = PHOTOS_PATH . '/' . $this->getFullPath();
+        $thumbPath = THUMBS_PATH .'/' . $this->getThumbPath();
+        
         if ($row instanceof My_Model_Table_Row_Photo) {
-            if (file_exists($this->getFullPath())) {
-                if (!unlink($this->getFullPath())) {
-                    throw new Exception("Failed deleting {$this->path}");
+            
+            // delete an image
+            if (file_exists($photoPath)) {
+                if (!unlink($photoPath)) {
+                    throw new Exception("Failed deleting {$photoPath}");
                 }
             }
+            
+            // remote thumb image
+            if (file_exists($thumbPath)) {
+                if (!unlink($thumbPath)) {
+                    throw new Exception("Failed deleting {$thumbPath}");
+                }
+            }
+            
             return $row->delete();
         }
+        
         return null;
     }
 

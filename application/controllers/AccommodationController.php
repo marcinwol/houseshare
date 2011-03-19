@@ -430,6 +430,9 @@ class AccommodationController extends Zend_Controller_Action {
                     if ('addphotos' == $referer) {
                         // this is when a user add photos to existing accommodation
                         // rather then creates when he/she creates a new accommodation.
+                        
+                        // don't need this session namespace anymore
+                        Zend_Session::namespaceUnset('addAccInfo');
                         return $this->_redirect('accommodation/photochange/id/' . $acc_id);
                     }
 
@@ -502,6 +505,9 @@ class AccommodationController extends Zend_Controller_Action {
                 if ('addphotos' == $referer) {
                     // this is when a user add photos to existing accommodation
                     // rather then creates when he/she creates a new accommodation.
+                     
+                    // don't need this session namespace anymore
+                    Zend_Session::namespaceUnset('addAccInfo');
                     return $this->_redirect('accommodation/photochange/id/' . $acc_id);
                 }
 
