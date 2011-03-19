@@ -13,6 +13,8 @@ $(document).ready(function () {
         }
     });
     
+    
+    
     if ($('#basic_info-acc_type').val() == "1") {
            $('#fieldset-room_features').hide();
     }

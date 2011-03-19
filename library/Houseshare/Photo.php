@@ -18,8 +18,8 @@ class My_Houseshare_Photo extends My_Houseshare_Abstract_PropertyAccessor {
     protected $_modelName = 'View_Photo';
     const THUMB_WIDTH = 100;
     const THUMB_HEIGHT = 74;
-    const IMAGE_WIDTH = 400;
-    const IMAGE_HEIGHT = 350;
+    const IMAGE_WIDTH = 500;
+    const IMAGE_HEIGHT = 400;
     public static $THUMBS_DIR_NAME = 'thumbs/';
 
     public function __construct($id = null) {

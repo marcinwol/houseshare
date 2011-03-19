@@ -29,6 +29,16 @@ p {
 
 }
 
+.navigation ul {
+    display: inline;   
+    
+}
+
+.navigation li {
+    display: inline;
+
+}
+
 .tipped {
     color: #BBB;
 }
@@ -80,15 +90,34 @@ p {
     margin: 0;
 }
 
-dl.listing-preview dt, dl.listing-preview dd  {
-    display: inline;
-    font-family: Georgia,'Times New Roman',times,serif;
-}
-dt.listing-preview-title {    
-    font-size: 12px;
-    color: #024ad4;
+
+/* ---------->>> recent advters <<<---------------------------------------------------------------*/
+
+
+#resent-adverts {
+    width: 80%; 
 }
 
+img.thumb {
+    float: left;
+}
+dt.advert-title {
+    font-size:16px;
+}
+
+dl.listing-review-detials {
+    padding-left: 90px;
+}
+
+dl.listing-review-detials  dd dl dt {
+    
+    font-weight: bold;
+}
+
+dl.listing-review-detials  dd dl dt, dl.listing-review-detials  dd dl dd {
+    display: inline;
+    font-size: 12px;
+}
 
 /* ---------->>> jtip <<<---------------------------------------------------------------*/
 

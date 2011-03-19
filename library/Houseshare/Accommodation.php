@@ -107,6 +107,10 @@ class My_Houseshare_Accommodation extends My_Houseshare_Abstract_PropertyAccesso
 
         throw new Zend_Exception("Invalid property \"$propertyName\" for setting.");
     }
+    
+    public function setTitle($property, $value) {
+        return ucfirst(strtolower($value));
+    }
 
     /**
      * Preferences for this accommodation
@@ -287,7 +291,7 @@ class My_Houseshare_Accommodation extends My_Houseshare_Abstract_PropertyAccesso
      * @param boolean $withBaseUrl
      * @return string 
      */
-    public function getthumbsurls($withBaseUrl = true) {
+    public function getThumbsurls($withBaseUrl = true) {
        
         $paths = array();
         

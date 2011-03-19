@@ -1,15 +1,25 @@
-<dl class="listing-preview">
-    <?php echo $this->gravatar($this->acc->user->email,  array('imgSize' => 50, 'defaultImg' => 'identicon'));?>
-    <dt class="listing-preview-title">
-        <a href="<?php echo $this->baseUrl('/accommodation/show/id/' . $this->acc->acc_id);?>"><?php echo $this->acc->title;?></a>
-    </dt>
-    <dd>
-        <dl>
-            <dt>Rent:</dt><dd><?php echo $this->acc->price;?></dd>            
-            <dt>City:</dt><dd><?php echo $this->acc->city;?></dd> 
-            <dt>State:</dt><dd><?php echo $this->acc->state;?></dd> 
-            <dt>User:</dt><dd><?php echo $this->acc->user->first_name;?></dd> 
-        </dl>
+<div class="listing-preview">
+    <?php
+    $firstThumbPath = $this->baseUrl('/images/thumbs/no_pic.jpg');
 
-    </dd>
-</dl>
+    if (count($this->acc->photos) > 0) {
+        $urls = $this->acc->thumbsurls;
+        $firstThumbPath = array_shift($urls);
+    }
+    ?>
+    <img src="<?php echo $firstThumbPath; ?>" alt="Thumb image" class="thumb" width="80" height="60" />
+    <dl class="listing-review-detials">
+        <dt class="advert-title">
+            <a href="<?php echo $this->baseUrl('/accommodation/show/id/' . $this->acc->acc_id); ?>"><?php echo ucfirst(strtolower($this->acc->title)); ?></a>
+        </dt>
+        <dd >
+            <dl >
+                <dt>Rent: </dt><dd><?php echo $this->acc->price; ?></dd>            
+                <dt>City: </dt><dd><?php echo $this->acc->city; ?></dd> 
+                <dt>State: </dt><dd><?php echo $this->acc->state; ?></dd> 
+                <dt>User: </dt><dd><?php echo $this->acc->user->first_name; ?></dd> </br>
+                <dt>About: </dt><dd><?php echo $this->truncate($this->acc->description); ?></dd>
+            </dl>
+        </dd>
+    </dl>
+</div>

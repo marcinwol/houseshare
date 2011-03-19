@@ -45,6 +45,12 @@ class IndexController extends Zend_Controller_Action {
                 }
             }
         }
+        
+//        $urlPath = $this->getRequest()->getPathInfo();
+//        $basePath = $this->getRequest()->getBaseUrl();
+//        var_dump($basePath, $urlPath);
+//      
+//        $mainForm->setAction($basePath . $urlPath);
 
         $this->view->mainForm = $mainForm;
     }

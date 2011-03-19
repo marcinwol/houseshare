@@ -5,13 +5,17 @@
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />       
 
         <?php
-        echo $this->headTitle('asdfasfd');
+        echo $this->headTitle('Houseshare: a place for your accommodation');
         echo $this->headMeta()->appendName('keywords', $this->keywords);
         ?>
 
-        <?php // CSS  ; ?>
-        <?php $this->headLink()->appendStylesheet($this->baseUrl('/css/layout.css')); ?>        
-        <?php $this->headLink()->appendStylesheet($this->baseUrl('/css/smoothness/jquery-ui-1.8.7.custom.css')); ?>
+        <?php // CSS  ; 
+        $this->headLink()->appendStylesheet($this->baseUrl('/css/layout.css'));         
+        $this->headLink()->appendStylesheet($this->baseUrl('/css/smoothness/jquery-ui-1.8.7.custom.css')); 
+        $this->headLink()->appendStylesheet($this->baseUrl('/css/bottom.css')); 
+     //   $this->headLink()->appendStylesheet($this->baseUrl('/css/right-without.css'));
+        
+        ?>
 
 
 
@@ -21,6 +25,7 @@
         $this->headScript()->appendFile($this->baseUrl('/js/jquery-ui-1.8.7.custom.min.js'));
         $this->headScript()->appendFile($this->baseUrl('/js/jquery.formtips.1.2.3.packed.js'));
         $this->headScript()->appendFile($this->baseUrl('/js/jtip.js'));
+        $this->headScript()->appendFile($this->baseUrl('/js/jquery.pikachoose.full.js'));
         ?>        
 
 
@@ -57,10 +62,10 @@
                 <h1><?php echo $this->translate('Our header'); ?></h1>
             </div>
             <div >
-                <?php echo $this->profileLink(); ?>                
+                <?php echo $this->profileLink(); ?>                 
             </div>
             <div>
-                <?php echo 'Main Menu:' . $this->navigation()->setDefaultProxy('navigationMenu'); ?>;
+                <?php echo  $this->navigation()->setDefaultProxy('navigationMenu'); ?>
 
             </div>
             <div id="nav">
@@ -78,7 +83,7 @@
 
 
             </div>
-
+	
 
             <div id="footer">
                 <p><em>
