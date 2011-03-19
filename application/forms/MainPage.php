@@ -15,8 +15,6 @@
  */
 class My_Form_MainPage extends Zend_Form {
 
-    
-
     public function init() {
 
         $this->setMethod('post');
@@ -32,7 +30,7 @@ class My_Form_MainPage extends Zend_Form {
         $mainChoice->setRequired(true);
         $mainChoice->setValue('0');
         $this->addElement($mainChoice);
-        
+
 
         //create new element
         $cities1 = $this->createElement('text', 'i_city');
@@ -41,17 +39,42 @@ class My_Form_MainPage extends Zend_Form {
         $cities1->setAttrib('title', 'give a city name');
         $cities1->setFilters(array('stripTags', 'stringTrim'));
         $cities1->addDecorator(new My_Form_Decorator_Jtip(
-                array(
-                    'tipurl' => '/tip/get/which/cities',
-                    'tipname' => 'Example values',
-                    )                
-                ));       
-        
+                        array(
+                            'tipurl' => '/tip/get/which/cities',
+                            'tipname' => 'Example values',
+                        )
+        ));
+
         $this->addElement($cities1);
 
+        $maxPrice = $this->createElement('text', 'maxprice');
+        $maxPrice->setRequired(true)->setLabel('For max (per month): ');
+        $maxPrice->setAttrib('style', 'border: 0px');
+//        $maxPrice->addDecorator('Callback', array(
+//            'callback' => function ($content, $element, array $options) {
+//                return '<div id="slider"></div>';
+//            }
+//        ));
+//        $maxPrice->getDecorator('label')->clearOptions();
 
-        $submit = $this->addElement('submit', 'submit',
-                        array('label' => 'Search for an accommodation')
+        $slider = function ($content, $element, array $options) {
+                    return '<div id="slider"></div>';
+                };
+
+        $maxPrice->setDecorators(array(
+            'ViewHelper',
+            'Label',
+            array('Callback', array('callback' => $slider, 'placement' => 'APPEND')),
+            array('HtmlTag', array('tag' => 'dd', 'id' => 'maxprice-element'))
+        ));       
+
+
+
+        $this->addElement($maxPrice);
+
+
+
+        $submit = $this->addElement('submit', 'submit', array('label' => 'Search for an accommodation')
         );
     }
 

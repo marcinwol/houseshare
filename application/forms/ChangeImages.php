@@ -32,8 +32,8 @@ class My_Form_ChangeImages extends Zend_Form {
             $this->addElements(array($images));
             $delete = new Zend_Form_Element_Submit('delete', 'Delete');
             $this->addElement($delete);
-            $change = new Zend_Form_Element_Submit('change', 'Change');
-            $this->addElement($change);
+//            $change = new Zend_Form_Element_Submit('change', 'Change');
+//            $this->addElement($change);
         }
                 
         if (count($checkBoxes) < 3) {

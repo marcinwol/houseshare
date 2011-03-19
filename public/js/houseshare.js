@@ -6,7 +6,7 @@
 
 $(document).ready(function () {
     
-     $('form input.help, form textarea.help').formtips({ 
+    $('form input.help, form textarea.help').formtips({ 
         tippedClass: 'tipped'
     });
     
@@ -19,10 +19,24 @@ $(document).ready(function () {
     $("input[name='rd_what_to_do']").change(function(){
         if ('1' == $(this).val()) {
             $('#submit').val('Add your accommodation');
+            $( "#maxprice-element" ).hide();
         } else {
             $('#submit').val('Search for an accommodation');
+            $( "#maxprice-element" ).show();
         }
     });
+    
+    $( "#slider" ).slider({
+        range: "min",
+        value:800,
+        min: 200,
+        max: 2000,
+        step: 50,
+        slide: function( event, ui ) {          
+            $( "#maxprice" ).val( ui.value );
+        }
+    });
+    $( "#maxprice" ).val(  $( "#slider" ).slider( "value" ) );
 
 
    

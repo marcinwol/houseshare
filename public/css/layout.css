@@ -33,6 +33,9 @@ p {
     color: #BBB;
 }
 
+#slider {
+    width: 180px;
+}
 #pageWrapper {
     background: #999;
     width: 79em;
