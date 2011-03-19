@@ -326,9 +326,12 @@ class UserController extends Zend_Controller_Action {
                 $authAdapter = new My_Auth_Adapter_DbTable();
                 $authAdapter->setIdentity($formData['email']);
                 $authAdapter->setCredential($formData['password']);
+                              
 
                 $auth = Zend_Auth::getInstance();
                 $result = $auth->authenticate($authAdapter);
+                
+                var_dump($result);
 
                 if ($result->isValid()) {
 

@@ -86,14 +86,17 @@ class My_Form_Accommodation extends My_Form_Abstract_AccommodationAbstract {
                 'zip' => $acc->address->zip,
             ));
 
-            // populate roomates
-            $roomatesSubForm = $this->getSubForm(self::ROOMATES_SUBFORM_NAME);
-            $roomatesSubForm->populate(array(
-                'no_roomates' => $acc->roomates->no_roomates,
-                'min_age' => $acc->roomates->min_age,
-                'max_age' => $acc->roomates->max_age,
-                'gender' => $acc->roomates->gender
-            ));
+            
+            if (null !== $acc->roomates) {
+                // populate roomates
+                $roomatesSubForm = $this->getSubForm(self::ROOMATES_SUBFORM_NAME);
+                $roomatesSubForm->populate(array(
+                    'no_roomates' => $acc->roomates->no_roomates,
+                    'min_age' => $acc->roomates->min_age,
+                    'max_age' => $acc->roomates->max_age,
+                    'gender' => $acc->roomates->gender
+                ));
+            }
 
             // populate preferences
             $prefsSubForm = $this->getSubForm(self::PREFERENCES_SUBFORM_NAME);
@@ -133,10 +136,14 @@ class My_Form_Accommodation extends My_Form_Abstract_AccommodationAbstract {
 
             $val = $row->value;
 
-            if ('Zend_Form_Element_Checkbox' == $elem->getType() && '1' == $val) {
+            if ('Zend_Form_Element_Checkbox' == $elem->getType()) {
+             //   var_dump($row->getName(), $elem->getName());
+                //var_dump($elem->getValue());
+                //$elem->setValue($row->value);
                 $elem->setChecked(true);
                 continue;
             }
+                
 
             $elem->setValue($val);
         }

@@ -33,11 +33,25 @@ class My_Model_Table_Rowset_AccsFeatures extends Zend_Db_Table_Rowset_Abstract {
 
     public function getByName($name) {
         foreach ($this as $row) {
-            if ($name === $row->getName() || $name ===  str_replace (" ", "", $row->getName())) {
+            if ($name === $row->getName() || $name === str_replace(" ", "", $row->getName())) {
                 return $row;
             }
         }
         return null;
+    }
+
+    /**
+     * Delete a rowset
+     * 
+     * @return int number of rows deleted 
+     */
+    public function delete() {
+
+        $i = 0;
+        foreach ($this as $row) {
+            $i += $row->delete();
+        }
+        return $i;
     }
 
 }

@@ -39,6 +39,20 @@ class My_Model_Table_Rowset_AccsPreferences extends Zend_Db_Table_Rowset_Abstrac
         }
         return null;
     }
+    
+    /**
+     * Delete a rowset
+     * 
+     * @return int number of rows deleted 
+     */
+    public function delete() {
+        
+        $i = 0;        
+        foreach ($this as $row) {
+            $i += $row->delete();
+        }        
+        return $i;
+    }
 
 }
 

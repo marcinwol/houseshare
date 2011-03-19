@@ -262,7 +262,7 @@ class AccommodationController extends Zend_Controller_Action {
         $acc_id = (int) $acc_id;
 
         $acc = My_Houseshare_Factory::accommodation($acc_id);
-
+       
         $user_id = Zend_Auth::getInstance()->getIdentity()->property->user_id;
 
         // check if the accommodation belongs to the registered user
@@ -270,11 +270,10 @@ class AccommodationController extends Zend_Controller_Action {
             $this->_helper->FlashMessenger('You cannot edit this accommodation');
             return $this->_redirect('/');
         }
-
+      
 
         $accForm = new My_Form_Accommodation();
         $accForm->removeSubForm('about_you');
-
 
         $accForm->populateForm($acc);
 
@@ -325,6 +324,9 @@ class AccommodationController extends Zend_Controller_Action {
 
                     // set preferences (first binary ones)
                     $accPrefModel = new My_Model_Table_AccsPreferences();
+                    // delete all prefes for this acc as new set will be created
+                   $n = $accPrefModel->deleteAccPreference(array('acc_id'=>$acc_id, 'pref_id'=> null));
+                   
                     $binaryPrefs = array();
                     $binaryPrefs ['smokers'] = $formData['preferences']['smokers'];
                     $binaryPrefs ['kids'] = $formData['preferences']['kids'];
@@ -349,6 +351,8 @@ class AccommodationController extends Zend_Controller_Action {
 
                     // set features (first binary ones)
                     $accFeatModel = new My_Model_Table_AccsFeatures();
+                     // delete all prefes for this acc as new set will be created
+                    $accFeatModel->deleteAccFeature(array('acc_id'=>$acc_id, 'feat_id'=> null));
                     $binaryFeats = array();
                     $binaryFeats ['internet'] = $formData['acc_features']['internet'];
                     $binaryFeats ['parking'] = $formData['acc_features']['parking'];

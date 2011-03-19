@@ -159,6 +159,106 @@ class AccommodationControllerTest extends ControllerTestCase {
             )
         );
     }
+    
+    
+     /**
+     *
+     * @dataProvider addAccommodationProvider
+     * @param array $postData
+     */
+    public function testEditAccommodationSuccessfull($postData) {
+        
+        // first authenticate correct user
+        $this->request->setMethod('POST')->setPost(
+                array('email'=>'test@test.com', 'password'=>'test12')
+                );
+        $this->dispatch('/user/login');
+        $this->resetRequest()->resetResponse();
+        
+        $this->request->setPost($postData)->setMethod('POST')->setParam('id','1');
+        $this->dispatch('/accommodation/edit');
+              
+        
+        $acc = My_Houseshare_Factory::shared(1);
+        
+        var_dump($acc->features->asArray());
+         var_dump($acc->preferences->asArray());
+        
+        // at the very end check if successful redirection
+        $this->assertRedirectTo('accommodation/show/id/1');
+        
+        return;
+
+        // expected user id is 4
+        $user = My_Houseshare_Factory::roomate(4);
+
+        $this->assertEquals(
+                array(
+                    'marcin',
+                    0
+                ),
+                array(
+                    $user->first_name,
+                    $user->last_name_public
+                )
+        );
+
+        // expected address id is 6
+        $address = new My_Houseshare_Address(6);
+        $this->assertEquals(
+                array(
+                    '',
+                    'Aleja Zamonska',
+                    'Wroclaw'
+                ),
+                array(
+                    $address->unit_no,
+                    $address->street,
+                    $address->city
+                )
+        );
+
+        // expected roomates id is 4
+        $roomatesModel = new My_Model_Table_Roomates();
+        $roomates = $roomatesModel->find(4)->current();
+
+        $this->assertEquals(
+                array(
+                    4,
+                    2
+                ),
+                array(
+                    $roomates->no_roomates,
+                    $roomates->gender
+                )
+        );
+
+        // expected accommodation id is 4
+        $acc = My_Houseshare_Factory::shared(4);
+
+        $this->assertEquals(
+                array(
+                    4,
+                    'Great room for rent in quite place'
+                ),
+                array(
+                    $acc->roomates_id,
+                    $acc->title
+                )
+        );
+
+        // check expected number of preferences
+        $this->assertEquals(5, count($acc->features));
+        $this->assertEquals(3, count($acc->preferences));
+
+        // check if session variablec acc_id was created
+        $addAccInfoNamespace = new Zend_Session_Namespace('addAccInfo');
+        $this->assertEquals(4, $addAccInfoNamespace->acc_id);
+
+        // finally check if user is redirected to addphotos
+        $this->assertRedirectTo('/accommodation/addphotos');
+    }
+    
 
     /**
      * Using phpt file to test POSTS is a bet overkill.

@@ -25,19 +25,26 @@ class My_Model_Table_AccsPreferences extends Zend_Db_Table_Abstract {
     );
 
     /**
-     * Delete a Account Preference
+     * Delete a Account Preference or all of pref_id === null
      * s
      * @param array $id compund id (acc_id,pref_id)
      * @return int Number of rows deleted
      */
     public function deleteAccPreference(array $id) {
-        $row = $this->find($id['acc_id'], $id['pref_id'])->current();
 
-        if (is_null($row)) {
-            return 0;
+        if (null !== $id['pref_id']) {
+
+            $row = $this->find($id['acc_id'], $id['pref_id'])->current();
+
+            if (is_null($row)) {
+                return 0;
+            }
+
+            return $row->delete();
+        } else {
+            $rowset = $this->fetchAll('acc_id = ' . $id['acc_id']);           
+            return $rowset->delete();
         }
-
-        return $row->delete();
     }
 
     /**

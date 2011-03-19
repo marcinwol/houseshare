@@ -293,7 +293,7 @@ abstract class My_Form_Abstract_AccommodationAbstract extends Zend_Form {
             $newElem->setRequired(true)->setLabel(ucfirst($pref['name']) . ' accepted');
             $newElem->setCheckedValue("{$pref['pref_id']}");
             $newElem->setUnCheckedValue('-1');
-            $newElem->setChecked(true);
+            $newElem->setChecked(false);
             $preferencesForm->addElement($newElem);
         }
 
