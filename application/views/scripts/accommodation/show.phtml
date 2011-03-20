@@ -12,7 +12,7 @@
         $imgsHtml = '';
         $imgsHtml .= '<ul class="photos">';
         foreach ($this->acc->photosurls as $photo_id => $url) {                     
-               $thumb = '<img src="'.$thumbs[$photo_id].'" alt="thumbs" />';
+               $thumb = '<img src="'.$thumbs[$photo_id].'" alt="thumbs" width="160px" heigth="118px" />';
                $imgsHtml .= '<li>';
                $imgsHtml .= '<a href="' . $url . '" rel="shadowbox[accommodation]"/>'.$thumb.'</a>';
                $imgsHtml .= '</li>';

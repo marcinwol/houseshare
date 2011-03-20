@@ -25,7 +25,7 @@
                 <dt>Avaliable from: </dt><dd> <?php echo $this->acc->date_avaliable; ?></dd> 
             </dl>
             <dl class="advert-stats">
-                <dt>Added: </dt><dd><?php echo $this->timeSince($this->acc->creationtimestamp) . ' ago by ' . $this->acc->user->first_name; ?></dd> 
+                <dt>Added: </dt><dd><?php echo $this->timeSince($this->acc->creationtimestamp) . ' ago by ' . $this->acc->user->name; ?></dd> 
                 <dt>Views: </dt><dd><?php echo 120; ?></dd> 
                 <dt>Queries sent: </dt><dd><?php echo 5; ?></dd>                                                           
             </dl>

@@ -151,6 +151,12 @@ class My_Houseshare_User extends My_Houseshare_Abstract_PropertyAccessor {
         return (array) $this->_newProperties;
     }
     
+    public function getName() {
+        $firstName = $this->first_name;
+        $name = $firstName ? $firstName : 'User' . $this->user_id;
+        return $name;
+    }
+    
     
 
 

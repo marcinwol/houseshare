@@ -73,8 +73,8 @@ class AccommodationController extends Zend_Controller_Action {
         $city_id = (is_null($cityRow)) ? null : $cityRow->city_id;
 
         $limitForm = new My_Form_LimitForm();
-        
-        $maxPrice =  $limitForm->getElement('maxpricedefault')->getValue();
+
+        $maxPrice = $limitForm->getElement('maxpricedefault')->getValue();
 
         if ($this->getRequest()->isPost()) {
             if ($limitForm->isValid($_POST)) {
@@ -82,15 +82,15 @@ class AccommodationController extends Zend_Controller_Action {
                 $maxPrice = $formData['maxprice'];
                 $limitForm->getElement('maxpricedefault')->setValue($maxPrice);
             }
-        }        
+        }
 
         $accModel = new My_Model_Table_Accommodation();
         $accSelect = $accModel->select(Zend_Db_Table::SELECT_WITH_FROM_PART)->setIntegrityCheck(false);
 
         if (null !== $city_id) {
             $accSelect->joinInner('ADDRESS', 'ACCOMMODATION.addr_id = ADDRESS.addr_id')
-                      ->where("ADDRESS.city_id = ?", $city_id);
-            
+                    ->where("ADDRESS.city_id = ?", $city_id);
+
             if ($maxPrice) {
                 $accSelect->where("ACCOMMODATION.price < ?", $maxPrice);
             }
@@ -619,6 +619,6 @@ class AccommodationController extends Zend_Controller_Action {
         Zend_Session::namespaceUnset('addAccInfo');
         $this->view->acc = $acc;
     }
-
+    
 }
 
