@@ -46,31 +46,23 @@ class My_Form_MainPage extends Zend_Form {
         ));
 
         $this->addElement($cities1);
-
-        $maxPrice = $this->createElement('text', 'maxprice');
-        $maxPrice->setRequired(true)->setLabel('Maximum price per month: ');
-        $maxPrice->setAttrib('style', 'border: 0px; width:30px;');
-//        $maxPrice->addDecorator('Callback', array(
-//            'callback' => function ($content, $element, array $options) {
-//                return '<div id="slider"></div>';
-//            }
+//
+//        $maxPrice = $this->createElement('text', 'maxprice');
+//        $maxPrice->setRequired(true)->setLabel('Maximum price per month: ');
+//        $maxPrice->setAttrib('style', 'border: 0px; width:30px;');
+//  
+//        $slider = create_function(
+//                '$content, $element, array $options', 'return "<div id=\"slider\"></div>";'
+//        );
+//
+//        $maxPrice->setDecorators(array(
+//            'ViewHelper',
+//            'Label',
+//            array('Callback', array('callback' => $slider, 'placement' => 'APPEND')),
+//            array('HtmlTag', array('tag' => 'dd', 'id' => 'maxprice-element'))
 //        ));
-//        $maxPrice->getDecorator('label')->clearOptions();
-  
-        $slider = create_function(
-                '$content, $element, array $options', 'return "<div id=\"slider\"></div>";'
-        );
-
-        $maxPrice->setDecorators(array(
-            'ViewHelper',
-            'Label',
-            array('Callback', array('callback' => $slider, 'placement' => 'APPEND')),
-            array('HtmlTag', array('tag' => 'dd', 'id' => 'maxprice-element'))
-        ));
-
-
-
-        $this->addElement($maxPrice);
+//        
+//        $this->addElement($maxPrice);
 
 
 

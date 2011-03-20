@@ -29,8 +29,14 @@ class My_View_Helper_ProfileLink extends Zend_View_Helper_Abstract {
 
         $html = '<a href="'.$baseUrl.'/user/login"> Login </a>';
 
-        if ($auth->hasIdentity()) {          
-            $html = '<a href="'.$baseUrl.'/user/logout"> Logout </a>';
+        if ($auth->hasIdentity()) { 
+            $identity = $auth->getIdentity();        
+            //$gravatar = $this->view->gravatar($identity->property->email, array('imgSize' => 30, 'defaultImg' => 'identicon')); 
+            $fname = $identity->property->first_name? $identity->property->first_name: 'User' . $identity->property->user_id; 
+            $url = $this->view->baseUrl('/user/index/');
+            $fnameLink = "<a href=\"$url\"/>$fname</a>";
+            $html = $fnameLink . ' <span>|</span> <a href="'.$baseUrl.'/user/logout"> Logout </a>'
+            ;
         }        
 
         return $html;

@@ -486,6 +486,7 @@ class My_Houseshare_Accommodation extends My_Houseshare_Abstract_PropertyAccesso
     public function getCity() {
         return $this->getAddress()->city;
     }
+        
     
     public function getState() {
         return $this->getAddress()->state;

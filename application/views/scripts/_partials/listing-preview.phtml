@@ -7,21 +7,23 @@
         $firstThumbPath = array_shift($urls);
     }
     ?>
-    <img src="<?php echo $firstThumbPath; ?>" alt="Thumb image" class="thumb" width="80" height="60" />
-    <dl class="listing-review-detials">
-        <dt class="advert-title">
+    <a href="<?php echo $this->baseUrl('/accommodation/show/id/' . $this->acc->acc_id); ?>">
+        <img src="<?php echo $firstThumbPath; ?>" alt="Thumb image" class="thumb"  />
+    </a>
+    <div class="listing-review-detials">
+        <h1 class="advert-title">
             <a href="<?php echo $this->baseUrl('/accommodation/show/id/' . $this->acc->acc_id); ?>"><?php echo ucfirst(strtolower($this->acc->title)); ?></a>
-        </dt>
-        <dd >
-            <dl >
-                <dt>About: </dt><dd><?php echo $this->truncate($this->acc->description); ?></dd>
-                </br>
-                <dt>Rent: </dt><dd><?php echo $this->acc->price; ?></dd>            
-                <dt>City: </dt><dd><?php echo $this->acc->city; ?></dd> 
-                <dt>State: </dt><dd><?php echo $this->acc->state; ?></dd> 
+        </h1>
+        <div class="advert-info">
+
+            <div> <?php echo $this->truncate($this->acc->description, 0, 256); ?></div>               
+            <dl>
+                <dt>City: </dt><dd><?php echo $this->acc->city . ', '. $this->acc->state; ?></dd> 
+                <dt>Rent: </dt><dd><?php echo $this->acc->price; ?></dd>                                           
+                <dt>Type: </dt><dd><?php echo $this->acc->type->name; ?></dd> 
                 <dt>User: </dt><dd><?php echo $this->acc->user->first_name; ?></dd> 
-                
             </dl>
-        </dd>
-    </dl>
+
+        </div>
+    </div>
 </div>

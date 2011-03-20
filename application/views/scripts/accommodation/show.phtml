@@ -1,15 +1,22 @@
 <div>
 
-    <ul id="pikame" >
+   
         <?php
         if (count($this->acc->photosurls) > 0) {
+            echo ' <ul id="pikame" >';
             foreach ($this->acc->photosurls as $photo_id => $url) {
                 echo '<li><img src="' . $url . '"/></li>';
             }
+            echo '</ul>';
+            echo '<script type="text/javascript">  $("#pikame").PikaChoose(); </script>';
+        } else if (count($this->acc->photosurls) == 1) {
+            $urls = $this->acc->photosurls;
+            $url = array_shift($urls);
+            echo '<img src="' . $url . '"/>';
         }
         ?>   
-    </ul>
-    <script type="text/javascript">  $("#pikame").PikaChoose(); </script>
+    
+    
 </div>
 <pre>
 <div>

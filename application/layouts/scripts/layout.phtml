@@ -58,19 +58,19 @@
     <body>
        
         <div id="pageWrapper">
-            <div id="header">                
-                  <div id="login">
-                <?php echo $this->profileLink(); ?>                 
-                 </div>
-                <h1><?php echo $this->translate('Houseshare.pl'); ?></h1> <br /><br />
+            <div id="header">                                
+                <h1><a href="<?php echo $this->baseUrl(); ?>"><?php echo $this->translate('Houseshare.pl'); ?></a></h1> 
+                <div id="login"><?php echo $this->profileLink(); ?> </div>
+                <div style="clear:both"></div>
                 <h2><?php echo $this->translate('A place for your add'); ?></h2> 
                
-            </div>           
+            </div>   
+            <!--  
             <div>
                 <?php echo  $this->navigation()->setDefaultProxy('navigationMenu'); ?>
 
             </div>
-<!--            <div id="nav">
+          <div id="nav">
                 <?php //var_dump($this->navigation()->breadcrumbs()); ?>
                 <?php echo $this->navigation()->breadcrumbs(); ?>&nbsp;
             </div>-->
