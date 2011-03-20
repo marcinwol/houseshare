@@ -18,6 +18,8 @@ class My_Form_MainPage extends Zend_Form {
     public function init() {
 
         $this->setMethod('post');
+        
+        $this->setAttrib('id','main-search-form');
 
         // add what do you want to do radio button
         $mainChoice = new Zend_Form_Element_Radio('rd_what_to_do');
@@ -27,6 +29,7 @@ class My_Form_MainPage extends Zend_Form {
                     '1' => "I have a room in ...",
                 )
         );
+        $mainChoice->removeDecorator('Label');
         $mainChoice->setRequired(true);
         $mainChoice->setValue('0');
         $this->addElement($mainChoice);
@@ -38,6 +41,7 @@ class My_Form_MainPage extends Zend_Form {
         $cities1->setAttrib('class', 'help tipped');
         $cities1->setAttrib('title', 'give a city name');
         $cities1->setFilters(array('stripTags', 'stringTrim'));
+        $cities1->removeDecorator('Label');
         $cities1->addDecorator(new My_Form_Decorator_Jtip(
                         array(
                             'tipurl' => '/tip/get/which/cities',
@@ -65,9 +69,10 @@ class My_Form_MainPage extends Zend_Form {
 //        $this->addElement($maxPrice);
 
 
-
-        $submit = $this->addElement('submit', 'submit', array('label' => 'Search for an accommodation')
-        );
+        $submit = $this->createElement('submit', 'submit', array('label' => 'Search'));
+        $submit->removeDecorator('Label');        
+        $this->addElement($submit);
+       
     }
 
 }

@@ -8,7 +8,7 @@
     }
     ?>
     <a href="<?php echo $this->baseUrl('/accommodation/show/id/' . $this->acc->acc_id); ?>">
-        <img src="<?php echo $firstThumbPath; ?>" alt="Thumb image" class="thumb"  />
+        <img src="<?php echo $firstThumbPath; ?>" alt="Thumb image" class="thumb" height="85px"  />
     </a>
     <div class="listing-review-detials">
         <h1 class="advert-title">
@@ -16,14 +16,18 @@
         </h1>
         <div class="advert-info">
 
-            <div> <?php echo $this->truncate($this->acc->description, 0, 256); ?></div>               
+            <div> <?php echo $this->truncate($this->acc->description, 0, 200); ?></div>               
             <dl>
-                <dt>City: </dt><dd><?php echo $this->acc->city . ', '. $this->acc->state; ?></dd> 
+                <dt>City: </dt><dd><?php echo $this->acc->city . ', ' . $this->acc->state; ?></dd> 
                 <dt>Rent: </dt><dd><?php echo $this->acc->price; ?></dd>                                           
                 <dt>Type: </dt><dd><?php echo $this->acc->type->name; ?></dd> 
-                <dt>User: </dt><dd><?php echo $this->acc->user->first_name; ?></dd> 
+                <dt>Avaliable from: </dt><dd> <?php echo $this->acc->date_avaliable; ?></dd> 
             </dl>
-
+            <dl class="advert-stats">
+                <dt>Added: </dt><dd><?php echo $this->timeSince($this->acc->creationtimestamp) . ' ago by ' . $this->acc->user->first_name; ?></dd> 
+                <dt>Views: </dt><dd><?php echo 120; ?></dd> 
+                <dt>Queries sent: </dt><dd><?php echo 5; ?></dd>                                                           
+            </dl>
         </div>
     </div>
 </div>

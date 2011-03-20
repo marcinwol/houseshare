@@ -24,21 +24,8 @@ body {
     margin: 0;
     padding: 0;
 }
-p {
-    padding: .5em;
-    font-size: 1.2em;
 
-}
 
-.navigation ul {
-    display: inline;   
-    
-}
-
-.navigation li {
-    display: inline;
-
-}
 
 .tipped {
     color: #BBB;
@@ -47,24 +34,63 @@ p {
 #slider {
     width: 180px;
 }
-#pageWrapper { 
-    
-    width: 960px;
-    margin: auto;
-    
+div.side-bar {    
+    padding-top: 10px;
+    font-size: 12px;   
+}
+div.side-bar li {
+    list-style-type: none;
+}
+
+/* MAIN FORM */
+
+div#welcome form {
+    padding-top:10px;
+}
+
+#main-search-form dd, #main-search-form dt {
+    font-size: 16px;
+    width: 120px;
+    display: inline;
+}
+
+ #i_city-element, #submit-element {
+     position: relative;
+    font-size: 18px;   
+    bottom:10px;   
+    left: 10px;
+}
+
+#i_city  {    
+    font-size: 24px;
+    border: 0px;
+    width: 300px;
+    border-right-style: solid;
+    border-left-style: solid;
+    border-bottom-style: solid;
     border-top-style: solid;
-    border-top-width: 3px;
-    border-top-color: #0065a5;
+    border-right-width: 1px;
+    border-left-width: 1px;
+    border-bottom-width: 1px;
+    border-top-width: 1px;
+    border-right-color: #a9d1fe;
+    border-left-color: #a9d1fe;
+    border-bottom-color: #a9d1fe;
+    border-top-color: #a9d1fe;
+}
+
+#main-search-form #submit {
+    higth:100px;
 }
 
 /* HEADER */
 #header { 
-    height: 50px;  
+    height: 60px;  
     background-color: #d4e7f6;
     padding-top: 8px;
-       border-bottom-style: solid;
-    border-bottom-width: 1px;
-    border-bottom-color: #73c8ff;
+       border-top-style: solid;
+    border-top-width: 3px;
+    border-top-color: #027cc0;
     
 }
 
@@ -73,6 +99,11 @@ p {
     padding-left: 20px;
     width:200px;
     float:left;
+   
+}
+ #header h2 {
+      font-style: italic;
+     font-weight: normal;
 }
 #header  a:visited, #header a:active, #header a:hover, #header a:link {
     
@@ -102,47 +133,11 @@ p {
     color: #007cff;
 }
 
-#nav {
-   
-    height: 2.5em;
-    margin: 0 0 .5em 0;
+img {
+    border: 0px;
 }
 
 
-#main {
-    background: #fff;
-    /* height: 41em; */
-    margin: 0 0 .5em 0;
-   
-}
-
-
-/* welcome area */ 
-
-#welcome {    
-    background-color: #eaf6fe;
-    padding-bottom: 10px;
-    height:120px;
-}
-
-.left-area {
-   width:50%;
-   padding-left: 10px;
-   float:left;
-   position: relative;
-   
-}
-
-
-
-#footer {
-    clear: both;
- 
-    height: 2.5em;
-    margin: 0;
-    background-color: #c5d7e3;
-    color: #595959;
-}
 
 fieldset {
     
@@ -164,12 +159,13 @@ ul.errors {
     color: #ff0000;
 }
 
+
 /* ---------->>> recent advters <<<---------------------------------------------------------------*/
 
 
 #resent-adverts {
     padding-top: 10px;
-    width: 735px;
+ 
 }
 
 #resent-adverts th {
@@ -190,7 +186,7 @@ img.thumb {
     float: left;
 }
 h1.advert-title  {
-    padding-left: 105px;
+    padding-left: 120px;
     font-size:16px;
 }
 h1.advert-title a {  
@@ -199,7 +195,12 @@ h1.advert-title a {
     color: #fd5416;
 }
 div.advert-info {
-    padding-left: 105px;
+    padding-left: 120px;
+}
+
+dl.advert-stats {
+    
+    color: #afafaf;
 }
 
 div.advert-info div  {
@@ -215,6 +216,47 @@ div.advert-info dt {
     font-weight: bold;
 }
 
+/* --------------- ACCOMMODATION DETIALS ***************** */
+
+#acc-details h1 {
+    
+    font-size: 18px;
+    color: #dd7601;
+}
+
+#acc-details p {
+    font-size: 12px;
+    text-align: justify;
+}
+
+dl.basic-info {
+    padding-top: 10px;
+}
+
+dl.basic-info dt, dl.basic-info dd {
+    display: inline;
+    font-size: 14px;
+}
+
+dl.basic-info dt {
+    
+    color: #dd7601;
+    font-weight: bold;
+}
+
+div.section {
+    
+    padding-top: 10px;
+}
+
+div.section h1 {
+    font-size: 14px;
+    
+    border-bottom-style: dotted;
+    border-bottom-width: 1px;
+    border-bottom-color: #bd3d00;
+}
+
 /* ---------->>> jtip <<<---------------------------------------------------------------*/
 
 
@@ -223,7 +265,7 @@ div.advert-info dt {
     font-size: 1.3em;
     font-weight:bold;
     padding:1px 2px;
-    margin-left:5px;
+    margin-left:2px;
     color:#FFFFFF;
     text-decoration: none;
 }

@@ -14,11 +14,11 @@ var providers_large = {
         name : 'Yahoo',
         url : 'http://me.yahoo.com/'
     },
-    aol : {
-        name : 'AOL',
-        label : 'Enter your AOL screenname.',
-        url : 'http://openid.aol.com/{username}'
-    },
+//    aol : {
+//        name : 'AOL',
+//        label : 'Enter your AOL screenname.',
+//        url : 'http://openid.aol.com/{username}'
+//    },
     myopenid : {
         name : 'MyOpenID',
         label : 'Enter your MyOpenID username.',
@@ -44,13 +44,6 @@ var providers_large = {
     }
 };
 
-function houseshare_click() {
-    console.log('asfdsadf');
-}
-
-//function facebook_click() {
-//     $('#<id of html fbconnect element>').click();
-//   }
 
 var providers_small = {
     livejournal : {

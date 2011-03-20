@@ -5,6 +5,7 @@
 
 .pikachoose {width: 520px; margin: 0 auto;}
 .pika-stage {
+    margin-top:10px;
     position: relative;
     background: #fafafa; 
     border: 1px solid #e5e5e5; 

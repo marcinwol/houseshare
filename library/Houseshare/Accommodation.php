@@ -247,6 +247,12 @@ class My_Houseshare_Accommodation extends My_Houseshare_Abstract_PropertyAccesso
 
         return $result_ids;
     }
+    
+    public function getCreationtimestamp() {
+        $create = $this->created;
+       // var_dump($create, strtotime($create));
+        return strtotime($create);
+    }
 
     /**
      * Get photos for this accommodation.

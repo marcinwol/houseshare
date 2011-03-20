@@ -1,43 +1,94 @@
+
+
 <div>
 
-   
+
+    <?php
+    if (count($this->acc->photosurls) > 0) {
+        echo ' <ul id="pikame" >';
+        foreach ($this->acc->photosurls as $photo_id => $url) {
+            echo '<li><img src="' . $url . '"/></li>';
+        }
+        echo '</ul>';
+        echo '<script type="text/javascript">  $("#pikame").PikaChoose(); </script>';
+    } else if (count($this->acc->photosurls) == 1) {
+        $urls = $this->acc->photosurls;
+        $url = array_shift($urls);
+        echo '<img src="' . $url . '"/>';
+    }
+    ?>   
+
+
+</div>
+<div id="acc-details">
+    <h1 class="title"><?php echo $this->acc->title; ?></h1>
+    <p>
+        <?php echo $this->acc->description; ?>
+    </p>
+    <dl class="basic-info">
+        <dt>Price:</dt>
+        <dd><?php echo $this->acc->price; ?> (per month)</dd>
+        <dt>Bond:</dt>
+        <dd><?php echo $this->acc->bond; ?></dd>
+        <dt>Avaliable from:</dt>
+        <dd><?php echo $this->acc->date_avaliable; ?></dd>
+    </dl>
+
+
+
+    <div class="section">
+        <h1>Where</h1> 
         <?php
-        if (count($this->acc->photosurls) > 0) {
-            echo ' <ul id="pikame" >';
-            foreach ($this->acc->photosurls as $photo_id => $url) {
-                echo '<li><img src="' . $url . '"/></li>';
+        var_dump($this->acc->address->toArray());
+        ?>
+    </div>
+    <div class="section">
+        <h1>Features</h1> 
+        <?php
+        $features = $this->acc->features;
+        if (count($features) > 0) {
+            echo '<ul class="feats-prefs">';
+            foreach ($features as $f) {
+                echo '<li>' . $f->getName() . '</li>';
             }
             echo '</ul>';
-            echo '<script type="text/javascript">  $("#pikame").PikaChoose(); </script>';
-        } else if (count($this->acc->photosurls) == 1) {
-            $urls = $this->acc->photosurls;
-            $url = array_shift($urls);
-            echo '<img src="' . $url . '"/>';
         }
-        ?>   
-    
-    
-</div>
-<pre>
-<div>
-        <?php
-        var_dump($this->acc->toArray());
-
-        var_dump($this->acc->address->city);
-
-        var_dump($this->acc->features->asArray());
-
-        var_dump($this->acc->preferences->asArray());
-
-        var_dump($this->acc->roomates->toArray());
         ?>
+    </div>
+
+    <div class="section">
+        <h1>Preferences</h1> 
+        <?php
+        $prefs = $this->acc->preferences;
+        if (count($prefs) > 0) {
+            echo '<ul class="feats-prefs">';
+            foreach ($prefs as $p) {
+                echo '<li>' . $p->getName() . '</li>';
+            }
+            echo '</ul>';
+        }
+        ?>
+    </div>
+
+    <div class="section">
+        <h1>Roomates</h1> 
+<?php
+var_dump($this->acc->roomates->toArray());
+?>
+    </div>
+
+
+    <div class="section">
+        <h1>Contact</h1> 
+        <a href="javascript:none;" id="ask-question">Ask a question</a>
+        <div id="email-send-form">
+            <?php echo $this->form; ?>        
+        </div>
+    </div>
+
 </div>
 
-</pre>
-<a href="javascript:none;" id="ask-question">Ask a question</a>
-<div id="email-send-form">
-    <?php echo $this->form; ?>        
-</div>
+
 <script type="text/javascript">      
     
     errors = <?php echo $this->errors; ?>;

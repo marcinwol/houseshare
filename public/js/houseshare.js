@@ -18,10 +18,10 @@ $(document).ready(function () {
      */
     $("input[name='rd_what_to_do']").change(function(){
         if ('1' == $(this).val()) {
-            $('#submit').val('Add your accommodation');
+            $('#submit').val('Add');
             $( "#maxprice-element" ).hide();
         } else {
-            $('#submit').val('Search for an accommodation');
+            $('#submit').val('Search');
             $( "#maxprice-element" ).show();
         }
     });

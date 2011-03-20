@@ -96,6 +96,8 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
 
 
         Zend_Form::setDefaultTranslator($translate);
+        
+        Zend_Registry::set('Zend_Translate', $translate);
     }
 
     protected function _initAclControllerPlugin() {
