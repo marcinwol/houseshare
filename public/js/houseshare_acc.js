@@ -13,6 +13,21 @@ $(document).ready(function () {
         }
     });
     
+    var defaultMaxPrice =  $( "#maxpricedefault" ).val();
+          
+    $( "#slider" ).slider({
+        range: "min",
+        value: defaultMaxPrice,
+        min: 200,
+        max: 2000,
+        step: 50,
+        slide: function( event, ui ) {          
+            $( "#maxprice" ).val( ui.value );
+        }
+    });
+    $( "#maxprice" ).val(  $( "#slider" ).slider( "value" ) );
+
+
     
     
     if ($('#basic_info-acc_type').val() == "1") {

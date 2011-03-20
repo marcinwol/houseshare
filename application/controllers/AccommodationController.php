@@ -72,27 +72,37 @@ class AccommodationController extends Zend_Controller_Action {
 
         $city_id = (is_null($cityRow)) ? null : $cityRow->city_id;
 
+        $limitForm = new My_Form_LimitForm();
+        
+        $maxPrice =  $limitForm->getElement('maxpricedefault')->getValue();
+
+        if ($this->getRequest()->isPost()) {
+            if ($limitForm->isValid($_POST)) {
+                $formData = $limitForm->getValues();
+                $maxPrice = $formData['maxprice'];
+                $limitForm->getElement('maxpricedefault')->setValue($maxPrice);
+            }
+        }        
 
         $accModel = new My_Model_Table_Accommodation();
         $accSelect = $accModel->select(Zend_Db_Table::SELECT_WITH_FROM_PART)->setIntegrityCheck(false);
 
         if (null !== $city_id) {
             $accSelect->joinInner('ADDRESS', 'ACCOMMODATION.addr_id = ADDRESS.addr_id')
-                    ->where("ADDRESS.city_id = ?", $city_id);
+                      ->where("ADDRESS.city_id = ?", $city_id);
+            
+            if ($maxPrice) {
+                $accSelect->where("ACCOMMODATION.price < ?", $maxPrice);
+            }
         }
-        
-        $limitForm = new My_Form_LimitForm();
 
 
         $accs = $accModel->fetchAll($accSelect);
 
-//        $accHouseshareArray = array();
-//        foreach ($accs as $acc) {
-//            $accHouseshareArray [] = array('acc' => My_Houseshare_Factory::shared($acc->acc_id));
-//        }
+        $this->view->maxPrice = $maxPrice;
         $this->view->city = $city;
         $this->view->limitForm = $limitForm;
-        $this->view->listTitle = $city ? "Avaliable accommodation in $city" : 'Avaliable accommodation' ;
+        $this->view->listTitle = $city ? "Avaliable accommodation in $city" : 'Avaliable accommodation';
         $this->view->accs = $accs->toModels();
     }
 
@@ -434,7 +444,6 @@ class AccommodationController extends Zend_Controller_Action {
                     if ('addphotos' == $referer) {
                         // this is when a user add photos to existing accommodation
                         // rather then creates when he/she creates a new accommodation.
-                        
                         // don't need this session namespace anymore
                         Zend_Session::namespaceUnset('addAccInfo');
                         return $this->_redirect('accommodation/photochange/id/' . $acc_id);
@@ -509,7 +518,6 @@ class AccommodationController extends Zend_Controller_Action {
                 if ('addphotos' == $referer) {
                     // this is when a user add photos to existing accommodation
                     // rather then creates when he/she creates a new accommodation.
-                     
                     // don't need this session namespace anymore
                     Zend_Session::namespaceUnset('addAccInfo');
                     return $this->_redirect('accommodation/photochange/id/' . $acc_id);

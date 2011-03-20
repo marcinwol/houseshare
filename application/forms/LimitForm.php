@@ -38,6 +38,11 @@ class My_Form_LimitForm extends Zend_Form {
         
         $this->addElement($maxPrice);
 
+        // create hidden element with deafulat max price
+        $defMaxPrice = $this->createElement('hidden','max-price-default');
+        $defMaxPrice->setValue(2000);
+        $defMaxPrice->removeDecorator('Label');
+        $this->addElement($defMaxPrice);
 
         $submit = $this->createElement('submit', 'submit', array('label' => 'Limit'));
         $submit->removeDecorator('Label');        

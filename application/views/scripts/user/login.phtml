@@ -12,6 +12,18 @@
     });
 </script>
 
+<?php 
+
+$this->layout()->customBox = '<p>OpenID allows you to use an existing account to 
+    sign in to 
+    multiple websites, without needing to create new passwords. </p>
+ <p>It is our recommended way of using this website</p>
+ 
+
+';
+
+?>
+
 <div>
     <!-- Simple OpenID Selector -->
     <form action="<?php echo $this->baseUrl('/user/login');?>" method="get" id="openid_form">
