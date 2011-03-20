@@ -231,6 +231,19 @@ dl.advert-stats dt, dl.advert-stats dd{
 
 /* --------------- ACCOMMODATION DETIALS ***************** */
 
+ul.photos {
+    padding-top: 5px;
+    padding-left: 30px;
+}
+
+ul.photos li {
+    padding-top: 5px;    
+}
+
+#acc-details {
+    padding-top:10px;
+}
+
 #acc-details h1 {
     
     font-size: 18px;

@@ -55,7 +55,7 @@ class My_Form_Photos extends Zend_Form {
         // limit to 1M
         $photos->addValidator('Size', false, 1024000);
         // $photos->setMaxFileSize(1024000);
-        $photos->addValidator('Extension', false, 'jpg,png,gif');
+        $photos->addValidator('Extension', false, 'jpg,png,gif,jpeg');
        // $photos->addValidator('IsImage', false);
         $photos->setMultiFile($this->_noOfPhotos);
 

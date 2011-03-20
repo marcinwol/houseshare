@@ -5,17 +5,22 @@
 
     <?php
     if (count($this->acc->photosurls) > 0) {
-        echo ' <ul id="pikame" >';
-        foreach ($this->acc->photosurls as $photo_id => $url) {
-            echo '<li><img src="' . $url . '"/></li>';
+         echo '<script type="text/javascript">  Shadowbox.init();</script>';
+         
+        $thumbs = $this->acc->thumbsurls; 
+         
+        $imgsHtml = '';
+        $imgsHtml .= '<ul class="photos">';
+        foreach ($this->acc->photosurls as $photo_id => $url) {                     
+               $thumb = '<img src="'.$thumbs[$photo_id].'" alt="thumbs" />';
+               $imgsHtml .= '<li>';
+               $imgsHtml .= '<a href="' . $url . '" rel="shadowbox[accommodation]"/>'.$thumb.'</a>';
+               $imgsHtml .= '</li>';
         }
-        echo '</ul>';
-        echo '<script type="text/javascript">  $("#pikame").PikaChoose(); </script>';
-    } else if (count($this->acc->photosurls) == 1) {
-        $urls = $this->acc->photosurls;
-        $url = array_shift($urls);
-        echo '<img src="' . $url . '"/>';
-    }
+        $imgsHtml .= '</ul>';
+      //  echo '<script type="text/javascript">  $("#pikame").PikaChoose(); </script>';
+       $this->layout()->customBox = $imgsHtml;       
+    }  
     ?>   
 
 

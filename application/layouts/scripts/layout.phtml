@@ -14,8 +14,9 @@
         $this->headLink()->appendStylesheet('http://960ls.atomidata.com//static/cssserve/2011/3/20/a9ee67bb90b44f8eb9ebe4e630122280.css');
         $this->headLink()->appendStylesheet($this->baseUrl('/css/layout.css'));
         $this->headLink()->appendStylesheet($this->baseUrl('/css/smoothness/jquery-ui-1.8.7.custom.css'));
-        $this->headLink()->appendStylesheet($this->baseUrl('/css/bottom.css'));
-        //   $this->headLink()->appendStylesheet($this->baseUrl('/css/right-without.css'));
+        $this->headLink()->appendStylesheet($this->baseUrl('/css/shadowbox.css'));
+        //  $this->headLink()->appendStylesheet($this->baseUrl('/css/bottom.css'));
+        //  $this->headLink()->appendStylesheet($this->baseUrl('/css/right-without.css'));
         ?>
 
 
@@ -26,7 +27,8 @@
         $this->headScript()->appendFile($this->baseUrl('/js/jquery-ui-1.8.7.custom.min.js'));
         $this->headScript()->appendFile($this->baseUrl('/js/jquery.formtips.1.2.3.packed.js'));
         $this->headScript()->appendFile($this->baseUrl('/js/jtip.js'));
-        $this->headScript()->appendFile($this->baseUrl('/js/jquery.pikachoose.full.js'));
+        //$this->headScript()->appendFile($this->baseUrl('/js/jquery.pikachoose.full.js'));
+        $this->headScript()->appendFile($this->baseUrl('/js/shadowbox.js'));
         ?>        
 
 
