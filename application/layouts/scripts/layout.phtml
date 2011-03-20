@@ -60,15 +60,15 @@
         <div id="header" class="container_8">
 
             <div id="" class="grid_3 ">
-               <a href="<?php echo $this->baseUrl(); ?>"> 
-                   <img src="<?php echo $this->baseUrl('/images/logo.png'); ?>" 
-                     alt="Houseshare.com" style="float:left"/> 
-               </a>
-              <!--  <h1><a href="<?php echo $this->baseUrl(); ?>"><?php echo $this->translate('Houseshare.pl'); ?></a></h1> 
-
-                <div style="clear:both"></div>
-                <h2><?php echo $this->translate('A place for your add'); ?></h2> 
-              -->
+                <a href="<?php echo $this->baseUrl(); ?>"> 
+                    <img src="<?php echo $this->baseUrl('/images/logo.png'); ?>" 
+                         alt="Houseshare.com" style="float:left"/> 
+                </a>
+               <!--  <h1><a href="<?php echo $this->baseUrl(); ?>"><?php echo $this->translate('Houseshare.pl'); ?></a></h1> 
+ 
+                 <div style="clear:both"></div>
+                 <h2><?php echo $this->translate('A place for your add'); ?></h2> 
+                -->
             </div>
 
             <div id="" class="grid_5 ">
@@ -84,61 +84,74 @@
             <div id="" class="grid_6 6">
                 <?php echo $this->flashMessenger(); ?>
                 <?php echo $this->layout()->content; ?>      
-            </div>
+            </div>            
+
 
             <div id="" class="grid_2 6">
-                <div class="side-bar">
-                    <h3>Tutaj cos musi byc. Moze lista naszych zalet:</h3> 
-                <ul>
-                     <li>Dodawanie ogloszen jest darmowe</li>
-                     <li>Kontakt jest darmowy</li>  
-                     <li>Logowanie uzywajace Facebook, Google and OpenID</li>  
-                     <li>Cos tam jeszcze</li>  
-                     <li>Cos tam jeszcze 1</li>  
-                </ul>
-                </div>
-                 <div style="height:20px;">&nbsp;</div>
+
+                <?php if (null !== $this->layout()->searchBox): ?>
                 
-                  <div class="side-bar">
-                    <h3>Nastepny paragraph:</h3> 
-                <ul>
-                     <li>Dodawanie ogloszen jest darmowe</li>
-                     <li>Kontakt jest darmowy</li>  
-                     <li>Logowanie uzywajace Facebook, Google and OpenID</li>  
-                     <li>Cos tam jeszcze</li>  
-                     <li>Cos tam jeszcze 1</li>  
-                </ul>
+                        <div class="side-bar">
+                            <h3>Limit the list</h3> 
+                            <?php echo $this->layout()->searchBox;?>
+
+                        </div>
+                        <div style="height:20px;">&nbsp;</div>
+
+                  <?php endif; ?>
+
+                    <div class="side-bar">
+                        <h3>Tutaj cos musi byc. Moze lista naszych zalet:</h3> 
+                        <ul>
+                            <li>Dodawanie ogloszen jest darmowe</li>
+                            <li>Kontakt jest darmowy</li>  
+                            <li>Logowanie uzywajace Facebook, Google and OpenID</li>  
+                            <li>Cos tam jeszcze</li>  
+                            <li>Cos tam jeszcze 1</li>  
+                        </ul>
+                    </div>
+                    <div style="height:20px;">&nbsp;</div>
+
+                    <div class="side-bar">
+                        <h3>Nastepny paragraph:</h3> 
+                        <ul>
+                            <li>Dodawanie ogloszen jest darmowe</li>
+                            <li>Kontakt jest darmowy</li>  
+                            <li>Logowanie uzywajace Facebook, Google and OpenID</li>  
+                            <li>Cos tam jeszcze</li>  
+                            <li>Cos tam jeszcze 1</li>  
+                        </ul>
+                    </div>
+                    <div style="height:20px;">&nbsp;</div>
+
+                    <div class="side-bar">
+                        <h3>Lista miast:</h3> 
+                        <ul>
+                            <li>Dodawanie ogloszen jest darmowe</li>
+                            <li>Kontakt jest darmowy</li>  
+                            <li>Logowanie uzywajace Facebook, Google and OpenID</li>  
+                            <li>Cos tam jeszcze</li>  
+                            <li>Cos tam jeszcze 1</li>  
+                        </ul>
+                    </div>
+                    <div style="height:20px;">&nbsp;</div>
                 </div>
-                <div style="height:20px;">&nbsp;</div>
-                
-                 <div class="side-bar">
-                    <h3>Lista miast:</h3> 
-                <ul>
-                     <li>Dodawanie ogloszen jest darmowe</li>
-                     <li>Kontakt jest darmowy</li>  
-                     <li>Logowanie uzywajace Facebook, Google and OpenID</li>  
-                     <li>Cos tam jeszcze</li>  
-                     <li>Cos tam jeszcze 1</li>  
-                </ul>
+
+            </div>
+
+
+
+            <div id="footer" class="container_8">
+
+                <div id="" class="grid_4 6">
+                    about | faq | contact us 
                 </div>
-                <div style="height:20px;">&nbsp;</div>
+
+                <div id="" class="grid_4 6 ">
+                    @2010 Houseshare.pl 
+                </div>
+
             </div>
-
-        </div>
-
-
-
-        <div id="footer" class="container_8">
-
-            <div id="" class="grid_4 6">
-                about | faq | contact us 
-            </div>
-
-            <div id="" class="grid_4 6 ">
-                 @2010 Houseshare.pl 
-            </div>
-
-        </div>
 
 
     </body>

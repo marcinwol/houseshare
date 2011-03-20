@@ -80,6 +80,8 @@ class AccommodationController extends Zend_Controller_Action {
             $accSelect->joinInner('ADDRESS', 'ACCOMMODATION.addr_id = ADDRESS.addr_id')
                     ->where("ADDRESS.city_id = ?", $city_id);
         }
+        
+        $limitForm = new My_Form_LimitForm();
 
 
         $accs = $accModel->fetchAll($accSelect);
@@ -89,6 +91,7 @@ class AccommodationController extends Zend_Controller_Action {
 //            $accHouseshareArray [] = array('acc' => My_Houseshare_Factory::shared($acc->acc_id));
 //        }
         $this->view->city = $city;
+        $this->view->limitForm = $limitForm;
         $this->view->listTitle = $city ? "Avaliable accommodation in $city" : 'Avaliable accommodation' ;
         $this->view->accs = $accs->toModels();
     }
