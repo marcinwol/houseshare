@@ -12,11 +12,13 @@
     </a>
     <div class="listing-review-detials">
         <h1 class="advert-title">
-            <a href="<?php echo $this->baseUrl('/accommodation/show/id/' . $this->acc->acc_id); ?>"><?php echo ucfirst(strtolower($this->acc->title)); ?></a>
+            <a href="<?php echo $this->baseUrl('/accommodation/show/id/' . $this->acc->acc_id); ?>">
+            <?php echo  $this->truncate(ucfirst(strtolower($this->acc->title)),0, 70); ?>
+            </a>
         </h1>
         <div class="advert-info">
 
-            <div> <?php echo $this->truncate($this->acc->description, 0, 200); ?></div>               
+            <div> <?php echo $this->truncate($this->acc->description, 0, 190); ?></div>               
             <dl>
                 <?php $city =  $this->acc->city . ', ' . $this->acc->state;?>
                 <dt>City: </dt><dd><a href="<?php echo $this->baseUrl('/accommodation/list/city/' . $city);?>"><?php echo $city;?></a></dd> 

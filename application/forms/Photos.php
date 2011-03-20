@@ -22,7 +22,7 @@ class My_Form_Photos extends Zend_Form {
      * @param mixed $options
      * @return void
      */
-    public function __construct($noOfPhotos = 3, $options = null)
+    public function __construct($noOfPhotos = 5, $options = null)
     {
         if (is_array($options)) {
             $this->setOptions($options);

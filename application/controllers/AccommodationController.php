@@ -426,7 +426,7 @@ class AccommodationController extends Zend_Controller_Action {
         $noOfcurrentAccPhotos = $photoModel->findAccPhotos($acc_id);
 
         // determine number of photos that can be added.
-        $noOfPhotosToAdd = 3 - count($noOfcurrentAccPhotos);
+        $noOfPhotosToAdd = 5 - count($noOfcurrentAccPhotos);
 
         if ($noOfPhotosToAdd <= 0) {
             $this->_helper->FlashMessenger('Cannot add more photos than 3');

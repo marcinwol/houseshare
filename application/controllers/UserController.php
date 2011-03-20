@@ -330,8 +330,6 @@ class UserController extends Zend_Controller_Action {
 
                 $auth = Zend_Auth::getInstance();
                 $result = $auth->authenticate($authAdapter);
-                
-                var_dump($result);
 
                 if ($result->isValid()) {
 
