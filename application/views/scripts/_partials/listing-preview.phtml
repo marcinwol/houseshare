@@ -18,7 +18,8 @@
 
             <div> <?php echo $this->truncate($this->acc->description, 0, 200); ?></div>               
             <dl>
-                <dt>City: </dt><dd><?php echo $this->acc->city . ', ' . $this->acc->state; ?></dd> 
+                <?php $city =  $this->acc->city . ', ' . $this->acc->state;?>
+                <dt>City: </dt><dd><a href="<?php echo $this->baseUrl('/accommodation/list/city/' . $city);?>"><?php echo $city;?></a></dd> 
                 <dt>Rent: </dt><dd><?php echo $this->acc->price; ?></dd>                                           
                 <dt>Type: </dt><dd><?php echo $this->acc->type->name; ?></dd> 
                 <dt>Avaliable from: </dt><dd> <?php echo $this->acc->date_avaliable; ?></dd> 

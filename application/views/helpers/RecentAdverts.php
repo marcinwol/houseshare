@@ -30,7 +30,11 @@ class My_View_Helper_RecentAdverts extends Zend_View_Helper_Abstract {
         $lastAccs = $this->_getLastAccommodations();        
 
         return $this->view->partial(
-                '_partials/_recentAdverts.phtml', null, array('accommodations' => $lastAccs)
+                '_partials/_recentAdverts.phtml', null, 
+                array(
+                    'accommodations' => $lastAccs,
+                    'title'   => 'Recent advertisements'
+                    )
         );
     }
     

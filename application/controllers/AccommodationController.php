@@ -84,12 +84,13 @@ class AccommodationController extends Zend_Controller_Action {
 
         $accs = $accModel->fetchAll($accSelect);
 
-        $accHouseshareArray = array();
-        foreach ($accs as $acc) {
-            $accHouseshareArray [] = array('acc' => My_Houseshare_Factory::shared($acc->acc_id));
-        }
-
-        $this->view->accs = $accHouseshareArray;
+//        $accHouseshareArray = array();
+//        foreach ($accs as $acc) {
+//            $accHouseshareArray [] = array('acc' => My_Houseshare_Factory::shared($acc->acc_id));
+//        }
+        $this->view->city = $city;
+        $this->view->listTitle = $city ? "Avaliable accommodation in $city" : 'Avaliable accommodation' ;
+        $this->view->accs = $accs->toModels();
     }
 
     public function addAction() {

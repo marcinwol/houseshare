@@ -1,11 +1,9 @@
-<h2> Current accommodations in the database </h2>
-
-<?php if (0 === count($this->accs)):?>
-    <h3> No accommodation found </h3>
-
-<?php else:?>
     <div>
-        <?php echo $this->partialLoop('_partials/acc.phtml', $this->accs);    ?>
+        <?php echo $this->partial('_partials/_recentAdverts.phtml', null, 
+                array(
+                    'accommodations' => $this->accs,
+                    'title'   => $this->listTitle
+                )
+                );    
+        ?>
    </div>
-
-<?php endif;?>

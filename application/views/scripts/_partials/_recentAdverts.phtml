@@ -1,8 +1,9 @@
 
 <table id="resent-adverts">   
     <thead>
-        <tr><th>Recent advertisements</th></tr>
+        <tr><th><?php echo $this->title;?></th></tr>
     <tbody>
+        
         <?php foreach ($this->accommodations as $acc): ?>
         <tr>
             <td><?php echo $this->partial('_partials/listing-preview.phtml',null, array('acc'=> $acc));?></td>

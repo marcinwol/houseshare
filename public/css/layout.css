@@ -198,22 +198,35 @@ div.advert-info {
     padding-left: 120px;
 }
 
-dl.advert-stats {
-    
-    color: #afafaf;
-}
+
 
 div.advert-info div  {
     font-size: 12px;
+    
 }
 
 div.advert-info dt, div.advert-info dd  {
-     font-size: 12px;
+    font-size: 12px;
     display: inline;   
+    color: #464646;
 }
 div.advert-info dt {
     
     font-weight: bold;
+}
+
+div.advert-info dd a:visited, div.advert-info dd a:active, div.advert-info dd a:link {
+     color: #464646;
+    text-decoration: none;
+}
+div.advert-info dd a:hover {
+    
+    text-decoration: underline;
+}
+
+dl.advert-stats dt, dl.advert-stats dd{
+    
+    color: #afafaf;
 }
 
 /* --------------- ACCOMMODATION DETIALS ***************** */
