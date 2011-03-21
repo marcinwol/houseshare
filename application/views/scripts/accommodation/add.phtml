@@ -1,15 +1,35 @@
+<?php
+   $sideBarContent = '
+        We encourage to <a href="'.$this->baseUrl('/login').'">login</a> before 
+            filling this form or to register if you are first time here. 
+                    
+
+        <p> Otherwise, the account will be created during the first submission. </p>
+       <p> The account will allow you to modify your advertisment or disable it at a
+       a later date.
+               </p>
+       
+       ';
+   $this->sideBarElement('Better to login?',$sideBarContent, array('class' => 'side-bar-info'));  
+?>
+
+<?php
+   $sideBarContent = '
+       Up to <strong>five</strong> photos can be accompany your addvertisment. 
+       <p>They can be upload just after submission of this form.</p>
+       ';
+   $this->sideBarElement('Photos?',$sideBarContent, array('place' => 'append','class' => 'side-bar-info'));  
+?>
+
 <div>
     <?php if (!$this->isLogged()): ?>
     <h2>
-        We encourage to <a href="<?php echo $this->baseUrl('/login');?>">login</a> before filling this form:
+       
     </h2>
-       Otherwise, the account will be created during submission.
+      
     <?php endif; ?>
  
 </div>
 <div>
     <?php echo $this->form; ?>
 </div>
-<h2>
-    Photos can be uploaded after the submission.
-</h2>

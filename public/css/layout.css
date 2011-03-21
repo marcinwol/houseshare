@@ -43,8 +43,39 @@ body {
 
 .side-bar-box {    
     padding-top: 10px;
-    font-size: 12px;   
+    font-size: 14px;   
 }
+
+.side-bar-box h3 {
+    padding-left: 15px;
+    padding-top: 10px;
+    font-size: 20px;   
+}
+
+.side-bar-box ul {
+    padding-top: 5px; 
+    padding-left: 15px;
+}
+
+.side-bar-box li {
+    padding-top: 3px;
+    padding-bottom: 3px;
+    list-style-type:none;
+}
+
+.side-bar-box ul.top-cities a {
+    
+    text-decoration: none;
+    color: #595959;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+ul.top-cities a span {
+    
+    font-weight: normal;
+}
+
 .side-bar-info {
     
     background-color: #e0eab9;
