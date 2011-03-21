@@ -16,6 +16,9 @@ root {
 
 
 body {
+           border-top-style: solid;
+    border-top-width: 3px;
+    border-top-color: #ff5f00;
     font-size: 10px;
 
     font-family: Arial,Helvetica,sans-serif;
@@ -38,11 +41,24 @@ div.side-bar {
     padding-top: 10px;
     font-size: 12px;   
 }
+
+div.side-bar h3 {    
+    
+    padding-top: 10px;
+    font-size: 16px;   
+    color: #575757;
+}
+
 div.side-bar li {
     list-style-type: none;
 }
 
 /* MAIN FORM */
+
+div#welcome {
+   
+    
+}
 
 div#welcome form {
     padding-top:10px;
@@ -73,10 +89,10 @@ div#welcome form {
     border-left-width: 1px;
     border-bottom-width: 1px;
     border-top-width: 1px;
-    border-right-color: #a9d1fe;
-    border-left-color: #a9d1fe;
-    border-bottom-color: #a9d1fe;
-    border-top-color: #a9d1fe;
+    border-right-color: #fe7d3a;
+    border-left-color: #fe7d3a;
+    border-bottom-color: #fe7d3a;
+    border-top-color: #fe7d3a;
 }
 
 #main-search-form #submit {
@@ -86,19 +102,21 @@ div#welcome form {
 /* HEADER */
 #header { 
     height: 60px;  
-    background-color: #010101;
+    background-color: #fefefe;
     padding-top: 8px;
-       border-top-style: solid;
-    border-top-width: 3px;
-    border-top-color: #ff5f00;
+
     
     border-bottom-style: solid;
     border-bottom-width: 1px;
     border-bottom-color: #a1a1a1;
 }
 
+#header h1 {
+    padding-top:5px;
+}
+
 #header h1, #header h2 {
-   
+    
     padding-left: 20px;
     width:200px;
     float:left;
@@ -128,12 +146,12 @@ div#welcome form {
 }
 #login span {
     
-    color: #fefefe;
+    color: #d7d7d7;
 }
 #login a, #login a:visited, #login a:active, #login a:hover, #login a:link {
    
     text-decoration: none;
-    color: #fefefe;
+    color: #e55a06;
 }
 
 img {

@@ -63,15 +63,17 @@
         <div id="header" class="container_8">
 
             <div id="" class="grid_3 ">
-                <a href="<?php echo $this->baseUrl(); ?>"> 
+<!--                <a href="<?php echo $this->baseUrl(); ?>"> 
                     <img src="<?php echo $this->baseUrl('/images/logo.png'); ?>" 
                          alt="Houseshare.com" style="float:left"/> 
-                </a>
-               <!--  <h1><a href="<?php echo $this->baseUrl(); ?>"><?php echo $this->translate('Houseshare.pl'); ?></a></h1> 
+                </a>-->
+                <h1><a href="<?php echo $this->baseUrl(); ?>">
+                <?php echo $this->translate('Houseshare'); ?>
+                    </a></h1> 
  
                  <div style="clear:both"></div>
-                 <h2><?php echo $this->translate('A place for your add'); ?></h2> 
-                -->
+                 <h2><?php echo $this->translate('Its not complicated'); ?></h2> 
+               
             </div>
 
             <div id="" class="grid_5 ">
@@ -115,14 +117,8 @@
                 <?php endif; ?>
 
                 <div class="side-bar">
-                    <h3>Tutaj cos musi byc. Moze lista naszych zalet:</h3> 
-                    <ul>
-                        <li>Dodawanie ogloszen jest darmowe</li>
-                        <li>Kontakt jest darmowy</li>  
-                        <li>Logowanie uzywajace Facebook, Google and OpenID</li>  
-                        <li>Cos tam jeszcze</li>  
-                        <li>Cos tam jeszcze 1</li>  
-                    </ul>
+                    <h3>Add your accommodation</h3> 
+                    <a href="<?php echo $this->baseUrl('/add');?>">Add</a>
                 </div>
                 <div style="height:20px;">&nbsp;</div>
 
