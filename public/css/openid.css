@@ -14,6 +14,13 @@
 	display: none;
 }
 
+#openid_choice p {
+    
+    font-size: 14px;
+    color: #010101;
+    padding-bottom: 10px;
+}
+
 #openid_input_area {
 	clear: both;
 	padding: 10px;

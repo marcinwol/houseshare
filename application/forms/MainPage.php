@@ -22,32 +22,32 @@ class My_Form_MainPage extends Zend_Form {
         $this->setAttrib('id','main-search-form');
 
         // add what do you want to do radio button
-        $mainChoice = new Zend_Form_Element_Radio('rd_what_to_do');
-        $mainChoice->addMultiOptions(
-                array(
-                    '0' => "I need a room in ...",
-                    '1' => "I have a room in ...",
-                )
-        );
-        $mainChoice->removeDecorator('Label');
-        $mainChoice->setRequired(true);
-        $mainChoice->setValue('0');
-        $this->addElement($mainChoice);
+//        $mainChoice = new Zend_Form_Element_Radio('rd_what_to_do');
+//        $mainChoice->addMultiOptions(
+//                array(
+//                    '0' => "I need a room in ...",
+//                    '1' => "I have a room in ...",
+//                )
+//        );
+//        $mainChoice->removeDecorator('Label');
+//        $mainChoice->setRequired(true);
+//        $mainChoice->setValue('0');
+//        $this->addElement($mainChoice);
 
 
         //create new element
         $cities1 = $this->createElement('text', 'i_city');
-        $cities1->setRequired(false)->setLabel('City');
+        $cities1->setRequired(false)->setLabel('I need accommodation in');
         $cities1->setAttrib('class', 'help tipped');
-        $cities1->setAttrib('title', 'give a city name');
+        $cities1->setAttrib('title', ' give a city name');
         $cities1->setFilters(array('stripTags', 'stringTrim'));
-        $cities1->removeDecorator('Label');
-        $cities1->addDecorator(new My_Form_Decorator_Jtip(
-                        array(
-                            'tipurl' => '/tip/get/which/cities',
-                            'tipname' => 'Example values',
-                        )
-        ));
+       // $cities1->removeDecorator('Label');
+//        $cities1->addDecorator(new My_Form_Decorator_Jtip(
+//                        array(
+//                            'tipurl' => '/tip/get/which/cities',
+//                            'tipname' => 'Example values',
+//                        )
+//        ));
 
         $this->addElement($cities1);
 //

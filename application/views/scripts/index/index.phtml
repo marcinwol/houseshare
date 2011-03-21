@@ -1,6 +1,6 @@
 <?php
-   $sideBarContent = ' <a href="<?php echo $this->baseUrl(\'/add\');?>">Add</a>';
-   $this->sideBarElement('Add your accommodation',$sideBarContent);  
+   $sideBarContent = '<a class="acc-add" href="' . $this->baseUrl("/add").'" alt="Add accommodation">Add accommodation</a>';
+   $this->sideBarElement('',$sideBarContent);  
 ?>
 <div id="welcome">
     <?php echo $this->mainForm; ?>

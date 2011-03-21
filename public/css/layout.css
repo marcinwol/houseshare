@@ -21,7 +21,7 @@ body {
     border-top-color: #ff5f00;
     font-size: 10px;
 
-    font-family: Arial,Helvetica,sans-serif;
+    font-family: Trebuchet MS,Liberation Sans,DejaVu Sans,sans-serif
 }
 * {
     margin: 0;
@@ -37,6 +37,10 @@ body {
 #slider {
     width: 180px;
 }
+
+
+/********* SIDE BAR ********/
+
 .side-bar-box {    
     padding-top: 10px;
     font-size: 12px;   
@@ -76,32 +80,61 @@ div.side-bar li {
     list-style-type: none;
 }
 
+a.acc-add {
+    
+  border-style: solid;
+  border-width : 1px 1px 1px 1px;
+  text-decoration : none;
+  padding : 5px 20px 5px 20px;
+  margin-left:10px;
+   color: #fefefe;
+  background-color: #808080;
+  border-right-color: #acacac;
+  border-left-color: #acacac;
+  border-bottom-color: #acacac;
+  border-top-color: #acacac;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+/*LOGIN FORM */
+
+#login-form {
+    padding-top: 15px;
+}
+
+
 /* MAIN FORM */
 
 div#welcome {
-   
+     
+     border-top-style: solid;
+    border-top-width: 1px;
+    border-top-color: #a1a1a1;
     
+    border-bottom-style: solid;
+    border-bottom-width: 1px;
+    border-bottom-color: #a1a1a1;
+    
+    background-color: #eeeeee;
 }
 
 div#welcome form {
-    padding-top:10px;
+    padding-left:30px;
+    padding-top:30px;
+    padding-bottom:30px;
+    
 }
 
 #main-search-form dd, #main-search-form dt {
-    font-size: 16px;
+    font-size: 20px;
     width: 120px;
     display: inline;
 }
 
- #i_city-element, #submit-element {
-     position: relative;
-    font-size: 18px;   
-    bottom:10px;   
-    left: 10px;
-}
 
 #i_city  {    
-    font-size: 24px;
+    font-size: 20px;
     border: 0px;
     width: 300px;
     border-right-style: solid;
@@ -112,15 +145,12 @@ div#welcome form {
     border-left-width: 1px;
     border-bottom-width: 1px;
     border-top-width: 1px;
-    border-right-color: #fe7d3a;
-    border-left-color: #fe7d3a;
-    border-bottom-color: #fe7d3a;
-    border-top-color: #fe7d3a;
+    border-right-color: #a6a6a6;
+    border-left-color: #a6a6a6;
+    border-bottom-color: #a6a6a6;
+    border-top-color: #a6a6a6;
 }
 
-#main-search-form #submit {
-    higth:100px;
-}
 
 /* HEADER */
 #header { 
@@ -129,9 +159,7 @@ div#welcome form {
     padding-top: 8px;
 
     
-    border-bottom-style: solid;
-    border-bottom-width: 1px;
-    border-bottom-color: #a1a1a1;
+   
 }
 
 #header h1 {
@@ -188,9 +216,8 @@ fieldset {
     border-right-style: none;
     border-left-style: none;
     border-bottom-style: none;
-    border-top-style: solid;
-    border-top-width: 1px;
-    border-top-color: #ff7500;
+    border-top-style: none;
+    
 }
 
 fieldset  legend {

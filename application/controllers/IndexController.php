@@ -35,7 +35,8 @@ class IndexController extends Zend_Controller_Action {
         if ($this->getRequest()->isPost()) {
             if ($mainForm->isValid($_POST)) {
 
-                $whatToDo = $mainForm->getValue('rd_what_to_do');
+               // $whatToDo = $mainForm->getValue('rd_what_to_do');
+                $whatToDo = '0';
                 $cityName = $mainForm->getValue('i_city');
 
                 if ('1' === $whatToDo) {
@@ -46,11 +47,7 @@ class IndexController extends Zend_Controller_Action {
             }
         }
         
-//        $urlPath = $this->getRequest()->getPathInfo();
-//        $basePath = $this->getRequest()->getBaseUrl();
-//        var_dump($basePath, $urlPath);
-//      
-//        $mainForm->setAction($basePath . $urlPath);
+
 
         $this->view->mainForm = $mainForm;
     }
