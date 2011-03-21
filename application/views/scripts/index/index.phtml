@@ -1,5 +1,20 @@
 <?php
-   $sideBarContent = '<a class="acc-add" href="' . $this->baseUrl("/add").'" alt="Add accommodation">Add accommodation</a>';
+   $sideBarContent = '
+        <strong>It is 100% free</strong>.  It is free to 
+        post advertisments, browse them, contact and send messages. 
+       
+       <p><strong>It is OpenID enabled</strong>. You don\'t need to fill out any
+       registration forms if you don\'t want. Just use your existing
+        Google, Yahoo or Facebook account to login. </p>
+        
+    <p><strong>One more advantage?</strong>. Need one more advantage that
+    we have over other websites.</p>
+       
+       ';
+   $this->sideBarElement('Why houseshare?',$sideBarContent, array('class' => 'side-bar-info'));  
+?>
+<?php
+   $sideBarContent = '<a class="acc-add" href="' . $this->baseUrl("/add").'" alt="Add accommodation">Add accommodation</a><br/><br/>';
    $this->sideBarElement('',$sideBarContent);  
 ?>
 <div id="welcome">
