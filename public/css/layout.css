@@ -86,12 +86,15 @@ div#welcome form {
 /* HEADER */
 #header { 
     height: 60px;  
-    background-color: #d4e7f6;
+    background-color: #010101;
     padding-top: 8px;
        border-top-style: solid;
     border-top-width: 3px;
-    border-top-color: #027cc0;
+    border-top-color: #ff5f00;
     
+    border-bottom-style: solid;
+    border-bottom-width: 1px;
+    border-bottom-color: #a1a1a1;
 }
 
 #header h1, #header h2 {
@@ -125,12 +128,12 @@ div#welcome form {
 }
 #login span {
     
-    color: #84bffe;
+    color: #fefefe;
 }
-#login a, #login a:visited, #login a:active, #login a:hover {
+#login a, #login a:visited, #login a:active, #login a:hover, #login a:link {
    
     text-decoration: none;
-    color: #007cff;
+    color: #fefefe;
 }
 
 img {
@@ -228,6 +231,14 @@ dl.advert-stats dt, dl.advert-stats dd{
     
     color: #afafaf;
 }
+
+/********* FOOTER ******/
+
+div#footer  {
+    
+    
+}
+
 
 /* --------------- ACCOMMODATION DETIALS ***************** */
 

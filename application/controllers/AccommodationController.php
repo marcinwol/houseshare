@@ -149,7 +149,7 @@ class AccommodationController extends Zend_Controller_Action {
                         $newUser->last_name = $formData['about_you']['last_name'];
                         $newUser->last_name_public = $formData['about_you']['last_name_public'];
                         $newUser->email = $formData['about_you']['email'];
-                        $newUser->password = md5($formData['about_you']['password1']);
+                        $newUser->password = $formData['about_you']['password1'];
                         $newUser->phone = $formData['about_you']['phone_no'];
                         $newUser->phone_public = $formData['about_you']['phone_public'];
                         $newUser->type = 'ROOMATE';
