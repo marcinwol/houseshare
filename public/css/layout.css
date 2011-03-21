@@ -158,8 +158,6 @@ div#welcome form {
     background-color: #fefefe;
     padding-top: 8px;
 
-    
-   
 }
 
 #header h1 {
@@ -168,7 +166,7 @@ div#welcome form {
 
 #header h1, #header h2 {
     
-    padding-left: 20px;
+    padding-left: 0px;
     width:200px;
     float:left;
    
