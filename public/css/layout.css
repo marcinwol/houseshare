@@ -37,10 +37,33 @@ body {
 #slider {
     width: 180px;
 }
-div.side-bar {    
+.side-bar-box {    
     padding-top: 10px;
     font-size: 12px;   
 }
+.side-bar-info {
+    
+    background-color: #e0eab9;
+}
+.side-bar-info h3 {
+    padding-left: 15px;
+    color: #df3e24;
+    font-size: 16px;
+}
+.side-bar-info p {
+    padding: 10px 15px 5px 15px; 
+    font-size: 12px;
+    text-align: justify;
+    color: #835e28;
+}
+
+.side-bar-info a {
+    
+    font-weight: bold;
+    color: #896324;
+   
+}
+
 
 div.side-bar h3 {    
     

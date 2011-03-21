@@ -1,4 +1,9 @@
-    <div>
+<?php
+   // setup content for the side bar placeholder   
+   $this->sideBarElement('Limit the list', $this->limitForm);  
+?>
+
+<div>
         <?php echo $this->partial('_partials/_recentAdverts.phtml', null, 
                 array(
                     'accommodations' => $this->accs,
@@ -7,6 +12,3 @@
                 );    
         ?>
    </div>
-<?php
-  $this->layout()->searchBox = $this->limitForm;
-;?>

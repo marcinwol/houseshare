@@ -93,58 +93,31 @@
 
 
             <div id="" class="grid_2 6">
-
-                <?php if (null !== $this->layout()->searchBox): ?>
-
-                    <div class="side-bar">
-                        <h3>Limit the list</h3> 
-                        <?php echo $this->layout()->searchBox; ?>
-
-                    </div>
-                    <div style="height:20px;">&nbsp;</div>
-
-                <?php endif; ?>
-
-                <?php if (null !== $this->layout()->customBox): ?>
-
-                    <div class="side-bar">
-                        <h3>What is OpenID?</h3> 
-                        <?php echo $this->layout()->customBox; ?>
-
-                    </div>
-                    <div style="height:20px;">&nbsp;</div>
-
-                <?php endif; ?>
-
-                <div class="side-bar">
-                    <h3>Add your accommodation</h3> 
-                    <a href="<?php echo $this->baseUrl('/add');?>">Add</a>
-                </div>
-                <div style="height:20px;">&nbsp;</div>
-
-                <div class="side-bar">
-                    <h3>Nastepny paragraph:</h3> 
-                    <ul>
-                        <li>Dodawanie ogloszen jest darmowe</li>
-                        <li>Kontakt jest darmowy</li>  
-                        <li>Logowanie uzywajace Facebook, Google and OpenID</li>  
-                        <li>Cos tam jeszcze</li>  
-                        <li>Cos tam jeszcze 1</li>  
-                    </ul>
-                </div>
-                <div style="height:20px;">&nbsp;</div>
-
-                <div class="side-bar">
-                    <h3>Lista miast:</h3> 
-                    <ul>
-                        <li>Dodawanie ogloszen jest darmowe</li>
-                        <li>Kontakt jest darmowy</li>  
-                        <li>Logowanie uzywajace Facebook, Google and OpenID</li>  
-                        <li>Cos tam jeszcze</li>  
-                        <li>Cos tam jeszcze 1</li>  
-                    </ul>
-                </div>
-                <div style="height:20px;">&nbsp;</div>
+                
+                  <?php
+                    // permanent placeholder
+                    $cities = '<ul>
+                        <li>Wroclaw</li>
+                        <li>Krakow</li>  
+                        <li>Warszawa</li>  
+                        <li>Gdansk</li>  
+                        <li>Poznan</li>  
+                    </ul>';
+                    
+                    $this->sideBarElement('Main cities',$cities, array('place' => 'append'));  
+                ?>
+           
+               <?php
+                    // display all side-bar boxes
+                    echo $this->placeholder('side-bar'); 
+               ?>
+                
+                
+              
+                
+                 
+ 
+             
             </div>
 
         </div>

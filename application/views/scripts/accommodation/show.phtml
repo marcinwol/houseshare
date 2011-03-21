@@ -19,7 +19,8 @@
         }
         $imgsHtml .= '</ul>';
       //  echo '<script type="text/javascript">  $("#pikame").PikaChoose(); </script>';
-       $this->layout()->customBox = $imgsHtml;       
+       
+       $this->sideBarElement('Photos',$imgsHtml);  
     }  
     ?>   
 
