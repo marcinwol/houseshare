@@ -38,11 +38,12 @@ class IndexController extends Zend_Controller_Action {
                // $whatToDo = $mainForm->getValue('rd_what_to_do');
                 $whatToDo = '0';
                 $cityName = $mainForm->getValue('i_city');
+                $maxPrice = $mainForm->getValue('maxprice');
 
                 if ('1' === $whatToDo) {
                     return $this->_redirect('/add/city/' . $cityName);
                 } elseif ('0' === $whatToDo) {
-                    return $this->_redirect('/list/city/' . $cityName);
+                    return $this->_redirect("/list/city/$cityName/maxprice/$maxPrice");
                 }
             }
         }
@@ -58,8 +59,8 @@ class IndexController extends Zend_Controller_Action {
 
             $term = $this->getRequest()->getParam('term');
             $nostate = $this->getRequest()->getParam('nostate', 0);
+            
             $cityModel = new My_Model_View_City();
-
             $cities = $cityModel->findCitiesBasedOnName($term, 5)->toArray();
 
             $matches = array();
@@ -70,6 +71,7 @@ class IndexController extends Zend_Controller_Action {
                 } else {
                     $label = $value = "{$city['city_name']}, {$city['state_name']}";
                 }
+                $value = $city['city_name'];
                 $city['value'] = $value;
                 $city['label'] = $label;
                 $city['city_id'] = $city['city_id'];

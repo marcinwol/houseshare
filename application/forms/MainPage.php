@@ -18,38 +18,46 @@ class My_Form_MainPage extends Zend_Form {
     public function init() {
 
         $this->setMethod('post');
+
+        $this->setAttrib('id', 'main-search-form');
+
+        // get addresses of all accommodations
+        //   var_dump($accRowset);return;
+
         
-        $this->setAttrib('id','main-search-form');
+        $cities = My_Model_Table_Accommodation::getDistinctCities();
+        
+        $citiesOption = array();
 
-        // add what do you want to do radio button
-//        $mainChoice = new Zend_Form_Element_Radio('rd_what_to_do');
-//        $mainChoice->addMultiOptions(
-//                array(
-//                    '0' => "I need a room in ...",
-//                    '1' => "I have a room in ...",
-//                )
-//        );
-//        $mainChoice->removeDecorator('Label');
-//        $mainChoice->setRequired(true);
-//        $mainChoice->setValue('0');
-//        $this->addElement($mainChoice);
+        /* @var $addrRow My_Model_Table_Row_Address */
+        foreach ($cities as $city) {         
+            $citiesOption[$city['city_id']] = $city['name'];            
+        }
+
+        $cities = new Zend_Form_Element_Select('i_city');
+        $cities->addMultiOptions($citiesOption);
+        $cities->setLabel('I need accommodation in');
+        $cities->setValue('Wroclaw');
+        $cities->setRequired(true);
+        $this->addElement($cities);
 
 
-        //create new element
-        $cities1 = $this->createElement('text', 'i_city');
-        $cities1->setRequired(false)->setLabel('I need accommodation in');
-        $cities1->setAttrib('class', 'help tipped');
-        $cities1->setAttrib('title', ' give a city name');
-        $cities1->setFilters(array('stripTags', 'stringTrim'));
-       // $cities1->removeDecorator('Label');
-//        $cities1->addDecorator(new My_Form_Decorator_Jtip(
-//                        array(
-//                            'tipurl' => '/tip/get/which/cities',
-//                            'tipname' => 'Example values',
-//                        )
-//        ));
+        // add element
+        $maxPrice = new Zend_Form_Element_Select('maxprice');
+        $maxPrice->setLabel(' for less than ');
 
-        $this->addElement($cities1);
+        $priceOptions = array();
+        //$priceOptions["0"] = "less than";
+
+        for ($p = 200; $p <= 2000; $p+=100) {
+            $priceOptions[$p] = (string) $p;
+        }
+
+        $maxPrice->addMultiOptions(array($priceOptions));
+        $maxPrice->setRequired(true);
+        $maxPrice->setValue('600');
+        $this->addElement($maxPrice);
+
 //
 //        $maxPrice = $this->createElement('text', 'maxprice');
 //        $maxPrice->setRequired(true)->setLabel('Maximum price per month: ');
@@ -69,12 +77,12 @@ class My_Form_MainPage extends Zend_Form {
 //        $this->addElement($maxPrice);
 
 
-        $submit = $this->createElement('submit', 'submit', array('label' => 'Search'));
-        $submit->removeDecorator('Label');        
+        $submit = $this->createElement('submit', 'submit', array('label' => 'Go'));
+        $submit->removeDecorator('Label');
         $this->addElement($submit);
-       
     }
 
+   
 }
 
 ?>

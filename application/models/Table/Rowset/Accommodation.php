@@ -29,6 +29,22 @@ class My_Model_Table_Rowset_Accommodation extends Zend_Db_Table_Rowset {
         return $models;
     }
     
+    /**
+     * Get My_Model_Table_Row_Address of each accommodation.
+     * 
+     * @return array of My_Model_Table_Row_Address
+     */
+    public function getAddresses() {
+        $addresses = array();
+        
+        foreach ($this as $acc) {
+            $addresses []= $acc->getAddress();
+        }
+        
+        return $addresses;
+        
+    }
+    
 
 }
 

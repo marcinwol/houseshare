@@ -62,19 +62,26 @@ class AccommodationController extends Zend_Controller_Action {
 
     public function listAction() {
 
-        $city = $this->_request->getParam('city', null);
-        @list($cityName, $stateName) = explode(', ', $city);
+        $city_id = $cityName = $this->_request->getParam('city', null);
+        $maxPrice = $this->_request->getParam('maxprice', null);
+       
+        //@list($cityName, $stateName) = explode(', ', $city);
+        //var_dump($cityName);
 
         // fetch accommodations from database that match a give city
 
         $cityModel = new My_Model_Table_City();
-        $cityRow = $cityModel->fetchRow("name = '$cityName'");
+        $cityRow = $cityModel->find($city_id)->current();
 
-        $city_id = (is_null($cityRow)) ? null : $cityRow->city_id;
+        $city = is_null($cityRow) ? null : $cityRow->name;
 
         $limitForm = new My_Form_LimitForm();
 
-        $maxPrice = $limitForm->getElement('maxpricedefault')->getValue();
+        if (null === $maxPrice) {
+            $maxPrice = $limitForm->getElement('maxpricedefault')->getValue();
+        } else {
+            $limitForm->getElement('maxpricedefault')->setValue($maxPrice);
+        }
 
         if ($this->getRequest()->isPost()) {
             if ($limitForm->isValid($_POST)) {

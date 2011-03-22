@@ -27,11 +27,11 @@ $(document).ready(function () {
     });
   
    
-    $("#i_city").autocomplete({
-        source: "/houseshare/public/index/getcities",
-        delay: 0,
-        minLength: 2
-    });
+//    $("#i_city").autocomplete({
+//        source: "/houseshare/public/index/getcities",
+//        delay: 0,
+//        minLength: 2
+//    });
     
       
 

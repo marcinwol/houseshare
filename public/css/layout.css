@@ -164,10 +164,10 @@ div#welcome form {
 }
 
 
-#i_city  {    
+#i_city, #maxprice  {    
     font-size: 20px;
     border: 0px;
-    width: 300px;
+    width: 160px; 
     border-right-style: solid;
     border-left-style: solid;
     border-bottom-style: solid;
@@ -180,6 +180,9 @@ div#welcome form {
     border-left-color: #a6a6a6;
     border-bottom-color: #a6a6a6;
     border-top-color: #a6a6a6;
+}
+#maxprice {
+    width:60px;
 }
 
 
