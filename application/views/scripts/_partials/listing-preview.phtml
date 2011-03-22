@@ -1,4 +1,5 @@
 <div class="listing-preview">
+    
     <?php
     $firstThumbPath = $this->baseUrl('/images/thumbs/no_pic.jpg');
 
@@ -7,22 +8,23 @@
         $firstThumbPath = array_shift($urls);
     }
     ?>
+      <div class='listing-preview-img'>
     <a href="<?php echo $this->baseUrl('/accommodation/show/id/' . $this->acc->acc_id); ?>">
         <img src="<?php echo $firstThumbPath; ?>" alt="Thumb image" class="thumb" height="85px"  />
     </a>
-    <div class="listing-review-detials">
+        </div>
+    <div class="listing-preview-detials" style="float:left">
         <h1 class="advert-title">
             <a href="<?php echo $this->baseUrl('/accommodation/show/id/' . $this->acc->acc_id); ?>">
-            <?php echo  $this->truncate(ucfirst(strtolower($this->acc->title)),0, 70); ?>
+            <?php echo  $this->truncate(ucfirst(strtolower($this->acc->title)),0, 60); ?>
             </a>
         </h1>
-        <div class="advert-info">
+        <div class="advert-info" >
 
-            <div> <?php echo $this->truncate($this->acc->description, 0, 190); ?></div>               
+            <div> <?php echo $this->truncate($this->acc->description, 0, 120); ?></div>               
             <dl>
                 <?php $city =  $this->acc->city . ', ' . $this->acc->state;?>
-                <dt>City: </dt><dd><a href="<?php echo $this->baseUrl('/accommodation/list/city/' . $this->acc->address->city_id);?>"><?php echo $city;?></a></dd> 
-                <dt>Rent: </dt><dd><?php echo $this->acc->price; ?></dd>                                           
+                <dt>City: </dt><dd><a href="<?php echo $this->baseUrl('/accommodation/list/city/' . $this->acc->address->city_id);?>"><?php echo $city;?></a></dd>                                                           
                 <dt>Type: </dt><dd><?php echo $this->acc->type->name; ?></dd> 
                 <dt>Avaliable from: </dt><dd> <?php echo $this->acc->date_avaliable; ?></dd> 
             </dl>
@@ -33,4 +35,9 @@
             </dl>
         </div>
     </div>
+    <div class="listing-preview-price">
+        <p class="value"><?php echo $this->acc->price; ?></p>
+        <p>Per month</p>
+    </div>
+    <div style="float:clear"></div>
 </div>

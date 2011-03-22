@@ -289,7 +289,7 @@ img.thumb {
     float: left;
 }
 h1.advert-title  {
-    padding-left: 120px;
+    padding-left: 5px;
     font-size:16px;
 }
 h1.advert-title a {  
@@ -298,10 +298,31 @@ h1.advert-title a {
     color: #fd5416;
 }
 div.advert-info {
-    padding-left: 120px;
+    padding-left: 5px;
 }
 
+.listing-preview-img, .listing-preview-detials {
+    float:left;   
+}
 
+.listing-preview-detials {
+    width: 520px;
+}
+
+.listing-preview-price {
+    margin-top: 10px;
+    float: right;
+    padding-top: 20px;
+    width: 60px;
+    height: 60px;
+    background-color: #e6e6e6;
+    text-align: center;
+    color: #5f5f5f;
+}
+
+p.value {    
+    font-size: 20px;
+}
 
 div.advert-info div  {
     font-size: 12px;
