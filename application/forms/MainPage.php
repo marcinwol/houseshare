@@ -21,12 +21,9 @@ class My_Form_MainPage extends Zend_Form {
 
         $this->setAttrib('id', 'main-search-form');
 
-        // get addresses of all accommodations
-        //   var_dump($accRowset);return;
-
         
         $cities = My_Model_Table_Accommodation::getDistinctCities();
-        
+               
         $citiesOption = array();
 
         /* @var $addrRow My_Model_Table_Row_Address */

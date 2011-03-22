@@ -5,7 +5,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />       
 
         <?php
-        echo $this->headTitle('Houseshare: a place for your accommodation');
+        echo $this->headTitle('Houseshare: Its not complicated');
         echo $this->headMeta()->appendName('keywords', $this->keywords);
         ?>
 
@@ -99,14 +99,17 @@
             <div id="" class="grid_2 6">
                 
                   <?php
-                    // permanent placeholder
-                    $cities = '<ul class="top-cities">
-                        <li><a href="">Wroclaw <span>(213)</span></a></li>
-                        <li><a href="">Krakow <span>(152)</span></a></li>  
-                        <li><a href="">Warszawa <span>(113)</span></a></li>  
-                        <li><a href="">Gdansk <span>(55)</span></a></li>  
-                        <li><a href="">Poznan <span>(23)</span></a></li>  
-                    </ul>';
+                    // permanent placeholder for top cities
+                  
+                   $cities = '<ul class="top-cities">';
+                   
+                   $results = My_Model_Table_Accommodation::getTopCities();
+                   
+                   foreach ($results as $city) {
+                        $cities .= '<li><a href="'.$this->baseUrl('/accommodation/list/city/' . $city['city_id']).'">'.$city['name'].' <span>('.$city['count'].')</span></a></li>';
+                   }
+                    
+                   $cities .= '<ul class="top-cities">';
                     
                     $this->sideBarElement('Top cities',$cities, array('place' => 'append'));  
                 ?>

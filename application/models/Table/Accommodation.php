@@ -81,11 +81,35 @@ class My_Model_Table_Accommodation extends Zend_Db_Table_Abstract {
     static public function getDistinctCities() {
         
         $db = Zend_Db_Table::getDefaultAdapter();
+        
         $select = $db->select()->from('ACCOMMODATION','')
                 ->joinInner('ADDRESS', 'ACCOMMODATION.addr_id = ADDRESS.addr_id', '')
                 ->joinInner('CITY', 'ADDRESS.city_id = CITY.city_id', array('CITY.city_id','CITY.name'))
                 ->order('CITY.name ASC')
                 ->distinct();
+
+        return $db->fetchAll($select);
+        
+    }
+    
+    
+        
+    /**
+     * Get top cities
+     * 
+     * @return array  
+     */
+    static public function getTopCities($limit = 5) {
+        
+        $db = Zend_Db_Table::getDefaultAdapter();
+        
+        $select = $db->select()->from('ACCOMMODATION','COUNT(acc_id) as count')
+                ->joinInner('ADDRESS', 'ACCOMMODATION.addr_id = ADDRESS.addr_id', '')
+                ->joinInner('CITY', 'ADDRESS.city_id = CITY.city_id', array('CITY.city_id','CITY.name'))
+                ->order('count DESC')
+                ->limit($limit)
+                ->group('CITY.name');
+        
 
         return $db->fetchAll($select);
         
