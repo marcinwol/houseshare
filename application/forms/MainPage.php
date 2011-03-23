@@ -17,18 +17,22 @@ class My_Form_MainPage extends Zend_Form {
 
     public function init() {
 
+        $this->addElementPrefixPath(
+                'My_Form_Decorator', APPLICATION_PATH . '/forms/Decorator/', 'decorator'
+        );
+
         $this->setMethod('post');
 
         $this->setAttrib('id', 'main-search-form');
 
-        
+
         $cities = My_Model_Table_Accommodation::getDistinctCities();
-               
+
         $citiesOption = array();
 
         /* @var $addrRow My_Model_Table_Row_Address */
-        foreach ($cities as $city) {         
-            $citiesOption[$city['city_id']] = $city['name'];            
+        foreach ($cities as $city) {
+            $citiesOption[$city['city_id']] = $city['name'];
         }
 
         $cities = new Zend_Form_Element_Select('i_city');
@@ -42,7 +46,7 @@ class My_Form_MainPage extends Zend_Form {
         // add element
         $maxPrice = new Zend_Form_Element_Select('maxprice');
         $maxPrice->setLabel(' for less than ');
-       // $maxPrice->setAttrib('id', 'paxprice-select');
+        // $maxPrice->setAttrib('id', 'paxprice-select');
 
         $priceOptions = array();
         //$priceOptions["0"] = "less than";
@@ -54,6 +58,11 @@ class My_Form_MainPage extends Zend_Form {
         $maxPrice->addMultiOptions(array($priceOptions));
         $maxPrice->setRequired(true);
         $maxPrice->setValue('600');
+        $maxPrice->addDecorator('AnyMarkup', array(
+            'markup' => '<span>PLN</span>',
+            'placement' => 'append'
+                )
+        );
         $this->addElement($maxPrice);
 
 
@@ -63,7 +72,6 @@ class My_Form_MainPage extends Zend_Form {
         $this->addElement($submit);
     }
 
-   
 }
 
 ?>
