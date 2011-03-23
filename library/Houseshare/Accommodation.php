@@ -253,6 +253,25 @@ class My_Houseshare_Accommodation extends My_Houseshare_Abstract_PropertyAccesso
        // var_dump($create, strtotime($create));
         return strtotime($create);
     }
+    
+    public function getAvaliabletimestamp() {
+        $avaliableDate = $this->date_avaliable;
+       // $date = new DateTime($avaliableDate);
+       // var_dump($create, strtotime($create));        
+        return strtotime($avaliableDate);
+    }
+    
+    /**
+     * Check if an accommodation is already avaliable. 
+     * 
+     * @return boolean
+     */
+    public function isAlreadyAvaliable() {
+        if ($this->getAvaliabletimestamp() < time()) {
+            return true;
+        }
+        return false;
+    }
 
     /**
      * Get photos for this accommodation.

@@ -39,8 +39,8 @@ abstract class My_Form_Abstract_AccommodationAbstract extends Zend_Form {
         $accTypeChoice->setLabel('Accommodation type');
         $accTypeChoice->addMultiOptions(
                 array(
-                    '1' => "Bed",
-                    '2' => "Room",
+                    '1' => "A place in a room",
+                    '2' => "Entire room",
                 )
         );
         $accTypeChoice->setRequired(true);

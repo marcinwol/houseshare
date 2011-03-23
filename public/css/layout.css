@@ -16,7 +16,7 @@ root {
 
 
 body {
-           border-top-style: solid;
+    border-top-style: solid;
     border-top-width: 3px;
     border-top-color: #ff5f00;
     font-size: 10px;
@@ -64,7 +64,7 @@ body {
 }
 
 .side-bar-box ul.top-cities a {
-    
+
     text-decoration: none;
     color: #595959;
     font-weight: bold;
@@ -72,12 +72,12 @@ body {
 }
 
 ul.top-cities a span {
-    
+
     font-weight: normal;
 }
 
 .side-bar-info {
-    
+
     background-color: #e0eab9;
 }
 .side-bar-info h3 {
@@ -93,15 +93,15 @@ ul.top-cities a span {
 }
 
 .side-bar-info a {
-    
+
     font-weight: bold;
     color: #896324;
-   
+
 }
 
 
 div.side-bar h3 {    
-    
+
     padding-top: 10px;
     font-size: 16px;   
     color: #575757;
@@ -112,20 +112,29 @@ div.side-bar li {
 }
 
 a.acc-add {
-    
-  border-style: solid;
-  border-width : 1px 1px 1px 1px;
-  text-decoration : none;
-  padding : 5px 20px 5px 20px;
-  margin-left:10px;
-   color: #fefefe;
-  background-color: #808080;
-  border-right-color: #acacac;
-  border-left-color: #acacac;
-  border-bottom-color: #acacac;
-  border-top-color: #acacac;
+
+    border-style: solid;
+    border-width : 1px 1px 1px 1px;
+    text-decoration : none;
+    padding : 5px 20px 5px 20px;
+    margin-left:10px;
+    color: #fefefe;
+    background-color: #808080;
+    border-right-color: #acacac;
+    border-left-color: #acacac;
+    border-bottom-color: #acacac;
+    border-top-color: #acacac;
     font-size: 16px;
     font-weight: bold;
+}
+
+a.acc-add:hover { 
+      background-color: #ff6300;
+      
+    border-right-color: #f16308;
+    border-left-color: #f16308;
+    border-bottom-color: #f16308;
+    border-top-color: #f16308;
 }
 
 /*LOGIN FORM */
@@ -138,15 +147,15 @@ a.acc-add {
 /* MAIN FORM */
 
 div#welcome {
-     
-     border-top-style: solid;
+
+    border-top-style: solid;
     border-top-width: 1px;
     border-top-color: #a1a1a1;
-    
+
     border-bottom-style: solid;
     border-bottom-width: 1px;
     border-bottom-color: #a1a1a1;
-    
+
     background-color: #eeeeee;
 }
 
@@ -154,7 +163,7 @@ div#welcome form {
     padding-left:30px;
     padding-top:30px;
     padding-bottom:30px;
-    
+
 }
 
 #main-search-form dd, #main-search-form dt {
@@ -199,18 +208,18 @@ div#welcome form {
 }
 
 #header h1, #header h2 {
-    
+
     padding-left: 0px;
     width:200px;
     float:left;
-   
+
 }
- #header h2 {
-      font-style: italic;
-     font-weight: normal;
+#header h2 {
+    font-style: italic;
+    font-weight: normal;
 }
 #header  a:visited, #header a:active, #header a:hover, #header a:link {
-    
+
     text-decoration: none;
     color: #010101;
 }
@@ -221,18 +230,18 @@ div#welcome form {
 
 
 #login {
-    
+
     float: right;    
     font-weight: bold;
     padding-right: 10px;
     font-size: 12px;
 }
 #login span {
-    
+
     color: #d7d7d7;
 }
 #login a, #login a:visited, #login a:active, #login a:hover, #login a:link {
-   
+
     text-decoration: none;
     color: #e55a06;
 }
@@ -244,16 +253,16 @@ img {
 
 
 fieldset {
-    
+
     border-right-style: none;
     border-left-style: none;
     border-bottom-style: none;
     border-top-style: none;
-    
+
 }
 
 fieldset  legend {
-    
+
     font-size: 14px;
     font-weight: bolder;
 }
@@ -268,17 +277,21 @@ ul.errors {
 
 #resent-adverts {
     padding-top: 10px;
- 
+
+}
+
+#resent-adverts {
+    width:100%;
 }
 
 #resent-adverts th {
-    
+
     text-align: left;
     font-size: 14px;
 }
 
 #resent-adverts td {
-    
+
     border-bottom-style: dotted;
     border-bottom-width: 1px;
     padding-top: 3px;
@@ -289,11 +302,12 @@ img.thumb {
     float: left;
 }
 h1.advert-title  {
+    padding-top: 0px;
     padding-left: 5px;
     font-size:16px;
 }
 h1.advert-title a {  
-    
+
     text-decoration: none;
     color: #fd5416;
 }
@@ -306,13 +320,13 @@ div.advert-info {
 }
 
 .listing-preview-detials {
-    width: 520px;
+    width: 510px;
 }
 
 .listing-preview-price {
     margin-top: 10px;
     float: right;
-    padding-top: 20px;
+    padding-top: 18px;
     width: 60px;
     height: 60px;
     background-color: #e6e6e6;
@@ -326,7 +340,7 @@ p.value {
 
 div.advert-info div  {
     font-size: 12px;
-    
+
 }
 
 div.advert-info dt, div.advert-info dd  {
@@ -335,29 +349,29 @@ div.advert-info dt, div.advert-info dd  {
     color: #464646;
 }
 div.advert-info dt {
-    
+
     font-weight: bold;
 }
 
 div.advert-info dd a:visited, div.advert-info dd a:active, div.advert-info dd a:link {
-     color: #464646;
+    color: #464646;
     text-decoration: none;
 }
 div.advert-info dd a:hover {
-    
+
     text-decoration: underline;
 }
 
 dl.advert-stats dt, dl.advert-stats dd{
-    
+
     color: #afafaf;
 }
 
 /********* FOOTER ******/
 
 div#footer  {
-    
-    
+
+
 }
 
 
@@ -377,7 +391,7 @@ ul.photos li {
 }
 
 #acc-details h1 {
-    
+
     font-size: 18px;
     color: #dd7601;
 }
@@ -397,19 +411,19 @@ dl.basic-info dt, dl.basic-info dd {
 }
 
 dl.basic-info dt {
-    
+
     color: #dd7601;
     font-weight: bold;
 }
 
 div.section {
-    
+
     padding-top: 10px;
 }
 
 div.section h1 {
     font-size: 14px;
-    
+
     border-bottom-style: dotted;
     border-bottom-width: 1px;
     border-bottom-color: #bd3d00;

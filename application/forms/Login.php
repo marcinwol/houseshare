@@ -23,7 +23,12 @@ class My_Form_Login extends Zend_Form {
         $email = $this->createElement('text', 'email');
         $email->setRequired(true)->setLabel('Your email');
         $email->setFilters(array('stripTags', 'stringTrim'));
-
+        $email->removeDecorator('DtDdWrapper');
+        $email->removeDecorator('HtmlTag');
+        $email->removeDecorator('Description');
+        $email->removeDecorator('ViewHelper');
+        
+        var_dump($email->getDecorators());
         $emailValidator = new Zend_Validate_EmailAddress(
                         array('domain' => false)
         );
@@ -39,8 +44,12 @@ class My_Form_Login extends Zend_Form {
         $upass = $this->createElement('password', 'password');
         $upass->setRequired(true)->setLabel('Password');
         $upass->setFilters(array('stripTags', 'stringTrim'));
+         $upass->removeDecorator('DtDdWrapper');
+                $upass->removeDecorator('HtmlTag');
+         $upass->removeDecorator('Description');
         $this->addElement($upass);
-
+        
+       
 
         $submit = $this->addElement('submit', 'submit', array('label' => 'Sign-in'));
     }

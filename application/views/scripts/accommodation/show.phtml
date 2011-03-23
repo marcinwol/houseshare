@@ -44,9 +44,15 @@
 
     <div class="section">
         <h1>Where</h1> 
-        <?php
-        var_dump($this->acc->address->toArray());
-        ?>
+        <dl class="address">        
+        <dt>Street:</dt>
+        <dd><?php echo $this->acc->address->street; ?></dd>        
+        <dt>City:</dt>
+        <dd><?php echo $this->acc->city; ?></dd>
+         <dt>State:</dt>
+        <dd><?php echo $this->acc->state; ?></dd>
+    </dl>
+
     </div>
     <div class="section">
         <h1>Features</h1> 

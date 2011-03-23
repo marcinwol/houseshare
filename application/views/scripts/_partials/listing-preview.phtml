@@ -10,7 +10,7 @@
     ?>
       <div class='listing-preview-img'>
     <a href="<?php echo $this->baseUrl('/accommodation/show/id/' . $this->acc->acc_id); ?>">
-        <img src="<?php echo $firstThumbPath; ?>" alt="Thumb image" class="thumb" height="85px"  />
+        <img src="<?php echo $firstThumbPath; ?>" alt="Thumb image" class="thumb" height="90px"  />
     </a>
         </div>
     <div class="listing-preview-detials" style="float:left">
@@ -26,7 +26,24 @@
                 <?php $city =  $this->acc->city . ', ' . $this->acc->state;?>
                 <dt>City: </dt><dd><a href="<?php echo $this->baseUrl('/accommodation/list/city/' . $this->acc->address->city_id);?>"><?php echo $city;?></a></dd>                                                           
                 <dt>Type: </dt><dd><?php echo $this->acc->type->name; ?></dd> 
-                <dt>Avaliable from: </dt><dd> <?php echo $this->acc->date_avaliable; ?></dd> 
+                
+                
+                <?php 
+                // check if avaliabled date is in the past
+                $avaliableTmp = $this->acc->avaliabletimestamp;
+                
+                if ($this->acc->isAlreadyAvaliable()) {
+                    $tmp = 'from';
+                } else {
+                    $tmp = 'in';
+                }
+                ?>                
+                
+                <dt>Avaliable <?php echo $tmp;?>: </dt>
+                <dd> 
+                
+                <?php echo $this->timeTill($this->acc->avaliabletimestamp) . ' ('.$this->acc->date_avaliable.')'; ?>
+                </dd> 
             </dl>
             <dl class="advert-stats">
                 <dt>Added: </dt><dd><?php echo $this->timeSince($this->acc->creationtimestamp) . ' ago by ' . $this->acc->user->name; ?></dd> 
@@ -37,7 +54,7 @@
     </div>
     <div class="listing-preview-price">
         <p class="value"><?php echo $this->acc->price; ?></p>
-        <p>Per month</p>
+        <p><?php echo $this->translate('Per month');?></p>
     </div>
     <div style="float:clear"></div>
 </div>

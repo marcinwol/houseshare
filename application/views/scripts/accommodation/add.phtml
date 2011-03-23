@@ -1,6 +1,6 @@
 <?php
-   $sideBarContent = '
-        We encourage to <a href="'.$this->baseUrl('/login').'">login</a> before 
+$sideBarContent = '
+        We encourage to <a href="' . $this->baseUrl('/login') . '">login</a> before 
             filling this form or to register if you are first time here. 
                     
 
@@ -10,25 +10,25 @@
                </p>
        
        ';
-   $this->sideBarElement('Better to login?',$sideBarContent, array('class' => 'side-bar-info'));  
+$this->sideBarElement('Better to login?', $sideBarContent, array('class' => 'side-bar-info'));
 ?>
 
 <?php
-   $sideBarContent = '
+$sideBarContent = '
        Up to <strong>five</strong> photos can be accompany your addvertisment. 
        <p>They can be upload just after submission of this form.</p>
        ';
-   $this->sideBarElement('Photos?',$sideBarContent, array('place' => 'append','class' => 'side-bar-info'));  
+$this->sideBarElement('Photos?', $sideBarContent, array('place' => 'append', 'class' => 'side-bar-info'));
 ?>
 
 <div>
     <?php if (!$this->isLogged()): ?>
-    <h2>
-       
-    </h2>
-      
+        <h2>
+
+        </h2>
+
     <?php endif; ?>
- 
+
 </div>
 <div>
     <?php echo $this->form; ?>

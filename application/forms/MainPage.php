@@ -42,6 +42,7 @@ class My_Form_MainPage extends Zend_Form {
         // add element
         $maxPrice = new Zend_Form_Element_Select('maxprice');
         $maxPrice->setLabel(' for less than ');
+       // $maxPrice->setAttrib('id', 'paxprice-select');
 
         $priceOptions = array();
         //$priceOptions["0"] = "less than";
@@ -55,23 +56,6 @@ class My_Form_MainPage extends Zend_Form {
         $maxPrice->setValue('600');
         $this->addElement($maxPrice);
 
-//
-//        $maxPrice = $this->createElement('text', 'maxprice');
-//        $maxPrice->setRequired(true)->setLabel('Maximum price per month: ');
-//        $maxPrice->setAttrib('style', 'border: 0px; width:30px;');
-//  
-//        $slider = create_function(
-//                '$content, $element, array $options', 'return "<div id=\"slider\"></div>";'
-//        );
-//
-//        $maxPrice->setDecorators(array(
-//            'ViewHelper',
-//            'Label',
-//            array('Callback', array('callback' => $slider, 'placement' => 'APPEND')),
-//            array('HtmlTag', array('tag' => 'dd', 'id' => 'maxprice-element'))
-//        ));
-//        
-//        $this->addElement($maxPrice);
 
 
         $submit = $this->createElement('submit', 'submit', array('label' => 'Go'));
