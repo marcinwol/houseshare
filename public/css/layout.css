@@ -10,6 +10,11 @@
    Syntax recommendation http://www.w3.org/TR/REC-CSS2/
 */
 
+* {
+    margin: 0;
+    padding: 0;
+}
+
 root { 
     display: block;
 }
@@ -23,9 +28,9 @@ body {
 
     font-family: Trebuchet MS,Liberation Sans,DejaVu Sans,sans-serif
 }
-* {
-    margin: 0;
-    padding: 0;
+
+html, body {    
+    height: 100%; 
 }
 
 
@@ -129,8 +134,8 @@ a.acc-add {
 }
 
 a.acc-add:hover { 
-      background-color: #ff6300;
-      
+    background-color: #ff6300;
+
     border-right-color: #f16308;
     border-left-color: #f16308;
     border-bottom-color: #f16308;
@@ -369,8 +374,29 @@ dl.advert-stats dt, dl.advert-stats dd{
 
 /********* FOOTER ******/
 
-div#footer  {
 
+.footerWrapper  {
+
+     height: 8em;
+    padding-left: 10px;
+    background-color: #8c8c8c;
+    border-top-style: solid;
+    border-top-width: 3px;
+    border-top-color: #010101;
+    color: #fefefe;
+    font-size: 12px;
+
+  
+}
+
+.footerWrapper p {
+
+
+    margin-left: auto;
+    margin-right: auto;
+
+    width: 960px;
+    padding-top: 10px;
 
 }
 
