@@ -36,8 +36,8 @@
         <dd><?php echo $this->acc->price; ?> (per month)</dd>
         <dt>Bond:</dt>
         <dd><?php echo $this->acc->bond; ?></dd>
-        <dt>Avaliable from:</dt>
-        <dd><?php echo $this->acc->date_avaliable; ?></dd>
+        <dt>Avaliable <?php echo $this->avaliable($this->acc)->inOrFrom();?>:</dt>
+        <dd><?php echo $this->avaliable($this->acc)->time(); ?></dd>
     </dl>
 
 

@@ -28,21 +28,10 @@
                 <dt>Type: </dt><dd><?php echo $this->acc->type->name; ?></dd> 
                 
                 
-                <?php 
-                // check if avaliabled date is in the past
-                $avaliableTmp = $this->acc->avaliabletimestamp;
+                <dt>Avaliable <?php echo $this->avaliable($this->acc)->inOrFrom();?>: </dt>
                 
-                if ($this->acc->isAlreadyAvaliable()) {
-                    $tmp = 'from';
-                } else {
-                    $tmp = 'in';
-                }
-                ?>                
-                
-                <dt>Avaliable <?php echo $tmp;?>: </dt>
-                <dd> 
-                
-                <?php echo $this->timeTill($this->acc->avaliabletimestamp) . ' ('.$this->acc->date_avaliable.')'; ?>
+                <dd>                 
+                <?php echo $this->avaliable($this->acc)->time(); ?>
                 </dd> 
             </dl>
             <dl class="advert-stats">

@@ -186,6 +186,7 @@ class AccommodationController extends Zend_Controller_Action {
                     $newAcc->description = $formData['basic_info']['description'];
                     $newAcc->date_avaliable = $formData['basic_info']['date_avaliable'];
                     $newAcc->price = $formData['basic_info']['price'];
+                    $newAcc->price_info = $formData['basic_info']['price_info'];
                     $newAcc->bond = $formData['basic_info']['bond'];
                     $newAcc->street_address_public = $formData['address']['address_public'];
                     $newAcc->short_term_ok = $formData['basic_info']['short_term'];
@@ -329,6 +330,7 @@ class AccommodationController extends Zend_Controller_Action {
                     $acc->description = $formData['basic_info']['description'];
                     $acc->date_avaliable = $formData['basic_info']['date_avaliable'];
                     $acc->price = $formData['basic_info']['price'];
+                    $acc->price_info = $formData['basic_info']['price_info'];
                     $acc->bond = $formData['basic_info']['bond'];
                     $acc->street_address_public = $formData['address']['address_public'];
                     $acc->short_term_ok = $formData['basic_info']['short_term'];

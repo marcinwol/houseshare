@@ -40,17 +40,23 @@ class RoomatesModelTest extends ModelTestCase {
         return array(
             array( // insert new record
                 null,
-                array('no_roomates' => 2, 'min_age' => 25, 'max_age' => 45, 'gender' => 1),
+                array('no_roomates' => 2, 'min_age' => 25, 
+                      'max_age' => 45, 'gender' => 1,
+                      'description' => ''),
                 4
             ),
             array( // updated existing record
                 1,
-                array('no_roomates' => 0, 'min_age' => 20, 'max_age' => 35, 'gender' => 0),
+                array('no_roomates' => 0, 'min_age' => 20, 
+                      'max_age' => 35, 'gender' => 0,
+                       'description' => 'Four girls looking for a sharemate '),
                 1
             ),
             array( // insert new  record
                 5, // no such ID, so make new record
-                array('no_roomates' => 0, 'min_age' => 20, 'max_age' => 35, 'gender' => 0),
+                array('no_roomates' => 0, 'min_age' => 20, 
+                      'max_age' => 35, 'gender' => 0,
+                      'description' => 'N/A'),
                 4
             )
         );

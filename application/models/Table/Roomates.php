@@ -36,6 +36,7 @@ class My_Model_Table_Roomates extends Zend_Db_Table_Abstract {
         $row->min_age = $data['min_age'];
         $row->max_age = $data['max_age'];
         $row->gender = $data['gender'];
+        $row->description = $data['description'];
 
         return $row->save();
     }

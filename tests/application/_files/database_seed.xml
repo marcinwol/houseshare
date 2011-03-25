@@ -38,17 +38,17 @@
     <USER user_id="1" email="test@test.com" 
             phone="0 432 123 123" phone_public="0" first_name="Marcin"
             last_name="Wolski" last_name_public="1" type='ROOMATE' is_enabled="1"
-            privilage="BASIC"/>
+            privilage="BASIC" description="Friendly gay"/>
 
     <USER user_id="2" email="michal@michal.com" 
             phone="+(0) 18 2443 232" phone_public="1" first_name="Michal"
             last_name="Chojcan" last_name_public="0" type='ROOMATE' is_enabled="1"
-            privilage="BASIC" />
+            privilage="BASIC" description=""/>
 
     <USER user_id="3" email="user1@user.com" 
             phone="+(1) 2323 232 (wew.3)" phone_public="1" first_name="Jarek"
             last_name="Smitch 3th" last_name_public="1" type="USER" is_enabled="0"
-            privilage="PREMIUM"/>
+            privilage="PREMIUM" description="None"/>
 
     <PASSWORD user_id="1" password="60474c9c10d7142b7508ce7a50acf414"/>
     <PASSWORD user_id="2" password="some_pass2"/>
@@ -88,22 +88,34 @@
     <ACCOMMODATION acc_id="1" title="Great room for rent"
             description="Some description of the room" addr_id="1" user_id="1"
             date_avaliable="2011-01-04" price="300" bond="1200"
-            street_address_public="0" short_term_ok="1" type_id="2" />
+            street_address_public="0" short_term_ok="1" type_id="2" 
+            price_info = "Price include everything" queries_counter = "0"
+            />
 
     <ACCOMMODATION acc_id="2" title="Great room for rent 2"
             description="Some description of the room 2" addr_id="2" user_id="1"
             date_avaliable="2011-02-12" price="400" bond="1600"
-            street_address_public="1" short_term_ok="0" type_id="2" />
+            street_address_public="1" short_term_ok="0" type_id="2" 
+             price_info = "No additional cost" queries_counter = "12"
+            />
 
     <ACCOMMODATION acc_id="3" title="One bed in a room of students"
             description="Description of accomm" addr_id="2" user_id="2"
-            date_avaliable="2011-12-12" price="420" bond="0"
-            street_address_public="0" short_term_ok="1" type_id="1" />
+            date_avaliable="2011-12-12" price="420" bond="0"            
+            street_address_public="0" short_term_ok="1" type_id="1" 
+            price_info = "" queries_counter = "1"
+            />
 
 
-    <ROOMATES roomates_id="1" no_roomates="2" min_age="10" max_age="40" gender="2" />
-    <ROOMATES roomates_id="2" no_roomates="6" min_age="25" max_age="30" gender="0" />
-    <ROOMATES roomates_id="3" no_roomates="4" min_age="15" max_age="50" gender="1" />
+    <ROOMATES roomates_id="1" no_roomates="2" 
+              min_age="10" max_age="40" gender="2"
+              description = "Quite students only in the property" />
+    <ROOMATES roomates_id="2" no_roomates="6" 
+              min_age="25" max_age="30" gender="0"
+              description = ""/>
+    <ROOMATES roomates_id="3" no_roomates="4" 
+              min_age="15" max_age="50" gender="1" 
+              description = "Working profesionals, none smokers and tidy"/>
 
     <SHARED acc_id="1" />
     <SHARED acc_id="2" roomates_id="1"/>
@@ -136,6 +148,9 @@
     <ACCOMODATION_has_FEATURE acc_id="3" feat_id="4" value="0" />
     <ACCOMODATION_has_FEATURE acc_id="3" feat_id="5" value="1" />
 
+    <VIEWS_COUNTER views_counter_id="1" remote_ip="3520061480" acc_id="1" />
+    <VIEWS_COUNTER views_counter_id="2" remote_ip="2130706433" acc_id="1" />
+    <VIEWS_COUNTER views_counter_id="3" remote_ip="2130706432" acc_id="1" />
  
 
 </dataset>

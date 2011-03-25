@@ -11,9 +11,10 @@ DROP TABLE IF EXISTS `STATE` ;
 CREATE  TABLE IF NOT EXISTS `STATE` (
   `state_id` INT UNSIGNED NOT NULL AUTO_INCREMENT ,
   `name` VARCHAR(100) NOT NULL ,
-  PRIMARY KEY (`state_id`) ,
-  UNIQUE INDEX `name_UNIQUE` (`name` ASC) )
+  PRIMARY KEY (`state_id`) )
 ENGINE = InnoDB;
+
+CREATE UNIQUE INDEX `name_UNIQUE` ON `STATE` (`name` ASC) ;
 
 
 -- -----------------------------------------------------
@@ -26,14 +27,16 @@ CREATE  TABLE IF NOT EXISTS `CITY` (
   `name` VARCHAR(100) NOT NULL ,
   `state_id` INT UNSIGNED NOT NULL ,
   PRIMARY KEY (`city_id`) ,
-  INDEX `fk_CITY_STATE1` (`state_id` ASC) ,
-  UNIQUE INDEX `UNIQUE_CITY` (`name` ASC, `state_id` ASC) ,
   CONSTRAINT `fk_CITY_STATE1`
     FOREIGN KEY (`state_id` )
     REFERENCES `STATE` (`state_id` )
     ON DELETE RESTRICT
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
+
+CREATE INDEX `fk_CITY_STATE1` ON `CITY` (`state_id` ASC) ;
+
+CREATE UNIQUE INDEX `UNIQUE_CITY` ON `CITY` (`name` ASC, `state_id` ASC) ;
 
 
 -- -----------------------------------------------------
@@ -44,9 +47,10 @@ DROP TABLE IF EXISTS `STREET` ;
 CREATE  TABLE IF NOT EXISTS `STREET` (
   `street_id` INT UNSIGNED NOT NULL AUTO_INCREMENT ,
   `name` VARCHAR(100) NOT NULL ,
-  PRIMARY KEY (`street_id`) ,
-  UNIQUE INDEX `name_UNIQUE` (`name` ASC) )
+  PRIMARY KEY (`street_id`) )
 ENGINE = InnoDB;
+
+CREATE UNIQUE INDEX `name_UNIQUE` ON `STREET` (`name` ASC) ;
 
 
 -- -----------------------------------------------------
@@ -57,9 +61,10 @@ DROP TABLE IF EXISTS `ZIP` ;
 CREATE  TABLE IF NOT EXISTS `ZIP` (
   `zip_id` INT UNSIGNED NOT NULL AUTO_INCREMENT ,
   `value` VARCHAR(20) NOT NULL ,
-  PRIMARY KEY (`zip_id`) ,
-  UNIQUE INDEX `value_UNIQUE` (`value` ASC) )
+  PRIMARY KEY (`zip_id`) )
 ENGINE = InnoDB;
+
+CREATE UNIQUE INDEX `value_UNIQUE` ON `ZIP` (`value` ASC) ;
 
 
 -- -----------------------------------------------------
@@ -75,10 +80,6 @@ CREATE  TABLE IF NOT EXISTS `ADDRESS` (
   `street_id` INT UNSIGNED NOT NULL ,
   `zip_id` INT UNSIGNED NOT NULL ,
   PRIMARY KEY (`addr_id`) ,
-  INDEX `fk_ADDRESS_CITY1` (`city_id` ASC) ,
-  UNIQUE INDEX `UNIQUE_ADDRESS` (`unit_no` ASC, `street_no` ASC, `city_id` ASC, `street_id` ASC, `zip_id` ASC) ,
-  INDEX `fk_ADDRESS_STREET1` (`street_id` ASC) ,
-  INDEX `fk_ADDRESS_ZIP1` (`zip_id` ASC) ,
   CONSTRAINT `fk_ADDRESS_CITY1`
     FOREIGN KEY (`city_id` )
     REFERENCES `CITY` (`city_id` )
@@ -95,6 +96,14 @@ CREATE  TABLE IF NOT EXISTS `ADDRESS` (
     ON DELETE RESTRICT
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
+
+CREATE INDEX `fk_ADDRESS_CITY1` ON `ADDRESS` (`city_id` ASC) ;
+
+CREATE UNIQUE INDEX `UNIQUE_ADDRESS` ON `ADDRESS` (`unit_no` ASC, `street_no` ASC, `city_id` ASC, `street_id` ASC, `zip_id` ASC) ;
+
+CREATE INDEX `fk_ADDRESS_STREET1` ON `ADDRESS` (`street_id` ASC) ;
+
+CREATE INDEX `fk_ADDRESS_ZIP1` ON `ADDRESS` (`zip_id` ASC) ;
 
 
 -- -----------------------------------------------------
@@ -114,9 +123,11 @@ CREATE  TABLE IF NOT EXISTS `USER` (
   `type` ENUM('USER','ROOMATE','LOOKER','AGENT','OWNER') NOT NULL DEFAULT 'USER' ,
   `is_enabled` TINYINT(1) NOT NULL DEFAULT 1 ,
   `privilage` ENUM('BASIC','PREMIUM','ADMIN') NOT NULL DEFAULT 'BASIC' ,
-  PRIMARY KEY (`user_id`) ,
-  UNIQUE INDEX `email_UNIQUE` (`email` ASC) )
+  `description` VARCHAR(45) NULL ,
+  PRIMARY KEY (`user_id`) )
 ENGINE = InnoDB;
+
+CREATE UNIQUE INDEX `email_UNIQUE` ON `USER` (`email` ASC) ;
 
 
 -- -----------------------------------------------------
@@ -128,9 +139,10 @@ CREATE  TABLE IF NOT EXISTS `TYPE` (
   `type_id` INT UNSIGNED NOT NULL AUTO_INCREMENT ,
   `name` VARCHAR(45) NOT NULL ,
   `is_shared` TINYINT(1) NOT NULL DEFAULT '1' ,
-  PRIMARY KEY (`type_id`) ,
-  UNIQUE INDEX `type_id_UNIQUE` (`type_id` ASC) )
+  PRIMARY KEY (`type_id`) )
 ENGINE = InnoDB;
+
+CREATE UNIQUE INDEX `type_id_UNIQUE` ON `TYPE` (`type_id` ASC) ;
 
 
 -- -----------------------------------------------------
@@ -152,10 +164,9 @@ CREATE  TABLE IF NOT EXISTS `ACCOMMODATION` (
   `short_term_ok` TINYINT(1) NOT NULL DEFAULT 1 ,
   `type_id` INT UNSIGNED NOT NULL ,
   `is_enabled` TINYINT(1) NOT NULL DEFAULT 1 ,
+  `price_info` VARCHAR(255) NULL ,
+  `queries_counter` INT NOT NULL DEFAULT 0 ,
   PRIMARY KEY (`acc_id`) ,
-  INDEX `fk_ACCOMODATION_ADDRESS1` (`addr_id` ASC) ,
-  INDEX `fk_ACCOMODATION_USER1` (`user_id` ASC) ,
-  INDEX `fk_ACCOMMODATION_TYPE1` (`type_id` ASC) ,
   CONSTRAINT `fk_ACCOMODATION_ADDRESS1`
     FOREIGN KEY (`addr_id` )
     REFERENCES `ADDRESS` (`addr_id` )
@@ -174,6 +185,12 @@ CREATE  TABLE IF NOT EXISTS `ACCOMMODATION` (
 ENGINE = InnoDB
 PACK_KEYS = DEFAULT;
 
+CREATE INDEX `fk_ACCOMODATION_ADDRESS1` ON `ACCOMMODATION` (`addr_id` ASC) ;
+
+CREATE INDEX `fk_ACCOMODATION_USER1` ON `ACCOMMODATION` (`user_id` ASC) ;
+
+CREATE INDEX `fk_ACCOMMODATION_TYPE1` ON `ACCOMMODATION` (`type_id` ASC) ;
+
 
 -- -----------------------------------------------------
 -- Table `APPARTMENT`
@@ -183,13 +200,14 @@ DROP TABLE IF EXISTS `APPARTMENT` ;
 CREATE  TABLE IF NOT EXISTS `APPARTMENT` (
   `acc_id` INT UNSIGNED NOT NULL ,
   PRIMARY KEY (`acc_id`) ,
-  INDEX `fk_APPARTMENT_ACCOMODATION1` (`acc_id` ASC) ,
   CONSTRAINT `fk_APPARTMENT_ACCOMODATION1`
     FOREIGN KEY (`acc_id` )
     REFERENCES `ACCOMMODATION` (`acc_id` )
     ON DELETE CASCADE
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
+
+CREATE INDEX `fk_APPARTMENT_ACCOMODATION1` ON `APPARTMENT` (`acc_id` ASC) ;
 
 
 -- -----------------------------------------------------
@@ -219,8 +237,6 @@ CREATE  TABLE IF NOT EXISTS `FEATURE` (
   `binary` TINYINT(1) NOT NULL DEFAULT 1 COMMENT 'To indicate whether \na feature is no/yes\nonly.' ,
   `type_id` INT UNSIGNED NULL DEFAULT NULL ,
   PRIMARY KEY (`feat_id`) ,
-  INDEX `fk_FEATURE_TYPE1` (`type_id` ASC) ,
-  UNIQUE INDEX `name_UNIQUE` (`name` ASC) ,
   CONSTRAINT `fk_FEATURE_TYPE1`
     FOREIGN KEY (`type_id` )
     REFERENCES `TYPE` (`type_id` )
@@ -228,6 +244,10 @@ CREATE  TABLE IF NOT EXISTS `FEATURE` (
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
 COMMENT = 'e.g. parking, internet, cable_tv, air_conditioning';
+
+CREATE INDEX `fk_FEATURE_TYPE1` ON `FEATURE` (`type_id` ASC) ;
+
+CREATE UNIQUE INDEX `name_UNIQUE` ON `FEATURE` (`name` ASC) ;
 
 
 -- -----------------------------------------------------
@@ -240,7 +260,6 @@ CREATE  TABLE IF NOT EXISTS `ACCOMODATION_has_FEATURE` (
   `feat_id` INT UNSIGNED NOT NULL ,
   `value` TINYINT(3) NOT NULL ,
   PRIMARY KEY (`acc_id`, `feat_id`) ,
-  INDEX `fk_ACCOMODATION_has_FEATURE_FEATURE1` (`feat_id` ASC) ,
   CONSTRAINT `fk_ACCOMODATION_has_FEATURE_ACCOMODATION1`
     FOREIGN KEY (`acc_id` )
     REFERENCES `ACCOMMODATION` (`acc_id` )
@@ -253,6 +272,8 @@ CREATE  TABLE IF NOT EXISTS `ACCOMODATION_has_FEATURE` (
     ON UPDATE RESTRICT)
 ENGINE = InnoDB;
 
+CREATE INDEX `fk_ACCOMODATION_has_FEATURE_FEATURE1` ON `ACCOMODATION_has_FEATURE` (`feat_id` ASC) ;
+
 
 -- -----------------------------------------------------
 -- Table `PATH`
@@ -262,9 +283,10 @@ DROP TABLE IF EXISTS `PATH` ;
 CREATE  TABLE IF NOT EXISTS `PATH` (
   `path_id` INT UNSIGNED NOT NULL AUTO_INCREMENT ,
   `value` VARCHAR(255) NOT NULL ,
-  PRIMARY KEY (`path_id`) ,
-  UNIQUE INDEX `value_UNIQUE` (`value` ASC) )
+  PRIMARY KEY (`path_id`) )
 ENGINE = InnoDB;
+
+CREATE UNIQUE INDEX `value_UNIQUE` ON `PATH` (`value` ASC) ;
 
 
 -- -----------------------------------------------------
@@ -278,9 +300,6 @@ CREATE  TABLE IF NOT EXISTS `PHOTO` (
   `path_id` INT UNSIGNED NOT NULL ,
   `acc_id` INT UNSIGNED NOT NULL ,
   PRIMARY KEY (`photo_id`) ,
-  INDEX `fk_PHOTO_ACCOMODATION1` (`acc_id` ASC) ,
-  INDEX `fk_PHOTO_PATH1` (`path_id` ASC) ,
-  UNIQUE INDEX `UNIQUE_PATH` (`path_id` ASC, `filename` ASC) ,
   CONSTRAINT `fk_PHOTO_ACCOMODATION1`
     FOREIGN KEY (`acc_id` )
     REFERENCES `ACCOMMODATION` (`acc_id` )
@@ -292,6 +311,12 @@ CREATE  TABLE IF NOT EXISTS `PHOTO` (
     ON DELETE RESTRICT
     ON UPDATE CASCADE)
 ENGINE = InnoDB;
+
+CREATE INDEX `fk_PHOTO_ACCOMODATION1` ON `PHOTO` (`acc_id` ASC) ;
+
+CREATE INDEX `fk_PHOTO_PATH1` ON `PHOTO` (`path_id` ASC) ;
+
+CREATE UNIQUE INDEX `UNIQUE_PATH` ON `PHOTO` (`path_id` ASC, `filename` ASC) ;
 
 
 -- -----------------------------------------------------
@@ -305,6 +330,7 @@ CREATE  TABLE IF NOT EXISTS `ROOMATES` (
   `min_age` TINYINT NOT NULL ,
   `max_age` TINYINT NOT NULL ,
   `gender` TINYINT NOT NULL ,
+  `description` TEXT NULL ,
   PRIMARY KEY (`roomates_id`) )
 ENGINE = InnoDB
 COMMENT = 'Info about roomates';
@@ -319,9 +345,10 @@ CREATE  TABLE IF NOT EXISTS `PREFERENCE` (
   `pref_id` INT UNSIGNED NOT NULL AUTO_INCREMENT ,
   `name` VARCHAR(45) NOT NULL ,
   `binary` TINYINT(1) NOT NULL DEFAULT 1 COMMENT 'This indicates whether\nthe preference is \nonly yes/no type.' ,
-  PRIMARY KEY (`pref_id`) ,
-  UNIQUE INDEX `name_UNIQUE` (`name` ASC) )
+  PRIMARY KEY (`pref_id`) )
 ENGINE = InnoDB;
+
+CREATE UNIQUE INDEX `name_UNIQUE` ON `PREFERENCE` (`name` ASC) ;
 
 
 -- -----------------------------------------------------
@@ -334,7 +361,6 @@ CREATE  TABLE IF NOT EXISTS `ACCOMODATION_has_PREFERENCE` (
   `pref_id` INT UNSIGNED NOT NULL ,
   `value` TINYINT UNSIGNED NOT NULL ,
   PRIMARY KEY (`acc_id`, `pref_id`) ,
-  INDEX `fk_pref_id` (`pref_id` ASC) ,
   CONSTRAINT `fk_acc_id`
     FOREIGN KEY (`acc_id` )
     REFERENCES `ACCOMMODATION` (`acc_id` )
@@ -346,6 +372,8 @@ CREATE  TABLE IF NOT EXISTS `ACCOMODATION_has_PREFERENCE` (
     ON DELETE RESTRICT
     ON UPDATE RESTRICT)
 ENGINE = InnoDB;
+
+CREATE INDEX `fk_pref_id` ON `ACCOMODATION_has_PREFERENCE` (`pref_id` ASC) ;
 
 
 -- -----------------------------------------------------
@@ -392,7 +420,6 @@ CREATE  TABLE IF NOT EXISTS `AGENT` (
   `agancy_name` VARCHAR(100) NOT NULL ,
   `addr_id` INT UNSIGNED NOT NULL ,
   PRIMARY KEY (`user_id`) ,
-  INDEX `fk_AGENT_ADDRESS1` (`addr_id` ASC) ,
   CONSTRAINT `fk_AGENT_USER1`
     FOREIGN KEY (`user_id` )
     REFERENCES `USER` (`user_id` )
@@ -405,6 +432,8 @@ CREATE  TABLE IF NOT EXISTS `AGENT` (
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
+CREATE INDEX `fk_AGENT_ADDRESS1` ON `AGENT` (`addr_id` ASC) ;
+
 
 -- -----------------------------------------------------
 -- Table `CHARACTERISTIC`
@@ -414,9 +443,10 @@ DROP TABLE IF EXISTS `CHARACTERISTIC` ;
 CREATE  TABLE IF NOT EXISTS `CHARACTERISTIC` (
   `charac_id` INT UNSIGNED NOT NULL AUTO_INCREMENT ,
   `name` VARCHAR(45) NOT NULL ,
-  PRIMARY KEY (`charac_id`) ,
-  UNIQUE INDEX `name_UNIQUE` (`name` ASC) )
+  PRIMARY KEY (`charac_id`) )
 ENGINE = InnoDB;
+
+CREATE UNIQUE INDEX `name_UNIQUE` ON `CHARACTERISTIC` (`name` ASC) ;
 
 
 -- -----------------------------------------------------
@@ -445,7 +475,6 @@ CREATE  TABLE IF NOT EXISTS `LOOKER_has_CHARACTERISTIC` (
   `charac_id` INT UNSIGNED NOT NULL ,
   `value` TINYINT UNSIGNED NOT NULL ,
   PRIMARY KEY (`user_id`, `charac_id`) ,
-  INDEX `fk_LOOKER_has_CHARACTERISTIC_CHARACTERISTIC1` (`charac_id` ASC) ,
   CONSTRAINT `fk_LOOKER_has_CHARACTERISTIC_LOOKER1`
     FOREIGN KEY (`user_id` )
     REFERENCES `LOOKER` (`user_id` )
@@ -459,6 +488,8 @@ CREATE  TABLE IF NOT EXISTS `LOOKER_has_CHARACTERISTIC` (
 ENGINE = InnoDB
 PACK_KEYS = DEFAULT;
 
+CREATE INDEX `fk_LOOKER_has_CHARACTERISTIC_CHARACTERISTIC1` ON `LOOKER_has_CHARACTERISTIC` (`charac_id` ASC) ;
+
 
 -- -----------------------------------------------------
 -- Table `ROOMATE_has_CHARACTERISTIC`
@@ -470,7 +501,6 @@ CREATE  TABLE IF NOT EXISTS `ROOMATE_has_CHARACTERISTIC` (
   `charac_id` INT UNSIGNED NOT NULL ,
   `value` TINYINT UNSIGNED NOT NULL ,
   PRIMARY KEY (`user_id`, `charac_id`) ,
-  INDEX `fk_ROOMATE_has_CHARACTERISTIC_CHARACTERISTIC1` (`charac_id` ASC) ,
   CONSTRAINT `fk_ROOMATE_has_CHARACTERISTIC_ROOMATE1`
     FOREIGN KEY (`user_id` )
     REFERENCES `ROOMATE` (`user_id` )
@@ -482,6 +512,8 @@ CREATE  TABLE IF NOT EXISTS `ROOMATE_has_CHARACTERISTIC` (
     ON DELETE CASCADE
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
+
+CREATE INDEX `fk_ROOMATE_has_CHARACTERISTIC_CHARACTERISTIC1` ON `ROOMATE_has_CHARACTERISTIC` (`charac_id` ASC) ;
 
 
 -- -----------------------------------------------------
@@ -499,8 +531,6 @@ CREATE  TABLE IF NOT EXISTS `WANTED_ACCOMMODATION` (
   `city_id` INT UNSIGNED NOT NULL ,
   `created` TIMESTAMP NULL ,
   PRIMARY KEY (`wanted_acc_id`) ,
-  INDEX `fk_WANTED_ACCOMMODATION_LOOKER1` (`user_id` ASC) ,
-  INDEX `fk_WANTED_ACCOMMODATION_CITY1` (`city_id` ASC) ,
   CONSTRAINT `fk_WANTED_ACCOMMODATION_LOOKER1`
     FOREIGN KEY (`user_id` )
     REFERENCES `LOOKER` (`user_id` )
@@ -513,6 +543,10 @@ CREATE  TABLE IF NOT EXISTS `WANTED_ACCOMMODATION` (
     ON UPDATE CASCADE)
 ENGINE = InnoDB;
 
+CREATE INDEX `fk_WANTED_ACCOMMODATION_LOOKER1` ON `WANTED_ACCOMMODATION` (`user_id` ASC) ;
+
+CREATE INDEX `fk_WANTED_ACCOMMODATION_CITY1` ON `WANTED_ACCOMMODATION` (`city_id` ASC) ;
+
 
 -- -----------------------------------------------------
 -- Table `SHARED`
@@ -523,7 +557,6 @@ CREATE  TABLE IF NOT EXISTS `SHARED` (
   `acc_id` INT UNSIGNED NOT NULL ,
   `roomates_id` INT UNSIGNED NULL ,
   PRIMARY KEY (`acc_id`) ,
-  INDEX `fk_BED_ROOMATES1` (`roomates_id` ASC) ,
   CONSTRAINT `fk_BED_ACCOMODATION10`
     FOREIGN KEY (`acc_id` )
     REFERENCES `ACCOMMODATION` (`acc_id` )
@@ -536,6 +569,8 @@ CREATE  TABLE IF NOT EXISTS `SHARED` (
     ON UPDATE CASCADE)
 ENGINE = InnoDB;
 
+CREATE INDEX `fk_BED_ROOMATES1` ON `SHARED` (`roomates_id` ASC) ;
+
 
 -- -----------------------------------------------------
 -- Table `AUTH_PROVIDER`
@@ -547,13 +582,14 @@ CREATE  TABLE IF NOT EXISTS `AUTH_PROVIDER` (
   `provider_type` ENUM('google','myopenid','yahoo','facebook','twitter','openid') NOT NULL ,
   `user_id` INT UNSIGNED NOT NULL ,
   PRIMARY KEY (`key`, `user_id`) ,
-  INDEX `fk_AUTH_PROVIDER_USER1` (`user_id` ASC) ,
   CONSTRAINT `fk_AUTH_PROVIDER_USER1`
     FOREIGN KEY (`user_id` )
     REFERENCES `USER` (`user_id` )
     ON DELETE CASCADE
     ON UPDATE CASCADE)
 ENGINE = InnoDB;
+
+CREATE INDEX `fk_AUTH_PROVIDER_USER1` ON `AUTH_PROVIDER` (`user_id` ASC) ;
 
 
 -- -----------------------------------------------------
@@ -565,13 +601,34 @@ CREATE  TABLE IF NOT EXISTS `PASSWORD` (
   `user_id` INT UNSIGNED NOT NULL ,
   `password` VARCHAR(65) NOT NULL ,
   PRIMARY KEY (`user_id`) ,
-  INDEX `fk_PASSWORD_USER1` (`user_id` ASC) ,
   CONSTRAINT `fk_PASSWORD_USER1`
     FOREIGN KEY (`user_id` )
     REFERENCES `USER` (`user_id` )
     ON DELETE CASCADE
     ON UPDATE CASCADE)
 ENGINE = InnoDB;
+
+CREATE INDEX `fk_PASSWORD_USER1` ON `PASSWORD` (`user_id` ASC) ;
+
+
+-- -----------------------------------------------------
+-- Table `VIEWS_COUNTER`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `VIEWS_COUNTER` ;
+
+CREATE  TABLE IF NOT EXISTS `VIEWS_COUNTER` (
+  `views_counter_id` INT NOT NULL ,
+  `remote_ip` INT UNSIGNED NULL ,
+  `acc_id` INT UNSIGNED NOT NULL ,
+  PRIMARY KEY (`views_counter_id`) ,
+  CONSTRAINT `fk_VIEWS_COUNTER_ACCOMMODATION1`
+    FOREIGN KEY (`acc_id` )
+    REFERENCES `ACCOMMODATION` (`acc_id` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+CREATE INDEX `fk_VIEWS_COUNTER_ACCOMMODATION1` ON `VIEWS_COUNTER` (`acc_id` ASC) ;
 
 
 -- -----------------------------------------------------
@@ -607,12 +664,12 @@ CREATE TABLE IF NOT EXISTS `VIEW_ACC_PREFERENCES` (`acc_id` INT, `pref_id` INT, 
 -- -----------------------------------------------------
 -- Placeholder table for view `VIEW_ACCOMMODATION`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `VIEW_ACCOMMODATION` (`first_name` INT, `last_name` INT, `acc_id` INT, `title` INT, `description` INT, `addr_id` INT, `user_id` INT, `date_avaliable` INT, `price` INT, `created` INT, `bond` INT, `street_address_public` INT, `short_term_ok` INT, `type_id` INT, `is_enabled` INT, `feat_name` INT, `pref_name` INT, `filename` INT);
+CREATE TABLE IF NOT EXISTS `VIEW_ACCOMMODATION` (`first_name` INT, `last_name` INT, `acc_id` INT, `title` INT, `description` INT, `addr_id` INT, `user_id` INT, `date_avaliable` INT, `price` INT, `created` INT, `bond` INT, `street_address_public` INT, `short_term_ok` INT, `type_id` INT, `is_enabled` INT, `price_info` INT, `queries_counter` INT, `feat_name` INT, `pref_name` INT, `filename` INT);
 
 -- -----------------------------------------------------
 -- Placeholder table for view `VIEW_USER_FOR_AUTH`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `VIEW_USER_FOR_AUTH` (`key` INT, `provider_type` INT, `user_id` INT, `password` INT, `email` INT, `phone` INT, `phone_public` INT, `created` INT, `first_name` INT, `last_name` INT, `last_name_public` INT, `type` INT, `is_enabled` INT, `privilage` INT);
+CREATE TABLE IF NOT EXISTS `VIEW_USER_FOR_AUTH` (`key` INT, `provider_type` INT, `user_id` INT, `password` INT, `email` INT, `phone` INT, `phone_public` INT, `created` INT, `first_name` INT, `last_name` INT, `last_name_public` INT, `type` INT, `is_enabled` INT, `privilage` INT, `description` INT);
 
 -- -----------------------------------------------------
 -- View `VIEW_CITY`

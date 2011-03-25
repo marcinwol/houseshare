@@ -102,6 +102,12 @@ abstract class My_Form_Abstract_AccommodationAbstract extends Zend_Form {
         $priceInput->setLabel('Price per month');
         $priceInput->setFilters(array('stripTags', 'stringTrim'));
         $priceInput->addValidator('int');
+        
+        // create new element
+        $priceInfo = $this->createElement('textarea', 'price_info');
+        $priceInfo->setRequired(true)->setLabel('Any addition expenses');
+        $priceInfo->setAttribs(array('cols' => 20, 'rows' => 5));
+        $priceInfo->setFilters(array('stripTags', 'stringTrim'));
 
         // create new element
         $bondInput = $this->createElement('text', 'bond');
@@ -114,7 +120,8 @@ abstract class My_Form_Abstract_AccommodationAbstract extends Zend_Form {
 
         $accInfoSubForm->addElements(array(
             $accTypeChoice, /* $liveChoice */ $titleInput, $descriptionInput,
-            $dateAvaliableInput, $shortTermChb, $priceInput, $bondInput)
+            $dateAvaliableInput, $shortTermChb, $priceInput, $priceInfo,
+            $bondInput)
         );
 
         return $accInfoSubForm;
@@ -270,10 +277,14 @@ abstract class My_Form_Abstract_AccommodationAbstract extends Zend_Form {
         $maxAgeInput->setValue('35');
         $maxAgeInput->addValidator(new My_Validate_MinMaxAge());
 
+        
+        $descriptionInput = $this->createElement('textarea', 'description');
+        $descriptionInput->setRequired(false)->setLabel('Few words about roomates');
+        $descriptionInput->setAttribs(array('cols' => 20, 'rows' => 5));
 
         $aroomatesForm->addElements(array(
             $noOfRoomatesInput, $genderOfRoomatesInput,
-            $minAgeInput, $maxAgeInput)
+            $minAgeInput, $maxAgeInput, $descriptionInput)
         );
 
         return $aroomatesForm;
