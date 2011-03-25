@@ -423,7 +423,7 @@ abstract class My_Form_Abstract_AccommodationAbstract extends Zend_Form {
         $lnamePublicChb = $this->createElement('checkbox', 'last_name_public');
         $lnamePublicChb->setRequired(false);
         $lnamePublicChb->setLabel('Last name visible to all');
-        $lnamePublicChb->setChecked(true);
+        $lnamePublicChb->setChecked(false);
 
         // create new element
         $phoneInput = $this->createElement('text', 'phone_no');
@@ -435,7 +435,7 @@ abstract class My_Form_Abstract_AccommodationAbstract extends Zend_Form {
         $phonePublicChb = $this->createElement('checkbox', 'phone_public');
         $phonePublicChb->setRequired(false);
         $phonePublicChb->setLabel('Phone visible to all');
-        $phonePublicChb->setChecked(true);
+        $phonePublicChb->setChecked(false);
 
         // create new element
         $emailInput = $this->createElement('text', 'email');
@@ -460,15 +460,18 @@ abstract class My_Form_Abstract_AccommodationAbstract extends Zend_Form {
         $password2->addValidator('StringLength', false, array(6))
                 ->setRequired(true);
         $password2->addValidator(new My_Validate_PasswordConfirmation());
+        
+         // create new element
+        $descriptionInput = $this->createElement('textarea', 'description');
+        $descriptionInput->setRequired(false)->setLabel('Few words about you');
+        $descriptionInput->setAttribs(array('cols' => 20, 'rows' => 5));
 
         $aboutYouForm->addElements(array(
             $fnameInput, $lnameInput,
             $lnamePublicChb, $phoneInput, $phonePublicChb, $emailInput,
+            $descriptionInput,
             $password1, $password2
         ));
-
-
-
 
         return $aboutYouForm;
     }

@@ -54,6 +54,7 @@ class My_Model_Table_Accommodation extends Zend_Db_Table_Abstract {
         $row->user_id = $data['user_id'];
         $row->date_avaliable = $data['date_avaliable'];
         $row->price = $data['price'];
+        $row->price_info = $data['price_info'];
         $row->bond = $data['bond'];
         $row->street_address_public = $data['street_address_public'];
         $row->short_term_ok = $data['short_term_ok'];
