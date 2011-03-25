@@ -29,7 +29,7 @@ class IndexController extends Zend_Controller_Action {
     }
 
     public function indexAction() {
-
+               
         $mainForm = new My_Form_MainPage();
 
         if ($this->getRequest()->isPost()) {

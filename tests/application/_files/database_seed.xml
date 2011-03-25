@@ -149,8 +149,10 @@
     <ACCOMODATION_has_FEATURE acc_id="3" feat_id="5" value="1" />
 
     <VIEWS_COUNTER views_counter_id="1" remote_ip="3520061480" acc_id="1" />
-    <VIEWS_COUNTER views_counter_id="2" remote_ip="2130706433" acc_id="1" />
+    <VIEWS_COUNTER views_counter_id="2" remote_ip="2130706423" acc_id="1" />
     <VIEWS_COUNTER views_counter_id="3" remote_ip="2130706432" acc_id="1" />
+    <VIEWS_COUNTER views_counter_id="4" remote_ip="2130706433" acc_id="2" />
+    <VIEWS_COUNTER views_counter_id="5" remote_ip="2130706432" acc_id="2" />
  
 
 </dataset>

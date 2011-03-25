@@ -12,7 +12,7 @@
  */
 class My_Model_Table_ViewCounter extends Zend_Db_Table_Abstract {
 
-    protected $_name = "VIEW_COUNTER";
+    protected $_name = "VIEWS_COUNTER";
     protected $_rowClass = 'My_Model_Table_Row_ViewCounter';    
     
     protected $_referenceMap = array(
@@ -27,13 +27,25 @@ class My_Model_Table_ViewCounter extends Zend_Db_Table_Abstract {
      * Insert a view.
      *
      * @param array $data counter data
-     * @return int primary key value of VIEW_COUNTER row
+     * @return int|null primary key value of VIEW_COUNTER row or null.
      */
-    public function insertView(array $data) {
+    public function insertView(array $data, $allowDuplicateIPs = true) {
 
+        $ip = new Zend_Db_Expr("INET_ATON('".$data['remote_ip']."')");
+        $acc_id = $data['acc_id'];
+        
+        $select = $this->select()->where('remote_ip = ? ', $ip)
+                                 ->where('acc_id = ?', $acc_id);
+        
+        $result = $this->fetchAll($select);
+       
+        if (false === $allowDuplicateIPs && count($result) > 0 ) {
+            return null;
+        }     
+  
         return $this->insert(array(            
-            'remote_id' => $data['remote_id'],
-            'acc_id' => $data['acc_id']
+            'remote_ip' => $ip,
+            'acc_id' => $acc_id
         ));
     }
 

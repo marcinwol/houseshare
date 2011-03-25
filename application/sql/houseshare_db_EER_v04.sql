@@ -617,7 +617,7 @@ CREATE INDEX `fk_PASSWORD_USER1` ON `PASSWORD` (`user_id` ASC) ;
 DROP TABLE IF EXISTS `VIEWS_COUNTER` ;
 
 CREATE  TABLE IF NOT EXISTS `VIEWS_COUNTER` (
-  `views_counter_id` INT NOT NULL ,
+  `views_counter_id` INT NOT NULL AUTO_INCREMENT ,
   `remote_ip` INT UNSIGNED NULL ,
   `acc_id` INT UNSIGNED NOT NULL ,
   PRIMARY KEY (`views_counter_id`) ,

@@ -283,6 +283,15 @@ class My_Houseshare_Accommodation extends My_Houseshare_Abstract_PropertyAccesso
         $viewsRowset = $this->_acc->_row->getViews();
         return count($viewsRowset);
     }
+    
+    public function addOneView() {
+        $viewCounterModel  = new My_Model_Table_ViewCounter();
+        $data = array(
+            'acc_id'    => $this->_acc->_row->acc_id,
+            'remote_id' => My_Houseshare_Tools::getIpAddress()
+        );
+        $viewCounterModel->insertView($data, true);
+    }
 
     /**
      * Get photos for this accommodation.
