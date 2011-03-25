@@ -272,6 +272,17 @@ class My_Houseshare_Accommodation extends My_Houseshare_Abstract_PropertyAccesso
         }
         return false;
     }
+    
+    
+    /**
+     * Get number of views of the current accommodation
+     * 
+     * @return int number of views 
+     */
+    public function getViews_count() {
+        $viewsRowset = $this->_acc->_row->getViews();
+        return count($viewsRowset);
+    }
 
     /**
      * Get photos for this accommodation.
