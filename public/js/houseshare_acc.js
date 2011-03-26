@@ -5,6 +5,17 @@
 
 
 $(document).ready(function () {
+    
+    
+        $('.description').click(function() {
+           var descrID = $(this).attr('for')            
+           $('#'+descrID).toggle('slow');
+        });        
+        
+    
+    
+    
+    
     $("#address-city").autocomplete({
         source: "/houseshare/public/index/getcities/nostate/1",
         select: function(event, ui){

@@ -328,7 +328,7 @@ class UserController extends Zend_Controller_Action {
                 $authAdapter = new My_Auth_Adapter_DbTable();
                 $authAdapter->setIdentity($formData['email']);
                 $authAdapter->setCredential($formData['password']);
-                              
+
 
                 $auth = Zend_Auth::getInstance();
                 $result = $auth->authenticate($authAdapter);
@@ -358,7 +358,7 @@ class UserController extends Zend_Controller_Action {
     }
 
     public function editAction() {
-        
+
         $auth = Zend_Auth::getInstance();
 
         $authData = $auth->getIdentity();
@@ -375,43 +375,42 @@ class UserController extends Zend_Controller_Action {
 
         $userForm = new My_Form_UserCreate();
         $userForm->removePasswordFields();
-        
+
 
         if ($this->getRequest()->isPost()) {
             if ($userForm->isValid($_POST)) {
-                
-                  if ($userForm->cancel->isChecked()) {
+
+                if ($userForm->cancel->isChecked()) {
                     // if cancel button was clicked
                     //$this->_helper->FlashMessenger('No changes were made to your user information');
                     return $this->_redirect('/user');
                 }
 
 
-                $formData = $userForm->getValues();                                          
+                $formData = $userForm->getValues();
 
                 $user->first_name = $formData['about_you']['first_name'];
                 $user->last_name = $formData['about_you']['last_name'];
                 $user->last_name_public = $formData['about_you']['last_name_public'];
-                $user->email = $formData['about_you']['email'];  
+                $user->email = $formData['about_you']['email'];
                 $user->email_public = $formData['about_you']['email_public'];
                 $user->description = $formData['about_you']['description'];
                 $user->phone = $formData['about_you']['phone_no'];
                 $user->phone_public = $formData['about_you']['phone_public'];
-                
+
                 $id = $user->save();
-                
+
                 if ($id !== $user_id) {
                     throw new Zend_Db_Exception("User id $user_id and retun value from update ($id) don't match");
                 }
                 $this->_helper->FlashMessenger('Your data was changed');
                 return $this->_redirect('/user');
-                
             }
         } else {
-           
+
             // populate form with user data
             $userData = $user->toArray();
-            
+
             // phone input field name is different than in $user
             $userData['phone_no'] = $user->phone;
             $userForm->populate(array('about_you' => $userData));
@@ -458,6 +457,8 @@ class UserController extends Zend_Controller_Action {
                 $newUser->email = $formData['about_you']['email'];
                 $newUser->phone = $formData['about_you']['phone_no'];
                 $newUser->phone_public = $formData['about_you']['phone_public'];
+                $newUser->email_public = $formData['about_you']['email_public'];
+                $newUser->description = $formData['about_you']['description'];
                 $newUser->type = 'USER';
 
                 $user_id = $newUser->save();
@@ -495,7 +496,7 @@ class UserController extends Zend_Controller_Action {
                 return $this->_redirect('index');
             }
         }
-
+        $createForm->getElement('Submit')->setLabel('Complete registration');
         $this->view->form = $createForm;
     }
 
@@ -524,6 +525,44 @@ class UserController extends Zend_Controller_Action {
 
         // don't need this session namespace anymore
         Zend_Session::namespaceUnset('toStore');
+    }
+
+    public function accountRecoveryAction() {
+
+
+        $emailForm = new My_Form_Email();
+
+        if ($this->getRequest()->isPost()) {
+            if ($emailForm->isValid($_POST)) {
+
+                $email = $emailForm->getValue('email');
+
+                $userModel = new My_Model_Table_User();
+
+                $user = $userModel->findByEmail($email);
+
+                if (null === $user) {
+                    $emailForm->setErrorMessages(array('No email in database'));
+                } else {
+                    
+                    $emailObj = new My_Mail_AccRecovery();
+                    $emailObj->setFrom('mwol@born2die.eu');
+                    $emailObj->addTo($email);
+                    $emailObj->setBodyText('Body of recovery email for ' . $email);
+
+                    try {
+                        $emailObj->send();
+                    } catch (Zend_Mail_Exception $e) {
+                        $this->_helper->FlashMessenger('There was a problem sending an email: ' . $e->getMessage());
+                        return $this->_redirect('/');
+                    }
+
+                    $this->_helper->FlashMessenger('A account recovery email was sent');
+                    return $this->_redirect('/');
+                }
+            }
+        }
+        $this->view->form = $emailForm;
     }
 
     /**

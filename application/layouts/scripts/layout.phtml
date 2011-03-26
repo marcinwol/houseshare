@@ -129,7 +129,7 @@
                    $results = My_Model_Table_Accommodation::getRecentlyViewed();                                      
                    
                    foreach ($results as $acc) {
-                        $title = $this->truncate(ucfirst(strtolower($acc['title'])),0, 30);
+                        $title = $this->truncate(ucfirst(strtolower($acc['title'])),0, 25);
                         $accs .= '<li><a href="'.$this->baseUrl('/accommodation/show/id/' . $acc['acc_id']).'">'.$title.' <span>('.$acc['city'].')</span></a></li>';
                    }
                     

@@ -105,13 +105,17 @@ abstract class My_Form_Abstract_AccommodationAbstract extends Zend_Form {
         
         // create new element
         $priceInfo = $this->createElement('textarea', 'price_info');
-        $priceInfo->setRequired(false)->setLabel('Any addition expenses');        
+        $priceInfo->setRequired(false)->setLabel('Any addition expenses');  
+//        $priceInfo->setRequired(false)->setLabel('<a href="javascript:null;">Any addition expenses</a>');  
+//        $priceInfo->getDecorator('Label')
+//                  ->setOption('escape',false)
+//                  ->setOption('class','description');        
+        
         $priceInfo->setAttribs(
                 array(
                     'cols' => 20, 
-                    'rows' => 5,
-                    'title' => 'Such as gas, electricity or Internat',
-               
+                    'rows' => 5,                    
+                   // 'style'=>'display: none;'                    
                     )
                 );
         $priceInfo->setFilters(array('stripTags', 'stringTrim'));

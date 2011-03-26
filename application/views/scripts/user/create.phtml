@@ -1,3 +1,18 @@
+<?php
+$sideBarContent = <<<END
+Unlike others, we don't need your name, phone if you don't want to share 
+    this information  with us. We only need an <strong>email address</strong>
+    that users can sent queries to regarding your 
+    advertisments.    
+<p>
+    By default your email or phone are kept <strong>private</strong>. However, if you want you 
+    can make them public so that 
+    they are visible to the people watching your accommodation.
+</p>      
+       
+END;
+   $this->sideBarElement('What is this?',$sideBarContent, array('class' => 'side-bar-info'));  
+?>
 <div>
     <?php echo $this->form ;?>
 </div>

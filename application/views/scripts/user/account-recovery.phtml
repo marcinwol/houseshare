@@ -1,0 +1,13 @@
+<h3>
+     If you provided us with a correct email address, enter an email address 
+     below and we will email your account information to you.     
+</h3>
+
+<?php 
+    if (count($this->form->getErrorMessages()) > 0 ) {
+        $errors = $this->form->getErrorMessages();
+        echo $errors[0];
+    }
+    
+    echo $this->form;
+?>

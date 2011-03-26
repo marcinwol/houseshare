@@ -21,6 +21,12 @@ class My_Model_Table_User extends Zend_Db_Table_Abstract {
         'My_Model_Table_AuthProvider',
     );
 
+    /**
+     * Get a user by email
+     * 
+     * @param string $email
+     * @return My_Model_Table_Row_User 
+     */
     public function findByEmail($email) {
         return $this->fetchRow("email = '$email'");
     }
