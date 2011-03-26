@@ -36,7 +36,7 @@
             </dl>
             <dl class="advert-stats">
                 <dt>Added: </dt><dd><?php echo $this->timeSince($this->acc->creationtimestamp) . ' ago by ' . $this->acc->user->name; ?></dd> 
-                <dt>Views: </dt><dd><?php echo 120; ?></dd> 
+                <dt>Views: </dt><dd><?php echo $this->acc->views_count; ?></dd> 
                 <dt>Queries sent: </dt><dd><?php echo 5; ?></dd>                                                           
             </dl>
         </div>

@@ -448,6 +448,13 @@ abstract class My_Form_Abstract_AccommodationAbstract extends Zend_Form {
             Zend_Validate_EmailAddress::INVALID_FORMAT => 'Incorrect email format'
         ));
         $emailInput->addValidator($emailValidator);
+        
+        
+         // create new element
+        $emailPublicChb = $this->createElement('checkbox', 'email_public');
+        $emailPublicChb->setRequired(false);
+        $emailPublicChb->setLabel('Email visible to all');
+        $emailPublicChb->setChecked(false);
 
         $password1 = $this->createElement('password', 'password1');
         $password1->setLabel('Password (minum 6 characters)');
@@ -469,7 +476,7 @@ abstract class My_Form_Abstract_AccommodationAbstract extends Zend_Form {
         $aboutYouForm->addElements(array(
             $fnameInput, $lnameInput,
             $lnamePublicChb, $phoneInput, $phonePublicChb, $emailInput,
-            $descriptionInput,
+            $emailPublicChb, $descriptionInput,
             $password1, $password2
         ));
 

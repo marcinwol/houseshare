@@ -24,6 +24,9 @@
  */
 class My_Houseshare_Accommodation extends My_Houseshare_Abstract_PropertyAccessor {
 
+    
+    const COUNT_DUPLICATES = true;
+    
     protected $_modelName = 'Table_Accommodation';
     /**
      *  Model for the ACCOMMODATION
@@ -288,9 +291,9 @@ class My_Houseshare_Accommodation extends My_Houseshare_Abstract_PropertyAccesso
         $viewCounterModel  = new My_Model_Table_ViewCounter();
         $data = array(
             'acc_id'    => $this->_acc->_row->acc_id,
-            'remote_id' => My_Houseshare_Tools::getIpAddress()
+            'remote_ip' => My_Houseshare_Tools::getIpAddress()
         );
-        $viewCounterModel->insertView($data, true);
+        $viewCounterModel->insertView($data, self::COUNT_DUPLICATES);
     }
 
     /**

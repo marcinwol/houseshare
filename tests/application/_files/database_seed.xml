@@ -35,17 +35,17 @@
 
 
 
-    <USER user_id="1" email="test@test.com" 
+    <USER user_id="1" email="test@test.com" email_public="0"
             phone="0 432 123 123" phone_public="0" first_name="Marcin"
             last_name="Wolski" last_name_public="1" type='ROOMATE' is_enabled="1"
             privilage="BASIC" description="Friendly gay"/>
 
-    <USER user_id="2" email="michal@michal.com" 
+    <USER user_id="2" email="michal@michal.com"  email_public="1"
             phone="+(0) 18 2443 232" phone_public="1" first_name="Michal"
             last_name="Chojcan" last_name_public="0" type='ROOMATE' is_enabled="1"
             privilage="BASIC" description=""/>
 
-    <USER user_id="3" email="user1@user.com" 
+    <USER user_id="3" email="user1@user.com" email_public="0"
             phone="+(1) 2323 232 (wew.3)" phone_public="1" first_name="Jarek"
             last_name="Smitch 3th" last_name_public="1" type="USER" is_enabled="0"
             privilage="PREMIUM" description="None"/>

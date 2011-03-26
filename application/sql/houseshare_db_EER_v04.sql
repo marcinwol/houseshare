@@ -124,6 +124,7 @@ CREATE  TABLE IF NOT EXISTS `USER` (
   `is_enabled` TINYINT(1) NOT NULL DEFAULT 1 ,
   `privilage` ENUM('BASIC','PREMIUM','ADMIN') NOT NULL DEFAULT 'BASIC' ,
   `description` VARCHAR(45) NULL ,
+  `email_public` TINYINT(1) NOT NULL DEFAULT 0 ,
   PRIMARY KEY (`user_id`) )
 ENGINE = InnoDB;
 
@@ -669,7 +670,7 @@ CREATE TABLE IF NOT EXISTS `VIEW_ACCOMMODATION` (`first_name` INT, `last_name` I
 -- -----------------------------------------------------
 -- Placeholder table for view `VIEW_USER_FOR_AUTH`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `VIEW_USER_FOR_AUTH` (`key` INT, `provider_type` INT, `user_id` INT, `password` INT, `email` INT, `phone` INT, `phone_public` INT, `created` INT, `first_name` INT, `last_name` INT, `last_name_public` INT, `type` INT, `is_enabled` INT, `privilage` INT, `description` INT);
+CREATE TABLE IF NOT EXISTS `VIEW_USER_FOR_AUTH` (`key` INT, `provider_type` INT, `user_id` INT, `password` INT, `email` INT, `phone` INT, `phone_public` INT, `created` INT, `first_name` INT, `last_name` INT, `last_name_public` INT, `type` INT, `is_enabled` INT, `privilage` INT, `description` INT, `email_public` INT);
 
 -- -----------------------------------------------------
 -- View `VIEW_CITY`

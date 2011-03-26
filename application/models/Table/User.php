@@ -49,6 +49,7 @@ class My_Model_Table_User extends Zend_Db_Table_Abstract {
         }
 
         $row->email = $data['email'];       
+        $row->email_public = $data['email_public'];       
         $row->phone = $data['phone'];
         $row->phone_public = $data['phone_public'];
         $row->first_name = $data['first_name'];

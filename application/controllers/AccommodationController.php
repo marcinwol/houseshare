@@ -20,6 +20,9 @@ class AccommodationController extends Zend_Controller_Action {
         }
         $acc_id = (int) $acc_id;
         $acc = My_Houseshare_Factory::accommodation($acc_id);
+        
+        // increase view count
+        $acc->addOneView();
 
 
         // email sending form to send a question to the author of the advertisment
@@ -157,6 +160,7 @@ class AccommodationController extends Zend_Controller_Action {
                         $newUser->last_name_public = $formData['about_you']['last_name_public'];
                         $newUser->description = $formData['about_you']['description'];                        
                         $newUser->email = $formData['about_you']['email'];
+                        $newUser->email_public = $formData['about_you']['email_public'];
                         $newUser->password = $formData['about_you']['password1'];
                         $newUser->phone = $formData['about_you']['phone_no'];
                         $newUser->phone_public = $formData['about_you']['phone_public'];

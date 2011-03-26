@@ -73,6 +73,7 @@ class UserController extends Zend_Controller_Action {
                 $newUser->last_name = $formData['about_you']['last_name'];
                 $newUser->last_name_public = $formData['about_you']['last_name_public'];
                 $newUser->email = $formData['about_you']['email'];
+                $newUser->email_public = $formData['about_you']['email_public'];
                 $newUser->password = $formData['about_you']['password1'];
                 $newUser->phone = $formData['about_you']['phone_no'];
                 $newUser->phone_public = $formData['about_you']['phone_public'];
@@ -392,6 +393,7 @@ class UserController extends Zend_Controller_Action {
                 $user->last_name = $formData['about_you']['last_name'];
                 $user->last_name_public = $formData['about_you']['last_name_public'];
                 $user->email = $formData['about_you']['email'];  
+                $user->email_public = $formData['about_you']['email_public'];
                 $user->description = $formData['about_you']['description'];
                 $user->phone = $formData['about_you']['phone_no'];
                 $user->phone_public = $formData['about_you']['phone_public'];
