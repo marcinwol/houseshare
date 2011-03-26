@@ -120,6 +120,31 @@ class My_Model_Table_Accommodation extends Zend_Db_Table_Abstract {
         return $db->fetchAll($select);
         
     }
+    
+    
+    /**
+     * Get recently viewd advertisments
+     * 
+     * @return array  
+     */
+    static public function getRecentlyViewed($limit = 15) {
+        
+        $db = Zend_Db_Table::getDefaultAdapter();
+  
+        $select = $db->select()->from('ACCOMMODATION',
+                                array('ACCOMMODATION.acc_id', 'ACCOMMODATION.title' ))                
+                ->joinInner(new Zend_Db_Expr(
+                        '(SELECT acc_id as acco_id, MAX(created) as last_time FROM VIEWS_COUNTER 
+                         GROUP BY acc_id)'
+                        ), 'ACCOMMODATION.acc_id = acco_id', 'last_time' ) 
+                ->joinInner('ADDRESS', 'ACCOMMODATION.addr_id = ADDRESS.addr_id', '')                
+                ->joinInner('CITY', 'ADDRESS.city_id = CITY.city_id', 'CITY.name as city')                
+                ->order('last_time DESC')
+                ->limit($limit);
+                
+        return $db->fetchAll($select);
+        
+    }
 
     
     

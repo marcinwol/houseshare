@@ -1,4 +1,3 @@
-<!-- application/layouts/scripts/layout.phtml -->
 <?php echo $this->doctype() ?>
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
@@ -117,6 +116,26 @@
                    $cities .= '<ul class="top-cities">';
                     
                     $this->sideBarElement('Top cities',$cities, array('place' => 'append'));  
+                ?>
+                
+                
+                <!-- ----------- RECENTLY VIEWED ADVERS ---------- -->
+                
+                <?php
+                    // permanent placeholder for recently viewed adds
+                  
+                   $accs = '<ul class="top-cities">';
+                   
+                   $results = My_Model_Table_Accommodation::getRecentlyViewed();                                      
+                   
+                   foreach ($results as $acc) {
+                        $title = $this->truncate(ucfirst(strtolower($acc['title'])),0, 30);
+                        $accs .= '<li><a href="'.$this->baseUrl('/accommodation/show/id/' . $acc['acc_id']).'">'.$title.' <span>('.$acc['city'].')</span></a></li>';
+                   }
+                    
+                   $accs .= '<ul class="top-cities">';
+                    
+                    $this->sideBarElement('Just viewed',$accs, array('place' => 'append'));  
                 ?>
            
                <?php
