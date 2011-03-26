@@ -302,7 +302,7 @@ class AccommodationController extends Zend_Controller_Action {
         $accForm = new My_Form_Accommodation();
         $accForm->removeSubForm('about_you');
 
-        $accForm->populateForm($acc);
+       
 
         if ($this->getRequest()->isPost()) {
             if ($accForm->isValid($_POST)) {
@@ -313,7 +313,8 @@ class AccommodationController extends Zend_Controller_Action {
                 // start transaction
                 $db = Zend_Db_Table::getDefaultAdapter();
                 $db->beginTransaction();
-
+                
+              
                 try {
 
                     // save address in db
@@ -416,6 +417,8 @@ class AccommodationController extends Zend_Controller_Action {
                 return $this->_redirect('accommodation/show/id/' . $acc_id);
             }
         }
+        
+        $accForm->populateForm($acc);
 
         $accForm->getElement('Submit')->setLabel('Update');
         $this->view->form = $accForm;
@@ -440,14 +443,15 @@ class AccommodationController extends Zend_Controller_Action {
         $noOfcurrentAccPhotos = $photoModel->findAccPhotos($acc_id);
 
         // determine number of photos that can be added.
-        $noOfPhotosToAdd = 5 - count($noOfcurrentAccPhotos);
+        $noOfPhotosToAdd = PHOTOS_NUMBER - count($noOfcurrentAccPhotos);
 
         if ($noOfPhotosToAdd <= 0) {
             $this->_helper->FlashMessenger('Cannot add more photos than 3');
             return $this->_redirect('index');
         }
 
-        $photosForm = new My_Form_Photos($noOfPhotosToAdd);
+        $photosForm = new My_Form_Photos();
+        $photosForm->setNoOfPhotosToAdd($noOfPhotosToAdd)->init();
 
         if ($this->getRequest()->isPost()) {
             if ($photosForm->isValid($_POST)) {

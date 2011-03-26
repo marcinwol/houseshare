@@ -79,6 +79,7 @@ class UserHouseshareTest extends ModelTestCase {
         $user = new $userClass();
 
         $user->email = 'new@email.com';
+        $user->email_public =  '1';
         $user->password = 'new password';
         $user->phone = '+324 new';
         $user->phone_public = '1';

@@ -141,6 +141,10 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
 
         defined('THUMBS_PATH')
                 || define('THUMBS_PATH', $imBaseDir . '/' . THUMBS_DIR_NAME);
+        
+        defined('PHOTOS_NUMBER')
+                || define('PHOTOS_NUMBER', (int) $imagePaths['photosNumber']);
+        
     }
 
     protected function _initAppKeysToRegistry() {

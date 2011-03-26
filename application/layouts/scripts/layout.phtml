@@ -92,7 +92,11 @@
         <div id="content" class="container_8">
 
             <div id="" class="grid_6 6">
-                <?php echo $this->flashMessenger(); ?>
+                <?php                
+                    if ($this->getHelper('flashMessenger')->hasMassages()) {
+                        echo '<h2>'. $this->flashMassanger() .'</h2>';
+                    }                                         
+                ?>                
                 <?php echo $this->layout()->content; ?>      
             </div>            
 

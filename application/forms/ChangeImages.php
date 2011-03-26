@@ -36,7 +36,7 @@ class My_Form_ChangeImages extends Zend_Form {
 //            $this->addElement($change);
         }
                 
-        if (count($checkBoxes) < 5) {
+        if (count($checkBoxes) < PHOTOS_NUMBER) {
             $add = new Zend_Form_Element_Submit('add', 'Add');
             $this->addElement($add);
         } 

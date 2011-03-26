@@ -22,20 +22,19 @@ class My_Form_Photos extends Zend_Form {
      * @param mixed $options
      * @return void
      */
-    public function __construct($noOfPhotos = 5, $options = null)
-    {
+    public function __construct($options = null)    {
         if (is_array($options)) {
             $this->setOptions($options);
         } elseif ($options instanceof Zend_Config) {
             $this->setConfig($options);
         }
         
-        $this->_noOfPhotos = $noOfPhotos;
+        $this->_noOfPhotos = PHOTOS_NUMBER;
 
         // Extensions...
-        $this->init();
+       // $this->init();
 
-        $this->loadDefaultDecorators();
+       
     }
 
     
@@ -44,6 +43,12 @@ class My_Form_Photos extends Zend_Form {
         $this->setMethod('post');
         $this->setAttrib('enctype', 'multipart/form-data');
         $this->_makeElements();
+        $this->loadDefaultDecorators();
+    }
+    
+    public function setNoOfPhotosToAdd($noOfPhotosToAdd) {
+         $this->_noOfPhotos = $noOfPhotosToAdd;
+         return $this;
     }
 
     protected function _makeElements() {

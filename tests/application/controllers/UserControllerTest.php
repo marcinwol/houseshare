@@ -153,6 +153,7 @@ class UserControllerTest extends ControllerTestCase {
                     'phone_no' => '+234 234 243',
                     'phone_public' => 1,
                     'email' => 'marcin@test.com',
+                    'email_public' => 1,
                     'password1' => 'haslo12',
                     'password2' => 'haslo12'
                 ),
@@ -223,6 +224,7 @@ class UserControllerTest extends ControllerTestCase {
                         'phone_no' => '+234 234 243',
                         'phone_public' => 1,
                         'email' => 'marcin@test.com',
+                        'email_public' => 1,
                     ),
                 )
             ),
@@ -239,6 +241,7 @@ class UserControllerTest extends ControllerTestCase {
                         'phone_no' => '+234 234 243',
                         'phone_public' => 1,
                         'email' => 'marcin@test.com',
+                        'email_public' => 0,
                     ),
                 )
             )

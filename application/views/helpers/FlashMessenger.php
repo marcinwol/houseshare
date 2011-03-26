@@ -107,4 +107,9 @@ class My_View_Helper_FlashMessenger extends Zend_View_Helper_Abstract
         }
         return $this->_flashMessenger;
     }
+    
+    public function hasMassages() {
+          $flashMessenger = $this->_getFlashMessenger();
+          return $flashMessenger->hasMessages();
+    }
 }

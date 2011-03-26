@@ -45,6 +45,7 @@ class UserModelTest extends ModelTestCase {
                 'first_name' => 'Marek',
                 'last_name' => 'Kurzynski',
                 'last_name_public' => 1,
+                'email_public' => 1,
                 'type' => 'ROOMATE'
             ),
             null, // create new user
@@ -59,6 +60,7 @@ class UserModelTest extends ModelTestCase {
                 'first_name' => 'Piotr',
                 'last_name' => 'Caban',
                 'last_name_public' => 0,
+                'email_public' => 1,
                 'type' => 'ROOMATE'
             ),
             2, // update new user with id = 2
@@ -111,7 +113,8 @@ class UserModelTest extends ModelTestCase {
             'phone_public' => 0,
             'first_name' => 'Piotr',
             'last_name' => 'Caban',
-            'last_name_public' => 0
+            'last_name_public' => 0,
+            'email_public' => 1,
         );
 
         // create new user

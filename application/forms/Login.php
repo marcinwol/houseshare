@@ -23,12 +23,7 @@ class My_Form_Login extends Zend_Form {
         $email = $this->createElement('text', 'email');
         $email->setRequired(true)->setLabel('Your email');
         $email->setFilters(array('stripTags', 'stringTrim'));
-        $email->removeDecorator('DtDdWrapper');
-        $email->removeDecorator('HtmlTag');
-        $email->removeDecorator('Description');
-        $email->removeDecorator('ViewHelper');
-        
-        var_dump($email->getDecorators());
+
         $emailValidator = new Zend_Validate_EmailAddress(
                         array('domain' => false)
         );
