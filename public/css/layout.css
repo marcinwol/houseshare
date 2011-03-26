@@ -145,7 +145,21 @@ a.acc-add:hover {
 /*LOGIN FORM */
 
 #login-form {
-    padding-top: 15px;
+  
+}
+
+.login-form input[type=text], .login-form input[type=password], .zend_form textarea {
+    width:320px;
+    border: 1px solid #b5b5b5;
+    height: 28px;
+    font-size: 18px;
+}
+
+.login-form input[type=submit] {
+      width:320px;
+       height: 28px;
+    font-size: 18px;
+   
 }
 
 

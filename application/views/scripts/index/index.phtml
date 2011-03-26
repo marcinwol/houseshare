@@ -1,3 +1,36 @@
+  <!-- ----------- RECENTLY VIEWED ADVERS ---------- -->
+
+<?php
+// permanent placeholder for recently viewed adds
+
+$accs = '<ul class="top-cities">';
+
+$results = My_Model_Table_Accommodation::getRecentlyViewed();                                      
+
+foreach ($results as $acc) {
+    $title = $this->truncate(ucfirst(strtolower($acc['title'])),0, 25);
+    $accs .= '<li><a href="'.$this->baseUrl('/accommodation/show/id/' . $acc['acc_id']).'">'.$title.' <span>('.$acc['city'].')</span></a></li>';
+}
+
+$accs .= '<ul class="top-cities">';
+
+$this->sideBarElement('Just viewed',$accs, array('place' => 'prepend'));  
+?>
+ <?php
+    // permanent placeholder for top cities
+
+   $cities = '<ul class="top-cities">';
+
+   $results = My_Model_Table_Accommodation::getTopCities();
+
+   foreach ($results as $city) {
+        $cities .= '<li><a href="'.$this->baseUrl('/accommodation/list/city/' . $city['city_id']).'">'.$city['name'].' <span>('.$city['count'].')</span></a></li>';
+   }
+
+   $cities .= '<ul class="top-cities">';
+
+    $this->sideBarElement('Top cities',$cities, array('place' => 'prepend'));  
+?>
 <?php
    $sideBarContent = '
         <strong>It is 100% free</strong>.  It is free to 

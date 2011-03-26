@@ -1,4 +1,18 @@
 <?php
+$sideBarContent = <<<END
+If you don't have an account, you can register for free OpenID using
+      <a href="https://www.myopenid.com/signup"> myOpenID </a>. 
+<p>
+  Alternatively, you can register into houseshare using our 
+  simple registration <a href="{$this->baseUrl('/user/create')}">form</a>
+</p>      
+       
+END;
+
+$this->sideBarElement('How to register?',$sideBarContent, array('class' => 'side-bar-info'));  
+?>
+
+<?php
    $sideBarContent = 'OpenID allows you to use an existing account to sign in to multiple websites, without needing to create new passwords.
                     <p style="text-align: right;">
                 <a  href="http://openid.net/what/">Learn more</a>
@@ -22,15 +36,16 @@
     });
 </script>
 
-
-<div id="login-form">
+<div class="grid_6 ">&nbsp;</div>
+<div class="grid_6 ">&nbsp;</div>
+<div id="login-form" class="grid_3 alpha">
+     <h2>Log in using OpenID</h2>
     <!-- Simple OpenID Selector -->
     <form action="<?php echo $this->baseUrl('/user/login');?>" method="get" id="openid_form">
         <input type="hidden" name="action" value="verify" />
         <fieldset>
             <legend></legend>
-            <div id="openid_choice">
-                <p>Do you already have an account on one of these sites? Click the logo to <strong>log in</strong> with it here:</p>
+            <div id="openid_choice">               
                 <div id="openid_btns"></div>
             </div>
             <div id="openid_input_area">
@@ -45,16 +60,11 @@
     </form>
     <!-- /Simple OpenID Selector -->
 </div>
-<h2>OR</h2>
-<div>
+
+<div class="grid_3 omega">
 
 
-    <p>Login using houseshare auth system. <br />If you don't have an account, please
-        register to using free OpenID provider
-        <a href="https://www.myopenid.com/signup"> myOpenID </a> or
-        using houseshare registration <a href="
-    <?php echo $this->baseUrl('/user/create');?> ">form</a>.
-    </p>
+    <h2>Login using houseshare auth system</h2>
 
     <div>
          <?php if (true == $this->failedLoginAttempt): ?>
@@ -66,8 +76,8 @@
     </div>
 
 </div>
-
-<div>
+<div class="grid_6 ">&nbsp;</div>
+<div class="grid_6 " style="text-align: center">
     <h2>If you’ve forgotten or lost your login information</h2>
     <h2><a href="<?php echo $this->baseUrl('/user/account-recovery');?>">click here to recover your login information</a></h2>
 </div>

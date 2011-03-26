@@ -1,60 +1,59 @@
+<?php
+if (count($this->acc->photosurls) > 0) {
+    echo '<script type="text/javascript">  Shadowbox.init();</script>';
+
+    $thumbs = $this->acc->thumbsurls;
+
+    $imgsHtml = '';
+    $imgsHtml .= '<ul class="photos">';
+    foreach ($this->acc->photosurls as $photo_id => $url) {
+        $thumb = '<img src="' . $thumbs[$photo_id] . '" alt="thumbs" width="160px" heigth="118px" />';
+        $imgsHtml .= '<li>';
+        $imgsHtml .= '<a href="' . $url . '" rel="shadowbox[accommodation]"/>' . $thumb . '</a>';
+        $imgsHtml .= '</li>';
+    }
+    $imgsHtml .= '</ul>';
+    //  echo '<script type="text/javascript">  $("#pikame").PikaChoose(); </script>';
+
+    $this->sideBarElement('Photos', $imgsHtml);
+}
+?>   
 
 
-<div>
 
-
-    <?php
-    if (count($this->acc->photosurls) > 0) {
-         echo '<script type="text/javascript">  Shadowbox.init();</script>';
-         
-        $thumbs = $this->acc->thumbsurls; 
-         
-        $imgsHtml = '';
-        $imgsHtml .= '<ul class="photos">';
-        foreach ($this->acc->photosurls as $photo_id => $url) {                     
-               $thumb = '<img src="'.$thumbs[$photo_id].'" alt="thumbs" width="160px" heigth="118px" />';
-               $imgsHtml .= '<li>';
-               $imgsHtml .= '<a href="' . $url . '" rel="shadowbox[accommodation]"/>'.$thumb.'</a>';
-               $imgsHtml .= '</li>';
-        }
-        $imgsHtml .= '</ul>';
-      //  echo '<script type="text/javascript">  $("#pikame").PikaChoose(); </script>';
-       
-       $this->sideBarElement('Photos',$imgsHtml);  
-    }  
-    ?>   
-
-
-</div>
-<div id="acc-details">
+<div id="acc-details" class="grid_6 alpha">
     <h1 class="title"><?php echo $this->acc->title; ?></h1>
+    
+    <div class="grid_4 alpha">
     <p>
         <?php echo $this->acc->description; ?>
     </p>
+    </div>
+     <div class="grid_2 omega">
     <dl class="basic-info">
         <dt>Price:</dt>
         <dd><?php echo $this->acc->price; ?> (per month)</dd>
         <dt>Bond:</dt>
         <dd><?php echo $this->acc->bond; ?></dd>
-        <dt>Avaliable <?php echo $this->avaliable($this->acc)->inOrFrom();?>:</dt>
+        <dt>Avaliable <?php echo $this->avaliable($this->acc)->inOrFrom(); ?>:</dt>
         <dd><?php echo $this->avaliable($this->acc)->time(); ?></dd>
     </dl>
 
+      </div>
 
-
-    <div class="section">
+    <div class="section grid_6 alpha">
         <h1>Where</h1> 
         <dl class="address">        
-        <dt>Street:</dt>
-        <dd><?php echo $this->acc->address->street; ?></dd>        
-        <dt>City:</dt>
-        <dd><?php echo $this->acc->city; ?></dd>
-         <dt>State:</dt>
-        <dd><?php echo $this->acc->state; ?></dd>
-    </dl>
+            <dt>Street:</dt>
+            <dd><?php echo $this->acc->address->street; ?></dd>        
+            <dt>City:</dt>
+            <dd><?php echo $this->acc->city; ?></dd>
+            <dt>State:</dt>
+            <dd><?php echo $this->acc->state; ?></dd>
+        </dl>
 
     </div>
-    <div class="section">
+    <div class="section grid_2 alpha ">
         <h1>Features</h1> 
         <?php
         $features = $this->acc->features;
@@ -68,7 +67,7 @@
         ?>
     </div>
 
-    <div class="section">
+    <div class="section grid_2 alpha  ">
         <h1>Preferences</h1> 
         <?php
         $prefs = $this->acc->preferences;
@@ -82,15 +81,15 @@
         ?>
     </div>
 
-    <div class="section">
+    <div class="section grid_2 omega">
         <h1>Roomates</h1> 
-<?php
-var_dump($this->acc->roomates->toArray());
-?>
+        <?php
+        var_dump($this->acc->roomates->toArray());
+        ?>
     </div>
 
 
-    <div class="section">
+    <div class="section grid_6 alpha">
         <h1>Contact</h1> 
         <a href="javascript:none;" id="ask-question">Ask a question</a>
         <div id="email-send-form">
