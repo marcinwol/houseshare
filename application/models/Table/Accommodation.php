@@ -59,6 +59,9 @@ class My_Model_Table_Accommodation extends Zend_Db_Table_Abstract {
         $row->street_address_public = $data['street_address_public'];
         $row->short_term_ok = $data['short_term_ok'];
         $row->type_id = $data['type_id'];
+        if (isset($data['is_enabled'])) {
+            $row->is_enabled = $data['is_enabled'];
+        }
 
         return $row->save();
     }
@@ -71,7 +74,8 @@ class My_Model_Table_Accommodation extends Zend_Db_Table_Abstract {
      */
     public function getLastAccommodations($no = 10) {
         $select = $this->select();
-        $select->order('created DESC')->limit($no);
+        $select->order('created DESC')->limit($no)
+                ->where('ACCOMMODATION.is_enabled = ?', 1);
         return $this->fetchAll($select);
     }
     
@@ -83,9 +87,10 @@ class My_Model_Table_Accommodation extends Zend_Db_Table_Abstract {
         
         $db = Zend_Db_Table::getDefaultAdapter();
         
-        $select = $db->select()->from('ACCOMMODATION','')
+        $select = $db->select()->from('ACCOMMODATION','')                
                 ->joinInner('ADDRESS', 'ACCOMMODATION.addr_id = ADDRESS.addr_id', '')
                 ->joinInner('CITY', 'ADDRESS.city_id = CITY.city_id', array('CITY.city_id','CITY.name'))
+                ->where('ACCOMMODATION.is_enabled = ?', 1)
                 ->order('CITY.name ASC')
                 ->distinct();
 

@@ -20,7 +20,27 @@ class AccommodationController extends Zend_Controller_Action {
         }
         $acc_id = (int) $acc_id;
         $acc = My_Houseshare_Factory::accommodation($acc_id);
+
+
+        $auth = Zend_Auth::getInstance();
         
+        
+        // do not shown disabled adverts, except to the owner of it.
+        if ($auth->hasIdentity()) {
+            $user_id = $auth->getIdentity()->property->user_id;
+            // check if the accommodation belongs to the registered user
+            if ($user_id != $acc->user->user_id && $acc->is_enabled == 0) {
+                $this->_helper->FlashMessenger('You cannot see this accommodation');
+                return $this->_redirect('/');
+            }
+        } else {
+            if ($acc->is_enabled == 0) {                
+                 return $this->_redirect('/');
+            }
+        }
+        
+        
+
         // increase view count
         $acc->addOneView();
 
@@ -67,10 +87,9 @@ class AccommodationController extends Zend_Controller_Action {
 
         $city_id = $cityName = $this->_request->getParam('city', null);
         $maxPrice = $this->_request->getParam('maxprice', null);
-       
+
         //@list($cityName, $stateName) = explode(', ', $city);
         //var_dump($cityName);
-
         // fetch accommodations from database that match a give city
 
         $cityModel = new My_Model_Table_City();
@@ -99,7 +118,8 @@ class AccommodationController extends Zend_Controller_Action {
 
         if (null !== $city_id) {
             $accSelect->joinInner('ADDRESS', 'ACCOMMODATION.addr_id = ADDRESS.addr_id')
-                    ->where("ADDRESS.city_id = ?", $city_id);
+                    ->where("ADDRESS.city_id = ?", $city_id)
+                    ->where('ACCOMMODATION.is_enabled = ?', 1);
 
             if ($maxPrice) {
                 $accSelect->where("ACCOMMODATION.price < ?", $maxPrice);
@@ -158,7 +178,7 @@ class AccommodationController extends Zend_Controller_Action {
                         $newUser->first_name = $formData['about_you']['first_name'];
                         $newUser->last_name = $formData['about_you']['last_name'];
                         $newUser->last_name_public = $formData['about_you']['last_name_public'];
-                        $newUser->description = $formData['about_you']['description'];                        
+                        $newUser->description = $formData['about_you']['description'];
                         $newUser->email = $formData['about_you']['email'];
                         $newUser->email_public = $formData['about_you']['email_public'];
                         $newUser->password = $formData['about_you']['password1'];
@@ -302,7 +322,7 @@ class AccommodationController extends Zend_Controller_Action {
         $accForm = new My_Form_Accommodation();
         $accForm->removeSubForm('about_you');
 
-       
+
 
         if ($this->getRequest()->isPost()) {
             if ($accForm->isValid($_POST)) {
@@ -313,8 +333,8 @@ class AccommodationController extends Zend_Controller_Action {
                 // start transaction
                 $db = Zend_Db_Table::getDefaultAdapter();
                 $db->beginTransaction();
-                
-              
+
+
                 try {
 
                     // save address in db
@@ -417,7 +437,7 @@ class AccommodationController extends Zend_Controller_Action {
                 return $this->_redirect('accommodation/show/id/' . $acc_id);
             }
         }
-        
+
         $accForm->populateForm($acc);
 
         $accForm->getElement('Submit')->setLabel('Update');
@@ -637,6 +657,76 @@ class AccommodationController extends Zend_Controller_Action {
         Zend_Session::namespaceUnset('addAccInfo');
         $this->view->acc = $acc;
     }
-    
+
+    public function disableAction() {
+
+        $this->_helper->viewRenderer->setNoRender(true);
+
+        $acc_id = $this->getRequest()->getParam('id', null);
+
+        if (empty($acc_id)) {
+            $this->_helper->FlashMessenger('Cannot dissiable accommodation');
+            return $this->_redirect('/');
+        }
+
+        $acc_id = (int) $acc_id;
+
+        $acc = My_Houseshare_Factory::accommodation($acc_id);
+
+        $user_id = Zend_Auth::getInstance()->getIdentity()->property->user_id;
+
+        // check if the accommodation belongs to the registered user
+        if ($user_id != $acc->user->user_id) {
+            $this->_helper->FlashMessenger('You cannot disable this accommodation');
+            return $this->_redirect('/');
+        }
+
+        $acc->is_enabled = 0;
+
+
+        if ($acc->save() != $acc_id) {
+            $db->rollBack();
+            throw new Zend_Db_Exception('Returned acc_id is different then updated one');
+        }
+
+        $this->_helper->FlashMessenger('Accommodation was disabled');
+        return $this->_redirect('/user/');
+    }
+
+    public function enableAction() {
+
+        $this->_helper->viewRenderer->setNoRender(true);
+
+        $acc_id = $this->getRequest()->getParam('id', null);
+
+        if (empty($acc_id)) {
+            $this->_helper->FlashMessenger('Cannot enable accommodation');
+            return $this->_redirect('/');
+        }
+
+        $acc_id = (int) $acc_id;
+
+        $acc = My_Houseshare_Factory::accommodation($acc_id);
+
+        $user_id = Zend_Auth::getInstance()->getIdentity()->property->user_id;
+
+        // check if the accommodation belongs to the registered user
+        if ($user_id != $acc->user->user_id) {
+            $this->_helper->FlashMessenger('You cannot enable this accommodation');
+            return $this->_redirect('/');
+        }
+
+        $acc->is_enabled = 1;
+
+
+        if ($acc->save() != $acc_id) {
+            $db->rollBack();
+            throw new Zend_Db_Exception('Returned acc_id is different then updated one');
+        }
+
+        $this->_helper->FlashMessenger('Accommodation was enabled');
+        return $this->_redirect('/user/');
+    }
+
 }
 

@@ -12,6 +12,14 @@
             <a href="<?php echo $this->baseUrl('/accommodation/edit/id/' . $acc->acc_id); ?>">Edit acc data</a> 
             |
              <a href="<?php echo $this->baseUrl('/accommodation/photochange/id/' . $acc->acc_id); ?>">Change acc photos</a>
+            |            
+            
+            <?php if ($acc->is_enabled == 1): ?>
+                 <a href="<?php echo $this->baseUrl('/accommodation/disable/id/' . $acc->acc_id); ?>">Disable</a>               
+            <?php else: ?>             
+                <a href="<?php echo $this->baseUrl('/accommodation/enable/id/' . $acc->acc_id); ?>">Enable</a>               
+            <?php endif; ?>                             
+                
         <?php endforeach;?>
         
         
