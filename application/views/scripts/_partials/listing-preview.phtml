@@ -25,7 +25,7 @@
             <dl>
                 <?php $city =  $this->acc->city . ', ' . $this->acc->state;?>
                 <dt>City: </dt><dd><a href="<?php echo $this->baseUrl('/accommodation/list/city/' . $this->acc->address->city_id);?>"><?php echo $city;?></a></dd>                                                           
-                <dt>Type: </dt><dd><?php echo $this->acc->type->name; ?></dd> 
+                <dt>Type: </dt><dd><?php echo $this->acc->getTypeAsString(); ?></dd> 
                 
                 
                 <dt>Avaliable <?php echo $this->avaliable($this->acc)->inOrFrom();?>: </dt>

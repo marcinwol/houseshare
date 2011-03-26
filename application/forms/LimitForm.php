@@ -43,6 +43,20 @@ class My_Form_LimitForm extends Zend_Form {
         $defMaxPrice->setValue(2000);
         $defMaxPrice->removeDecorator('Label');
         $this->addElement($defMaxPrice);
+        
+        
+        // accommodation type selection
+        $accTypeBed = $this->createElement('checkbox', "bed");
+        $accTypeBed->setLabel('Place in a room')->setChecked(true);
+        $accTypeBed->setCheckedValue('1');  
+        $this->addElement($accTypeBed);
+        
+        // accommodation type selection
+        $accTypeRoom = $this->createElement('checkbox', "room");
+        $accTypeRoom->setLabel('Room')->setChecked(true);
+        $accTypeRoom->setCheckedValue('2'); 
+        
+        $this->addElement($accTypeRoom);
 
         $submit = $this->createElement('submit', 'submit', array('label' => 'Limit'));
         $submit->removeDecorator('Label');        

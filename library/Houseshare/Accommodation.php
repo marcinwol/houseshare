@@ -548,6 +548,21 @@ class My_Houseshare_Accommodation extends My_Houseshare_Abstract_PropertyAccesso
     public function getType() {
         return $this->_acc->_row->getType();
     }
+    
+    /**
+     * Get userfriendly accommodation type .
+     *
+     * @return  My_Model_Table_Row_Type
+     */
+    public function getTypeAsString() {
+        $type = $this->type->name;
+        $typeAsString = $type;
+        
+        if ('Bed' == $type) {
+            $typeAsString = 'A pace in a room';
+        }
+        return $typeAsString;
+    }
 
     public function getNewProperties() {
         return (array) $this->_newProperties;

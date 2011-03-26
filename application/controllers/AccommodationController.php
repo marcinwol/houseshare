@@ -23,8 +23,8 @@ class AccommodationController extends Zend_Controller_Action {
 
 
         $auth = Zend_Auth::getInstance();
-        
-        
+
+
         // do not shown disabled adverts, except to the owner of it.
         if ($auth->hasIdentity()) {
             $user_id = $auth->getIdentity()->property->user_id;
@@ -34,12 +34,12 @@ class AccommodationController extends Zend_Controller_Action {
                 return $this->_redirect('/');
             }
         } else {
-            if ($acc->is_enabled == 0) {                
-                 return $this->_redirect('/');
+            if ($acc->is_enabled == 0) {
+                return $this->_redirect('/');
             }
         }
-        
-        
+
+
 
         // increase view count
         $acc->addOneView();
@@ -99,33 +99,45 @@ class AccommodationController extends Zend_Controller_Action {
 
         $limitForm = new My_Form_LimitForm();
 
+
         if (null === $maxPrice) {
             $maxPrice = $limitForm->getElement('maxpricedefault')->getValue();
         } else {
             $limitForm->getElement('maxpricedefault')->setValue($maxPrice);
         }
 
+        $bed = $limitForm->getElement('bed')->getCheckedValue();
+        $room = $limitForm->getElement('room')->getCheckedValue();
+
         if ($this->getRequest()->isPost()) {
             if ($limitForm->isValid($_POST)) {
                 $formData = $limitForm->getValues();
+
                 $maxPrice = $formData['maxprice'];
+                $bed = $formData['bed'];
+                $room = $formData['room'];
+
                 $limitForm->getElement('maxpricedefault')->setValue($maxPrice);
+                $limitForm->getElement('bed')->setValue($bed);
+                $limitForm->getElement('room')->setValue($room);
             }
         }
 
         $accModel = new My_Model_Table_Accommodation();
         $accSelect = $accModel->select(Zend_Db_Table::SELECT_WITH_FROM_PART)->setIntegrityCheck(false);
+        $accSelect->joinInner('ADDRESS', 'ACCOMMODATION.addr_id = ADDRESS.addr_id')
+                  ->where('ACCOMMODATION.is_enabled = ?', 1);
 
-        if (null !== $city_id) {
-            $accSelect->joinInner('ADDRESS', 'ACCOMMODATION.addr_id = ADDRESS.addr_id')
-                    ->where("ADDRESS.city_id = ?", $city_id)
-                    ->where('ACCOMMODATION.is_enabled = ?', 1);
-
-            if ($maxPrice) {
-                $accSelect->where("ACCOMMODATION.price < ?", $maxPrice);
-            }
+        if ($city_id) {
+            $accSelect->where("ADDRESS.city_id = ?", (int) $city_id);
         }
 
+        if ($maxPrice) {
+            $accSelect->where("ACCOMMODATION.price < ?", $maxPrice);
+        }
+        
+         $accSelect->where("ACCOMMODATION.type_id IN ($bed, $room)");
+      
 
         $accs = $accModel->fetchAll($accSelect);
 
