@@ -11,14 +11,14 @@
         <!-- Numbered page links -->
         <?php foreach ($this->pagesInRange as $page): ?>
             <?php if ($page != $this->current): ?>
-            <span class="current-page">
+            <span class="other-pages ">
                  <a href="<?php echo $this->url(array('page' => $page)); ?>">
                     <?php echo $page; ?>
                 </a> 
             </span>
                 <span class="bar"> | </span>
             <?php else: ?>
-                <span class="other-pages">
+                <span class="current-page">
                     <?php echo $page; ?> 
                 </span>
                     <span class="bar"> | </span>

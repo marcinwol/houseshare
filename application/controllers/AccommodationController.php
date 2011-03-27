@@ -99,6 +99,10 @@ class AccommodationController extends Zend_Controller_Action {
         $city = is_null($cityRow) ? null : $cityRow->name;
 
         $limitForm = new My_Form_LimitForm();
+        $limitForm->page->setValue($page);
+        $limitForm->city->setValue($city_id);
+        $limitForm->setAction($this->view->baseUrl('/accommodation/list'));
+        
 
 
         if (null === $maxPrice) {
@@ -143,7 +147,9 @@ class AccommodationController extends Zend_Controller_Action {
         //$accs = $accModel->fetchAll($accSelect);
         $accPaginator = $accModel->getAccPaginator($accSelect, $page, 3);
 
-        
+        if ($accPaginator->count() < $page) {
+            $page = $accPaginator->count();
+        }
         $this->view->maxPrice = $maxPrice;
         $this->view->city = $city;
         $this->view->limitForm = $limitForm;

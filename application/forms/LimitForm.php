@@ -20,6 +20,8 @@ class My_Form_LimitForm extends Zend_Form {
 
         $this->setMethod('post');
         
+        $this->setAttrib('id', 'limit-form');
+        $this->setAttrib('name', 'limit-form');
 
         $maxPrice = $this->createElement('text', 'maxprice');
         $maxPrice->setRequired(true)->setLabel('Max price per month: ');
@@ -44,6 +46,18 @@ class My_Form_LimitForm extends Zend_Form {
         $defMaxPrice->removeDecorator('Label');
         $this->addElement($defMaxPrice);
         
+        // create hidden element with current page number
+        $pageNo = $this->createElement('hidden','page');
+        $pageNo->setValue('1');
+        $pageNo->removeDecorator('Label');
+        $this->addElement($pageNo);
+        
+        // create hidden element with current city
+        $city = $this->createElement('hidden','city');
+        $city->setValue('');
+        $city->removeDecorator('Label');
+        $this->addElement($city);
+        
         
         // accommodation type selection
         $accTypeBed = $this->createElement('checkbox', "bed");
@@ -58,9 +72,14 @@ class My_Form_LimitForm extends Zend_Form {
         
         $this->addElement($accTypeRoom);
 
-        $submit = $this->createElement('submit', 'submit', array('label' => 'Limit'));
-        $submit->removeDecorator('Label');        
-        $this->addElement($submit);
+        //$submit = $this->createElement('submit', 'submit', array('label' => 'Limit'));
+        //$submit->removeDecorator('Label');        
+        //$this->addElement($submit);
+        
+        $limit = $this->createElement('button', 'limit', array('label' => 'Limit'));
+        $limit->removeDecorator('Label');        
+        $this->addElement($limit);
+        
        
     }
 

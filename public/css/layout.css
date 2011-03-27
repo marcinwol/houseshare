@@ -420,9 +420,8 @@ div.paginationControl {
 div.paginationControl a {
      text-decoration: none;
      color: #7b7b7b;
-     font-size: 14px;
-     
-    font-weight: bold;
+     font-size: 14px;     
+     font-weight: bold;
 }
 
 div.paginationControl a:hover {
@@ -431,7 +430,7 @@ div.paginationControl a:hover {
 
 .current-page {
   
-    font-size: 14px;
+    font-size: 10px;
     font-weight: normal;
 }
 

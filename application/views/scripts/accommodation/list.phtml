@@ -1,15 +1,58 @@
 <?php
-   // setup content for the side bar placeholder   
-   $this->sideBarElement('Limit the list', $this->limitForm);  
+// setup content for the side bar placeholder   
+$this->sideBarElement('Limit the list', $this->limitForm);
 ?>
 
 <div>
-        <?php echo $this->partial('_partials/_recentAdverts.phtml', null, 
-                array(
-                    'accommodations' => $this->accs,
-                    'title'   => $this->listTitle,
-                    'editMenu' => false
-                )
-                );    
-        ?>
-   </div>
+    <?php
+    echo $this->partial('_partials/_recentAdverts.phtml', null, array(
+        'accommodations' => $this->accs,
+        'title' => $this->listTitle,
+        'editMenu' => false
+            )
+    );
+    ?>
+</div>
+
+<script type="text/javascript">
+    
+    $(function(){
+         
+        $('button#limit').click(function(){           
+            $('#limit-form').submit();  
+        });
+         
+        $('.paginationControl a').click(function (event) {
+         
+            event.preventDefault();
+           
+            // get new page number
+            var html = $.trim($(this).html());
+            var newPage = parseInt(html);
+           
+            // get current page number
+            var htmlCurrentPage = $.trim($('.current-page').html());
+         
+            var currentPage = parseInt(htmlCurrentPage);
+           
+            // correct in case previouse or next button clicked
+            if (isNaN(newPage)) {
+                if (html == 'Previous') {                   
+                    newPage = currentPage - 1;
+                }else if (html == 'Next') {                   
+                    newPage = currentPage + 1;               
+                }                                             
+            }           
+           
+            //console.log(newPage);
+           
+            // set value of page in a limit form and submit it.           
+            $('#page').val(newPage);
+            $('#limit-form').submit();         
+
+        });
+    });
+    
+   
+   
+</script>
