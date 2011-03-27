@@ -53,13 +53,15 @@ class My_Model_Table_User extends Zend_Db_Table_Abstract {
 
             $row = $this->createRow();
         }
+               
 
         $row->email = $data['email'];       
         $row->email_public = $data['email_public'];       
         $row->phone = $data['phone'];
         $row->phone_public = $data['phone_public'];
-        $row->first_name = $data['first_name'];
-        $row->last_name = $data['last_name'];
+        $row->first_name = isset($data['first_name']) ? $data['first_name'] : '';;
+        $row->last_name = isset($data['last_name']) ? $data['last_name'] : '';       
+        $row->nickname = isset($data['nickname']) ? $data['nickname'] : '';
         $row->last_name_public = $data['last_name_public'];
         $row->description = $data['description'];
         $row->type = $data['type'];

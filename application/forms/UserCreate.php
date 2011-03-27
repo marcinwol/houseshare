@@ -33,7 +33,31 @@ class My_Form_UserCreate extends My_Form_Abstract_AccommodationAbstract {
         $subform = $this->getSubForm(self::ABOUT_YOU_SUBFORM_NAME);
         $subform->removeElement('password1');
         $subform->removeElement('password2');
+        return $this;
     }
+    
+    public function makeDisplayGroups() {
+        
+       $subForm = $this->getSubForm(self::ABOUT_YOU_SUBFORM_NAME);
+        
+       $subForm->addDisplayGroup(
+                array('email','email_public','password1','password2'),'essential',
+                array('legend' => 'Required')
+                );
+       
+       $subForm->addDisplayGroup(
+                array('nickname','phone_no','phone_public', 'description'),'nonessential',
+                array('legend' => 'Optional')
+                );
+       return $this;
+       
+    }
+    
+     public function removeLegend() {
+           $subForm = $this->getSubForm(self::ABOUT_YOU_SUBFORM_NAME);
+           $subForm->setLegend('');
+           return $this;
+     }
 
 }
 

@@ -420,21 +420,26 @@ abstract class My_Form_Abstract_AccommodationAbstract extends Zend_Form {
         $aboutYouForm = new Zend_Form_SubForm();
         $aboutYouForm->setLegend('About you');
 
+//        // create new element
+//        $fnameInput = $this->createElement('text', 'first_name');
+//        $fnameInput->setRequired(false)->setLabel('First name');
+//        $fnameInput->setFilters(array('stripTags', 'stringTrim'));
+//
+//        // create new element
+//        $lnameInput = $this->createElement('text', 'last_name');
+//        $lnameInput->setRequired(false)->setLabel('Last name');
+//        $lnameInput->setFilters(array('stripTags', 'stringTrim'));
+//
+//        // create new element
+//        $lnamePublicChb = $this->createElement('checkbox', 'last_name_public');
+//        $lnamePublicChb->setRequired(false);
+//        $lnamePublicChb->setLabel('Last name visible to all');
+//        $lnamePublicChb->setChecked(false);
+        
         // create new element
-        $fnameInput = $this->createElement('text', 'first_name');
-        $fnameInput->setRequired(false)->setLabel('First name');
-        $fnameInput->setFilters(array('stripTags', 'stringTrim'));
-
-        // create new element
-        $lnameInput = $this->createElement('text', 'last_name');
-        $lnameInput->setRequired(false)->setLabel('Last name');
-        $lnameInput->setFilters(array('stripTags', 'stringTrim'));
-
-        // create new element
-        $lnamePublicChb = $this->createElement('checkbox', 'last_name_public');
-        $lnamePublicChb->setRequired(false);
-        $lnamePublicChb->setLabel('Last name visible to all');
-        $lnamePublicChb->setChecked(false);
+        $nickName = $this->createElement('text', 'nickname');
+        $nickName->setRequired(false)->setLabel('Name or nickname');
+        $nickName->setFilters(array('stripTags', 'stringTrim'));
 
         // create new element
         $phoneInput = $this->createElement('text', 'phone_no');
@@ -485,12 +490,13 @@ abstract class My_Form_Abstract_AccommodationAbstract extends Zend_Form {
         $descriptionInput->setAttribs(array('cols' => 20, 'rows' => 5));
 
         $aboutYouForm->addElements(array(
-            $fnameInput, $lnameInput,
-            $lnamePublicChb, $phoneInput, $phonePublicChb, $emailInput,
+            /* $fnameInput, $lnameInput, $lnamePublicChb*/ 
+            $nickName,
+            $phoneInput, $phonePublicChb, $emailInput,
             $emailPublicChb, $descriptionInput,
             $password1, $password2
         ));
-
+       
         return $aboutYouForm;
     }
 

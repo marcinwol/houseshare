@@ -1,4 +1,20 @@
 <?php
+    // <?php echo $this->gravatar($this->user['email'], array('imgSize' => 100, 'defaultImg' => 'identicon')); 
+    if (strlen($this->acc->user->description)>0) {      
+        //$sideBarHtml = '<ul class="photos">';
+        //$sideBarHtml .= '<li>'.$this->gravatar($this->user['email'], array('imgSize' => 100, 'defaultImg' => 'identicon')) .'</li>';
+        //$sideBarHtml .= '</ul>';
+        $sideBarHtml = '<ul>';
+        $sideBarHtml .=  '<li>'.$this->acc->user->description .'</li>';
+        $sideBarHtml .= '</ul>';
+        
+    } else {
+        $sideBarHtml = '<ul><li>'.$this->translate('No information avaliable').'</li></ul>';
+    }
+    $this->sideBarElement('About ' . $this->acc->user->nickname, $sideBarHtml);
+?>
+
+<?php
 if (count($this->acc->photosurls) > 0) {
     echo '<script type="text/javascript">  Shadowbox.init();</script>';
 
@@ -16,25 +32,33 @@ if (count($this->acc->photosurls) > 0) {
     //  echo '<script type="text/javascript">  $("#pikame").PikaChoose(); </script>';
 
     $this->sideBarElement('Photos', $imgsHtml);
+} else {
+    $this->sideBarElement('Photos', '<ul><li>No photos avaliable</li></ul>');
 }
 ?>   
 
-
-
-<div id="acc-details" class="grid_6 alpha">
-    <h1 class="title"><?php echo $this->acc->title; ?></h1>
+<div class="grid_6 ">&nbsp;</div>
+ <h1 class="title"><?php echo $this->acc->title; ?></h1>
+<div id="acc-details" class="grid_6 alpha">    
     
     <div class="grid_4 alpha">
+        <h1 class="title">Description</h1>
     <p>
         <?php echo $this->acc->description; ?>
     </p>
     </div>
      <div class="grid_2 omega">
     <dl class="basic-info">
-        <dt>Price:</dt>
-        <dd><?php echo $this->acc->price; ?> (per month)</dd>
-        <dt>Bond:</dt>
-        <dd><?php echo $this->acc->bond; ?></dd>
+        <dt>Price (per month)</dt>
+        <dd><?php echo $this->acc->price; ?> PLN</dd>
+        <dt>Bond</dt>
+        <dd><?php echo $this->acc->bond; ?> PLN</dd>
+        
+        <?php if (strlen($this->acc->price_info) > 0): ?>            
+            <dt>Price info</dt>
+            <dd><?php echo $this->acc->price_info; ?></dd>        
+        <?php endif;?>
+            
         <dt>Avaliable <?php echo $this->avaliable($this->acc)->inOrFrom(); ?>:</dt>
         <dd><?php echo $this->avaliable($this->acc)->time(); ?></dd>
     </dl>
@@ -42,7 +66,7 @@ if (count($this->acc->photosurls) > 0) {
       </div>
 
     <div class="section grid_6 alpha">
-        <h1>Where</h1> 
+        <h1>Localization</h1> 
         <dl class="address">        
             <dt>Street:</dt>
             <dd><?php echo $this->acc->address->street; ?></dd>        

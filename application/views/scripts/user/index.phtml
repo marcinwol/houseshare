@@ -1,7 +1,9 @@
 
 <?php
-   $sideBarContent = '<a class="acc-add" href="' . $this->baseUrl("/add").'" alt="Add accommodation">Add accommodation</a><br/><br/>';
-   $this->sideBarElement('',$sideBarContent);  
+  $sideBarContent = '<br/>
+       <a class="acc-add" href="' . $this->baseUrl("/add").'" alt="Add accommodation">Add accommodation</a>
+           <br/><br/><br/>';
+$this->sideBarElement('', $sideBarContent);
 ?>
 
 <div class="grid_6">&nbsp;</div>
@@ -15,7 +17,7 @@
             <tbody>
                 <tr>
                     <td>Name</td>
-                    <td><strong><?php echo $this->user['first_name']; ?></strong></td>
+                    <td><?php echo $this->user['nickname']; ?></td>
                 </tr>
                 <tr>
                     <td>Email</td>
@@ -23,34 +25,44 @@
                 </tr>               
             </tbody>
         </table>
-        <div>
+        <div>       
+            <br/>
             <a href="<?php echo $this->baseUrl('/user/edit'); ?>">Edit your data</a>
         </div>
     </div>
 </div>
 <div class="grid_3 omega">
     <h2>About you</h2>
-<?php echo $this->user['description']; ?>
+    <p>
+        <?php
+        if (!empty($this->user['description'])) {
+            echo $this->user['description'];
+        } else {
+            echo $this->translate('No infomration avaliable');
+        }
+        ?>
+    </p>
+
+
 
 </div>    
-
-<div class="grid_6">
+<div class="grid_6">&nbsp;</div>
+<div class="grid_6 alpha">
     <?php if ($this->accs): ?>
-    <h2>Your accommodations</h2>        
-        <?php foreach ($this->accs as $acc): ?>
-            <?php var_dump($acc->toArray()); ?>
-            <a href="<?php echo $this->baseUrl('/accommodation/edit/id/' . $acc->acc_id); ?>">Edit acc data</a> 
-            |
-            <a href="<?php echo $this->baseUrl('/accommodation/photochange/id/' . $acc->acc_id); ?>">Change acc photos</a>
-            |            
+        <h2>Your accommodations</h2>       
 
-            <?php if ($acc->is_enabled == 1): ?>
-                <a href="<?php echo $this->baseUrl('/accommodation/disable/id/' . $acc->acc_id); ?>">Disable</a>               
-            <?php else: ?>             
-                <a href="<?php echo $this->baseUrl('/accommodation/enable/id/' . $acc->acc_id); ?>">Enable</a>               
-            <?php endif; ?>                             
 
-        <?php endforeach; ?>
+        <div>
+            <?php
+            echo $this->partial('_partials/_recentAdverts.phtml', null, array(
+                'accommodations' => $this->accs,
+                'title' => '',
+                'editMenu' => true
+                )
+            );
+            ?>
+        </div>
+
 
 
     <?php endif; ?>

@@ -60,6 +60,15 @@ class My_Model_Table_Row_Accommodation extends Zend_Db_Table_Row_Abstract {
     public function getViews() {
         return $this->findDependentRowset('My_Model_Table_ViewCounter');
     }
+    
+     /**
+     * Get views count for the current accommodation.
+     *
+     * @return Zend_Db_Table_Rowset
+     */
+    public function getViewsCount() {
+        return count($this->getViews());
+    }
 
     /**
      * Get fullPaths for this Photo rowset.

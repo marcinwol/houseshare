@@ -126,6 +126,18 @@ class My_Houseshare_User extends My_Houseshare_Abstract_PropertyAccessor {
     public function setPassword($property, $value) {
         $this->_newProperties['password'] = md5($value);
     }
+    
+    public function setNickname($property, $value) {
+         // make defualt nickname if needed
+        if (!empty($value) ) {
+            $nickname = $value;
+        } else {
+            $nickname = 'User' .mt_rand(1000, 99999);                   
+        }
+        
+        
+        return  $nickname;
+    }
 
     /**
      * Save the password in the PASSWORD table.       

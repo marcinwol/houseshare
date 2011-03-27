@@ -187,9 +187,7 @@ class AccommodationController extends Zend_Controller_Action {
                         //@todo Add logic for checking if registered or not.
                         //@todo Add other types of users, not only roomates in the future.
                         $newUser = My_Houseshare_Factory::roomate();
-                        $newUser->first_name = $formData['about_you']['first_name'];
-                        $newUser->last_name = $formData['about_you']['last_name'];
-                        $newUser->last_name_public = $formData['about_you']['last_name_public'];
+                        $newUser->nickname = $formData['about_you']['nickname'];                        
                         $newUser->description = $formData['about_you']['description'];
                         $newUser->email = $formData['about_you']['email'];
                         $newUser->email_public = $formData['about_you']['email_public'];

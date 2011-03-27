@@ -26,10 +26,10 @@ class UserController extends Zend_Controller_Action {
         $user = My_Houseshare_Factory::user($user_id, $userType);
         /* @var My_Houseshare_User $user */
 
-        $accs = $user->getAccommodations();
-
+        $accsRowset = $user->getAccommodations();
+       
         $this->view->user = $user->toArray();
-        $this->view->accs = count($accs) > 0 ? $accs : null;
+        $this->view->accs = count($accsRowset) > 0 ? $accsRowset->toModels() : null;
     }
 
     public function addAction() {
@@ -46,6 +46,8 @@ class UserController extends Zend_Controller_Action {
         }
 
         $createForm = new My_Form_UserCreate();
+        $createForm->makeDisplayGroups()->removeLegend();
+        
 
         if ($this->getRequest()->isPost()) {
             if ($createForm->isValid($_POST)) {
@@ -69,9 +71,7 @@ class UserController extends Zend_Controller_Action {
                 // Create a user
                 $newUser = My_Houseshare_Factory::user();
 
-                $newUser->first_name = $formData['about_you']['first_name'];
-                $newUser->last_name = $formData['about_you']['last_name'];
-                $newUser->last_name_public = $formData['about_you']['last_name_public'];
+                $newUser->nickname = $formData['about_you']['nickname'];                
                 $newUser->email = $formData['about_you']['email'];
                 $newUser->email_public = $formData['about_you']['email_public'];
                 $newUser->password = $formData['about_you']['password1'];
@@ -389,9 +389,7 @@ class UserController extends Zend_Controller_Action {
 
                 $formData = $userForm->getValues();
 
-                $user->first_name = $formData['about_you']['first_name'];
-                $user->last_name = $formData['about_you']['last_name'];
-                $user->last_name_public = $formData['about_you']['last_name_public'];
+                $user->nickname = $formData['about_you']['nickname'];                
                 $user->email = $formData['about_you']['email'];
                 $user->email_public = $formData['about_you']['email_public'];
                 $user->description = $formData['about_you']['description'];
@@ -403,6 +401,9 @@ class UserController extends Zend_Controller_Action {
                 if ($id !== $user_id) {
                     throw new Zend_Db_Exception("User id $user_id and retun value from update ($id) don't match");
                 }
+                
+                $authData->property->nickname = $formData['about_you']['nickname'];
+                
                 $this->_helper->FlashMessenger('Your data was changed');
                 return $this->_redirect('/user');
             }
@@ -434,6 +435,7 @@ class UserController extends Zend_Controller_Action {
 
         $createForm = new My_Form_UserCreate();
         $createForm->removePasswordFields();
+        $createForm->makeDisplayGroups()->removeLegend();
 
 
         // pupulate with email grabbed from the provieder
@@ -451,9 +453,7 @@ class UserController extends Zend_Controller_Action {
                 // Create a user
                 $newUser = My_Houseshare_Factory::user();
 
-                $newUser->first_name = $formData['about_you']['first_name'];
-                $newUser->last_name = $formData['about_you']['last_name'];
-                $newUser->last_name_public = $formData['about_you']['last_name_public'];
+                $newUser->nickname = $formData['about_you']['nickname'];                
                 $newUser->email = $formData['about_you']['email'];
                 $newUser->phone = $formData['about_you']['phone_no'];
                 $newUser->phone_public = $formData['about_you']['phone_public'];

@@ -52,7 +52,9 @@ $this->sideBarElement('Just viewed',$accs, array('place' => 'prepend'));
    $this->sideBarElement('Why houseshare?',$sideBarContent, array('class' => 'side-bar-info'));  
 ?>
 <?php
-   $sideBarContent = '<a class="acc-add" href="' . $this->baseUrl("/add").'" alt="Add accommodation">Add accommodation</a><br/><br/>';
+   $sideBarContent = '<br/>
+       <a class="acc-add" href="' . $this->baseUrl("/add").'" alt="Add accommodation">Add accommodation</a>
+           <br/><br/><br/>';
    $this->sideBarElement('',$sideBarContent);  
 ?>
 <div id="welcome">

@@ -1,17 +1,38 @@
 
 <table id="resent-adverts">   
     <thead>
-        <tr><th><?php echo $this->title;?></th></tr>
+        <tr><th><?php echo $this->title; ?></th></tr>
     <tbody>
-        
+
         <?php foreach ($this->accommodations as $acc): ?>
-        <tr>
-            <td><?php echo $this->partial('_partials/listing-preview.phtml',null, array('acc'=> $acc));?></td>
-            
-        </tr>
-        <?php endforeach;?>
+            <tr>
+                <td><?php echo $this->partial('_partials/listing-preview.phtml', null, array('acc' => $acc)); ?></td>
+            </tr>
+
+
+            <?php if (isset($this->editMenu) && true === $this->editMenu): ?>
+                <tr>
+                    <td class="acc-edit-menu">
+
+                        <a href="<?php echo $this->baseUrl('/accommodation/edit/id/' . $acc->acc_id); ?>">Edit</a> 
+                        |
+                        <a href="<?php echo $this->baseUrl('/accommodation/photochange/id/' . $acc->acc_id); ?>">Change photos</a>
+                        |            
+
+                        <?php if ($acc->is_enabled == 1): ?>
+                            <a href="<?php echo $this->baseUrl('/accommodation/disable/id/' . $acc->acc_id); ?>">Disable</a>               
+                        <?php else: ?>             
+                            <a href="<?php echo $this->baseUrl('/accommodation/enable/id/' . $acc->acc_id); ?>">Enable</a>               
+                        <?php endif; ?>   
+
+                    </td>
+                </tr>
+            <?php endif; ?>
+
+        <?php endforeach; ?>
     </tbody>
-        
+
 </table>
 
-<?php //var_dump($this->accommodations);?>
+<?php
+//var_dump($this->accommodations);?>
