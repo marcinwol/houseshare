@@ -1,0 +1,36 @@
+<?php if ($this->pageCount): ?>
+    <div class="grid_6 alpha paginationControl">
+        <!-- Previous page link -->
+        <?php if (isset($this->previous)): ?>
+            <a href="<?php echo $this->url(array('page' => $this->previous)); ?>">
+                Previous
+            </a> <span class="bar"> | </span>
+        <?php else: ?>
+            <span class="disabled"> Previous</span> <span class="bar"> | </span>
+        <?php endif; ?>
+        <!-- Numbered page links -->
+        <?php foreach ($this->pagesInRange as $page): ?>
+            <?php if ($page != $this->current): ?>
+            <span class="current-page">
+                 <a href="<?php echo $this->url(array('page' => $page)); ?>">
+                    <?php echo $page; ?>
+                </a> 
+            </span>
+                <span class="bar"> | </span>
+            <?php else: ?>
+                <span class="other-pages">
+                    <?php echo $page; ?> 
+                </span>
+                    <span class="bar"> | </span>
+            <?php endif; ?>
+        <?php endforeach; ?>
+        <!-- Next page link -->
+        <?php if (isset($this->next)): ?>
+            <a href="<?php echo $this->url(array('page' => $this->next)); ?>">
+                Next
+            </a>
+        <?php else: ?>
+            <span class="disabled">Next </span>
+        <?php endif; ?>
+    </div>
+<?php endif; ?>

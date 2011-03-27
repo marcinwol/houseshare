@@ -411,6 +411,31 @@ dl.advert-stats dt, dl.advert-stats dd{
     color: #afafaf;
 }
 
+/**** PAGINATION CONTROL */
+div.paginationControl {
+    padding-top: 10px;
+    color: #7b7b7b;
+}
+
+div.paginationControl a {
+     text-decoration: none;
+     color: #7b7b7b;
+     font-size: 14px;
+     
+    font-weight: bold;
+}
+
+div.paginationControl a:hover {
+     text-decoration: underline;
+}
+
+.current-page {
+  
+    font-size: 14px;
+    font-weight: normal;
+}
+
+
 /********* FOOTER ******/
 
 
@@ -425,7 +450,6 @@ dl.advert-stats dt, dl.advert-stats dd{
     color: #fefefe;
     font-size: 12px;
 
-  
 }
 
 .footerWrapper p {

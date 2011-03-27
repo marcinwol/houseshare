@@ -87,6 +87,7 @@ class AccommodationController extends Zend_Controller_Action {
 
         $city_id = $cityName = $this->_request->getParam('city', null);
         $maxPrice = $this->_request->getParam('maxprice', null);
+        $page = $this->_getParam('page', 1);
 
         //@list($cityName, $stateName) = explode(', ', $city);
         //var_dump($cityName);
@@ -139,13 +140,16 @@ class AccommodationController extends Zend_Controller_Action {
          $accSelect->where("ACCOMMODATION.type_id IN ($bed, $room)");
       
 
-        $accs = $accModel->fetchAll($accSelect);
+        //$accs = $accModel->fetchAll($accSelect);
+        $accPaginator = $accModel->getAccPaginator($accSelect, $page, 3);
 
+        
         $this->view->maxPrice = $maxPrice;
         $this->view->city = $city;
         $this->view->limitForm = $limitForm;
         $this->view->listTitle = $city ? "Avaliable accommodation in $city" : 'Avaliable accommodation';
-        $this->view->accs = $accs->toModels();
+        $this->view->page = $page;
+        $this->view->accs = $accPaginator;
     }
 
     public function addAction() {

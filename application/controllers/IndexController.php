@@ -31,6 +31,7 @@ class IndexController extends Zend_Controller_Action {
     public function indexAction() {
                
         $mainForm = new My_Form_MainPage();
+        $page = $this->_getParam('page', 1);
 
         if ($this->getRequest()->isPost()) {
             if ($mainForm->isValid($_POST)) {
@@ -48,8 +49,7 @@ class IndexController extends Zend_Controller_Action {
             }
         }
         
-
-
+        $this->view->page = $page;
         $this->view->mainForm = $mainForm;
     }
 

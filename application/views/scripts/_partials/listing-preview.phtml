@@ -1,5 +1,13 @@
 <div class="listing-preview">
     
+    
+    <?php
+        if (!$this->acc instanceof My_Houseshare_Accommodation) {         
+            $this->acc = My_Houseshare_Factory::accommodation($this->acc->acc_id);
+        }
+    
+    ?>
+    
     <?php
     $firstThumbPath = $this->baseUrl('/images/thumbs/no_pic.jpg');
 

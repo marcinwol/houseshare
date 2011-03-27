@@ -33,6 +33,13 @@
     </tbody>
 
 </table>
-
-<?php
-//var_dump($this->accommodations);?>
+<div>
+    
+ <?php 
+ 
+ if ($this->accommodations instanceof Zend_Paginator) {
+ 
+    echo $this->paginationControl($this->accommodations, 'Sliding', '_partials/pagination_control.phtml');
+ }
+ ?>    
+</div>

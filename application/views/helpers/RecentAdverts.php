@@ -16,7 +16,7 @@ class My_View_Helper_RecentAdverts extends Zend_View_Helper_Abstract {
     /**
      * Number of newest accommodations to return
      */
-    const NO_OF_ACCS = 10;
+    const NO_OF_ACCS = 3;
     
     /**
      * View instance
@@ -25,9 +25,9 @@ class My_View_Helper_RecentAdverts extends Zend_View_Helper_Abstract {
      */
     public $view;
 
-    public function recentAdverts() {
+    public function recentAdverts($page = 1) {
 
-        $lastAccs = $this->_getLastAccommodations();        
+        $lastAccs = $this->_getLastAccommodations($page);        
 
         return $this->view->partial(
                 '_partials/_recentAdverts.phtml', null, 
@@ -39,10 +39,14 @@ class My_View_Helper_RecentAdverts extends Zend_View_Helper_Abstract {
     }
     
     
-    protected function _getLastAccommodations() {
+    /**
+     *
+     * @return Zend_Paginator Zend_Paginator
+     */
+    protected function _getLastAccommodations($page = 1) {
         $accModel = new My_Model_Table_Accommodation();
-        $lastAccs = $accModel->getLastAccommodations(self::NO_OF_ACCS);
-        return $lastAccs->toModels();
+        $paginator = $accModel->getLastAccommodations($page, self::NO_OF_ACCS);
+        return $paginator;
     }
 
     /**
