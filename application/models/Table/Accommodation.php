@@ -141,7 +141,7 @@ class My_Model_Table_Accommodation extends Zend_Db_Table_Abstract {
      * 
      * @return array  
      */
-    static public function getRecentlyViewed($limit = 15) {
+    static public function getRecentlyViewed($limit = 5) {
 
         $db = Zend_Db_Table::getDefaultAdapter();
 

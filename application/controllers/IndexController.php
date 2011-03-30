@@ -11,8 +11,16 @@ class IndexController extends Zend_Controller_Action {
      */
     public function testAction() {
 
+        
+        $db = Zend_Db_Table::getDefaultAdapter();
+        $select = $db->select()->from('table','numbers')->order('numbers+0');
+        var_dump($select->assemble());
+        
+        
 
         $form = new Zend_Form;
+        
+        
 
         $form->removeDecorator('htmlTag');
 
@@ -29,7 +37,7 @@ class IndexController extends Zend_Controller_Action {
     }
 
     public function indexAction() {
-               
+        
         $mainForm = new My_Form_MainPage();
         $page = $this->_getParam('page', 1);
 
