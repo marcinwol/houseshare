@@ -10,30 +10,27 @@ class IndexController extends Zend_Controller_Action {
      * This is for tests, experiments, etc.
      */
     public function testAction() {
+        
+        
+        
+        
 
         
         $db = Zend_Db_Table::getDefaultAdapter();
-        $select = $db->select()->from('table','numbers')->order('numbers+0');
+        $select2 = $db->select()
+                ->from('log', array('log_date', 'user_id', 'task', 'work_desc', 'hours', 'user2project'))                
+                ->join('project', 'log.user2project = project.id', array('title' => 'title', 'id'));
+        
+        var_dump($select2->assemble());
+        
+        $db = Zend_Db_Table::getDefaultAdapter();
+        $select = $db->select()
+                ->from(new Zend_Db_Expr('log, project'), array('log_date', 'user_id', 'task', 'work_desc', 'hours', 'user2project'))                             
+                ->where('log.user2project = project.id');  
+        
         var_dump($select->assemble());
         
-        
 
-        $form = new Zend_Form;
-        
-        
-
-        $form->removeDecorator('htmlTag');
-
-        $selectTemplate = new Zend_Form_Element_Hidden('report_template');
-        $selectTemplate->setLabel('Select Template:')
-                ->setDescription('No message templates have been added, add a message template <a href="admin-report-addreporttemplate">here</a>');
-
-        $selectTemplate->getDecorator('description')->setOption('escape', false);
-        $form->addElement($selectTemplate);
-//       
-        $this->view->keywords = 'new k2ewords';
-
-        $this->view->form = $form;
     }
 
     public function indexAction() {

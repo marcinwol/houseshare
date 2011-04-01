@@ -18,6 +18,20 @@ CREATE UNIQUE INDEX `name_UNIQUE` ON `STATE` (`name` ASC) ;
 
 
 -- -----------------------------------------------------
+-- Table `MARKER`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `MARKER` ;
+
+CREATE  TABLE IF NOT EXISTS `MARKER` (
+  `marker_id` INT NOT NULL AUTO_INCREMENT ,
+  `lat` FLOAT NOT NULL ,
+  `lng` FLOAT NOT NULL ,
+  PRIMARY KEY (`marker_id`) )
+ENGINE = InnoDB
+COMMENT = 'Google Map marker localization';
+
+
+-- -----------------------------------------------------
 -- Table `CITY`
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS `CITY` ;
@@ -26,17 +40,26 @@ CREATE  TABLE IF NOT EXISTS `CITY` (
   `city_id` INT UNSIGNED NOT NULL AUTO_INCREMENT ,
   `name` VARCHAR(100) NOT NULL ,
   `state_id` INT UNSIGNED NOT NULL ,
+  `marker_id` INT NULL ,
+  `description` TEXT NULL ,
   PRIMARY KEY (`city_id`) ,
   CONSTRAINT `fk_CITY_STATE1`
     FOREIGN KEY (`state_id` )
     REFERENCES `STATE` (`state_id` )
     ON DELETE RESTRICT
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_CITY_MARKER1`
+    FOREIGN KEY (`marker_id` )
+    REFERENCES `MARKER` (`marker_id` )
+    ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 CREATE INDEX `fk_CITY_STATE1` ON `CITY` (`state_id` ASC) ;
 
 CREATE UNIQUE INDEX `UNIQUE_CITY` ON `CITY` (`name` ASC, `state_id` ASC) ;
+
+CREATE INDEX `fk_CITY_MARKER1` ON `CITY` (`marker_id` ASC) ;
 
 
 -- -----------------------------------------------------
@@ -79,6 +102,7 @@ CREATE  TABLE IF NOT EXISTS `ADDRESS` (
   `city_id` INT UNSIGNED NOT NULL ,
   `street_id` INT UNSIGNED NOT NULL ,
   `zip_id` INT UNSIGNED NOT NULL ,
+  `marker_id` INT NULL ,
   PRIMARY KEY (`addr_id`) ,
   CONSTRAINT `fk_ADDRESS_CITY1`
     FOREIGN KEY (`city_id` )
@@ -94,7 +118,12 @@ CREATE  TABLE IF NOT EXISTS `ADDRESS` (
     FOREIGN KEY (`zip_id` )
     REFERENCES `ZIP` (`zip_id` )
     ON DELETE RESTRICT
-    ON UPDATE NO ACTION)
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_ADDRESS_MARKER1`
+    FOREIGN KEY (`marker_id` )
+    REFERENCES `MARKER` (`marker_id` )
+    ON DELETE SET NULL
+    ON UPDATE CASCADE)
 ENGINE = InnoDB;
 
 CREATE INDEX `fk_ADDRESS_CITY1` ON `ADDRESS` (`city_id` ASC) ;
@@ -104,6 +133,8 @@ CREATE UNIQUE INDEX `UNIQUE_ADDRESS` ON `ADDRESS` (`unit_no` ASC, `street_no` AS
 CREATE INDEX `fk_ADDRESS_STREET1` ON `ADDRESS` (`street_id` ASC) ;
 
 CREATE INDEX `fk_ADDRESS_ZIP1` ON `ADDRESS` (`zip_id` ASC) ;
+
+CREATE INDEX `fk_ADDRESS_MARKER1` ON `ADDRESS` (`marker_id` ASC) ;
 
 
 -- -----------------------------------------------------
@@ -168,6 +199,8 @@ CREATE  TABLE IF NOT EXISTS `ACCOMMODATION` (
   `is_enabled` TINYINT(1) NOT NULL DEFAULT 1 ,
   `price_info` VARCHAR(255) NULL ,
   `queries_counter` INT NOT NULL DEFAULT 0 ,
+  `features_info` TEXT NULL ,
+  `preferences_info` TEXT NULL ,
   PRIMARY KEY (`acc_id`) ,
   CONSTRAINT `fk_ACCOMODATION_ADDRESS1`
     FOREIGN KEY (`addr_id` )
@@ -667,7 +700,7 @@ CREATE TABLE IF NOT EXISTS `VIEW_ACC_PREFERENCES` (`acc_id` INT, `pref_id` INT, 
 -- -----------------------------------------------------
 -- Placeholder table for view `VIEW_ACCOMMODATION`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `VIEW_ACCOMMODATION` (`first_name` INT, `last_name` INT, `acc_id` INT, `title` INT, `description` INT, `addr_id` INT, `user_id` INT, `date_avaliable` INT, `price` INT, `created` INT, `bond` INT, `street_address_public` INT, `short_term_ok` INT, `type_id` INT, `is_enabled` INT, `price_info` INT, `queries_counter` INT, `feat_name` INT, `pref_name` INT, `filename` INT);
+CREATE TABLE IF NOT EXISTS `VIEW_ACCOMMODATION` (`first_name` INT, `last_name` INT, `acc_id` INT, `title` INT, `description` INT, `addr_id` INT, `user_id` INT, `date_avaliable` INT, `price` INT, `created` INT, `bond` INT, `street_address_public` INT, `short_term_ok` INT, `type_id` INT, `is_enabled` INT, `price_info` INT, `queries_counter` INT, `features_info` INT, `preferences_info` INT, `feat_name` INT, `pref_name` INT, `filename` INT);
 
 -- -----------------------------------------------------
 -- Placeholder table for view `VIEW_USER_FOR_AUTH`
@@ -823,10 +856,10 @@ COMMIT;
 -- Data for table `CITY`
 -- -----------------------------------------------------
 SET AUTOCOMMIT=0;
-INSERT INTO CITY (`city_id`, `name`, `state_id`) VALUES (1, 'Wroclaw', 2);
-INSERT INTO CITY (`city_id`, `name`, `state_id`) VALUES (2, 'Krakow', 1);
-INSERT INTO CITY (`city_id`, `name`, `state_id`) VALUES (3, 'Nowy Targ', 1);
-INSERT INTO CITY (`city_id`, `name`, `state_id`) VALUES (4, 'Nowa Sol', 2);
+INSERT INTO CITY (`city_id`, `name`, `state_id`, `marker_id`, `description`) VALUES (1, 'Wroclaw', 2, NULL, NULL);
+INSERT INTO CITY (`city_id`, `name`, `state_id`, `marker_id`, `description`) VALUES (2, 'Krakow', 1, NULL, NULL);
+INSERT INTO CITY (`city_id`, `name`, `state_id`, `marker_id`, `description`) VALUES (3, 'Nowy Targ', 1, NULL, NULL);
+INSERT INTO CITY (`city_id`, `name`, `state_id`, `marker_id`, `description`) VALUES (4, 'Nowa Sol', 2, NULL, NULL);
 
 COMMIT;
 

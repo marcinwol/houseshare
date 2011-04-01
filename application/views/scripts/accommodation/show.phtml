@@ -84,7 +84,15 @@ if (count($this->acc->photosurls) > 0) {
        <div id="map" class="grid_6 " style="height: 300px">
    
      </div>
+    
     <script type="text/javascript" src="<?php echo $this->baseUrl('/js/map.js');?>"></script>
+    <script type="text/javascript">
+        $(function() {             
+            getCoordinates("<?php echo "{$this->acc->address->street} {$this->acc->address->street_no}, {$this->acc->city}";?>");
+        });
+        
+    </script>
+    
     <div class="section grid_2 alpha ">
         <h1>Features</h1> 
         <?php
