@@ -26,6 +26,7 @@ class My_View_Helper_SideBarElement extends Zend_View_Helper_Abstract {
         // get options if given
         $place = isset($options['place']) ? $options['place'] : 'prepend';
         $class = isset($options['class']) ? $options['class'] : '';
+        $addBreak = isset($options['break']) ? true : false;
         
         // call partial to render side bar box/element
         $html = $this->view->partial(
@@ -35,16 +36,18 @@ class My_View_Helper_SideBarElement extends Zend_View_Helper_Abstract {
         
         // put it into placeholder
         $placeHolder = $this->getPlaceHolder();
-        if ('prepend' == $place) {
-            
+        
+        if (true === $addBreak) {
+            $html .= '<div>&nbsp</div>';
+        }
+        
+        if ('prepend' == $place) {            
             $placeHolder->prepend($html);
             
-        } else if ('append' == $place) {
-            
+        } else if ('append' == $place) {            
             $placeHolder->captureStart();
             echo $html;
-            $placeHolder->captureEnd();
-            
+            $placeHolder->captureEnd();            
         }
         
     }

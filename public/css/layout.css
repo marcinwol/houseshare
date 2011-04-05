@@ -98,12 +98,29 @@ ul.top-cities a span {
 }
 
 .side-bar-info a {
-
     font-weight: bold;
     color: #896324;
-
 }
 
+
+
+/**** ACCOMMODATION ADD STEPS ******/
+
+.current-step {
+    background-color: #fed06c !important;
+}
+
+.inactive-step {
+    background-color: #e4e4e4 !important;
+}
+
+.inactive-step h3 {
+   color: #c0c0c0; 
+}
+
+.inactive-step p {
+    color: #bebebe; 
+} 
 
 div.side-bar h3 {    
 

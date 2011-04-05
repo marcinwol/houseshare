@@ -75,7 +75,7 @@ class My_Form_Photos extends Zend_Form {
         $photos->setValueDisabled(true);
 
         $this->addElements(array($photos));
-        $this->addElement('submit', 'Submit');
+        $this->addElement('submit', 'Upload');
         $skipButton = new Zend_Form_Element_Submit('skip', 'Skip');
         $this->addElement($skipButton);
     }

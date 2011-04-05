@@ -102,7 +102,7 @@ class AccommodationController extends Zend_Controller_Action {
         $limitForm->page->setValue($page);
         $limitForm->city->setValue($city_id);
         $limitForm->setAction($this->view->baseUrl('/accommodation/list'));
-        
+
 
 
         if (null === $maxPrice) {
@@ -131,7 +131,7 @@ class AccommodationController extends Zend_Controller_Action {
         $accModel = new My_Model_Table_Accommodation();
         $accSelect = $accModel->select(Zend_Db_Table::SELECT_WITH_FROM_PART)->setIntegrityCheck(false);
         $accSelect->joinInner('ADDRESS', 'ACCOMMODATION.addr_id = ADDRESS.addr_id')
-                  ->where('ACCOMMODATION.is_enabled = ?', 1);
+                ->where('ACCOMMODATION.is_enabled = ?', 1);
 
         if ($city_id) {
             $accSelect->where("ADDRESS.city_id = ?", (int) $city_id);
@@ -140,9 +140,9 @@ class AccommodationController extends Zend_Controller_Action {
         if ($maxPrice) {
             $accSelect->where("ACCOMMODATION.price < ?", $maxPrice);
         }
-        
-         $accSelect->where("ACCOMMODATION.type_id IN ($bed, $room)");
-      
+
+        $accSelect->where("ACCOMMODATION.type_id IN ($bed, $room)");
+
 
         //$accs = $accModel->fetchAll($accSelect);
         $accPaginator = $accModel->getAccPaginator($accSelect, $page, 3);
@@ -165,6 +165,18 @@ class AccommodationController extends Zend_Controller_Action {
         $addAccForm = new My_Form_Accommodation();
         $addAccForm->setDefaultCity($cityName);
         $addAccForm->setDefaultState($stateName);
+
+
+//        $addAccForm->populate(array(
+//            'address' => array(
+//                'city' => 'sdfg'                
+//            )
+//        ));
+//        
+//        $addAccForm->getSubForm('address')->getElement('state')->setValue('asfds');
+//        
+//        $addAccForm->address->state->setValue('asfds2');
+                
 
         if (Zend_Auth::getInstance()->hasIdentity()) {
             // if logged in, no need about_you subform.
@@ -197,7 +209,7 @@ class AccommodationController extends Zend_Controller_Action {
                         //@todo Add logic for checking if registered or not.
                         //@todo Add other types of users, not only roomates in the future.
                         $newUser = My_Houseshare_Factory::roomate();
-                        $newUser->nickname = $formData['about_you']['nickname'];                        
+                        $newUser->nickname = $formData['about_you']['nickname'];
                         $newUser->description = $formData['about_you']['description'];
                         $newUser->email = $formData['about_you']['email'];
                         $newUser->email_public = $formData['about_you']['email_public'];

@@ -12,10 +12,6 @@ class IndexController extends Zend_Controller_Action {
     public function testAction() {
         
         
-        
-        
-
-        
         $db = Zend_Db_Table::getDefaultAdapter();
         $select2 = $db->select()
                 ->from('log', array('log_date', 'user_id', 'task', 'work_desc', 'hours', 'user2project'))                
