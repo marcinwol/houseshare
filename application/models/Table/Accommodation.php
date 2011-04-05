@@ -57,6 +57,8 @@ class My_Model_Table_Accommodation extends Zend_Db_Table_Abstract {
         $row->bond = $data['bond'];
         $row->street_address_public = $data['street_address_public'];
         $row->short_term_ok = $data['short_term_ok'];
+        $row->preferences_info = $data['preferences_info'];
+        $row->features_info = $data['features_info'];
         $row->type_id = $data['type_id'];
         if (isset($data['is_enabled'])) {
             $row->is_enabled = $data['is_enabled'];

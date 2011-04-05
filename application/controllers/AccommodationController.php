@@ -166,18 +166,6 @@ class AccommodationController extends Zend_Controller_Action {
         $addAccForm->setDefaultCity($cityName);
         $addAccForm->setDefaultState($stateName);
 
-
-//        $addAccForm->populate(array(
-//            'address' => array(
-//                'city' => 'sdfg'                
-//            )
-//        ));
-//        
-//        $addAccForm->getSubForm('address')->getElement('state')->setValue('asfds');
-//        
-//        $addAccForm->address->state->setValue('asfds2');
-                
-
         if (Zend_Auth::getInstance()->hasIdentity()) {
             // if logged in, no need about_you subform.
             $addAccForm->removeSubForm('about_you');
@@ -247,6 +235,8 @@ class AccommodationController extends Zend_Controller_Action {
                     $newAcc->bond = $formData['basic_info']['bond'];
                     $newAcc->street_address_public = $formData['address']['address_public'];
                     $newAcc->short_term_ok = $formData['basic_info']['short_term'];
+                    $newAcc->preferences_info = $formData['preferences']['description'];
+                    $newAcc->features_info = $formData['acc_features']['description'];
                     $newAcc->setAddrId($addr_id);
                     $newAcc->setUserId($user_id);
                     $newAcc->setRoomatesId($roomates_id);
@@ -392,6 +382,8 @@ class AccommodationController extends Zend_Controller_Action {
                     $acc->bond = $formData['basic_info']['bond'];
                     $acc->street_address_public = $formData['address']['address_public'];
                     $acc->short_term_ok = $formData['basic_info']['short_term'];
+                    $acc->preferences_info = $formData['preferences']['description'];
+                    $acc->features_info = $formData['acc_features']['description'];
                     $acc->setAddrId($addr_id);
                     $acc->setRoomatesId($roomates_id);
                     $acc->setTypeId($formData['basic_info']['acc_type']);

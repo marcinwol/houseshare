@@ -95,18 +95,21 @@ class My_Form_Accommodation extends My_Form_Abstract_AccommodationAbstract {
                     'no_roomates' => $acc->roomates->no_roomates,
                     'min_age' => $acc->roomates->min_age,
                     'max_age' => $acc->roomates->max_age,
-                    'gender' => $acc->roomates->gender
+                    'gender' => $acc->roomates->gender,
+                    'description' =>  $acc->roomates->description
                 ));
             }
 
             // populate preferences
             $prefsSubForm = $this->getSubForm(self::PREFERENCES_SUBFORM_NAME);
             $this->_populateFeatsOrPrefs($prefsSubForm, $acc->preferences);
+            $prefsSubForm->description->setValue($acc->preferences_info);
 
 
             // populate accommodation features
             $featsSubForm = $this->getSubForm(self::ACC_FEATURES_SUBFORM_NAME);
             $this->_populateFeatsOrPrefs($featsSubForm, $acc->features);
+            $featsSubForm->description->setValue($acc->features_info);
 
             // populate room features in needed
             if ('Room' == $acc->type->name) {

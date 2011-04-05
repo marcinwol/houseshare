@@ -331,6 +331,12 @@ abstract class My_Form_Abstract_AccommodationAbstract extends Zend_Form {
         );
         $genderPref->setRequired(true)->setValue('2');
         $preferencesForm->addElement($genderPref);
+        
+        
+        $descriptionInput = $this->createElement('textarea', 'description');
+        $descriptionInput->setRequired(false)->setLabel('Any other preferences');
+        $descriptionInput->setAttribs(array('cols' => 20, 'rows' => 5));
+        $preferencesForm->addElement($descriptionInput);
 
         return $preferencesForm;
     }
@@ -365,10 +371,15 @@ abstract class My_Form_Abstract_AccommodationAbstract extends Zend_Form {
         );
         $furniture->setRequired(true)->setValue('0');
         $featuresForm->addElement($furniture);
+        
+        $descriptionInput = $this->createElement('textarea', 'description');
+        $descriptionInput->setRequired(false)->setLabel('Any other features');
+        $descriptionInput->setAttribs(array('cols' => 20, 'rows' => 5));
+        $featuresForm->addElement($descriptionInput);
 
         return $featuresForm;
-    }
-
+    }    
+   
     protected function _makeRoomFeaturesSubForm() {
         $featuresForm = new Zend_Form_SubForm();
         $featuresForm->setLegend('Room features');
