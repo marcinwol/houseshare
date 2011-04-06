@@ -29,31 +29,31 @@ class CityModelTest extends ModelTestCase {
         $arrayStates = $this->_model->findCitiesBasedOnName('ta');
         $this->assertEquals(
                 array(
-                    $arrayStates[0]->name,
-                ),
-                array(
-                    'Nowy Targ'
+            $arrayStates[0]->name,
+                ), array(
+            'Nowy Targ'
         ));
     }
 
     /**
      * @dataProvider insertCityProvider
      */
-    public function testInsertCity($cityName, $stateId, $expectedId) {
+    public function testInsertCity($cityName, $stateId, $markerId, $expectedId) {
         $id = $this->_model->insertCity(array(
                     'city_name' => $cityName,
-                    'state_id' => $stateId
+                    'state_id' => $stateId,
+                    'marker_id' => $markerId
                 ));
         $this->assertEquals($id, $expectedId);
     }
 
     public function insertCityProvider() {
         return array(
-            array(' Krakow', 1, 1), //exhisting city
-            array(' Nowy Targ', 1, 2), //exhisting city
-            array(' Nowy Targ', 2, 4), // new city
-            array(' Wroclaw', 3, 3), //exhisting city
-            array(' Nowa Sol ', 3, 4) // new city
+            array(' Krakow', 1, 1, 1), //exhisting city
+            array(' Nowy Targ', 1, 1, 2), //exhisting city
+            array(' Nowy Targ', 2, 1, 4), // new city
+            array(' Wroclaw', 3, 1, 3), //exhisting city
+            array(' Nowa Sol ', 3, 5, 4) // new city
         );
     }
 
@@ -63,10 +63,9 @@ class CityModelTest extends ModelTestCase {
     public function testUpdateCity($cityId, $cityName, $stateId, $expectedId) {
         $id = $this->_model->updateCity(
                         array(
-                            'city_name' => $cityName,
-                            'state_id' => $stateId
-                        ),
-                        $cityId
+                    'city_name' => $cityName,
+                    'state_id' => $stateId
+                        ), $cityId
         );
         $this->assertEquals($id, $expectedId);
     }
@@ -114,6 +113,41 @@ class CityModelTest extends ModelTestCase {
             array(' Krakow   ', 2),
             array(' WROCLAW  ', 1),
             array(' Nowy targ   ', 4)
+        );
+    }
+
+    /**
+     * @dataProvider getCityMarkerProvider
+     */
+    public function testGetCityMarker($cityId, $expLat, $expLng) {
+        $cityRow = $this->_model->find($cityId)->current();
+        $marker = $cityRow->getMarker();
+        $this->assertEquals(array($expLat, $expLng), array($marker->lat, $marker->lng));
+    }
+
+    public function getCityMarkerProvider() {
+        return array(
+            array(1, '50.0748', '19.9477'),
+            array(2, '49.4801', '20.0325')
+        );
+    }
+
+    /**
+     * @dataProvider updateCitySetMarkerProvider
+     */
+    public function testSetCityMarker($cityId, $newMarkerId) {
+        
+        $city_id = $this->_model->setMarker($cityId, $newMarkerId);
+        $cityRow = $this->_model->find($city_id)->current();
+        $this->assertEquals($newMarkerId, $cityRow->marker_id);
+        
+    }
+
+    public function updateCitySetMarkerProvider() {
+        return array(
+            array(1, 3),
+            array(2, 4),
+            array(3, null)
         );
     }
 
