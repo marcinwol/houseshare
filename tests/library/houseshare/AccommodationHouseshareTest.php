@@ -236,7 +236,7 @@ class AccommodationHouseshareTest extends ModelTestCase {
         $accRow = $this->_model->find($acc_id)->current();
 
         $this->assertEquals(
-                array($expectedAcc_id, 'New Acc title'),
+                array($expectedAcc_id, 'New acc title'),
                 array($acc_id, $accRow->title)
         );
     }
@@ -266,7 +266,7 @@ class AccommodationHouseshareTest extends ModelTestCase {
         $this->assertEquals(
                 array(
                     $expectedAcc_id,
-                    'New Acc title',
+                    'New acc title',
                     $accRowBefore->description,
                     $accRowBefore->price,
                     1200,

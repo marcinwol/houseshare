@@ -34,6 +34,7 @@ class My_Model_Table_Row_Accommodation extends Zend_Db_Table_Row_Abstract {
         return $this->findParentRow('My_Model_Table_User');
     }
 
+
     /**
      * Get type Row for the current accommodation row.
      *
@@ -51,8 +52,8 @@ class My_Model_Table_Row_Accommodation extends Zend_Db_Table_Row_Abstract {
     public function getPhotos() {
         return $this->findDependentRowset('My_Model_Table_Photo');
     }
-    
-      /**
+
+    /**
      * Get views for the current accommodation.
      *
      * @return Zend_Db_Table_Rowset
@@ -60,8 +61,8 @@ class My_Model_Table_Row_Accommodation extends Zend_Db_Table_Row_Abstract {
     public function getViews() {
         return $this->findDependentRowset('My_Model_Table_ViewCounter');
     }
-    
-     /**
+
+    /**
      * Get views count for the current accommodation.
      *
      * @return Zend_Db_Table_Rowset
@@ -88,7 +89,6 @@ class My_Model_Table_Row_Accommodation extends Zend_Db_Table_Row_Abstract {
         return $this->findDependentRowset('My_Model_Table_AccsFeatures');
     }
 
-
     /**
      * Deletes all features for this accommodation
      * @return int The number of rows deleted.
@@ -96,7 +96,7 @@ class My_Model_Table_Row_Accommodation extends Zend_Db_Table_Row_Abstract {
     public function deteleFeatures() {
         $rowset = $this->getFeatures();
         $noOfRowsDeleted = 0;
-        foreach($rowset as $row) {
+        foreach ($rowset as $row) {
             $noOfRowsDeleted += $row->delete();
         }
         return $noOfRowsDeleted;
@@ -118,7 +118,7 @@ class My_Model_Table_Row_Accommodation extends Zend_Db_Table_Row_Abstract {
     public function detelePreferences() {
         $rowset = $this->getPreferences();
         $noOfRowsDeleted = 0;
-        foreach($rowset as $row) {
+        foreach ($rowset as $row) {
             $noOfRowsDeleted += $row->delete();
         }
         return $noOfRowsDeleted;

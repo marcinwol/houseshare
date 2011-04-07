@@ -13,26 +13,31 @@
     <STATE state_id="1" name="Malopolska" />
     <STATE state_id="2" name="Wielkopolska" />
     <STATE state_id="3" name="Dolnoslaskie" />
+    
+    
+    
+    <MARKER marker_id="1" lat="50.074799" lng="19.947701" />
+    <MARKER marker_id="2" lat="51.117298" lng="17.037001" />
+    <MARKER marker_id="3" lat="49.480099" lng="20.032499" />
+    <MARKER marker_id="4" lat="49.430099" lng="20.012501" />
+    <MARKER marker_id="5" lat="50.430099" lng="18.022499" />
 
-    <CITY city_id="1" name="Krakow" state_id="1"/>
-    <CITY city_id="2" name="Nowy Targ" state_id="1"/>
-    <CITY city_id="3" name="Wroclaw" state_id="3"/>
-
+    <CITY city_id="1" name="Krakow" state_id="1" marker_id="1"/>
+    <CITY city_id="2" name="Nowy Targ" state_id="1" marker_id="3"/>
+    <CITY city_id="3" name="Wroclaw" state_id="3" marker_id="2"/>    
 
 
     <ADDRESS addr_id="1" unit_no="" street_no="23c" street_id="2"
-             zip_id="1" city_id="1" />
+             zip_id="1" city_id="1" marker_id="4" />
              
     <ADDRESS addr_id="2" unit_no="12" street_no="212" street_id="3"
              zip_id="5" city_id="3" />
 
     <ADDRESS addr_id="4" unit_no="8-A" street_no="21a" street_id="4"
-             zip_id="1" city_id="3" />
+             zip_id="1" city_id="3" marker_id="5" />
 
     <ADDRESS addr_id="5" unit_no="18" street_no="1a" street_id="4"
-             zip_id="1" city_id="3" />
-
-
+             zip_id="1" city_id="3" marker_id="5"/>
 
 
     <USER user_id="1" email="test@test.com" email_public="0"

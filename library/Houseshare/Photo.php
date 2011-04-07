@@ -191,8 +191,13 @@ class My_Houseshare_Photo extends My_Houseshare_Abstract_PropertyAccessor {
         $model = $this->getModel();
         $row = $model->find($this->photo_id)->current();
      
-        $photoPath = PHOTOS_PATH . '/' . $this->getFullPath();
-        $thumbPath = THUMBS_PATH .'/' . $this->getThumbPath();
+       // $photoPath = PHOTOS_PATH . '/' . $this->getFullPath();
+       // $thumbPath = THUMBS_PATH .'/' . $this->getThumbPath();
+        
+        $photoPath = $this->getFullPath();
+        $thumbPath = $this->getThumbPath();
+        
+        //var_dump($photoPath,$thumbPath);
         
         if ($row instanceof My_Model_Table_Row_Photo) {
             

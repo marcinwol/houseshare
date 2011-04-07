@@ -193,17 +193,13 @@ class UserControllerTest extends ControllerTestCase {
                 array(
                      $postData['about_you']['phone_no'],
                      $postData['about_you']['email'],
-                     $postData['about_you']['last_name_public'],
                      $postData['about_you']['phone_public'],
-                     $postData['about_you']['first_name'],
-                     $postData['about_you']['last_name']
+                     $postData['about_you']['nickname']
                 ), array(
                      $user->phone,
                      $user->email,
-                     $user->last_name_public,
                      $user->phone_public,
-                     $user->first_name,
-                     $user->last_name
+                     $user->nickname
                 
                 )
         );
@@ -218,9 +214,7 @@ class UserControllerTest extends ControllerTestCase {
                 ),
                 array(
                     'about_you' => array(
-                        'first_name' => 'marcin',
-                        'last_name' => 'wolski',
-                        'last_name_public' => 0,
+                        'nickname' => 'marcin',
                         'phone_no' => '+234 234 243',
                         'phone_public' => 1,
                         'email' => 'marcin@test.com',
@@ -235,9 +229,7 @@ class UserControllerTest extends ControllerTestCase {
                 ),
                 array(
                     'about_you' => array(
-                        'first_name' => 'marcin',
-                        'last_name' => 'wolski',
-                        'last_name_public' => 0,
+                        'nickname' => 'marcin',
                         'phone_no' => '+234 234 243',
                         'phone_public' => 1,
                         'email' => 'marcin@test.com',

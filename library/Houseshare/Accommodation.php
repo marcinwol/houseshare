@@ -321,7 +321,7 @@ class My_Houseshare_Accommodation extends My_Houseshare_Abstract_PropertyAccesso
      */
     public function getPhotosurls($withBaseUrl = true) {
        
-        $pahts = Array();
+        $paths = Array();
         
         $baseUrl = $this->_getBaseUrl();       
         
@@ -533,6 +533,15 @@ class My_Houseshare_Accommodation extends My_Houseshare_Abstract_PropertyAccesso
     
     public function getCity() {
         return $this->getAddress()->city;
+    }
+    
+    /**
+     * Get Google map marker coordinates for the current accommodation.
+     * 
+     * @return My_Model_Table_Row_Marker 
+     */
+    public function getMarker() {
+        return $this->getAddress()->marker;
     }
         
     

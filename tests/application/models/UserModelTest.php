@@ -40,13 +40,15 @@ class UserModelTest extends ModelTestCase {
         $argSet[] = array(
             array(
                 'email' => 'some@email.com',
+                'nickname' => 'Kurczak',
                 'phone' => '3423 234234',
                 'phone_public' => 1,
                 'first_name' => 'Marek',
                 'last_name' => 'Kurzynski',
                 'last_name_public' => 1,
                 'email_public' => 1,
-                'type' => 'ROOMATE'
+                'type' => 'ROOMATE',
+                'description' => 'Jestem profesorem'
             ),
             null, // create new user
             4     // expected id of the new user
@@ -55,13 +57,15 @@ class UserModelTest extends ModelTestCase {
         $argSet[] = array(
             array(
                 'email' => 'some@email2.com',
+                 'nickname' => 'fork',
                 'phone' => '23423 234234',
                 'phone_public' => 0,
                 'first_name' => 'Piotr',
                 'last_name' => 'Caban',
                 'last_name_public' => 0,
                 'email_public' => 1,
-                'type' => 'ROOMATE'
+                'type' => 'ROOMATE',
+                'description' => 'Jestem dobrym professorem'
             ),
             2, // update new user with id = 2
             2     // expected id is 2 (just update, no new user)

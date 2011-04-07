@@ -35,11 +35,11 @@ class AccommodationControllerTest extends ControllerTestCase {
         $this->assertEquals(
                 array(
                     'marcin',
-                    0
+                    'marcin@test.com'
                 ),
                 array(
-                    $user->first_name,
-                    $user->last_name_public
+                    $user->nickname,
+                    $user->email
                 )
         );
 
@@ -95,8 +95,8 @@ class AccommodationControllerTest extends ControllerTestCase {
         $addAccInfoNamespace = new Zend_Session_Namespace('addAccInfo');
         $this->assertEquals(4, $addAccInfoNamespace->acc_id);
 
-        // finally check if user is redirected to addphotos
-        $this->assertRedirectTo('/accommodation/addphotos');
+        // finally check if user is redirected to google map
+        $this->assertRedirectTo('/accommodation/map');
     }
 
     public function addAccommodationProvider() {
@@ -110,6 +110,7 @@ class AccommodationControllerTest extends ControllerTestCase {
                         'date_avaliable' => "13/01/2011",
                         'short_term' => 1,
                         'price' => 323,
+                        'price_info' => '',
                         'bond' => 1232
                     ),
                     'address' => array(
@@ -125,35 +126,37 @@ class AccommodationControllerTest extends ControllerTestCase {
                         'no_roomates' => 4,
                         'gender' => 2,
                         'min_age' => 20,
-                        'max_age' => 35
+                        'max_age' => 35,
+                        'description' => 'We are studetets looking for another student'
                     ),
                     'preferences' => array(
                         'smokers' => 1,
                         'kids' => -1,
                         'couples' => 3,
                         'pets' => -1,
-                        'gender' => 1
+                        'gender' => 1,
+                        'description' => 'Everyone is welcome'
                     ),
                     'acc_features' => array(
                         'internet' => 1,
                         'parking' => -1,
                         'tv' => 3,
                         'airconditioning' => 5,
-                        'furnished' => 2
+                        'furnished' => 2,
+                        'description' => 'Next to pwr'
                     ),
                     'room_features' => array(
                         'privatebath' => -1,
                         'privatebalcony' => 7
                     ),
                     'about_you' => array(
-                        'first_name' => 'marcin',
-                        'last_name' => 'wolski',
-                        'last_name_public' => 0,
+                        'nickname' => 'marcin',                       
                         'phone_no' => '+234 234 243',
                         'phone_public' => 1,
                         'email' => 'marcin@test.com',
                         'password1' => 'haslo12',
-                        'password2' => 'haslo12'
+                        'password2' => 'haslo12',
+                        'description' => 'I\m the owner of this appartment'
                     )
                 )
             )

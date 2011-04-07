@@ -11,7 +11,7 @@
  * $address->street = "Nowa ulica";
  * $address->city = "Nowe miasto";
  * $address->zip = "34-455";
- * $address->state = "Mazowieckie";
+ * $address->state = "Mazowieckie"; 
  * $address->save();
  *
  *
@@ -20,6 +20,8 @@
 class My_Houseshare_Address extends My_Houseshare_Abstract_PropertyAccessor {
 
     protected $_modelName = 'View_Address';
+    
+               
 
     /**
      * Save new address in the database if necessery or update
@@ -74,15 +76,30 @@ class My_Houseshare_Address extends My_Houseshare_Abstract_PropertyAccessor {
         } else {
             $street_id = $this->_properties['street_id'];
         }
-
-
+    
+        // insert/update google map marker localization
+        if (array_key_exists('lng', $this->_changedProperties) || array_key_exists('lat', $this->_changedProperties) ) {
+            if (empty($this->_properties['lat']) || empty($this->_properties['lng']) ) {
+                $marker_id = null;
+              
+            } else {
+                $markerModel = new My_Model_Table_Marker();
+                $marker_id = $markerModel->insertMarker(array('lat' => $this->lat, 'lng' => $this->lng));
+            }
+            
+        } else {
+            $marker_id = $this->_properties['marker_id'];
+        }
+        
+    
         $row_id = $this->getModel()->insertAddress(
                         array(
                             'unit_no' => $this->unit_no,
                             'street_no' => $this->street_no,
                             'street_id' => $street_id,
                             'zip_id' => $zip_id,
-                            'city_id' => $city_id
+                            'city_id' => $city_id,
+                            'marker_id' => $marker_id
                         )
         );
 

@@ -57,7 +57,7 @@ class SharedHouseshareTest extends ModelTestCase {
         $this->assertEquals(
                 array(
                     $expectedAcc_id,
-                    'New Acc title',
+                    'New acc title',
                     $sharedRow->roomates_id
                 ),
                 array(
@@ -95,7 +95,7 @@ class SharedHouseshareTest extends ModelTestCase {
         $this->assertEquals(
                 array(
                     $expectedAcc_id,
-                    'New Acc title',
+                    'New acc title',
                     $sharedRow->roomates_id
                 ),
                 array(

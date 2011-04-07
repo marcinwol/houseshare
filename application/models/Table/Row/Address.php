@@ -29,6 +29,16 @@ class My_Model_Table_Row_Address extends Zend_Db_Table_Row_Abstract {
     public function getStreet() {
         return $this->findParentRow('My_Model_Table_Street');
     }
+    
+    
+    /**
+     * Get Google map marker coordinates for the current city row.
+     *
+     * @return Zend_Db_Table_Row_Marker
+     */
+    public function getMarker() {
+        return $this->findParentRow('My_Model_Table_Marker');
+    }
 
 
     /**

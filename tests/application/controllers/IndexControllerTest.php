@@ -25,27 +25,17 @@ class IndexControllerTest extends ControllerTestCase {
     }
 
     public function testRedirectToAccList() {
-        $search = array(
-            'rd_what_to_do' => '0',
-            'i_city' => 'Wroclaw, Dolnyslas'
+        $search = array(        
+            'i_city' => '3',
+            'maxprice' => '1000'
         );
 
         $this->request->setMethod('POST')->setPost($search);
         $this->dispatch('/index/index');        
-        $this->assertRedirectTo('/list/city/Wroclaw, Dolnyslas');
+        $this->assertRedirectTo('/list/city/3/maxprice/1000');
     }
 
-    public function testRedirectToAccAdd() {
-        $search = array(
-            'rd_what_to_do' => '1',
-            'i_city' => 'Wroclaw, Dolnyslas'
-        );
-
-        $this->request->setMethod('POST')->setPost($search);
-        $this->dispatch('/index/index');
-        $this->assertRedirectTo('/add/city/Wroclaw, Dolnyslas');
-    }
-
+   
 }
 
 ?>

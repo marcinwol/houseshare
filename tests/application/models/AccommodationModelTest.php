@@ -24,9 +24,13 @@ class AccommodationModelTest extends ModelTestCase {
         $this->assertEquals($expectedID, $acc_id);
 
         $userData = $this->_model->find($acc_id)->current()->toArray();
+        
         unset($userData['acc_id']);
         unset($userData['created']);
         unset($userData['is_enabled']);
+        unset($userData['queries_counter']);
+        
+        
         $this->assertEquals($data, $userData);
     }
 
@@ -42,6 +46,9 @@ class AccommodationModelTest extends ModelTestCase {
                 'user_id' => 2,
                 'date_avaliable' => '2011-12-12',
                 'price' => 300,
+                'price_info' => 'does not include gas and electricity',
+                'preferences_info' => 'students most welcome',
+                'features_info' => 'very fast internet',
                 'bond' => 1200,
                 'street_address_public' => 1,
                 'short_term_ok' => 1,
@@ -55,9 +62,12 @@ class AccommodationModelTest extends ModelTestCase {
             array(
                 'title' => 'some title 2 ',
                 'description' => 'some description 2',
+                'price_info' => 'includs everything',
                 'addr_id' => 2,
                 'user_id' => 2,
                 'date_avaliable' => '2011-12-12',
+                'preferences_info' => 'workers most welcome',
+                'features_info' => 'cable tv',
                 'price' => 300,
                 'bond' => 1200,
                 'street_address_public' => 1,
@@ -75,6 +85,7 @@ class AccommodationModelTest extends ModelTestCase {
         unset($accData['acc_id']);
         unset($accData['created']);
         unset($accData['is_enabled']);
+        unset($accData['queries_counter']);
 
         // change only date and short_term
         $accData['date_avaliable'] = '2011-02-12';
@@ -114,6 +125,9 @@ class AccommodationModelTest extends ModelTestCase {
             'user_id' => 14,
             'date_avaliable' => '2011-12-12',
             'price' => 300,
+            'price_info' => 'does not include gas and electricity',
+            'preferences_info' => 'students most welcome',
+            'features_info' => 'very fast internet',
             'bond' => 1200,
             'street_address_public' => 1,
             'short_term_ok' => 1,
