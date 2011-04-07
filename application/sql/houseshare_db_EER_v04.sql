@@ -670,12 +670,12 @@ CREATE INDEX `fk_VIEWS_COUNTER_ACCOMMODATION1` ON `VIEWS_COUNTER` (`acc_id` ASC)
 -- -----------------------------------------------------
 -- Placeholder table for view `VIEW_CITY`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `VIEW_CITY` (`city_id` INT, `city_name` INT, `state_id` INT, `state_name` INT);
+CREATE TABLE IF NOT EXISTS `VIEW_CITY` (`city_id` INT, `city_name` INT, `state_id` INT, `state_name` INT, `lat` INT, `lng` INT);
 
 -- -----------------------------------------------------
 -- Placeholder table for view `VIEW_ADDRESS`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `VIEW_ADDRESS` (`id` INT, `unit_no` INT, `street_no` INT, `city_id` INT, `zip_id` INT, `street_id` INT, `state_id` INT, `street` INT, `zip` INT, `city` INT, `state` INT);
+CREATE TABLE IF NOT EXISTS `VIEW_ADDRESS` (`id` INT, `unit_no` INT, `street_no` INT, `city_id` INT, `zip_id` INT, `street_id` INT, `state_id` INT, `street` INT, `zip` INT, `city` INT, `state` INT, `lat` INT, `lng` INT);
 
 -- -----------------------------------------------------
 -- Placeholder table for view `VIEW_SHARE`
@@ -714,9 +714,10 @@ DROP VIEW IF EXISTS `VIEW_CITY` ;
 DROP TABLE IF EXISTS `VIEW_CITY`;
 DELIMITER $$
 CREATE  OR REPLACE VIEW `VIEW_CITY` AS
-SELECT c.`city_id`,  c.`name` as `city_name`, c.`state_id`, s.`name` as `state_name` 
+SELECT c.`city_id`,  c.`name` as `city_name`, c.`state_id`, s.`name` as `state_name`, m.lat as lat, m.lng as lng
 FROM `CITY` c 
-INNER JOIN `STATE` s USING (`state_id`);
+INNER JOIN `STATE` s USING (`state_id`)
+LEFT JOIN `MARKER` m ON  c.marker_id = m.marker_id;
 $$
 DELIMITER ;
 
@@ -729,9 +730,10 @@ DROP VIEW IF EXISTS `VIEW_ADDRESS` ;
 DROP TABLE IF EXISTS `VIEW_ADDRESS`;
 DELIMITER $$
 CREATE  OR REPLACE VIEW `VIEW_ADDRESS` AS 
-SELECT a.addr_id as id, a.unit_no, a.street_no, a.city_id, a.zip_id, a.street_id, st.state_id, s.name as street, z.value as zip, c.name as city, st.name as state FROM `ADDRESS` a
+SELECT a.addr_id as id, a.unit_no, a.street_no, a.city_id, a.zip_id, a.street_id, st.state_id, s.name as street, z.value as zip, c.name as city, st.name as state, m.lat as lat, m.lng as lng FROM `ADDRESS` a
 INNER JOIN (`STREET` s, `ZIP` z, `CITY` c) USING (`street_id`, `zip_id`, `city_id`)
 INNER JOIN `STATE` st ON c.state_id = st.state_id
+LEFT JOIN `MARKER` m ON  a.marker_id = m.marker_id
 
 
 
@@ -846,9 +848,20 @@ SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
 -- Data for table `STATE`
 -- -----------------------------------------------------
 SET AUTOCOMMIT=0;
-INSERT INTO STATE (`state_id`, `name`) VALUES (NULL, 'Malopolska');
-INSERT INTO STATE (`state_id`, `name`) VALUES (NULL, 'Dolnyslask');
+INSERT INTO STATE (`state_id`, `name`) VALUES (NULL, 'Małopolska');
+INSERT INTO STATE (`state_id`, `name`) VALUES (NULL, 'Dolnośląsk');
 INSERT INTO STATE (`state_id`, `name`) VALUES (NULL, 'Mazowieckie');
+
+COMMIT;
+
+-- -----------------------------------------------------
+-- Data for table `MARKER`
+-- -----------------------------------------------------
+SET AUTOCOMMIT=0;
+INSERT INTO MARKER (`marker_id`, `lat`, `lng`) VALUES (1, 51.806917, 15.716629);
+INSERT INTO MARKER (`marker_id`, `lat`, `lng`) VALUES (2, 49.480059, 20.032539);
+INSERT INTO MARKER (`marker_id`, `lat`, `lng`) VALUES (3, 51.117317, 17.037048);
+INSERT INTO MARKER (`marker_id`, `lat`, `lng`) VALUES (4, 50.074769, 19.947739);
 
 COMMIT;
 
@@ -856,10 +869,10 @@ COMMIT;
 -- Data for table `CITY`
 -- -----------------------------------------------------
 SET AUTOCOMMIT=0;
-INSERT INTO CITY (`city_id`, `name`, `state_id`, `marker_id`, `description`) VALUES (1, 'Wroclaw', 2, NULL, NULL);
-INSERT INTO CITY (`city_id`, `name`, `state_id`, `marker_id`, `description`) VALUES (2, 'Krakow', 1, NULL, NULL);
-INSERT INTO CITY (`city_id`, `name`, `state_id`, `marker_id`, `description`) VALUES (3, 'Nowy Targ', 1, NULL, NULL);
-INSERT INTO CITY (`city_id`, `name`, `state_id`, `marker_id`, `description`) VALUES (4, 'Nowa Sol', 2, NULL, NULL);
+INSERT INTO CITY (`city_id`, `name`, `state_id`, `marker_id`, `description`) VALUES (1, 'Wrocław', 2, 3, NULL);
+INSERT INTO CITY (`city_id`, `name`, `state_id`, `marker_id`, `description`) VALUES (2, 'Kraków', 1, 4, NULL);
+INSERT INTO CITY (`city_id`, `name`, `state_id`, `marker_id`, `description`) VALUES (3, 'Nowy Targ', 1, 2, NULL);
+INSERT INTO CITY (`city_id`, `name`, `state_id`, `marker_id`, `description`) VALUES (4, 'Nowa Sól', 2, 1, NULL);
 
 COMMIT;
 
