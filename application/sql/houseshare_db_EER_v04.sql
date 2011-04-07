@@ -24,8 +24,8 @@ DROP TABLE IF EXISTS `MARKER` ;
 
 CREATE  TABLE IF NOT EXISTS `MARKER` (
   `marker_id` INT NOT NULL AUTO_INCREMENT ,
-  `lat` FLOAT NOT NULL ,
-  `lng` FLOAT NOT NULL ,
+  `lat` FLOAT(10,6) UNSIGNED NOT NULL ,
+  `lng` FLOAT(10,6) UNSIGNED NOT NULL ,
   PRIMARY KEY (`marker_id`) )
 ENGINE = InnoDB
 COMMENT = 'Google Map marker localization';
@@ -108,17 +108,17 @@ CREATE  TABLE IF NOT EXISTS `ADDRESS` (
     FOREIGN KEY (`city_id` )
     REFERENCES `CITY` (`city_id` )
     ON DELETE RESTRICT
-    ON UPDATE NO ACTION,
+    ON UPDATE CASCADE,
   CONSTRAINT `fk_ADDRESS_STREET1`
     FOREIGN KEY (`street_id` )
     REFERENCES `STREET` (`street_id` )
     ON DELETE RESTRICT
-    ON UPDATE NO ACTION,
+    ON UPDATE CASCADE,
   CONSTRAINT `fk_ADDRESS_ZIP1`
     FOREIGN KEY (`zip_id` )
     REFERENCES `ZIP` (`zip_id` )
     ON DELETE RESTRICT
-    ON UPDATE NO ACTION,
+    ON UPDATE CASCADE,
   CONSTRAINT `fk_ADDRESS_MARKER1`
     FOREIGN KEY (`marker_id` )
     REFERENCES `MARKER` (`marker_id` )
@@ -127,8 +127,6 @@ CREATE  TABLE IF NOT EXISTS `ADDRESS` (
 ENGINE = InnoDB;
 
 CREATE INDEX `fk_ADDRESS_CITY1` ON `ADDRESS` (`city_id` ASC) ;
-
-CREATE UNIQUE INDEX `UNIQUE_ADDRESS` ON `ADDRESS` (`unit_no` ASC, `street_no` ASC, `city_id` ASC, `street_id` ASC, `zip_id` ASC) ;
 
 CREATE INDEX `fk_ADDRESS_STREET1` ON `ADDRESS` (`street_id` ASC) ;
 
@@ -675,7 +673,7 @@ CREATE TABLE IF NOT EXISTS `VIEW_CITY` (`city_id` INT, `city_name` INT, `state_i
 -- -----------------------------------------------------
 -- Placeholder table for view `VIEW_ADDRESS`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `VIEW_ADDRESS` (`id` INT, `unit_no` INT, `street_no` INT, `city_id` INT, `zip_id` INT, `street_id` INT, `state_id` INT, `street` INT, `zip` INT, `city` INT, `state` INT, `lat` INT, `lng` INT);
+CREATE TABLE IF NOT EXISTS `VIEW_ADDRESS` (`id` INT, `unit_no` INT, `street_no` INT, `city_id` INT, `zip_id` INT, `street_id` INT, `state_id` INT, `marker_id` INT, `street` INT, `zip` INT, `city` INT, `state` INT, `lat` INT, `lng` INT);
 
 -- -----------------------------------------------------
 -- Placeholder table for view `VIEW_SHARE`
@@ -730,7 +728,7 @@ DROP VIEW IF EXISTS `VIEW_ADDRESS` ;
 DROP TABLE IF EXISTS `VIEW_ADDRESS`;
 DELIMITER $$
 CREATE  OR REPLACE VIEW `VIEW_ADDRESS` AS 
-SELECT a.addr_id as id, a.unit_no, a.street_no, a.city_id, a.zip_id, a.street_id, st.state_id, s.name as street, z.value as zip, c.name as city, st.name as state, m.lat as lat, m.lng as lng FROM `ADDRESS` a
+SELECT a.addr_id as id, a.unit_no, a.street_no, a.city_id, a.zip_id, a.street_id, st.state_id, a.marker_id, s.name as street, z.value as zip, c.name as city, st.name as state, m.lat as lat, m.lng as lng FROM `ADDRESS` a
 INNER JOIN (`STREET` s, `ZIP` z, `CITY` c) USING (`street_id`, `zip_id`, `city_id`)
 INNER JOIN `STATE` st ON c.state_id = st.state_id
 LEFT JOIN `MARKER` m ON  a.marker_id = m.marker_id

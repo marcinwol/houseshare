@@ -127,8 +127,8 @@ class CityModelTest extends ModelTestCase {
 
     public function getCityMarkerProvider() {
         return array(
-            array(1, '50.0748', '19.9477'),
-            array(2, '49.4801', '20.0325')
+            array(1, '50.074799', '19.947701'),
+            array(2, '49.480099', '20.032499')
         );
     }
 
