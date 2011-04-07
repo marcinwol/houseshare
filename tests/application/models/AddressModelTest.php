@@ -45,8 +45,7 @@ class AddressModelTest extends ModelTestCase {
     /**
      * @dataProvider updateAddressProvider
      */
-    public function testUpdateAddress($addr_id, $unit_no, $street_no,
-            $street_id, $zip_id, $city_id, $expectedId) {
+    public function testUpdateAddress($addr_id, $unit_no, $street_no, $street_id, $zip_id, $city_id, $expectedId) {
 
         $id = $this->_model->updateAddress(array(
                     'unit_no' => $unit_no,
@@ -54,8 +53,7 @@ class AddressModelTest extends ModelTestCase {
                     'street_id' => $street_id,
                     'zip_id' => $zip_id,
                     'city_id' => $city_id
-                        ),
-                        $addr_id);
+                        ), $addr_id);
         $this->assertEquals($id, $expectedId);
     }
 
@@ -113,6 +111,95 @@ class AddressModelTest extends ModelTestCase {
             array(' 22 ', ' 212 ', 3, 5, 3),
             array('', ' 23c ', 3, 1, 1),
             array(' 12 ', ' 212 ', 3, 5, 2)
+        );
+    }
+
+    /**
+     * @dataProvider getAddressMarkerProvider
+     */
+    public function testGetAddressMarker($addressId, $expMarkerId) {
+        $addressRow = $this->_model->find($addressId)->current();
+        $marker = $addressRow->getMarker();
+        if (is_null($expMarkerId)) {
+            $this->assertEquals(null, $marker);
+        } else {
+            $this->assertEquals($expMarkerId, $marker->marker_id);
+        }
+    }
+
+    public function getAddressMarkerProvider() {
+        return array(
+            array(1, 4),
+            array(2, null), // address has no marker, so returned marker should be null.
+            array(4, 5)
+        );
+    }
+
+    /**
+     * @dataProvider insertAddressWithMarkerProvider
+     */
+    public function testInsertAddressWithMarker(
+    $unit_no, $street_no, $street_id, $zip_id, $city_id, $marker_id, $expectedId) {
+        $id = $this->_model->insertAddress(array(
+                    'unit_no' => $unit_no,
+                    'street_no' => $street_no,
+                    'street_id' => $street_id,
+                    'zip_id' => $zip_id,
+                    'city_id' => $city_id,
+                    'marker_id' => $marker_id
+                ));
+        $this->assertEquals($id, $expectedId);
+
+        // get addressRow and check if marker_id was saved correctly
+        $addressRow = $this->_model->find($id)->current();
+        $this->assertEquals($marker_id, $addressRow->getMarker()->marker_id);
+    }
+
+    /**
+     * Test only for new addresses. For existing addresses, marker is not going
+     * to be changed.
+     * 
+     * @return array 
+     */
+    public function insertAddressWithMarkerProvider() {
+        return array(
+            array(' 13 ', ' 212 ', 3, 5, 3, 4, 6), // new address
+            array(' 13a ', ' 2121 ', 3, 5, 3, 5, 6), // new address
+        );
+    }
+
+    /**
+     * @dataProvider updateAddressWithMarkerProvider
+     */
+    public function testUpdateAddressWithMarker($addr_id, $unit_no, $street_no,
+            $street_id, $zip_id, $city_id, $marker_id, $expectedId) {
+
+        $id = $this->_model->updateAddress(
+                        array(
+                            'unit_no' => $unit_no,
+                            'street_no' => $street_no,
+                            'street_id' => $street_id,
+                            'zip_id' => $zip_id,
+                            'city_id' => $city_id,
+                            'marker_id' => $marker_id
+                        ),
+                        $addr_id
+        );
+
+        $this->assertEquals($id, $expectedId);
+        
+         // get addressRow and check if marker_id was saved correctly
+        $addressRow = $this->_model->find($id)->current();
+        $this->assertEquals($marker_id, $addressRow->getMarker()->marker_id);
+        
+    }
+
+    public function updateAddressWithMarkerProvider() {
+        return array(
+            array(1, '', '23c', 2, 1, 1, 4, 1), // one ref. to accomm, no change in marker
+            array(1, '2', 'd23c', 1, 2, 2, 5, 1), // one ref. to accomm, change marker
+            array(4, '2', 'd23c', 1, 2, 2, 3, 4), // no ref. to accomm, change marker
+            array(2, '12-a', '221', 2, 2, 2, 2, 6), // two ref. to accomm, add marker, make new
         );
     }
 
