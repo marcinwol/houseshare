@@ -18,6 +18,11 @@ class My_Model_Table_City extends Zend_Db_Table_Abstract {
             'columns' => array('state_id'),
             'refTableClass' => 'My_Model_Table_State',
             'refColumns' => array('state_id'),
+        ),
+        'Marker' => array(
+            'columns' => array('marker_id'),
+            'refTableClass' => 'My_Model_Table_Marker',
+            'refColumns' => array('marker_id'),
         )
     );
 
@@ -61,7 +66,8 @@ class My_Model_Table_City extends Zend_Db_Table_Abstract {
             //if null than such city in this state does not exist so create it.
             return $this->insert(array(
                 'name' => $data['city_name'],
-                'state_id' => $data['state_id']
+                'state_id' => $data['state_id'],
+                'marker_id' => (isset($data['marker_id']) ? $data['marker_id'] : new Zend_Db_Expr('NULL'))
             ));
         } else {
             // such city in that state exists thus return its city's id
@@ -105,6 +111,7 @@ class My_Model_Table_City extends Zend_Db_Table_Abstract {
 
         $row->name = $data['city_name'];
         $row->state_id = $data['state_id'];
+        $row->marker_id = (isset($data['marker_id']) ? $data['marker_id'] : new Zend_Db_Expr('NULL'));
         return $row->save();
     }
 
@@ -119,6 +126,29 @@ class My_Model_Table_City extends Zend_Db_Table_Abstract {
         $select = $this->select();
         $select->where("name LIKE '%$term%' ")->order('name ASC')->limit($limit);
         return $this->fetchAll($select);
+    }
+    
+    
+    /**
+     * Set marker_id for a given city_id
+     * 
+     * @param int $city_id
+     * @param int $marker_id
+     * @return int|null The primary key of updated city row.
+     */
+    public function setMarker($city_id, $marker_id = null) {
+        $cityRow = $this->find($city_id)->current();
+        
+        if (is_null($cityRow)) {
+            return null;
+        }
+        
+        if (is_null($marker_id)) {
+           $cityRow->marker_id = new Zend_Db_Expr('NULL');
+        } else {
+           $cityRow->marker_id = $marker_id; 
+        }
+        return $cityRow->save();
     }
 
     /**

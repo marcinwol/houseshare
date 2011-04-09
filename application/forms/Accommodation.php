@@ -43,7 +43,7 @@ class My_Form_Accommodation extends My_Form_Abstract_AccommodationAbstract {
 
         //  $this->addSubForm($photosSubForm, self::PHOTOS_SUBFORM_NAME);
         // Create a submit button.
-        $this->addElement('submit', 'Submit');
+        $this->addElement('submit', 'Submit', array('label'=>'Go to step 2'));
     }
 
     /**
