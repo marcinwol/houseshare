@@ -151,7 +151,7 @@ class AccommodationController extends Zend_Controller_Action {
             $page = $accPaginator->count();
         }
         $this->view->maxPrice = $maxPrice;
-        $this->view->city = $city;
+        $this->view->cityRow = $cityRow;
         $this->view->limitForm = $limitForm;
         $this->view->listTitle = $city ? "Avaliable accommodation in $city" : 'Avaliable accommodation';
         $this->view->page = $page;

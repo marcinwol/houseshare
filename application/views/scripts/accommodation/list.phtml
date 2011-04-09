@@ -3,6 +3,26 @@
 $this->sideBarElement('Limit the list', $this->limitForm);
 ?>
 
+<?php
+// permanent placeholder for map view
+
+$mapDiv = '<div id="map" style="height: 240px"></div>';
+
+
+$this->sideBarElement('Map view', $mapDiv, array('place' => 'append'));
+
+?>
+<script type="text/javascript" src="<?php echo $this->baseUrl('/js/mapmainpage.js'); ?>"></script>
+
+<script type="text/javascript">
+$(function() {
+   // center map in the city
+   var city_lat = <?php echo $this->cityRow->getMarker()->lat;?>;
+   var city_lng = <?php echo $this->cityRow->getMarker()->lng;?>;
+   showMarker(city_lat, city_lng, 11, true); 
+});
+</script>
+
 <div>
     <?php
     echo $this->partial('_partials/_recentAdverts.phtml', null, array(

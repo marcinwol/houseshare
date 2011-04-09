@@ -16,7 +16,7 @@ class My_View_Helper_RecentAdverts extends Zend_View_Helper_Abstract {
     /**
      * Number of newest accommodations to return
      */
-    const NO_OF_ACCS = 3;
+    const NO_OF_ACCS = 5;
     
     /**
      * View instance

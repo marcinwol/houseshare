@@ -10,21 +10,19 @@ class IndexController extends Zend_Controller_Action {
      * This is for tests, experiments, etc.
      */
     public function testAction() {
-
-
-        $source= APPLICATION_PATH . "/configs/";
-        $filter = new Zend_Filter_Compress(
-                        array(
-                            'adapter' => 'zip',
-                            'options' => array(
-                                'archive' => 'test.zip'
-                            )
-                        )
-        );
-        $result = $filter->filter($source);
+        
+        $db = Zend_Db_Table::getDefaultAdapter();
+        
+      //  $innerSelect = $db->select('em.firstnm')->from('tbl_employeemaster em')->where('em.idemp = empl.approvedby');
+        
+      //  $select = $db->select()->from(tbl_empleaveapplication empl)
+        
+ 
     }
 
     public function indexAction() {
+        
+       
 
         $mainForm = new My_Form_MainPage();
         $page = $this->_getParam('page', 1);
