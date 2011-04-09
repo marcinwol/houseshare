@@ -1,5 +1,6 @@
 <?php
-/* 
+
+/*
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
@@ -9,9 +10,9 @@
  *
  * @author marcin
  */
-class My_Model_Table_Row_City extends Zend_Db_Table_Row_Abstract  {
+class My_Model_Table_Row_City extends Zend_Db_Table_Row_Abstract {
 
-     /**
+    /**
      * Get State Row for the current city row.
      *
      * @return Zend_Db_Table_Row_State
@@ -19,14 +20,51 @@ class My_Model_Table_Row_City extends Zend_Db_Table_Row_Abstract  {
     public function getState() {
         return $this->findParentRow('My_Model_Table_State');
     }
-    
-     /**
-     * Get Google map marker coordinates for the current city row.
-     *
+
+    /**
+     * Get Google map marker coordinates for the current city row if exist.
+     * 
+     * 
+     * @param $makeIfDoesNotExist ask google for marker and create marker if true
      * @return Zend_Db_Table_Row_Marker
      */
-    public function getMarker() {
-        return $this->findParentRow('My_Model_Table_Marker');
+    public function getMarker($makeIfDoesNotExist = false) {
+        
+        $markerRow = $this->findParentRow('My_Model_Table_Marker');
+
+        // if does not exist
+        if (is_null($markerRow) && true === $makeIfDoesNotExist) {
+            $geocoder = new ZC_GeocodingAdapter();
+            $latAndLng = $geocoder->getGeocodedLatitudeAndLongitude(
+                            "{$this->name}, {$this->getState()->name}"
+            );
+                            
+           var_dump($latAndLng);
+
+            if (empty($latAndLng)) {
+                return null;
+            } else {
+                $markerModel = new My_Model_Table_Marker();
+                                                
+                $marker_id = $markerModel->insertMarker((array) $latAndLng);
+                
+                if (null === $marker_id) {
+                    throw new Zend_Db_Exception('Cannot create new marker');
+                }
+                
+                $markerRow = $markerModel->find($marker_id)->current();
+                
+                // update City with new marker_id
+                $this->marker_id = $marker_id;
+                
+                if ($this->city_id !== $this->save()) {
+                     throw new Zend_Db_Exception('Error updating city witn new marker_id');
+                }
+                
+            }
+        }
+        
+        return $markerRow;
     }
 
     /**
@@ -39,4 +77,5 @@ class My_Model_Table_Row_City extends Zend_Db_Table_Row_Abstract  {
     }
 
 }
+
 ?>

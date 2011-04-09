@@ -8,7 +8,7 @@ class ZC_GeocodingAdapter {
     protected $apiKey;
     
     private function getGeocodeUri()    {
-        return 'http://maps.google.com/maps/geo';
+        return 'http://maps.googleapis.com/maps/api/geocode/json';
     }
     
     public function __construct($apiKey = '')   {
@@ -21,18 +21,19 @@ class ZC_GeocodingAdapter {
         $client = new Zend_Http_Client();
         $client->setUri($this->getGeocodeUri());
         
-        $client->setParameterGet('q',urlencode($address))
-                   ->setParameterGet('output','json')
+        $client->setParameterGet('address',urlencode($address))
                    ->setParameterGet('sensor','false')
-                   ->setParameterGet('retion', $region);
+                   ->setParameterGet('region', $region);
        //             ->setParameterGet('key',$this->apiKey);
 
         $result = $client->request('GET');
 
         $response = Zend_Json_Decoder::decode($result->getBody(),Zend_Json::TYPE_OBJECT);
-
-        if ($response instanceof stdClass)  {
-            return $response->Placemark[0]->Point->coordinates;
+        
+        if ($response->status === 'OK')  {
+            return $response->results[0]->geometry->location;
         }
+        
+        return null;
     }
 }
