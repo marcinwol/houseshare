@@ -18,7 +18,8 @@
                         |
                         <a href="<?php echo $this->baseUrl('/accommodation/photochange/id/' . $acc->acc_id); ?>">Change photos</a>
                         |            
-
+                        <a href="<?php echo $this->baseUrl('/accommodation/map/id/' . $acc->acc_id); ?>">Change localization on map</a>
+                        |
                         <?php if ($acc->is_enabled == 1): ?>
                             <a href="<?php echo $this->baseUrl('/accommodation/disable/id/' . $acc->acc_id); ?>">Disable</a>               
                         <?php else: ?>             

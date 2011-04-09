@@ -12,7 +12,7 @@ $(function() {
     //get lat and lng of the address
     var addr_lat = $("#addr_lat").val();
     var addr_lng = $("#addr_lng").val();
-    
+     
     var city_lat = $("#city_lat").val();
     var city_lng = $("#city_lng").val();
    

@@ -10,34 +10,29 @@ class IndexController extends Zend_Controller_Action {
      * This is for tests, experiments, etc.
      */
     public function testAction() {
-        
-        
-        $db = Zend_Db_Table::getDefaultAdapter();
-        $select2 = $db->select()
-                ->from('log', array('log_date', 'user_id', 'task', 'work_desc', 'hours', 'user2project'))                
-                ->join('project', 'log.user2project = project.id', array('title' => 'title', 'id'));
-        
-        var_dump($select2->assemble());
-        
-        $db = Zend_Db_Table::getDefaultAdapter();
-        $select = $db->select()
-                ->from(new Zend_Db_Expr('log, project'), array('log_date', 'user_id', 'task', 'work_desc', 'hours', 'user2project'))                             
-                ->where('log.user2project = project.id');  
-        
-        var_dump($select->assemble());
-        
 
+
+        $source= APPLICATION_PATH . "/configs/";
+        $filter = new Zend_Filter_Compress(
+                        array(
+                            'adapter' => 'zip',
+                            'options' => array(
+                                'archive' => 'test.zip'
+                            )
+                        )
+        );
+        $result = $filter->filter($source);
     }
 
     public function indexAction() {
-        
+
         $mainForm = new My_Form_MainPage();
         $page = $this->_getParam('page', 1);
 
         if ($this->getRequest()->isPost()) {
             if ($mainForm->isValid($_POST)) {
 
-               // $whatToDo = $mainForm->getValue('rd_what_to_do');
+                // $whatToDo = $mainForm->getValue('rd_what_to_do');
                 $whatToDo = '0';
                 $cityName = $mainForm->getValue('i_city');
                 $maxPrice = $mainForm->getValue('maxprice');
@@ -49,7 +44,7 @@ class IndexController extends Zend_Controller_Action {
                 }
             }
         }
-        
+
         $this->view->page = $page;
         $this->view->mainForm = $mainForm;
     }
@@ -60,7 +55,7 @@ class IndexController extends Zend_Controller_Action {
 
             $term = $this->getRequest()->getParam('term');
             $nostate = $this->getRequest()->getParam('nostate', 0);
-            
+
             $cityModel = new My_Model_View_City();
             $cities = $cityModel->findCitiesBasedOnName($term, 5)->toArray();
 

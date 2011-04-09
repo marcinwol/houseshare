@@ -35,6 +35,11 @@ class My_Model_Table_Address extends Zend_Db_Table_Abstract {
             'columns' => array('zip_id'),
             'refTableClass' => 'My_Model_Table_Zip',
             'refColumns' => array('zip_id'),
+        ),
+        'Marker' => array(
+            'columns' => array('marker_id'),
+            'refTableClass' => 'My_Model_Table_Marker',
+            'refColumns' => array('marker_id'),
         )
     );
 
@@ -53,6 +58,11 @@ class My_Model_Table_Address extends Zend_Db_Table_Abstract {
          $select->where("street_id = ? ", $data['street_id']);
          $select->where("zip_id = ? ", $data['zip_id']);
          $select->where("city_id = ? ", $data['city_id']);
+        
+         // if marker_id given, then also use it in a search.
+         if (isset($data['marker_id'])) {
+             $select->where("marker_id = ? ", $data['marker_id']);
+         }
 
          return $this->fetchRow($select);
      }
@@ -75,9 +85,10 @@ class My_Model_Table_Address extends Zend_Db_Table_Abstract {
                  'street_id' => $data['street_id'],
                  'zip_id' => $data['zip_id'],
                  'city_id' => $data['city_id'],
+                 'marker_id' => (isset($data['marker_id']) ? $data['marker_id'] : new Zend_Db_Expr('NULL'))
                  ));
          } else {
-             // such address in that state exists thus return its city's id
+             // such address in that exists thus return its  id
              return $row->addr_id;
          }
      }
@@ -100,15 +111,19 @@ class My_Model_Table_Address extends Zend_Db_Table_Abstract {
         $row = $this->findByValues($data);
 
          if (!is_null($row)) {
-            // if exists than return its id
+            // if exists then return its id
             return $row->addr_id;
         }
+        
+        
 
         $row = $this->find($id)->current();
 
         if (is_null($row)) {
             throw new Zend_Db_Exception("No address with id = $id");
         }
+        
+      
 
         if ($row->getAccommodations()->count() > 1) {
             // There are many rows in dependant table, so
@@ -121,6 +136,7 @@ class My_Model_Table_Address extends Zend_Db_Table_Abstract {
         $row->street_id = $data['street_id'];
         $row->zip_id = $data['zip_id'];
         $row->city_id = $data['city_id'];
+        $row->marker_id = (isset($data['marker_id']) ? $data['marker_id'] : new Zend_Db_Expr('NULL'));
         return $row->save();
     }
 

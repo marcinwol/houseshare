@@ -65,7 +65,31 @@ class My_Form_MainPage extends Zend_Form {
         );
         $this->addElement($maxPrice);
 
-
+//        $element = new Zend_Form_Element_MultiCheckbox('show',
+//                        array(
+//                            'multiOptions' => array(
+//                                '1' => 'Campaign/Ad-groups',
+//                                '2' => 'Keywords'
+//                            )
+//                        )
+//        );
+//        
+//       // $element->setName('asdfasdf[]');
+//        $element->setBelongsTo(array('ssss'));
+//        
+//        
+////        $element->setDecorators(
+////                array(
+////                    'ViewHelper',
+////                 array(array('label' => 'HtmlTag'), array('tag' => 'div', 'placement' => 'append'))
+////                )
+////        );
+//        
+//        
+//
+//        $this->addElement($element);
+//        
+  
 
         $submit = $this->createElement('submit', 'submit', array('label' => 'Go'));
         $submit->removeDecorator('Label');

@@ -531,9 +531,25 @@ class My_Houseshare_Accommodation extends My_Houseshare_Abstract_PropertyAccesso
         return My_Houseshare_Factory::user($user_id);
     }
     
+    /**
+     * Get city name
+     * 
+     * @return string  
+     */
     public function getCity() {
         return $this->getAddress()->city;
     }
+    
+    
+    /**
+     * Get city row
+     * 
+     * @return Zend_Db_Table_Row_City  
+     */
+    public function getCityrow() {       
+        return $this->_acc->_row->getAddress()->getCity();
+    }
+    
     
     /**
      * Get Google map marker coordinates for the current accommodation.

@@ -2,38 +2,44 @@ $(function() {
     
     var mapDiv = document.getElementById("map");
     
-    // wroclaw's coordinates
-    var latlng = new google.maps.LatLng(51.110851, 17.034302);
-    var options = {
-        center: latlng,
-        zoom: 13,
-        mapTypeId: google.maps.MapTypeId.ROADMAP
-    };
-    
-    // create the map
-    var map = new google.maps.Map(mapDiv, options);
-    
-    // Adding a marker to the map
-    var marker = new google.maps.Marker({
-        position: latlng,
-        map: map,
-        title: 'Wroclaw'
-    });
+//    // wroclaw's coordinates
+//    var latlng = new google.maps.LatLng(51.110851, 17.034302);
+//    var options = {
+//        center: latlng,
+//        zoom: 13,
+//        mapTypeId: google.maps.MapTypeId.ROADMAP
+//    };
+//    
+//    // create the map
+//    var map = new google.maps.Map(mapDiv, options);
+//    
+//    // Adding a marker to the map
+//    var marker = new google.maps.Marker({
+//        position: latlng,
+//        map: map,
+//        title: 'Wroclaw',
+//         draggable: true
+//    });
 
     // Creating an InfoWindow with the content text: "Hello World"
-    var infowindow = new google.maps.InfoWindow({
-        content: 'Wroclaw'
-    });
+//    var infowindow = new google.maps.InfoWindow({
+//        content: 'Wroclaw'
+//    });
     
     // Adding a click event to the marker
  //   google.maps.event.addListener(marker, 'click', function() {
    //     infowindow.open(map, marker);
   //  });
+  
+  
+  
     
     var geocoder;
+    var marker;
     
-    getCoordinates = function(address) {
+    var getCoordinates = function(address) {
         // Check to see if we already have a geocoded object. If not we create one
+        
         if(!geocoder) {
             geocoder = new google.maps.Geocoder();
         }
@@ -57,7 +63,8 @@ $(function() {
                 if (!marker) {
                     // Creating a new marker and adding it to the map
                     marker = new google.maps.Marker({
-                        map: map
+                        map: map,
+                        draggable: true
                     });
                 }
 
@@ -73,6 +80,8 @@ $(function() {
     }
 
 
-    //getCoordinates("Podhalanska 20, Nowy Targ");
+    var address = $("#address-for-geocoder").val();
+
+    getCoordinates(address);
         
 });
