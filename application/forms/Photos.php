@@ -31,10 +31,6 @@ class My_Form_Photos extends Zend_Form {
         
         $this->_noOfPhotos = PHOTOS_NUMBER;
 
-        // Extensions...
-       // $this->init();
-
-       
     }
 
     

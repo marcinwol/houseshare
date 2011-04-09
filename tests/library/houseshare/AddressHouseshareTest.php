@@ -554,11 +554,11 @@ class AddressHouseshareTest extends ModelTestCase {
         $address = new My_Houseshare_Address(4);      
         $address->lat = '12.123567';  // change marker
         $address->lng = '22.123567';   
-        $row_id = $address->save();
+        $row_id = $address->save(true); // use updateAddress instead of insertAddress
 
         $this->assertEquals(
                 array(
-                    6, // do not create new address
+                    4, // do not create new address
                     6  // expected new marker_id
                 ),
                 array(

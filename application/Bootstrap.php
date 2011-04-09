@@ -65,6 +65,8 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
         $resourceLoader_hs->addResourceType('houseshare', 'Houseshare/', 'Houseshare_');
         //var_dump($resourceLoader_cms->getResourceTypes());
         $autoLoader->pushAutoloader($resourceLoader_hs);
+        
+        $autoLoader->registerNamespace('ZC_');
     }
 
     protected function _initLocale() {
