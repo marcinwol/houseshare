@@ -65,54 +65,7 @@ $(function() {
     // Adding a click event to the marker
     google.maps.event.addListener(marker, 'click', function() {
         infowindow.open(map, marker);
-    });
-      
+    });      
 
-//    // Creating a GeocoderRequest object
-//    var geocoderRequest = {
-//        address: address,
-//        region: 'PL'
-//    }   
-//
-//    // create geocoder object
-//    var geocoder = new google.maps.Geocoder();
-//    
-//    // Making the Geocode request
-//    geocoder.geocode(geocoderRequest, function(results, status) {
-//        // Code that will handle the response
-//      
-//        // Check if status is OK before proceeding
-//        if (status == google.maps.GeocoderStatus.OK) {
-//            // Center the map on the returned location
-//            map.setCenter(results[0].geometry.location);
-//            map.setZoom(16);
-//            // Check to see if we've already got a Marker object
-//              
-//            // Creating a new marker and adding it to the map
-//            marker = new google.maps.Marker({
-//                map: map,
-//                draggable: true
-//            });                    
-//              
-//            // Setting the position of the marker to the returned location
-//            marker.setPosition(results[0].geometry.location);
-//            
-//            // set the position in the hidden form fields
-//            var wsp = marker.getPosition();
-//            
-//        //     $('#lat').val(wsp.lat());
-//        //    $('#lng').val(wsp.lng());
-//            
-//            
-//           
-//                    
-//        } else {    
-//    // if google cannot find the corrdinates for the given address            
-//    //alert('Could not find the localization on the map');
-//    }
-//
-//    });
-    
-    
     
 });

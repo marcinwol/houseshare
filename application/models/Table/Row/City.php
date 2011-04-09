@@ -34,12 +34,12 @@ class My_Model_Table_Row_City extends Zend_Db_Table_Row_Abstract {
 
         // if does not exist
         if (is_null($markerRow) && true === $makeIfDoesNotExist) {
+            
             $geocoder = new ZC_GeocodingAdapter();
             $latAndLng = $geocoder->getGeocodedLatitudeAndLongitude(
                             "{$this->name}, {$this->getState()->name}"
             );
                             
-           var_dump($latAndLng);
 
             if (empty($latAndLng)) {
                 return null;

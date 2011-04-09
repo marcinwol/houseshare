@@ -1,17 +1,16 @@
 <?php
-    // <?php echo $this->gravatar($this->user['email'], array('imgSize' => 100, 'defaultImg' => 'identicon')); 
-    if (strlen($this->acc->user->description)>0) {      
-        //$sideBarHtml = '<ul class="photos">';
-        //$sideBarHtml .= '<li>'.$this->gravatar($this->user['email'], array('imgSize' => 100, 'defaultImg' => 'identicon')) .'</li>';
-        //$sideBarHtml .= '</ul>';
-        $sideBarHtml = '<ul>';
-        $sideBarHtml .=  '<li>'.$this->acc->user->description .'</li>';
-        $sideBarHtml .= '</ul>';
-        
-    } else {
-        $sideBarHtml = '<ul><li>'.$this->translate('No information avaliable').'</li></ul>';
-    }
-    $this->sideBarElement('About ' . $this->acc->user->nickname, $sideBarHtml);
+// <?php echo $this->gravatar($this->user['email'], array('imgSize' => 100, 'defaultImg' => 'identicon')); 
+if (strlen($this->acc->user->description) > 0) {
+    //$sideBarHtml = '<ul class="photos">';
+    //$sideBarHtml .= '<li>'.$this->gravatar($this->user['email'], array('imgSize' => 100, 'defaultImg' => 'identicon')) .'</li>';
+    //$sideBarHtml .= '</ul>';
+    $sideBarHtml = '<ul>';
+    $sideBarHtml .= '<li>' . $this->acc->user->description . '</li>';
+    $sideBarHtml .= '</ul>';
+} else {
+    $sideBarHtml = '<ul><li>' . $this->translate('No information avaliable') . '</li></ul>';
+}
+$this->sideBarElement('About ' . $this->acc->user->nickname, $sideBarHtml);
 ?>
 
 <?php
@@ -37,41 +36,36 @@ if (count($this->acc->photosurls) > 0) {
 }
 ?>   
 
-<input type="hidden" id="addr_lat" value="<?php echo $this->acc->address->lat;?>" />
-<input type="hidden" id="addr_lng" value="<?php echo $this->acc->address->lng;?>" />
 
-<?php
-    // load google maps api
-    $this->headScript()->appendFile('http://maps.google.com/maps/api/js?sensor=false&region=PL', $type = 'text/javascript');
-?>
+
 
 <div class="grid_6 ">&nbsp;</div>
- <h1 class="title"><?php echo $this->acc->title; ?></h1>
+<h1 class="title"><?php echo $this->acc->title; ?></h1>
 <div id="acc-details" class="grid_6 alpha">    
-    
+
     <div class="section grid_4 alpha">
         <h1 class="title">Description</h1>
-    <p>
-        <?php echo $this->acc->description; ?>
-    </p>
+        <p>
+            <?php echo $this->acc->description; ?>
+        </p>
     </div>
-     <div class="section grid_2 omega" >
-    <dl class="basic-info">
-        <dt>Price (per month)</dt>
-        <dd><?php echo $this->acc->price; ?> PLN</dd>
-        <dt>Bond</dt>
-        <dd><?php echo $this->acc->bond; ?> PLN</dd>
-        
-        <?php if (strlen($this->acc->price_info) > 0): ?>            
-            <dt>Price info</dt>
-            <dd><?php echo $this->acc->price_info; ?></dd>        
-        <?php endif;?>
-            
-        <dt>Avaliable <?php echo $this->avaliable($this->acc)->inOrFrom(); ?>:</dt>
-        <dd><?php echo $this->avaliable($this->acc)->time(); ?></dd>
-    </dl>
+    <div class="section grid_2 omega" >
+        <dl class="basic-info">
+            <dt>Price (per month)</dt>
+            <dd><?php echo $this->acc->price; ?> PLN</dd>
+            <dt>Bond</dt>
+            <dd><?php echo $this->acc->bond; ?> PLN</dd>
 
-      </div>
+            <?php if (strlen($this->acc->price_info) > 0): ?>            
+                <dt>Price info</dt>
+                <dd><?php echo $this->acc->price_info; ?></dd>        
+            <?php endif; ?>
+
+            <dt>Avaliable <?php echo $this->avaliable($this->acc)->inOrFrom(); ?>:</dt>
+            <dd><?php echo $this->avaliable($this->acc)->time(); ?></dd>
+        </dl>
+
+    </div>
 
     <div class="section grid_6 alpha">
         <h1>Localization</h1> 
@@ -84,12 +78,24 @@ if (count($this->acc->photosurls) > 0) {
             <dd><?php echo $this->acc->state; ?></dd>
         </dl>
     </div>
-       <div id="map" class="grid_6 " style="height: 300px">
-   
-     </div>
+
+    <?php
     
-    <script type="text/javascript" src="<?php echo $this->baseUrl('/js/mapshow.js');?>"></script>
-    
+    $lat = $this->acc->address->lat;
+    $lng = $this->acc->address->lng;
+
+    if (!empty($lat) && !empty($lng)) {
+        echo '<input type="hidden" id="addr_lat" value="' . $lat . '" />';
+        echo '<input type="hidden" id="addr_lng" value="' . $lng . '" />';
+        echo '<div id="map" class="grid_6 " style="height: 300px"> </div>';
+        // load google maps api
+        $this->headScript()->appendFile(
+                'http://maps.google.com/maps/api/js?sensor=false&region=PL', $type = 'text/javascript'
+        );
+    }
+    ?>
+    <script type="text/javascript" src="<?php echo $this->baseUrl('/js/mapshow.js'); ?>"></script>
+
     <div class="section grid_2 alpha ">
         <h1>Features</h1> 
         <?php

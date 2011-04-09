@@ -10,7 +10,7 @@ $(function() {
     //get lat and lng of the address
     var addr_lat = $("#addr_lat").val();
     var addr_lng = $("#addr_lng").val();
-
+        
     var  latlng = new google.maps.LatLng(addr_lat, addr_lng);
 
     // create the map

@@ -54,4 +54,15 @@
         <p><?php echo $this->translate('Per month');?></p>
     </div>
     <div style="float:clear"></div>
+    
+    <?php
+    // get marker lat and lng values if possible
+    $lat = $this->acc->address->lat;
+    $lng = $this->acc->address->lng;
+
+    if (!empty($lat) && !empty($lng)) {
+        echo '<input type="hidden" id="addr_lat" value="' . $lat . '" />';
+        echo '<input type="hidden" id="addr_lng" value="' . $lng . '" />';
+    }
+    ?>
 </div>
