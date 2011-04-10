@@ -194,7 +194,7 @@ CREATE  TABLE IF NOT EXISTS `ACCOMMODATION` (
   `street_address_public` TINYINT(1) NOT NULL DEFAULT 0 ,
   `short_term_ok` TINYINT(1) NOT NULL DEFAULT 1 ,
   `type_id` INT UNSIGNED NOT NULL ,
-  `is_enabled` TINYINT(1) NOT NULL DEFAULT 1 ,
+  `is_enabled` TINYINT(1) NOT NULL DEFAULT 0 ,
   `price_info` VARCHAR(255) NULL ,
   `queries_counter` INT NOT NULL DEFAULT 0 ,
   `features_info` TEXT NULL ,

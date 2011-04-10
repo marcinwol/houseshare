@@ -21,9 +21,9 @@
                         <a href="<?php echo $this->baseUrl('/accommodation/map/id/' . $acc->acc_id); ?>">Change localization on map</a>
                         |
                         <?php if ($acc->is_enabled == 1): ?>
-                            <a href="<?php echo $this->baseUrl('/accommodation/disable/id/' . $acc->acc_id); ?>">Disable</a>               
+                            <a href="<?php echo $this->baseUrl('/accommodation/disable/id/' . $acc->acc_id); ?>">Deactivate</a>               
                         <?php else: ?>             
-                            <a href="<?php echo $this->baseUrl('/accommodation/enable/id/' . $acc->acc_id); ?>">Enable</a>               
+                            <a href="<?php echo $this->baseUrl('/accommodation/enable/id/' . $acc->acc_id); ?>"><span style="color: green;"><strong>Activate</strong></span></a>               
                         <?php endif; ?>   
 
                     </td>

@@ -304,7 +304,7 @@ class AccommodationController extends Zend_Controller_Action {
 
                 $addAccInfoNamespace = new Zend_Session_Namespace('addAccInfo');
                 $addAccInfoNamespace->acc_id = intval($acc_id);
-                $addAccInfoNamespace->setExpirationSeconds(60 * 5);
+             //   $addAccInfoNamespace->setExpirationSeconds(60 * 5);
                 $addAccInfoNamespace->lock();
 
 
@@ -755,7 +755,7 @@ class AccommodationController extends Zend_Controller_Action {
 
                     $addAccInfoNamespace = new Zend_Session_Namespace('addAccInfo');
                     $addAccInfoNamespace->acc_id = intval($acc_id);
-                    $addAccInfoNamespace->setExpirationSeconds(60 * 5);
+                    //$addAccInfoNamespace->setExpirationSeconds(60 * 5);
                     $addAccInfoNamespace->referer = 'addphotos';
                     $addAccInfoNamespace->lock();
 
@@ -786,6 +786,8 @@ class AccommodationController extends Zend_Controller_Action {
         // don't need this session namespace anymore
         Zend_Session::namespaceUnset('addAccInfo');
         $this->view->acc = $acc;
+        $this->view->preview = true;
+        $this->_helper->viewRenderer('show');
     }
 
     public function disableAction() {

@@ -1,3 +1,4 @@
+
 <?php
 // <?php echo $this->gravatar($this->user['email'], array('imgSize' => 100, 'defaultImg' => 'identicon')); 
 if (strlen($this->acc->user->description) > 0) {
@@ -36,6 +37,29 @@ if (count($this->acc->photosurls) > 0) {
 }
 ?>   
 
+
+<?php
+if ($this->preview == true) {
+    $sideBarContent = "
+            Your advertisment has just been added to houseshare. 
+            However it has <strong>not been yet activated</strong>.";
+
+    if ($this->isLogged()) {
+        $sideBarContent .= "
+ <p> If you happy with it then 
+    <a href=\"{$this->baseUrl('/accommodation/enable/id/' . $this->acc->acc_id)}\">activate it</a>.
+    If you want to <strong>change</strong> something go <a href=\"{$this->baseUrl('/user/')}\">here</a>.
+ </p>";
+
+   } else {
+      $sideBarContent .= "<p>To activate it or make changes, please <a href=\"{$this->baseUrl('/login/')}\">login</a>. </p> ";
+   }
+
+
+    $this->sideBarElement('Success!', $sideBarContent, array('class' => 'side-bar-info', 'break' => true));
+
+}
+?>
 
 
 
@@ -80,7 +104,6 @@ if (count($this->acc->photosurls) > 0) {
     </div>
 
     <?php
-    
     $lat = $this->acc->address->lat;
     $lng = $this->acc->address->lng;
 
@@ -98,46 +121,48 @@ if (count($this->acc->photosurls) > 0) {
 
     <div class="section grid_2 alpha ">
         <h1>Features</h1> 
-        <?php
-        $features = $this->acc->features;
-        if (count($features) > 0) {
-            echo '<ul class="feats-prefs">';
-            foreach ($features as $f) {
-                echo '<li>' . $f->getName() . '</li>';
-            }
-            echo '</ul>';
-        }
-        ?>
+<?php
+$features = $this->acc->features;
+if (count($features) > 0) {
+    echo '<ul class="feats-prefs">';
+    foreach ($features as $f) {
+        echo '<li>' . $f->getName() . '</li>';
+    }
+    echo '</ul>';
+}
+?>
     </div>
 
     <div class="section grid_2 alpha  ">
         <h1>Preferences</h1> 
-        <?php
-        $prefs = $this->acc->preferences;
-        if (count($prefs) > 0) {
-            echo '<ul class="feats-prefs">';
-            foreach ($prefs as $p) {
-                echo '<li>' . $p->getName() . '</li>';
-            }
-            echo '</ul>';
-        }
-        ?>
+<?php
+$prefs = $this->acc->preferences;
+if (count($prefs) > 0) {
+    echo '<ul class="feats-prefs">';
+    foreach ($prefs as $p) {
+        echo '<li>' . $p->getName() . '</li>';
+    }
+    echo '</ul>';
+}
+?>
     </div>
 
     <div class="section grid_2 omega">
         <h1>Roomates</h1> 
-        <?php
-        var_dump($this->acc->roomates->toArray());
-        ?>
+<?php
+var_dump($this->acc->roomates->toArray());
+?>
     </div>
 
 
     <div class="section grid_6 alpha">
         <h1>Contact</h1> 
-        <a href="javascript:none;" id="ask-question">Ask a question</a>
-        <div id="email-send-form">
-            <?php echo $this->form; ?>        
-        </div>
+<?php if ($this->form): ?>
+            <a href="javascript:none;" id="ask-question">Ask a question</a>
+            <div id="email-send-form">
+    <?php echo $this->form; ?>        
+            </div>
+            <?php endif; ?>
     </div>
 
 </div>
