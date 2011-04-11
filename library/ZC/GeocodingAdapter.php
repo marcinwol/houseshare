@@ -20,8 +20,9 @@ class ZC_GeocodingAdapter {
         
         $client = new Zend_Http_Client();
         $client->setUri($this->getGeocodeUri());
+
         
-        $client->setParameterGet('address',urlencode($address))
+        $client->setParameterGet('address',$address)
                    ->setParameterGet('sensor','false')
                    ->setParameterGet('region', $region);
        //             ->setParameterGet('key',$this->apiKey);
