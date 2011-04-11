@@ -154,6 +154,7 @@ class My_Model_Table_Accommodation extends Zend_Db_Table_Abstract {
                         ), 'ACCOMMODATION.acc_id = acco_id', 'last_time')
                 ->joinInner('ADDRESS', 'ACCOMMODATION.addr_id = ADDRESS.addr_id', '')
                 ->joinInner('CITY', 'ADDRESS.city_id = CITY.city_id', 'CITY.name as city')
+                ->where('ACCOMMODATION.is_enabled = ?', 1)
                 ->order('last_time DESC')
                 ->limit($limit);
 
