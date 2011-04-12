@@ -50,7 +50,7 @@ $bootstrap = $application->bootstrap();
 $streetsXML = simplexml_load_file('_data/ULIC.xml');
 
 
-$outFile = 'ULIC.serialized';
+$outFile = '_data/ULIC.serialized';
 
 $uniqueStreetNames = array();
 
