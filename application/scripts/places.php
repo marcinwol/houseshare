@@ -80,6 +80,9 @@ if ($getopt->getOption('d')) {
         );
     }
 
+    $noOfCities = count($cities);
+    $ind = 0;
+    
     // write cities into db
     $cityModel = new My_Model_Table_City();
     foreach ($cities as $city) {
@@ -90,6 +93,10 @@ if ($getopt->getOption('d')) {
                     'name' => $city[2]
                 )
         );
+        
+        echo "$ind/$noOfCities: Just inserted city: {$city[2]}\n";
+        $ind++;
+        
     }
 }
 
@@ -136,7 +143,6 @@ if ($marker) {
         if (!is_numeric($marker_id)) {
             throw new Zend_Db_Exception($marker_id . " is not an integer!");
         }
-
 
 
         // update city with just created marker_id                
