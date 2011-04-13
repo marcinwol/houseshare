@@ -61,7 +61,7 @@ COLLATE = utf8_polish_ci;
 
 CREATE INDEX `fk_CITY_STATE1` ON `CITY` (`state_id` ASC) ;
 
-CREATE UNIQUE INDEX `UNIQUE_CITY` ON `CITY` (`name` ASC, `state_id` ASC) ;
+CREATE INDEX `city_name` ON `CITY` (`name` ASC, `state_id` ASC) ;
 
 CREATE INDEX `fk_CITY_MARKER1` ON `CITY` (`marker_id` ASC) ;
 
@@ -79,7 +79,7 @@ ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8
 COLLATE = utf8_polish_ci;
 
-CREATE UNIQUE INDEX `name_UNIQUE` ON `STREET` (`name` ASC) ;
+CREATE INDEX `name_index` ON `STREET` (`name` ASC) ;
 
 
 -- -----------------------------------------------------

@@ -7,10 +7,10 @@
 $(document).ready(function () {
     
     
-        $('.description').click(function() {
-           var descrID = $(this).attr('for')            
-           $('#'+descrID).toggle('slow');
-        });        
+    $('.description').click(function() {
+        var descrID = $(this).attr('for')            
+        $('#'+descrID).toggle('slow');
+    });        
         
     
     
@@ -42,15 +42,15 @@ $(document).ready(function () {
     
     
     if ($('#basic_info-acc_type').val() == "1") {
-           $('#fieldset-room_features').hide();
+        $('#fieldset-room_features').hide();
     }
     
     $('#basic_info-acc_type').change(function() {
-       if ($(this).val() == "1") {
-           $('#fieldset-room_features').hide();
-       } else if ($(this).val() == "2") {
-           $('#fieldset-room_features').show();
-       }
+        if ($(this).val() == "1") {
+            $('#fieldset-room_features').hide();
+        } else if ($(this).val() == "2") {
+            $('#fieldset-room_features').show();
+        }
     });
 
     $("#address-state").autocomplete({
@@ -58,15 +58,53 @@ $(document).ready(function () {
         delay: 0,
         minLength: 2
     });
+    
+    function monkeyPatchAutocomplete() {
 
-    $("#address-street_name").autocomplete({
-        source: "/houseshare/public/index/getstreets",
-        delay: 0,
-        minLength: 2
-    });
+        // don't really need this, but in case I did, I could store it and chain
+        var oldFn = $.ui.autocomplete.prototype._renderItem;
+        
+        $.ui.autocomplete.prototype._renderItem = function( ul, item) {
+            var re = new RegExp(this.term, "ig") ;
+            var t = item.label.replace(re,"<span style='font-weight:bold;'>" + 
+               "$&" + 
+                "</span>");
+            
+            return $( "<li></li>" )
+            .data( "item.autocomplete", item )
+            .append( "<a>" + t + "</a>" )
+            .appendTo( ul );
+        };
+    }
+    
+    
+    monkeyPatchAutocomplete();
+    
+    $.get('/houseshare/public/index/getstreets', function(streets) {
+        //console.log(streets.length);
+    //    console.log(streets[0]);
 
-    $( "#basic_info-date_avaliable" ).datepicker({
-        dateFormat: 'dd/mm/yy' 
-    });
+        
+        $("#address-street_name").autocomplete( {            
+            delay: 0,
+            minLength: 1,
+            source: function(request, response){
+                var matches = new Array();
+                var needle = request.term.toLowerCase();
+                var len = streets.length;
+                for(i = 0; i < len; ++i)   {
+                    var haystack = streets[i].label.toLowerCase();
+                    if(haystack.indexOf(needle) == 0 || haystack.indexOf(" " + needle) != -1)   {
+                        matches.push(streets[i]);
+                        if (matches.length > 10 ) {                           
+                            break;
+                        }
+                    }
+                }
+                response(matches);
+            }
+        });
    
+    }, 'json');
+    
 });

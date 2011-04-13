@@ -84,18 +84,19 @@ class IndexController extends Zend_Controller_Action {
         if ($this->getRequest()->isXmlHttpRequest()) {
 
             $term = $this->getRequest()->getParam('term');
+            $matches = array();
+            
             $stateModel = new My_Model_Table_State();
-
             $states = $stateModel->findStatesBasedOnName($term, 5)->toArray();
 
             $matches = array();
             foreach ($states as $state) {
-
+            
                 $city['value'] = $state['name'];
                 $city['label'] = $state['name'];
                 $matches[] = $city;
             }
-
+            
             $this->_helper->json($matches);
         } else {
             throw new Exception('Not an ajax requrests');
@@ -108,9 +109,10 @@ class IndexController extends Zend_Controller_Action {
 
             $term = $this->getRequest()->getParam('term');
             $streetModel = new My_Model_Table_Street();
-
-            $streets = $streetModel->findBasedOnName($term, 5)->toArray();
-
+            
+            //$streets = $streetModel->findBasedOnName($term, 5)->toArray();
+            $streets = $streetModel->fetchAll()->toArray();
+            
             $matches = array();
             foreach ($streets as $street) {
 
@@ -118,7 +120,7 @@ class IndexController extends Zend_Controller_Action {
                 $street['label'] = $street['name'];
                 $matches[] = $street;
             }
-
+  
             $this->_helper->json($matches);
         } else {
             throw new Exception('Not an ajax requrests');
