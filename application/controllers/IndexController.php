@@ -55,7 +55,8 @@ class IndexController extends Zend_Controller_Action {
             $nostate = $this->getRequest()->getParam('nostate', 0);
 
             $cityModel = new My_Model_View_City();
-            $cities = $cityModel->findCitiesBasedOnName($term, 5)->toArray();
+            //$cities = $cityModel->findCitiesBasedOnName($term, 5)->toArray();
+            $cities = $cityModel->fetchAll()->toArray();
 
             $matches = array();
             foreach ($cities as $city) {

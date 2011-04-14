@@ -16,13 +16,13 @@ $(document).ready(function () {
     
     
     
-    $("#address-city").autocomplete({
-        source: "/houseshare/public/index/getcities/nostate/1",
-        select: function(event, ui){
-            $("#address-city").val(ui.item.city_name);
-            $('#address-state').val(ui.item.state_name);
-        }
-    });
+    //    $("#address-city").autocomplete({
+    //        source: "/houseshare/public/index/getcities/nostate/1",
+    //        select: function(event, ui){
+    //            $("#address-city").val(ui.item.city_name);
+    //            $('#address-state').val(ui.item.state_name);
+    //        }
+    //    });
     
     var defaultMaxPrice =  $( "#maxpricedefault" ).val();
           
@@ -53,13 +53,8 @@ $(document).ready(function () {
         }
     });
 
-    $("#address-state").autocomplete({
-        source: "/houseshare/public/index/getstates",
-        delay: 0,
-        minLength: 2
-    });
     
-    function monkeyPatchAutocomplete() {
+     function monkeyPatchAutocomplete() {
 
         // don't really need this, but in case I did, I could store it and chain
         var oldFn = $.ui.autocomplete.prototype._renderItem;
@@ -67,7 +62,7 @@ $(document).ready(function () {
         $.ui.autocomplete.prototype._renderItem = function( ul, item) {
             var re = new RegExp(this.term, "ig") ;
             var t = item.label.replace(re,"<span style='font-weight:bold;'>" + 
-               "$&" + 
+                "$&" + 
                 "</span>");
             
             return $( "<li></li>" )
@@ -78,11 +73,61 @@ $(document).ready(function () {
     }
     
     
+    
     monkeyPatchAutocomplete();
+    
+    
+    //    $("#address-city").autocomplete({
+    //        source: "/houseshare/public/index/getcities/nostate/1",
+    //        select: function(event, ui){
+    //            $("#address-city").val(ui.item.city_name);
+    //            $('#address-state').val(ui.item.state_name);
+    //        }
+    //    });
+    
+    $.get('/houseshare/public/index/getcities/nostate/1', function(cities) {
+        //console.log(streets.length);
+        //    console.log(streets[0]);
+
+        
+        $("#address-city").autocomplete( {            
+            delay: 0,
+            minLength: 1,
+            source: function(request, response){
+                var matches = new Array();
+                var needle = request.term.toLowerCase();
+                var len = cities.length;
+                for(i = 0; i < len; ++i)   {
+                    var haystack = cities[i].label.toLowerCase();
+                    if(haystack.indexOf(needle) == 0 || haystack.indexOf(" " + needle) != -1)   {
+                        matches.push(cities[i]);
+                        if (matches.length > 10 ) {                           
+                            break;
+                        }
+                    }
+                }
+                response(matches);
+            },
+            select: function(event, ui){
+                $("#address-city").val(ui.item.city_name);
+                $('#address-state').val(ui.item.state_name);
+            }
+            
+        });
+   
+    }, 'json');
+    
+    
+    $("#address-state").autocomplete({
+        source: "/houseshare/public/index/getstates",
+        delay: 0,
+        minLength: 2
+    });
+    
     
     $.get('/houseshare/public/index/getstreets', function(streets) {
         //console.log(streets.length);
-    //    console.log(streets[0]);
+        //    console.log(streets[0]);
 
         
         $("#address-street_name").autocomplete( {            
