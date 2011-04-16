@@ -89,7 +89,8 @@ class UserController extends Zend_Controller_Action {
 
                     $this->_writeAuthData($newUser, true);
 
-                    return $this->_redirect('user/success');
+                    $this->_helper->FlashMessenger('Welcom to sharehouse');
+                    return $this->_redirect('user/');
                 }
 
                 // normally, if everything went OK, user should be already 
