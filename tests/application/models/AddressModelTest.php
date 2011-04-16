@@ -39,6 +39,7 @@ class AddressModelTest extends ModelTestCase {
             array('', ' 23c ', 2, 1, 1, 1), // exhistig address
             array(' 12 ', ' 212 ', 3, 5, 3, 2), // exhistig address
             array(' 13 ', ' 212 ', 3, 5, 3, 6), // new address
+            array(' 13 ', ' 212 ', 3, null, 3, 6), // new address but null zip_id
         );
     }
 
@@ -63,6 +64,7 @@ class AddressModelTest extends ModelTestCase {
             array(1, '2', 'd23c', 1, 2, 2, 1), // one ref. to accomm
             array(4, '2', 'd23c', 1, 2, 2, 4), // no ref. to accomm
             array(2, '12-a', '221', 2, 2, 2, 6), // two ref. to accomm, make new
+            array(2, '12-a', '221', 2, null, 2, 6), // two ref. to accomm, make new
         );
     }
 

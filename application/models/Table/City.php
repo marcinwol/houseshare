@@ -34,13 +34,38 @@ class My_Model_Table_City extends Zend_Db_Table_Abstract {
     public function getCities() {
         return $this->fetchAll();
     }
+    
+    
+      /**
+     * Find City by its name
+     *
+     * @param string $name City name     
+     * @return Zend_Db_Table_Row_City
+     */
+    public function findByName($name) {
+
+        $name = trim($name);
+        $result = $this->fetchRow("name = '$name'");
+        
+        if (is_null($result)) {
+            return null;
+        }
+        
+        if (1 !== count($result)) {
+            throw new Zend_Db_Exception('More than one city with a given name');
+        }
+        
+        return $result;
+    }
+
+    
 
     /**
      * Find City by its name and state
      *
      * @param string $name City name
      * @param int $state_id Id of a state in which the city is
-     * @return Zend_Db_Table_Row_City | NULL
+     * @return Zend_Db_Table_Row_City
      */
     public function findByNameAndState($name, $state_id) {
 

@@ -149,6 +149,43 @@ class AddressHouseshareTest extends ModelTestCase {
                 )
         );
     }
+    
+     public function testInsertAddressWithNullZip() {
+       
+        $address = new My_Houseshare_Address();
+        $address->unit_no = "8-A";
+        $address->street_no = "21a";
+        $address->street = "Aleja 1000 lecia";
+        $address->city = "Wroclaw";     
+        $address->state = "Dolnoslaskie";
+        $row_id = $address->save();
+
+        $this->assertEquals($row_id, 6);                
+        
+         // after that check getting new address with null zip.
+        $address = new My_Houseshare_Address($row_id);      
+        $this->assertEquals(null, $address->zip);
+        
+    }
+    
+     public function testInsertAddressWithNullZipAndNoState() {
+       
+        $address = new My_Houseshare_Address();
+        $address->unit_no = "8-A";
+        $address->street_no = "21a";
+        $address->street = "Aleja 1000 lecia";
+        $address->city = "Wroclaw";             
+        $row_id = $address->save();
+
+        $this->assertEquals($row_id, 6);                
+        
+         // after that check getting new address with null zip.
+        $address = new My_Houseshare_Address($row_id);      
+        $this->assertEquals(null, $address->zip);
+         $this->assertEquals('Dolnoslaskie', $address->state);
+    }
+    
+    
 
     /**
      * There is one ref. in ACCOMMODATION to addr_id = 1.

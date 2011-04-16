@@ -32,7 +32,7 @@ class My_Houseshare_Address extends My_Houseshare_Abstract_PropertyAccessor {
     public function save($update = false) {
 
         // insert/update state
-        if (in_array('state', $this->_changedProperties)) {
+        if (array_key_exists('state', $this->_changedProperties)) {
             $stateModel = new My_Model_Table_State();
 
             $state_id = $stateModel->insertState(
@@ -42,10 +42,16 @@ class My_Houseshare_Address extends My_Houseshare_Abstract_PropertyAccessor {
             $state_id = $this->_properties['state_id'];
         }
 
+        
 
         // insert/update city
-        if (in_array('city', $this->_changedProperties)) {
+        if (array_key_exists('city', $this->_changedProperties)) {
+                      
             $cityModel = new My_Model_Table_City();
+            
+             if (is_null($state_id)) {
+                $state_id = $cityModel->findByName($this->city)->state_id;                
+            }
 
             $city_id = $cityModel->insertCity(
                             array(
@@ -59,15 +65,15 @@ class My_Houseshare_Address extends My_Houseshare_Abstract_PropertyAccessor {
 
 
         // insert/update zip
-        if (in_array('zip', $this->_changedProperties)) {
+        if (array_key_exists('zip', $this->_changedProperties)) {
             $zipModel = new My_Model_Table_Zip();
             $zip_id = $zipModel->insertZip(array('zip' => $this->zip));
         } else {
             $zip_id = $this->_properties['zip_id'];
-        }
+        }       
 
         // insert/update street
-        if (in_array('street', $this->_changedProperties)) {
+        if (array_key_exists('street', $this->_changedProperties)) {
             $streetModel = new My_Model_Table_Street();
 
             $street_id = $streetModel->insertStreet(
@@ -105,12 +111,8 @@ class My_Houseshare_Address extends My_Houseshare_Abstract_PropertyAccessor {
         } else {
             $row_id = $this->getModel()->insertAddress($addrData);
         }
-
-
-
-
-
-
+        
+        
         $this->_populateProperties($row_id);
 
         return $row_id;

@@ -88,7 +88,7 @@ CREATE INDEX `name_index` ON `STREET` (`name` ASC) ;
 DROP TABLE IF EXISTS `ZIP` ;
 
 CREATE  TABLE IF NOT EXISTS `ZIP` (
-  `zip_id` INT UNSIGNED NOT NULL AUTO_INCREMENT ,
+  `zip_id` INT NOT NULL AUTO_INCREMENT ,
   `value` VARCHAR(20) NOT NULL ,
   PRIMARY KEY (`zip_id`) )
 ENGINE = InnoDB;
@@ -107,7 +107,7 @@ CREATE  TABLE IF NOT EXISTS `ADDRESS` (
   `street_no` VARCHAR(10) NOT NULL ,
   `city_id` INT UNSIGNED NOT NULL ,
   `street_id` INT UNSIGNED NOT NULL ,
-  `zip_id` INT UNSIGNED NOT NULL ,
+  `zip_id` INT NULL ,
   `marker_id` INT NULL ,
   PRIMARY KEY (`addr_id`) ,
   CONSTRAINT `fk_ADDRESS_CITY1`
@@ -123,7 +123,7 @@ CREATE  TABLE IF NOT EXISTS `ADDRESS` (
   CONSTRAINT `fk_ADDRESS_ZIP1`
     FOREIGN KEY (`zip_id` )
     REFERENCES `ZIP` (`zip_id` )
-    ON DELETE RESTRICT
+    ON DELETE SET NULL
     ON UPDATE CASCADE,
   CONSTRAINT `fk_ADDRESS_MARKER1`
     FOREIGN KEY (`marker_id` )
@@ -743,8 +743,9 @@ DROP TABLE IF EXISTS `VIEW_ADDRESS`;
 DELIMITER $$
 CREATE  OR REPLACE VIEW `VIEW_ADDRESS` AS 
 SELECT a.addr_id as id, a.unit_no, a.street_no, a.city_id, a.zip_id, a.street_id, st.state_id, a.marker_id, s.name as street, z.value as zip, c.name as city, st.name as state, m.lat as lat, m.lng as lng FROM `ADDRESS` a
-INNER JOIN (`STREET` s, `ZIP` z, `CITY` c) USING (`street_id`, `zip_id`, `city_id`)
+INNER JOIN (`STREET` s,  `CITY` c) USING (`street_id`,  `city_id`)
 INNER JOIN `STATE` st ON c.state_id = st.state_id
+LEFT JOIN `ZIP` z ON  a.zip_id = z.zip_id
 LEFT JOIN `MARKER` m ON  a.marker_id = m.marker_id
 
 

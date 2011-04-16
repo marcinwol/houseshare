@@ -56,7 +56,7 @@ class My_Model_Table_Address extends Zend_Db_Table_Abstract {
          $select->where("unit_no = ? ", trim($data['unit_no']) );
          $select->where("street_no = ? ", trim($data['street_no']) );
          $select->where("street_id = ? ", $data['street_id']);
-         $select->where("zip_id = ? ", $data['zip_id']);
+         $select->where("zip_id = ? ", (isset($data['zip_id']) ? $data['zip_id'] : new Zend_Db_Expr('NULL')));
          $select->where("city_id = ? ", $data['city_id']);
         
          // if marker_id given, then also use it in a search.
@@ -76,14 +76,14 @@ class My_Model_Table_Address extends Zend_Db_Table_Abstract {
      public function insertAddress(array $data) {
 
          $row = $this->findByValues($data);
-
+         
          if (is_null($row)) {
-             //if null than such address does not exist so create it.
+             //if null than such address does not exist so create it.            
              return $this->insert(array(
                  'unit_no' => $data['unit_no'],
                  'street_no' => $data['street_no'],
                  'street_id' => $data['street_id'],
-                 'zip_id' => $data['zip_id'],
+                 'zip_id' => (isset($data['zip_id']) ? $data['zip_id'] : new Zend_Db_Expr('NULL')),
                  'city_id' => $data['city_id'],
                  'marker_id' => (isset($data['marker_id']) ? $data['marker_id'] : new Zend_Db_Expr('NULL'))
                  ));
@@ -134,7 +134,7 @@ class My_Model_Table_Address extends Zend_Db_Table_Abstract {
         $row->unit_no = $data['unit_no'];
         $row->street_no = $data['street_no'];
         $row->street_id = $data['street_id'];
-        $row->zip_id = $data['zip_id'];
+        $row->zip_id = (isset($data['zip_id']) ? $data['zip_id'] : new Zend_Db_Expr('NULL'));
         $row->city_id = $data['city_id'];
         $row->marker_id = (isset($data['marker_id']) ? $data['marker_id'] : new Zend_Db_Expr('NULL'));
         return $row->save();
