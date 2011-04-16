@@ -2,7 +2,6 @@ tests/log
 nbproject
 library/Zend
 library/ZendX
-library/openid-php
 application/resources
 /application/scripts/_data
 /application/configs/appkeys.ini
