@@ -8,7 +8,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
         $view = $this->getResource('view');
         $view->doctype('XHTML1_STRICT');
         $view->addHelperPath(APPLICATION_PATH . '/views/helpers/', 'My_View_Helper');
-
+       
         $container = new Zend_Navigation(
                         new Zend_Config_Xml(APPLICATION_PATH . '/configs/navigation.xml', 'nav')
         );
@@ -197,5 +197,6 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
 //       
 //        var_dump($config->get('elements')->get('element')->toArray());
 //    }
+
 
 }

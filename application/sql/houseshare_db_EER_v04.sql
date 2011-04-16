@@ -79,8 +79,6 @@ ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8
 COLLATE = utf8_polish_ci;
 
-CREATE INDEX `name_index` ON `STREET` (`name` ASC) ;
-
 
 -- -----------------------------------------------------
 -- Table `ZIP`

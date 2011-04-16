@@ -44,6 +44,18 @@ abstract class ControllerTestCase extends Zend_Test_PHPUnit_ControllerTestCase {
     }
 
     public function tearDown() {
+        
+       $db = Zend_Db_Table_Abstract::getDefaultAdapter();
+         
+       foreach ($db->listTables() as $table) {
+            if (strpos($table, 'VIEW_') == 0 ) {
+                continue;
+            }
+            $db->query("TRUNCATE TABLE $table;");
+        }
+        
+
+        
         Zend_Controller_Front::getInstance()->resetInstance();
         $this->resetRequest();
         $this->resetResponse();
@@ -73,8 +85,8 @@ abstract class ControllerTestCase extends Zend_Test_PHPUnit_ControllerTestCase {
                         dirname(__FILE__) . '/_files/database_seed.xml'
         );
         Zend_Db_Table_Abstract::setDefaultAdapter($db);
-
-        $databaseTester->setupDatabase($databaseFixture);
+        
+        $databaseTester->setupDatabase($databaseFixture);                        
     }
 
     protected function _setupAuthAdapter() {

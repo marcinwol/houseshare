@@ -29,9 +29,9 @@ class ZC_GeocodingAdapterTest extends ControllerTestCase {
         
         $latAndLong = $this->geocoder->getGeocodedLatitudeAndLongitude($city);
         
-        $this->assertTrue(is_array($latAndLong));
-        $this->assertTrue(is_double($latAndLong[0]));
-        $this->assertTrue(is_double($latAndLong[1]));
+        $this->assertTrue($latAndLong instanceof stdClass);
+        $this->assertTrue(is_double($latAndLong->lat));
+        $this->assertTrue(is_double($latAndLong->lng));
         
       //  var_dump($latAndLong);
     }

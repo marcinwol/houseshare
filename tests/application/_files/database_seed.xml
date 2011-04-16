@@ -92,21 +92,21 @@
 
     <ACCOMMODATION acc_id="1" title="Great room for rent"
             description="Some description of the room" addr_id="1" user_id="1"
-            date_avaliable="2011-01-04" price="300" bond="1200"
+            date_avaliable="2011-01-04" price="300" bond="1200" is_enabled="1"
             street_address_public="0" short_term_ok="1" type_id="2" 
             price_info = "Price include everything" queries_counter = "0"
             />
 
     <ACCOMMODATION acc_id="2" title="Great room for rent 2"
             description="Some description of the room 2" addr_id="2" user_id="1"
-            date_avaliable="2011-02-12" price="400" bond="1600"
+            date_avaliable="2011-02-12" price="400" bond="1600" is_enabled="1"
             street_address_public="1" short_term_ok="0" type_id="2" 
              price_info = "No additional cost" queries_counter = "12"
             />
 
     <ACCOMMODATION acc_id="3" title="One bed in a room of students"
             description="Description of accomm" addr_id="2" user_id="2"
-            date_avaliable="2011-12-12" price="420" bond="0"            
+            date_avaliable="2011-12-12" price="420" bond="0"   is_enabled="1"          
             street_address_public="0" short_term_ok="1" type_id="1" 
             price_info = "" queries_counter = "1"
             />

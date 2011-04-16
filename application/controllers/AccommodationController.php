@@ -88,6 +88,11 @@ class AccommodationController extends Zend_Controller_Action {
         $city_id = $cityName = $this->_request->getParam('city', null);
         $maxPrice = $this->_request->getParam('maxprice', null);
         $page = $this->_getParam('page', 1);
+        
+        if (is_null($city_id)) {
+            $this->_helper->FlashMessenger('City must be specified');
+            return $this->_redirect('/');
+        }
 
         //@list($cityName, $stateName) = explode(', ', $city);
         //var_dump($cityName);
@@ -95,7 +100,7 @@ class AccommodationController extends Zend_Controller_Action {
 
         $cityModel = new My_Model_Table_City();
         $cityRow = $cityModel->find($city_id)->current();
-
+       
         $city = is_null($cityRow) ? null : $cityRow->name;
 
         $limitForm = new My_Form_LimitForm();
@@ -150,6 +155,7 @@ class AccommodationController extends Zend_Controller_Action {
         if ($accPaginator->count() < $page) {
             $page = $accPaginator->count();
         }
+      
         $this->view->maxPrice = $maxPrice;
         $this->view->cityRow = $cityRow;
         $this->view->limitForm = $limitForm;

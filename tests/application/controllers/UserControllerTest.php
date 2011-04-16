@@ -11,14 +11,13 @@ class UserControllerTest extends ControllerTestCase {
     const SECRET = "\x83\x82\xae\xa9\x22\x56\x0e\xce\x83\x3b\xa5\x5f\xa5\x3b\x7a\x97\x5f\x59\x73\x70";
 
     public function setUp() {
-
         parent::setUp();
         $this->_setupAuthAdapter();
     }
 
-    public function tearDown() {
-        parent::tearDown();
+    public function tearDown() {        
         $this->_clearAuth();
+        parent::tearDown();
     }
 
     public function testIfNotLoggedUserGoesToIndex() {

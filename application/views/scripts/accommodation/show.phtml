@@ -150,7 +150,10 @@ if (count($prefs) > 0) {
     <div class="section grid_2 omega">
         <h1>Roomates</h1> 
 <?php
-var_dump($this->acc->roomates->toArray());
+
+if ($this->acc->roomates) {
+    var_dump($this->acc->roomates->toArray());
+}
 ?>
     </div>
 
