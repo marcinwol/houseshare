@@ -78,7 +78,7 @@ class My_Model_Table_Address extends Zend_Db_Table_Abstract {
          $row = $this->findByValues($data);
          
          if (is_null($row)) {
-             //if null than such address does not exist so create it.            
+             //if null than such address does not exist so create it.                         
              return $this->insert(array(
                  'unit_no' => $data['unit_no'],
                  'street_no' => $data['street_no'],

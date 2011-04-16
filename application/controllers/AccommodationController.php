@@ -164,7 +164,7 @@ class AccommodationController extends Zend_Controller_Action {
 
         $addAccForm = new My_Form_Accommodation();
         $addAccForm->setDefaultCity($cityName);
-        $addAccForm->setDefaultState($stateName);
+     //   $addAccForm->setDefaultState($stateName);
 
         if (Zend_Auth::getInstance()->hasIdentity()) {
             // if logged in, no need about_you subform.
@@ -216,8 +216,8 @@ class AccommodationController extends Zend_Controller_Action {
                     $newAddress->street_no = $formData['address']['street_no'];
                     $newAddress->street = $formData['address']['street_name'];
                     $newAddress->city = $formData['address']['city'];
-                    $newAddress->zip = $formData['address']['zip'];
-                    $newAddress->state = $formData['address']['state'];
+                   // $newAddress->zip = $formData['address']['zip'];
+                   // $newAddress->state = $formData['address']['state'];
 
                     $addr_id = $newAddress->save();
 
@@ -470,8 +470,8 @@ class AccommodationController extends Zend_Controller_Action {
                     $newAddress->street_no = $formData['address']['street_no'];
                     $newAddress->street = $formData['address']['street_name'];
                     $newAddress->city = $formData['address']['city'];
-                    $newAddress->zip = $formData['address']['zip'];
-                    $newAddress->state = $formData['address']['state'];
+                   // $newAddress->zip = $formData['address']['zip'];
+                   // $newAddress->state = $formData['address']['state'];
 
                     $addr_id = $newAddress->save();
 

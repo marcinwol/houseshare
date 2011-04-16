@@ -199,7 +199,7 @@ abstract class My_Form_Abstract_AccommodationAbstract extends Zend_Form {
 
         $addressForm->addElements(array(
             $unitNoInput, $streetNoInput, $addressPublicChb, $streetNameInput,
-            $zipInput, $cityInput, $stateInput
+           /* $zipInput */ $cityInput, /* $stateInput*/
                 )
         );
 

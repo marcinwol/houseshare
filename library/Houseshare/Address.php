@@ -112,8 +112,9 @@ class My_Houseshare_Address extends My_Houseshare_Abstract_PropertyAccessor {
             $row_id = $this->getModel()->insertAddress($addrData);
         }
         
-        
+  
         $this->_populateProperties($row_id);
+        
 
         return $row_id;
     }
