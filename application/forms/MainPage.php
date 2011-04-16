@@ -34,7 +34,7 @@ class My_Form_MainPage extends Zend_Form {
         foreach ($cities as $city) {
             $citiesOption[$city['city_id']] = $city['name'];
         }
-
+        
         $cities = new Zend_Form_Element_Select('i_city');
         $cities->addMultiOptions($citiesOption);
         $cities->setLabel('I need accommodation in');

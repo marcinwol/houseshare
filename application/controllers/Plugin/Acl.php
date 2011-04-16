@@ -32,7 +32,7 @@ class My_Controller_Plugin_Acl extends Zend_Controller_Plugin_Abstract {
    public function preDispatch(Zend_Controller_Request_Abstract $request) {
 
         $this->_init($request);        
-
+        
         // if the current user role is not allowed to do something
         if (!$this->_acl->isAllowed($this->_currentRole, $this->_controller, $this->_action)) {
             

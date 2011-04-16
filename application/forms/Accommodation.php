@@ -79,12 +79,12 @@ class My_Form_Accommodation extends My_Form_Abstract_AccommodationAbstract {
             $addressSubForm = $this->getSubForm(self::ADDRESS_SUBFORM_NAME);
             $addressSubForm->populate(array(
                 'city' => $acc->getCity(),
-                'state' => $acc->getState(),
+               // 'state' => $acc->getState(),
                 'unit_no' => $acc->address->unit_no,
                 'street_no' => $acc->address->street_no,
                 'address_public' => $acc->street_address_public,
                 'street_name' => $acc->address->street,
-                'zip' => $acc->address->zip,
+              //  'zip' => $acc->address->zip,
             ));
 
             

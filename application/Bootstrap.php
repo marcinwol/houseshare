@@ -65,7 +65,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
         $resourceLoader_hs->addResourceType('houseshare', 'Houseshare/', 'Houseshare_');
         //var_dump($resourceLoader_cms->getResourceTypes());
         $autoLoader->pushAutoloader($resourceLoader_hs);
-        
+
         $autoLoader->registerNamespace('ZC_');
     }
 
@@ -98,7 +98,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
 
 
         Zend_Form::setDefaultTranslator($translate);
-        
+
         Zend_Registry::set('Zend_Translate', $translate);
     }
 
@@ -143,10 +143,9 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
 
         defined('THUMBS_PATH')
                 || define('THUMBS_PATH', $imBaseDir . '/' . THUMBS_DIR_NAME);
-        
+
         defined('PHOTOS_NUMBER')
                 || define('PHOTOS_NUMBER', (int) $imagePaths['photosNumber']);
-        
     }
 
     protected function _initAppKeysToRegistry() {
@@ -180,8 +179,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
         );
         Zend_Mail::setDefaultTransport($tr);
     }
-    
-    
+
 //    protected function _initTest() {
 //        $config = new Zend_Config_Xml(
 //                APPLICATION_PATH . '/configs/1.xml',

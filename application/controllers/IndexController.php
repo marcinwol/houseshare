@@ -16,14 +16,13 @@ class IndexController extends Zend_Controller_Action {
       //  $innerSelect = $db->select('em.firstnm')->from('tbl_employeemaster em')->where('em.idemp = empl.approvedby');
         
       //  $select = $db->select()->from(tbl_empleaveapplication empl)
-        
- 
+//        var_dump(get_class($this->view->layout()));
+//        $this->view->layout()->setContentKey('rightColumn');
+//     
     }
 
     public function indexAction() {
         
-       
-
         $mainForm = new My_Form_MainPage();
         $page = $this->_getParam('page', 1);
 
@@ -34,7 +33,7 @@ class IndexController extends Zend_Controller_Action {
                 $whatToDo = '0';
                 $cityName = $mainForm->getValue('i_city');
                 $maxPrice = $mainForm->getValue('maxprice');
-
+                
                 if ('1' === $whatToDo) {
                     return $this->_redirect('/add/city/' . $cityName);
                 } elseif ('0' === $whatToDo) {
