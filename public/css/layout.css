@@ -102,6 +102,26 @@ ul.top-cities a span {
     color: #896324;
 }
 
+/**** ACCOMMODATION ADD FORM ******/
+
+form#accommodation-form input, form#accommodation-form textarea, form#accommodation-form select {
+    width:680px;
+    border: 1px solid #b5b5b5;
+    height: 28px;
+    font-size: 18px;
+}
+form#accommodation-form textarea {
+    height: 100px;
+}
+
+form#accommodation-form input[type=checkbox] {
+    width: 20px;
+    height: 12px;
+}
+
+fieldset#fieldset-acc_features dt, fieldset#fieldset-acc_features dd {
+   display: inline;
+}
 
 
 /**** ACCOMMODATION ADD STEPS ******/
@@ -115,7 +135,7 @@ ul.top-cities a span {
 }
 
 .inactive-step h3 {
-   color: #c0c0c0; 
+    color: #c0c0c0; 
 }
 
 .inactive-step p {
@@ -162,7 +182,7 @@ a.acc-add:hover {
 /*LOGIN FORM */
 
 #login-form {
-  
+
 }
 
 .login-form input[type=text], .login-form input[type=password], .zend_form textarea {
@@ -173,10 +193,10 @@ a.acc-add:hover {
 }
 
 .login-form input[type=submit] {
-      width:320px;
-       height: 28px;
+    width:320px;
+    height: 28px;
     font-size: 18px;
-   
+
 }
 
 
@@ -294,12 +314,12 @@ table.user-info  {
 }
 
 td.acc-edit-menu {
-    
+
     text-align: right;
 }
 
 td.acc-edit-menu a {
-    
+
     color: #969696;
     text-decoration: none;
 }
@@ -435,18 +455,18 @@ div.paginationControl {
 }
 
 div.paginationControl a {
-     text-decoration: none;
-     color: #7b7b7b;
-     font-size: 14px;     
-     font-weight: bold;
+    text-decoration: none;
+    color: #7b7b7b;
+    font-size: 14px;     
+    font-weight: bold;
 }
 
 div.paginationControl a:hover {
-     text-decoration: underline;
+    text-decoration: underline;
 }
 
 .current-page {
-  
+
     font-size: 10px;
     font-weight: normal;
 }
@@ -457,7 +477,7 @@ div.paginationControl a:hover {
 
 .footerWrapper  {
 
-     height: 8em;
+    height: 8em;
     padding-left: 10px;
     background-color: #8c8c8c;
     border-top-style: solid;

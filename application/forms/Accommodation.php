@@ -40,6 +40,8 @@ class My_Form_Accommodation extends My_Form_Abstract_AccommodationAbstract {
         if ($bedFeaturesSubForm) {
             $this->addSubForm($bedFeaturesSubForm, self::BED_FEATURES_SUBFORM_NAME);
         }
+        
+         $this->setAttrib('id', 'accommodation-form');
 
         //  $this->addSubForm($photosSubForm, self::PHOTOS_SUBFORM_NAME);
         // Create a submit button.

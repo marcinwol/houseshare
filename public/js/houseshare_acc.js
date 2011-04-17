@@ -182,12 +182,12 @@ $(document).ready(function () {
          content: $(this).attr('tooltip'), // Use the tooltip attribute of the element for the content     
          position: {
               corner: {
-                target: 'topRight',
-                tooltip: 'bottomLeft'
+                target: 'topMiddle',
+                tooltip: 'bottomMiddle'
               }
           },
-           style: { width: 200, padding: 5, 'font-size': '10px',
-                        'font-family': 'Verdana', textAlign: 'center', tip: 'bottomLeft',
+           style: { width: 400, padding: 5, 'font-size': '10px',
+                        'font-family': 'Verdana', textAlign: 'center', tip: 'bottomMiddle',
                    border: { width: 2, radius: 1, color: 'orange' }
           }
       });
