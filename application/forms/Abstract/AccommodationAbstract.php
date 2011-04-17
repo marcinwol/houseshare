@@ -52,8 +52,6 @@ abstract class My_Form_Abstract_AccommodationAbstract extends Zend_Form {
 //                            'tipname' => 'Explenation',
 //                        )
 //        ));
-
-
         // add element
         $liveChoice = new Zend_Form_Element_Select('live_in_acc');
         $liveChoice->setLabel('Do you live in the property?');
@@ -104,19 +102,19 @@ abstract class My_Form_Abstract_AccommodationAbstract extends Zend_Form {
         $priceInput->setLabel('Price per month [PLN]');
         $priceInput->setFilters(array('stripTags', 'stringTrim'));
         $priceInput->addValidator('int');
-        
+
         // create new element
         $priceInfo = $this->createElement('textarea', 'price_info');
-        $priceInfo->setRequired(false)->setLabel('Any addition expenses');  
+        $priceInfo->setRequired(false)->setLabel('Any addition expenses');
         $priceInfo->setAttribs(array('tooltip' => 'Such as gas, electricity, internet, etc.'));
-        
+
         $priceInfo->setAttribs(
                 array(
-                    'cols' => 20, 
-                    'rows' => 5,                    
-                   // 'style'=>'display: none;'                    
-                    )
-                );
+                    'cols' => 20,
+                    'rows' => 5,
+                // 'style'=>'display: none;'                    
+                )
+        );
         $priceInfo->setFilters(array('stripTags', 'stringTrim'));
 
         // create new element
@@ -156,13 +154,13 @@ abstract class My_Form_Abstract_AccommodationAbstract extends Zend_Form {
         $cityInput = $this->createElement('text', 'city');
         $cityInput->setRequired(true)->setLabel('City');
         $cityInput->setFilters(array('stripTags', 'stringTrim'));
-        
-        
+
+
         $cities = My_Model_Table_City::getAllCitiesAsArray();
         $inArrayVal = new Zend_Validate_InArray($cities);
-        
+
         $cityInput->addValidator($inArrayVal);
-        
+
 
         $stateInput = $this->createElement('text', 'state');
         $stateInput->setRequired(true)->setLabel('State');
@@ -172,16 +170,23 @@ abstract class My_Form_Abstract_AccommodationAbstract extends Zend_Form {
         $unitNoInput = $this->createElement('text', 'unit_no');
         $unitNoInput->setRequired(false)->setLabel('Unit number');
         $unitNoInput->setFilters(array('stripTags', 'stringTrim'));
+        $unitNoInput->setAttribs(array('tooltip' => 'Appartment number in which
+            your advertised accommodation is located. '));
 
         // create new element
         $streetNoInput = $this->createElement('text', 'street_no');
         $streetNoInput->setRequired(true)->setLabel('Street number');
         $streetNoInput->setFilters(array('stripTags', 'stringTrim'));
+        $streetNoInput->setAttribs(array('tooltip' => 'Building number in which
+            your advertised accommodation is located.
+            '));
 
         $addressPublicChb = $this->createElement('checkbox', 'address_public');
         $addressPublicChb->setRequired(true);
         $addressPublicChb->setLabel('Unit and street numbers visible to all');
         $addressPublicChb->setChecked(false);
+        $addressPublicChb->setAttribs(array('tooltip' => 'If yes, than both 
+            unit and street numbers are visible to all '));
 
         // create new element
         $streetNameInput = $this->createElement('text', 'street_name');
@@ -204,8 +209,8 @@ abstract class My_Form_Abstract_AccommodationAbstract extends Zend_Form {
 
 
         $addressForm->addElements(array(
-            $unitNoInput, $streetNoInput, $addressPublicChb, $streetNameInput,
-           /* $zipInput */ $cityInput, /* $stateInput*/
+            $cityInput, $streetNameInput, $streetNoInput, $unitNoInput, $addressPublicChb,
+                /* $zipInput */ /* $stateInput */
                 )
         );
 
@@ -294,7 +299,7 @@ abstract class My_Form_Abstract_AccommodationAbstract extends Zend_Form {
         $maxAgeInput->setValue('35');
         $maxAgeInput->addValidator(new My_Validate_MinMaxAge());
 
-        
+
         $descriptionInput = $this->createElement('textarea', 'description');
         $descriptionInput->setRequired(false)->setLabel('Few words about roomates');
         $descriptionInput->setAttribs(array('cols' => 20, 'rows' => 5));
@@ -337,8 +342,8 @@ abstract class My_Form_Abstract_AccommodationAbstract extends Zend_Form {
         );
         $genderPref->setRequired(true)->setValue('2');
         $preferencesForm->addElement($genderPref);
-        
-        
+
+
         $descriptionInput = $this->createElement('textarea', 'description');
         $descriptionInput->setRequired(false)->setLabel('Any other preferences');
         $descriptionInput->setAttribs(array('cols' => 20, 'rows' => 5));
@@ -377,15 +382,15 @@ abstract class My_Form_Abstract_AccommodationAbstract extends Zend_Form {
         );
         $furniture->setRequired(true)->setValue('0');
         $featuresForm->addElement($furniture);
-        
+
         $descriptionInput = $this->createElement('textarea', 'description');
         $descriptionInput->setRequired(false)->setLabel('Any other features');
         $descriptionInput->setAttribs(array('cols' => 20, 'rows' => 5));
         $featuresForm->addElement($descriptionInput);
 
         return $featuresForm;
-    }    
-   
+    }
+
     protected function _makeRoomFeaturesSubForm() {
         $featuresForm = new Zend_Form_SubForm();
         $featuresForm->setLegend('Room features');
@@ -452,7 +457,6 @@ abstract class My_Form_Abstract_AccommodationAbstract extends Zend_Form {
 //        $lnamePublicChb->setRequired(false);
 //        $lnamePublicChb->setLabel('Last name visible to all');
 //        $lnamePublicChb->setChecked(false);
-        
         // create new element
         $nickName = $this->createElement('text', 'nickname');
         $nickName->setRequired(false)->setLabel('Name or nickname');
@@ -481,9 +485,9 @@ abstract class My_Form_Abstract_AccommodationAbstract extends Zend_Form {
             Zend_Validate_EmailAddress::INVALID_FORMAT => 'Incorrect email format'
         ));
         $emailInput->addValidator($emailValidator);
-        
-        
-         // create new element
+
+
+        // create new element
         $emailPublicChb = $this->createElement('checkbox', 'email_public');
         $emailPublicChb->setRequired(false);
         $emailPublicChb->setLabel('Email visible to all');
@@ -500,20 +504,20 @@ abstract class My_Form_Abstract_AccommodationAbstract extends Zend_Form {
         $password2->addValidator('StringLength', false, array(6))
                 ->setRequired(true);
         $password2->addValidator(new My_Validate_PasswordConfirmation());
-        
-         // create new element
+
+        // create new element
         $descriptionInput = $this->createElement('textarea', 'description');
         $descriptionInput->setRequired(false)->setLabel('Few words about you');
         $descriptionInput->setAttribs(array('cols' => 20, 'rows' => 5));
 
         $aboutYouForm->addElements(array(
-            /* $fnameInput, $lnameInput, $lnamePublicChb*/ 
+            /* $fnameInput, $lnameInput, $lnamePublicChb */
             $nickName,
             $phoneInput, $phonePublicChb, $emailInput,
             $emailPublicChb, $descriptionInput,
             $password1, $password2
         ));
-       
+
         return $aboutYouForm;
     }
 
