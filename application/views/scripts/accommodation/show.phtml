@@ -41,26 +41,25 @@ if (count($this->acc->photosurls) > 0) {
 <?php
 if ($this->preview == true) {
     $sideBarContent = "
-            Your advertisment has just been added to houseshare. 
+            Your advertisment has just been added to our system. 
             However it has <strong>not been yet activated</strong>.";
 
     if ($this->isLogged()) {
-        $sideBarContent .= "
- <p> If you happy with it then 
-    <a href=\"{$this->baseUrl('/accommodation/enable/id/' . $this->acc->acc_id)}\">activate it</a>.
-    If you want to <strong>change</strong> something go <a href=\"{$this->baseUrl('/user/')}\">here</a>.
+        $sideBarContent .= " <p> If you happy with it then <br /><br />
+   <a class=\"acc-add\" href=\"{$this->baseUrl('/accommodation/enable/id/' . $this->acc->acc_id)}\" alt=\"Activate\">Activate it now</a>
+  <br /><br />  If you want to <strong>change</strong> something go <a href=\"{$this->baseUrl('/user/')}\">here</a>.
  </p>";
 
    } else {
       $sideBarContent .= "<p>To activate it or make changes, please <a href=\"{$this->baseUrl('/login/')}\">login</a>. </p> ";
    }
 
-
     $this->sideBarElement('Success!', $sideBarContent, array('class' => 'side-bar-info', 'break' => true));
 
 }
-?>
 
+
+?>
 
 
 <div class="grid_6 ">&nbsp;</div>
@@ -188,3 +187,4 @@ if ($this->acc->roomates) {
     });
     
 </script>
+
