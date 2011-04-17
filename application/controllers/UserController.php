@@ -485,8 +485,9 @@ class UserController extends Zend_Controller_Action {
 
                     // don't need this session namespace anymore
                     Zend_Session::namespaceUnset('toStore');
-
-                    return $this->_redirect('user/success');
+                    
+                    $this->_helper->FlashMessenger('Welcom to sharehouse');
+                    return $this->_redirect('user/');
                 }
 
                 // normally, if everything went OK, user should be already 

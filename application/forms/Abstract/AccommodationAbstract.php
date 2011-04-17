@@ -157,6 +157,12 @@ abstract class My_Form_Abstract_AccommodationAbstract extends Zend_Form {
         $cityInput = $this->createElement('text', 'city');
         $cityInput->setRequired(true)->setLabel('City');
         $cityInput->setFilters(array('stripTags', 'stringTrim'));
+        
+        $cities = My_Model_Table_City::getAllCitiesAsArray();
+        $inArrayVal = new Zend_Validate_InArray($cities);
+        
+        $cityInput->addValidator($inArrayVal);
+        
 
         $stateInput = $this->createElement('text', 'state');
         $stateInput->setRequired(true)->setLabel('State');

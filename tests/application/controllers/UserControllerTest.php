@@ -138,7 +138,7 @@ class UserControllerTest extends ControllerTestCase {
         $this->assertEquals($expected['user_id'], $auth->getIdentity()->property->user_id);
 
         // if everything is OK user should go to successAction
-        $this->assertRedirectTo('/user/success');
+        $this->assertRedirectTo('/user/');
     }
 
     public function registerUserUsingHouseshareRegSystemProvider() {
@@ -243,7 +243,7 @@ class UserControllerTest extends ControllerTestCase {
         // authenticate correct user
         $this->_authUser('test@test.com', 'test12');
 
-        $this->dispatch('/user/success');
+        $this->dispatch('/user/');
 
         $this->assertRedirectTo('/');
     }
