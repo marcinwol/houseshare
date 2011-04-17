@@ -46,12 +46,12 @@ abstract class My_Form_Abstract_AccommodationAbstract extends Zend_Form {
         $accTypeChoice->setRequired(true);
         $accTypeChoice->setValue('2');
 
-        $accTypeChoice->addDecorator(new My_Form_Decorator_Jtip(
-                        array(
-                            'tipurl' => '/tip/get/which/acctype',
-                            'tipname' => 'Explenation',
-                        )
-        ));
+//        $accTypeChoice->addDecorator(new My_Form_Decorator_Jtip(
+//                        array(
+//                            'tipurl' => '/tip/get/which/acctype',
+//                            'tipname' => 'Explenation',
+//                        )
+//        ));
 
 
         // add element
@@ -73,11 +73,13 @@ abstract class My_Form_Abstract_AccommodationAbstract extends Zend_Form {
         $titleInput = $this->createElement('text', 'title');
         $titleInput->setRequired(true)->setLabel('Title');
         $titleInput->setFilters(array('stripTags', 'stringTrim'));
+        $titleInput->setAttribs(array('tooltip' => 'The title of this advertisment'));
 
         // create new element
         $descriptionInput = $this->createElement('textarea', 'description');
-        $descriptionInput->setRequired(true)->setLabel('Advertisment description');
+        $descriptionInput->setRequired(true)->setLabel('Description');
         $descriptionInput->setAttribs(array('cols' => 20, 'rows' => 5));
+        $descriptionInput->setAttribs(array('tooltip' => 'Short description to accompany the advertisment'));
 
         // create new element
         $dateAvaliableInput = $this->createElement('text', 'date_avaliable');
@@ -97,19 +99,16 @@ abstract class My_Form_Abstract_AccommodationAbstract extends Zend_Form {
 
         // create new element
         $priceInput = $this->createElement('text', 'price');
-        $priceInput->setAttribs(array('class' => 'help tipped', 'title' => '500'));
+        $priceInput->setAttribs(array('tooltip' => 'E.g. 500, 600, 800'));
         $priceInput->setRequired(true);
-        $priceInput->setLabel('Price per month');
+        $priceInput->setLabel('Price per month [PLN]');
         $priceInput->setFilters(array('stripTags', 'stringTrim'));
         $priceInput->addValidator('int');
         
         // create new element
         $priceInfo = $this->createElement('textarea', 'price_info');
         $priceInfo->setRequired(false)->setLabel('Any addition expenses');  
-//        $priceInfo->setRequired(false)->setLabel('<a href="javascript:null;">Any addition expenses</a>');  
-//        $priceInfo->getDecorator('Label')
-//                  ->setOption('escape',false)
-//                  ->setOption('class','description');        
+        $priceInfo->setAttribs(array('tooltip' => 'Such as gas, electricity, internet, etc.'));
         
         $priceInfo->setAttribs(
                 array(
@@ -157,6 +156,7 @@ abstract class My_Form_Abstract_AccommodationAbstract extends Zend_Form {
         $cityInput = $this->createElement('text', 'city');
         $cityInput->setRequired(true)->setLabel('City');
         $cityInput->setFilters(array('stripTags', 'stringTrim'));
+        
         
         $cities = My_Model_Table_City::getAllCitiesAsArray();
         $inArrayVal = new Zend_Validate_InArray($cities);

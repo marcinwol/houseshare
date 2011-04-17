@@ -5,27 +5,27 @@
 
 
 $(document).ready(function () {
-    
-    $('form input.help, form textarea.help').formtips({ 
-        tippedClass: 'tipped'
-    });
-       
-       
-    /**
-     * This changes the text on a submit button on the main page
-     * depending on whether you want to look for an accommodation
-     * or you want to add you accommodation to the website.
-     */
-    $("input[name='rd_what_to_do']").change(function(){
-        if ('1' == $(this).val()) {
-            $('#submit').val('Add');
-          
-        } else {
-            $('#submit').val('Search');
-          
-        }
-    });
-    
+//    
+//    $('form input.help, form textarea.help').formtips({ 
+//        tippedClass: 'tipped'
+//    });
+//       
+//       
+//    /**
+//     * This changes the text on a submit button on the main page
+//     * depending on whether you want to look for an accommodation
+//     * or you want to add you accommodation to the website.
+//     */
+//    $("input[name='rd_what_to_do']").change(function(){
+//        if ('1' == $(this).val()) {
+//            $('#submit').val('Add');
+//          
+//        } else {
+//            $('#submit').val('Search');
+//          
+//        }
+//    });
+//    
     
    
   
