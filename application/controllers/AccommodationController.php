@@ -118,6 +118,7 @@ class AccommodationController extends Zend_Controller_Action {
 
         $bed = $limitForm->getElement('bed')->getCheckedValue();
         $room = $limitForm->getElement('room')->getCheckedValue();
+        $internet = $limitForm->getElement('internet')->getCheckedValue();
 
         if ($this->getRequest()->isPost()) {
             if ($limitForm->isValid($_POST)) {
@@ -126,20 +127,30 @@ class AccommodationController extends Zend_Controller_Action {
                 $maxPrice = $formData['maxprice'];
                 $bed = $formData['bed'];
                 $room = $formData['room'];
+                $internet = $formData['internet'];
 
                 $limitForm->getElement('maxpricedefault')->setValue($maxPrice);
                 $limitForm->getElement('bed')->setValue($bed);
                 $limitForm->getElement('room')->setValue($room);
+                $limitForm->getElement('internet')->setValue($internet);
             }
         }
 
         $accModel = new My_Model_Table_Accommodation();
-        $accSelect = $accModel->select(Zend_Db_Table::SELECT_WITH_FROM_PART)->setIntegrityCheck(false);
-        $accSelect->joinInner('ADDRESS', 'ACCOMMODATION.addr_id = ADDRESS.addr_id')
+        $accSelect = $accModel->select(Zend_Db_Table::SELECT_WITH_FROM_PART)
+                              ->setIntegrityCheck(false);
+        $accSelect->joinInner('ADDRESS', 'ACCOMMODATION.addr_id = ADDRESS.addr_id', array())
+                ->joinLeft('ACCOMODATION_has_FEATURE', 'ACCOMMODATION.acc_id = ACCOMODATION_has_FEATURE.acc_id', array())
                 ->where('ACCOMMODATION.is_enabled = ?', 1);
+        
+        
 
         if ($city_id) {
             $accSelect->where("ADDRESS.city_id = ?", (int) $city_id);
+        }
+        
+        if ($internet == '1') {
+            $accSelect->where("ACCOMODATION_has_FEATURE.feat_id IN ($internet)");
         }
 
         if ($maxPrice) {
@@ -147,6 +158,9 @@ class AccommodationController extends Zend_Controller_Action {
         }
 
         $accSelect->where("ACCOMMODATION.type_id IN ($bed, $room)");
+        
+        $accSelect->distinct();
+              
 
 
         //$accs = $accModel->fetchAll($accSelect);
