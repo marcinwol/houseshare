@@ -143,14 +143,14 @@ class AccommodationController extends Zend_Controller_Action {
                 ->joinLeft('ACCOMODATION_has_FEATURE', 'ACCOMMODATION.acc_id = ACCOMODATION_has_FEATURE.acc_id', array())
                 ->where('ACCOMMODATION.is_enabled = ?', 1);
         
-        
+      
 
         if ($city_id) {
             $accSelect->where("ADDRESS.city_id = ?", (int) $city_id);
         }
         
-        if ($internet == '1') {
-            $accSelect->where("ACCOMODATION_has_FEATURE.feat_id IN ($internet)");
+        if ($limitForm->internet->isChecked()) {
+           $accSelect->where("ACCOMODATION_has_FEATURE.feat_id IN ($internet)");
         }
 
         if ($maxPrice) {
