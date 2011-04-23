@@ -239,14 +239,25 @@ class AccommodationController extends Zend_Controller_Action {
                    // $newAddress->zip = $formData['address']['zip'];
                    // $newAddress->state = $formData['address']['state'];
 
-                    $addr_id = $newAddress->save();
-
-                    // save roomates information
-                    $newRoomates = new My_Model_Table_Roomates();
-                    $roomates_id = $newRoomates->setRoomates($formData['roomates']);
+                    $addr_id = $newAddress->save();                  
 
                     // save accommodation in db
-                    $newAcc = My_Houseshare_Factory::shared();
+                    if ('3' == $formData['basic_info']['acc_type']) {                        
+                        // appartment
+                        $newDetails = new My_Model_Table_NonSharedDetails();
+                        $details_id = $newDetails->setDetails($formData['appartment_details']);                        
+                        $newAcc = My_Houseshare_Factory::appartment();
+                        $newAcc->setDetailsId($details_id);
+                        
+                    } else {
+                         // shared accommodation
+                        $newRoomates = new My_Model_Table_Roomates();
+                        $roomates_id = $newRoomates->setRoomates($formData['roomates']);
+                        
+                        $newAcc = My_Houseshare_Factory::shared();
+                        $newAcc->setRoomatesId($roomates_id);
+                    }
+                    
                     $newAcc->title = $formData['basic_info']['title'];
                     $newAcc->description = $formData['basic_info']['description'];
                     $newAcc->date_avaliable = $formData['basic_info']['date_avaliable'];
@@ -258,9 +269,8 @@ class AccommodationController extends Zend_Controller_Action {
                     $newAcc->preferences_info = $formData['preferences']['description'];
                     $newAcc->features_info = $formData['acc_features']['description'];
                     $newAcc->setAddrId($addr_id);
-                    $newAcc->setUserId($user_id);
-                    $newAcc->setRoomatesId($roomates_id);
-                    $newAcc->setTypeId($formData['basic_info']['acc_type']);
+                    $newAcc->setUserId($user_id);                    
+                    $newAcc->setTypeId($formData['basic_info']['acc_type']);                                       
 
                     $acc_id = $newAcc->save();
 

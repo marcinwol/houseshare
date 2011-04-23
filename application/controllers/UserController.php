@@ -191,7 +191,7 @@ class UserController extends Zend_Controller_Action {
 
                 $adapter->setExtensions($ext);
             }
-
+            
             // here a user is redirect to the provider for loging
             $result = $auth->authenticate($adapter);
 
@@ -201,7 +201,7 @@ class UserController extends Zend_Controller_Action {
         } else if ($openid_mode || $code || $oauth_token) {
             // this will be exectued after provider redirected the user back to us
             //echo serialize($_GET);return;
-
+            
             if ($code) {
                 // for facebook
                 $adapter = $this->_getFacebookAdapter();

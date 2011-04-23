@@ -115,7 +115,7 @@ abstract class My_Form_Abstract_AccommodationAbstract extends Zend_Form {
 
         // create new element
         $bondInput = $this->createElement('text', 'bond');
-        $bondInput->setAttribs(array('class' => 'help tipped', 'title' => '2000'));
+        $bondInput->setAttribs(array('toottip' => 'E.g. 400, 800'));
         $bondInput->setRequired(false);
         $bondInput->setLabel('Bond');
         $bondInput->setFilters(array('stripTags', 'stringTrim'));
@@ -458,6 +458,19 @@ abstract class My_Form_Abstract_AccommodationAbstract extends Zend_Form {
         );
         $noOfParkingSpots->setRequired(true)->setValue('0');
         $appartmentDetailsForm->addElement($noOfParkingSpots);
+        
+         // create element for furnishead as it is not binary.
+        $furniture = new Zend_Form_Element_Select('furnished');
+        $furniture->setLabel('Furniture');
+        $furniture->addMultiOptions(
+                array(
+                    '0' => "Unfurnished",
+                    '1' => "Partially furnished",
+                    '2' => "Fully furnished"
+                )
+        );
+        $furniture->setRequired(true)->setValue('0');
+        $appartmentDetailsForm->addElement($furniture);
         
         
          // create new element

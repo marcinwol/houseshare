@@ -49,16 +49,12 @@ if ($this->preview == true) {
    <a class=\"acc-add\" href=\"{$this->baseUrl('/accommodation/enable/id/' . $this->acc->acc_id)}\" alt=\"Activate\">Activate it now</a>
   <br /><br />  If you want to <strong>change</strong> something go <a href=\"{$this->baseUrl('/user/')}\">here</a>.
  </p>";
-
-   } else {
-      $sideBarContent .= "<p>To activate it or make changes, please <a href=\"{$this->baseUrl('/login/')}\">login</a>. </p> ";
-   }
+    } else {
+        $sideBarContent .= "<p>To activate it or make changes, please <a href=\"{$this->baseUrl('/login/')}\">login</a>. </p> ";
+    }
 
     $this->sideBarElement('Success!', $sideBarContent, array('class' => 'side-bar-info', 'break' => true));
-
 }
-
-
 ?>
 
 
@@ -118,53 +114,82 @@ if ($this->preview == true) {
     ?>
     <script type="text/javascript" src="<?php echo $this->baseUrl('/js/mapshow.js'); ?>"></script>
 
-    <div class="section grid_2 alpha ">
-        <h1>Features</h1> 
-<?php
-$features = $this->acc->features;
-if (count($features) > 0) {
-    echo '<ul class="feats-prefs">';
-    foreach ($features as $f) {
-        echo '<li>' . $f->getName() . '</li>';
-    }
-    echo '</ul>';
-}
-?>
-    </div>
+
+
+
+    <?php if ($this->acc instanceof My_Houseshare_Shared): ?>
+        <div class="section grid_2 alpha">
+            <h1>Roomates</h1> 
+            <dl class="">
+                <dt>Number of roomates</dt>
+                <dd><?php echo $this->acc->roomates->no_roomates; ?> </dd>
+                <dt>Approx. min age</dt>
+                <dd><?php echo $this->acc->roomates->min_age; ?> </dd>
+                <dt>Approx. max age</dt>
+                <dd><?php echo $this->acc->roomates->max_age; ?> </dd>
+                <dt>Gender</dt>
+                <dd><?php echo $this->acc->roomates->gender; ?> </dd>
+
+            </dl>
+        </div>
+    <?php elseif ($this->acc instanceof My_Houseshare_Appartment): ?>
+        <div class="section grid_2 alpha">
+            <h1>Appartment details</h1>             
+            <dl class="">
+                <dt>Number of bedrooms</dt>
+                <dd><?php echo $this->acc->details->bedrooms; ?> </dd>
+                <dt>Number of bathrooms</dt>
+                <dd><?php echo $this->acc->details->bathrooms; ?> </dd>
+                <dt>Number of parking spots</dt>
+                <dd><?php echo $this->acc->details->parking_spots; ?> </dd>
+                <dt>Furniture</dt>
+                <dd><?php echo $this->acc->details->furnished; ?> </dd>
+                 <dt>Other</dt>
+                <dd><?php echo $this->acc->details->description; ?> </dd>
+            </dl>
+        </div>    
+    <?php endif; ?>
 
     <div class="section grid_2 alpha  ">
         <h1>Preferences</h1> 
-<?php
-$prefs = $this->acc->preferences;
-if (count($prefs) > 0) {
-    echo '<ul class="feats-prefs">';
-    foreach ($prefs as $p) {
-        echo '<li>' . $p->getName() . '</li>';
-    }
-    echo '</ul>';
-}
-?>
+        <?php
+        $prefs = $this->acc->preferences;
+        if (count($prefs) > 0) {
+            echo '<ul class="feats-prefs">';
+            foreach ($prefs as $p) {
+                echo '<li>' . $p->getName() . '</li>';
+            }
+            echo '</ul>';
+        }
+        ?>
     </div>
 
-    <div class="section grid_2 omega">
-        <h1>Roomates</h1> 
-<?php
-
-if ($this->acc->roomates) {
-    var_dump($this->acc->roomates->toArray());
-}
-?>
+    <div class="section grid_2 omega ">
+        <h1>Features</h1> 
+        <?php
+        $features = $this->acc->features;
+        if (count($features) > 0) {
+            echo '<ul class="feats-prefs">';
+            foreach ($features as $f) {
+                echo '<li>' . $f->getName() . '</li>';
+            }
+            echo '</ul>';
+        }
+        ?>
     </div>
+
+
+
 
 
     <div class="section grid_6 alpha">
         <h1>Contact</h1> 
-<?php if ($this->form): ?>
+        <?php if ($this->form): ?>
             <a href="javascript:none;" id="ask-question">Ask a question</a>
             <div id="email-send-form">
-    <?php echo $this->form; ?>        
+                <?php echo $this->form; ?>        
             </div>
-            <?php endif; ?>
+        <?php endif; ?>
     </div>
 
 </div>
