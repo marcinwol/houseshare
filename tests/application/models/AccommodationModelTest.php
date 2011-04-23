@@ -55,7 +55,7 @@ class AccommodationModelTest extends ModelTestCase {
                 'type_id' => 2
             ),
             null, // create new Accommodation
-            4     // expected id of the new Accommodation
+            6     // expected id of the new Accommodation
         );
 
         $argSet[] = array(

@@ -184,7 +184,7 @@ class AccommodationControllerTest extends ControllerTestCase {
         
      //   $acc = My_Houseshare_Factory::shared(1);
         
-      //  var_dump($this->getResponse()->getBody());
+        var_dump($this->getResponse()->getBody());
  //        var_dump($acc->preferences->asArray());
         
         // at the very end check if successful redirection

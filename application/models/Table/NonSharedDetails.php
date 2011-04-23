@@ -35,7 +35,9 @@ class My_Model_Table_NonSharedDetails extends Zend_Db_Table_Abstract {
         $row->bedrooms = $data['bedrooms'];
         $row->bathrooms = $data['bathrooms'];
         $row->parking_spots = $data['parking_spots'];
-        $row->description = $data['description'];
+        $row->furnished = $data['furnished'];                
+        $row->size = (isset($data['size']) ? $data['size'] : new Zend_Db_Expr('NULL'));
+        $row->description = (isset($data['description']) ? $data['description'] : new Zend_Db_Expr('NULL'));      
 
         return $row->save();
     }

@@ -70,8 +70,8 @@
 
     <TYPE type_id="1" name="Bed" is_shared="1" />
     <TYPE type_id="2" name="Room" is_shared="1" />
-    <TYPE type_id="3" name="House" is_shared="0" />
-    <TYPE type_id="4" name="Appartment" is_shared="0" />
+    <TYPE type_id="3" name="Appartment" is_shared="0" />
+    <TYPE type_id="4" name="House" is_shared="0" />
 
 
     <FEATURE feat_id="1" name="internet" binary="1" />
@@ -110,7 +110,22 @@
             street_address_public="0" short_term_ok="1" type_id="1" 
             price_info = "" queries_counter = "1"
             />
-
+            
+            
+    <ACCOMMODATION acc_id="4" title="New appartment for rent"
+            description="Description of appartment" addr_id="2" user_id="2"
+            date_avaliable="2011-12-12" price="420" bond="0"   is_enabled="1"          
+            street_address_public="0" short_term_ok="1" type_id="3" 
+            price_info = "" queries_counter = "1"
+            />    
+            
+            
+    <ACCOMMODATION acc_id="5" title="Renowated appartment perfect for students"
+            description="Some description of the advert" addr_id="2" user_id="1"
+            date_avaliable="2011-02-12" price="400" bond="1600" is_enabled="1"
+            street_address_public="1" short_term_ok="0" type_id="3" 
+             price_info = "No additional cost" queries_counter = "12"
+            />
 
     <ROOMATES roomates_id="1" no_roomates="2" 
               min_age="10" max_age="40" gender="2"
@@ -121,10 +136,23 @@
     <ROOMATES roomates_id="3" no_roomates="4" 
               min_age="15" max_age="50" gender="1" 
               description = "Working profesionals, none smokers and tidy"/>
+              
 
     <SHARED acc_id="1" />
     <SHARED acc_id="2" roomates_id="1"/>
     <SHARED acc_id="3" />
+    
+    
+    
+    <NONSHARE_ACC_DETAILS details_id="1" bedrooms="2" bathrooms="2" 
+                          parking_spots="2" size="30" description="River views" />
+
+    <NONSHARE_ACC_DETAILS details_id="2" bedrooms="1" bathrooms="1" 
+                          parking_spots="0" description="Close to uni" />  
+                          
+    <APPARTMENT acc_id="4"  details_id="1"/>  
+    <APPARTMENT acc_id="5"  details_id="2"/>
+    
 
 
     <PATH path_id="1" value="vfs://images/forrent/"/>

@@ -27,11 +27,11 @@ class My_Houseshare_Factory {
         if (null === $userRow) {
             return null;
         }
-        
+
         return self::_makeUserObj($id, $userRow->type);
     }
 
-     /**
+    /**
      * Synonim to My_Houseshare_Factory::user($id, 'ROOMATE')
      *
      *
@@ -55,7 +55,6 @@ class My_Houseshare_Factory {
         throw new Exception('My_Houseshare_Looker not implemented');
         return self::user($id, 'LOOKER');
     }
-
 
     /**
      * Get Houseshare_Accommodation or My_Houseshare_Shared objects depending
@@ -84,7 +83,7 @@ class My_Houseshare_Factory {
     }
 
     /**
-     * Synonim to My_Houseshare_Factory::room($id, 'ROOM')
+     * Synonim to My_Houseshare_Factory::accommodation($id, 'ROOM')
      *
      * At the momenet there are no speciall classes for Bed and Room. Both
      * are threated as Shared accommodation.
@@ -95,6 +94,18 @@ class My_Houseshare_Factory {
      */
     static public function shared($id = null) {
         return self::accommodation($id, 'ROOM');
+    }
+
+    /**
+     * Synonim to My_Houseshare_Factory::accommodation($id, 'APPARTMENT')
+     *
+     *
+     * @see My_Houseshare_Factory::accommodation()
+     * @param int|null $id null idif $id not found
+     * @return My_Houseshare_Appartment|null null if not found
+     */
+    static public function appartment($id = null) {
+        return self::accommodation($id, 'APPARTMENT');
     }
 
     /**
@@ -126,12 +137,16 @@ class My_Houseshare_Factory {
     }
 
     static protected function _makeAccObj($id, $type) {
+
         switch ($type) {
             case 'ROOM':
                 return new My_Houseshare_Shared($id);
                 break;
             case 'BED':
                 return new My_Houseshare_Shared($id);
+                break;
+            case 'APPARTMENT':
+                return new My_Houseshare_Appartment($id);
                 break;
             default:
                 return new My_Houseshare_Accommodation($id);

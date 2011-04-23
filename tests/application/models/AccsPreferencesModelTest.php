@@ -85,7 +85,8 @@ class AccsPreferencesModelTest extends ModelTestCase {
         return array(
             array(array('acc_id' => 0, 'pref_id' => 1), array('value' => 1)),
             array(array('acc_id' => 1, 'pref_id' => 0), array('value' => 1)),
-            array(array('acc_id' => 5, 'pref_id' => 5), array('value' => 1))
+            array(array('acc_id' => 2, 'pref_id' => 8), array('value' => 1)),
+            array(array('acc_id' => 8, 'pref_id' => 5), array('value' => 1))
         );
     }
 

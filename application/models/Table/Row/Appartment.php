@@ -23,7 +23,7 @@ class My_Model_Table_Row_Appartment extends Zend_Db_Table_Row_Abstract {
 
 
    /**
-     * Return roomates row for the current shared accommodation
+     * Return details row of the current appartment
      *
      * @return My_Model_Table_NonSharedDetails
      */

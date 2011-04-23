@@ -10,7 +10,7 @@
  *
  * @author marcin
  */
-class My_Model_Table_Shared extends Zend_Db_Table_Abstract {
+class My_Model_Table_Appartment extends Zend_Db_Table_Abstract {
 
     protected $_name = "APPARTMENT";
     protected $_rowClass = 'My_Model_Table_Row_Appartment';
@@ -22,8 +22,8 @@ class My_Model_Table_Shared extends Zend_Db_Table_Abstract {
             'refTableClass' => 'My_Model_Table_Accommodation',
             'refColumns' => array('acc_id'),
         ),
-        'Roomates' => array(
-            'columns' => array('roomates_id'),
+        'NonSharedDetails' => array(
+            'columns' => array('details_id'),
             'refTableClass' => 'My_Model_Table_NonSharedDetails',
             'refColumns' => array('details_id'),
         )

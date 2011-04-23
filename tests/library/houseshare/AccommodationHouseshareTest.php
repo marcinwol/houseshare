@@ -12,7 +12,8 @@ class AccommodationHouseshareTest extends ModelTestCase {
     public function accommodationClassProvider() {
         return array(
             array('My_Houseshare_Accommodation'),
-            array('My_Houseshare_Shared')
+            array('My_Houseshare_Shared'),
+            array('My_Houseshare_Appartment')
         );
     }
 
@@ -20,19 +21,25 @@ class AccommodationHouseshareTest extends ModelTestCase {
      * @dataProvider accommodationClassProvider
      */
     public function testGetAcc($accClass) {
-        $acc = new $accClass(1);
+
+        $acc_id = 1;
+
+        if ('My_Houseshare_Appartment' == $accClass) {
+            $acc_id = 4;
+        }
+
+        $acc = new $accClass($acc_id);
 
         // fetch acc row using model for comparison
-        $row = $this->_model->find(1)->current();
+        $row = $this->_model->find($acc_id)->current();
 
         $this->assertEquals(
                 array(
-                    $row->title,
-                    $row->price
-                ),
-                array(
-                    $acc->title,
-                    $acc->price,
+            $row->title,
+            $row->price
+                ), array(
+            $acc->title,
+            $acc->price,
                 )  // var_dump($acc->getProperties());
         );
     }
@@ -43,6 +50,10 @@ class AccommodationHouseshareTest extends ModelTestCase {
     public function testGetPreferencesAndFeatures($accClass) {
 
         $acc_ids = array(1, 2);
+
+        if ('My_Houseshare_Appartment' == $accClass) {
+            $acc_ids = array(4, 5);
+        }
 
         foreach ($acc_ids as $acc_id) {
 
@@ -71,6 +82,10 @@ class AccommodationHouseshareTest extends ModelTestCase {
     public function testSetPreferencesAndFeatures($accClass) {
 
         $acc_ids = array(1, 2);
+
+        if ('My_Houseshare_Appartment' == $accClass) {
+            $acc_ids = array(4, 5);
+        }
 
         foreach ($acc_ids as $acc_id) {
 
@@ -131,6 +146,10 @@ class AccommodationHouseshareTest extends ModelTestCase {
 
         $acc_ids = array(1, 2);
 
+        if ('My_Houseshare_Appartment' == $accClass) {
+            $acc_ids = array(4, 5);
+        }
+
         foreach ($acc_ids as $acc_id) {
 
             $acc = new $accClass($acc_id);
@@ -146,12 +165,11 @@ class AccommodationHouseshareTest extends ModelTestCase {
 
                 $this->assertEquals(
                         array(
-                            $photoExpected->filename,
-                            $photoExpected->getFullPath()
-                        ),
-                        array(
-                            $photo->filename,
-                            $photo->getFullPath()
+                    $photoExpected->filename,
+                    $photoExpected->getFullPath()
+                        ), array(
+                    $photo->filename,
+                    $photo->getFullPath()
                         )
                 );
             }
@@ -229,15 +247,18 @@ class AccommodationHouseshareTest extends ModelTestCase {
         $newAcc->short_term_ok = 0;
         $newAcc->setTypeId(1);
 
+        if ('My_Houseshare_Appartment' == $accClass) {
+            $newAcc->setDetailsId(1);
+        }
+
         $acc_id = $newAcc->save();
 
-        $expectedAcc_id = 4;
+        $expectedAcc_id = 6;
 
         $accRow = $this->_model->find($acc_id)->current();
 
         $this->assertEquals(
-                array($expectedAcc_id, 'New acc title'),
-                array($acc_id, $accRow->title)
+                array($expectedAcc_id, 'New acc title'), array($acc_id, $accRow->title)
         );
     }
 
@@ -246,9 +267,16 @@ class AccommodationHouseshareTest extends ModelTestCase {
      */
     public function testUpdateAccommodation1($accClass) {
 
-        $accRowBefore = $this->_model->find(2)->current();
+        $accID = 2;
 
-        $newAcc = new $accClass(2);
+        if ('My_Houseshare_Appartment' == $accClass) {
+            $accID = 5;
+        }
+
+        $accRowBefore = $this->_model->find($accID)->current();
+
+
+        $newAcc = new $accClass($accID);
 
         $newAcc->title = "New Acc title";
         $newAcc->setAddrId(2);
@@ -259,26 +287,25 @@ class AccommodationHouseshareTest extends ModelTestCase {
 
         $acc_id = $newAcc->save();
 
-        $expectedAcc_id = 2;
+        $expectedAcc_id = $accID;
 
         $accRowAfter = $this->_model->find($expectedAcc_id)->current();
 
         $this->assertEquals(
                 array(
-                    $expectedAcc_id,
-                    'New acc title',
-                    $accRowBefore->description,
-                    $accRowBefore->price,
-                    1200,
-                    2
-                ),
-                array(
-                    $acc_id,
-                    $accRowAfter->title,
-                    $accRowAfter->description,
-                    $accRowAfter->price,
-                    $accRowAfter->bond,
-                    $accRowAfter->type_id
+            $expectedAcc_id,
+            'New acc title',
+            $accRowBefore->description,
+            $accRowBefore->price,
+            1200,
+            2
+                ), array(
+            $acc_id,
+            $accRowAfter->title,
+            $accRowAfter->description,
+            $accRowAfter->price,
+            $accRowAfter->bond,
+            $accRowAfter->type_id
                 )
         );
     }
@@ -287,6 +314,16 @@ class AccommodationHouseshareTest extends ModelTestCase {
      * @dataProvider accommodationClassProvider
      */
     public function testDeleteAccommodation1($accClass) {
+
+        if ('My_Houseshare_Appartment' == $accClass) {
+            $newAcc = new $accClass(4);
+            $newAcc->delete();
+            $accRowAfter = $this->_model->find(4)->current();
+            $this->assertTrue(null === $accRowAfter);
+            return;
+        }
+
+
         $newAcc = new $accClass(2);
         $newAcc->delete();
 
@@ -319,12 +356,16 @@ class AccommodationHouseshareTest extends ModelTestCase {
         $newAcc->short_term_ok = 0;
         $newAcc->setTypeId(1);
 
+        if ('My_Houseshare_Appartment' == $accClass) {
+            $newAcc->setDetailsId(1);
+        }
+
         $acc_id = $newAcc->save();
         // the save method will repopulate variabiles in $newAcc object
         // which will make possible to save features, preferces and photos.
         //add some features and preferences
 
-        $this->assertEquals(4, $acc_id);
+        $this->assertEquals(6, $acc_id);
 
         $newPrefs = array(
             array('pref_id' => 1, 'value' => 1),

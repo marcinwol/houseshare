@@ -194,7 +194,7 @@ class UserHouseshareTest extends ModelTestCase {
 
         if ('My_Houseshare_Roomate' === $userClass) {
             $user = new $userClass(1);
-            $expectedNoOfAcc = 2;
+            $expectedNoOfAcc = 3;
         } else {
             $user = new $userClass(3);
             $expectedNoOfAcc = 0;

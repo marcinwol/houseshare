@@ -243,8 +243,9 @@ CREATE  TABLE IF NOT EXISTS `NONSHARE_ACC_DETAILS` (
   `bedrooms` TINYINT(4) NOT NULL ,
   `bathrooms` TINYINT(4) NOT NULL ,
   `parking_spots` TINYINT(4) NOT NULL ,
-  `description` TEXT NULL ,
+  `furnished` TINYINT(2) NOT NULL ,
   `size` INT NULL ,
+  `description` TEXT NULL ,
   PRIMARY KEY (`details_id`) )
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8
@@ -447,7 +448,7 @@ CREATE  TABLE IF NOT EXISTS `ACCOMODATION_has_PREFERENCE` (
     FOREIGN KEY (`pref_id` )
     REFERENCES `PREFERENCE` (`pref_id` )
     ON DELETE RESTRICT
-    ON UPDATE RESTRICT)
+    ON UPDATE CASCADE)
 ENGINE = InnoDB;
 
 CREATE INDEX `fk_pref_id` ON `ACCOMODATION_has_PREFERENCE` (`pref_id` ASC) ;

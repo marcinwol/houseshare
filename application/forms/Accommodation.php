@@ -115,11 +115,17 @@ class My_Form_Accommodation extends My_Form_Abstract_AccommodationAbstract {
             $this->_populateFeatsOrPrefs($featsSubForm, $acc->features);
             $featsSubForm->description->setValue($acc->features_info);
 
-            // populate room features in needed
+            // populate room features if needed
             if ('Room' == $acc->type->name) {
                 $roomSubForm = $this->getSubForm(self::ROOM_FEATURES_SUBFORM_NAME);
                 $this->_populateFeatsOrPrefs($roomSubForm, $acc->features);
             }     
+            
+            // populate appartment details if needed
+            if ('Appartment' == $acc->type->name) {
+                 $appDetailsSubForm = $this->getSubForm(self::APPARTMENT_DETAILS);
+            }
+            
          
             return $this;
         }
