@@ -42,19 +42,37 @@ $(document).ready(function () {
     
     
     if ($('#basic_info-acc_type').val() == "1") {
-        $('#fieldset-room_features').hide();
+        $('#fieldset-room_features').hide();       
     }
+    
+    if ($('#basic_info-acc_type').val() == "1" || $('#basic_info-acc_type').val() == "2") {
+        $('#appartment_details-element').hide();       
+    }
+    
+    if ($('#basic_info-acc_type').val() == "3") {
+        $('#roomates-element').hide();
+        $('#room_features-element').hide();
+        $('#acc_features-element').hide();
+    } 
+        
     
     $('#basic_info-acc_type').change(function() {
         if ($(this).val() == "1") {
             $('#fieldset-room_features').hide();
+            $('#appartment_details-element').hide();          
         } else if ($(this).val() == "2") {
             $('#fieldset-room_features').show();
+            $('#appartment_details-element').hide();          
+        } else if ($(this).val() == "3") {
+            $('#roomates-element').hide();
+            $('#room_features-element').hide();
+            $('#acc_features-element').hide();
+            $('#appartment_details-element').show();          
         }
     });
 
     
-     function monkeyPatchAutocomplete() {
+    function monkeyPatchAutocomplete() {
 
         // don't really need this, but in case I did, I could store it and chain
         var oldFn = $.ui.autocomplete.prototype._renderItem;
@@ -158,40 +176,66 @@ $(document).ready(function () {
     
     var addQtip = function(elemId, qtipContent) {
         $('#'+elemId).qtip({
-          content: qtipContent,
-          show: { when: { event: 'focus' } },
-          hide: { when: { event: 'blur' } },
-          position: {
-              corner: {
+            content: qtipContent,
+            show: {
+                when: {
+                    event: 'focus'
+                }
+            },
+        hide: {
+            when: {
+                event: 'blur'
+            }
+        },
+        position: {
+            corner: {
                 target: 'topRight',
                 tooltip: 'bottomLeft'
-              }
-          },
-          style: { width: 200, padding: 5, 'font-size': '10px',
-                        'font-family': 'Verdana', textAlign: 'center', tip: 'bottomLeft',
-                   border: { width: 2, radius: 1, color: 'orange' }
-          }
-  });
-    };
+            }
+        },
+        style: {
+            width: 200, 
+            padding: 5, 
+            'font-size': '10px',
+            'font-family': 'Verdana', 
+            textAlign: 'center', 
+            tip: 'bottomLeft',
+            border: {
+                width: 2, 
+                radius: 1, 
+                color: 'orange'
+            }
+        }
+    });
+};
     
-   // addQtip("basic_info-title",  'Kontaktowy numer telefonu.');
+// addQtip("basic_info-title",  'Kontaktowy numer telefonu.');
    
    
-    $('input[tooltip], textarea[tooltip] ').each(function()  {        
-      $(this).qtip({
-         content: $(this).attr('tooltip'), // Use the tooltip attribute of the element for the content     
-         position: {
-              corner: {
+$('input[tooltip], textarea[tooltip] ').each(function()  {        
+    $(this).qtip({
+        content: $(this).attr('tooltip'), // Use the tooltip attribute of the element for the content     
+        position: {
+            corner: {
                 target: 'topMiddle',
                 tooltip: 'bottomMiddle'
-              }
-          },
-           style: { width: 400, padding: 5, 'font-size': '10px',
-                        'font-family': 'Verdana', textAlign: 'center', tip: 'bottomMiddle',
-                   border: { width: 2, radius: 1, color: 'orange' }
-          }
-      });
-   });
+            }
+        },
+        style: {
+            width: 400, 
+            padding: 5, 
+            'font-size': '10px',
+            'font-family': 'Verdana', 
+            textAlign: 'center', 
+            tip: 'bottomMiddle',
+            border: {
+                width: 2, 
+                radius: 1, 
+                color: 'orange'
+            }
+        }
+    });
+});
     
     
     

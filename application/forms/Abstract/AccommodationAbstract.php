@@ -48,12 +48,6 @@ abstract class My_Form_Abstract_AccommodationAbstract extends Zend_Form {
         $accTypeChoice->setRequired(true);
         $accTypeChoice->setValue('2');
 
-//        $accTypeChoice->addDecorator(new My_Form_Decorator_Jtip(
-//                        array(
-//                            'tipurl' => '/tip/get/which/acctype',
-//                            'tipname' => 'Explenation',
-//                        )
-//        ));
         // add element
         $liveChoice = new Zend_Form_Element_Select('live_in_acc');
         $liveChoice->setLabel('Do you live in the property?');
@@ -419,6 +413,8 @@ abstract class My_Form_Abstract_AccommodationAbstract extends Zend_Form {
         protected function _makeAppartmentDetailsSubForm() {
         $appartmentDetailsForm = new Zend_Form_SubForm();
         $appartmentDetailsForm->setLegend('Appartment details');
+       // $appartmentDetailsForm->removeDecorator('HtmlTag');
+      //  var_dump($appartmentDetailsForm->getDecorators());
         
                
         $noOfBedrooms = new Zend_Form_Element_Select('bedrooms');
@@ -449,10 +445,11 @@ abstract class My_Form_Abstract_AccommodationAbstract extends Zend_Form {
         $noOfBathrooms->setRequired(true)->setValue('1');
         $appartmentDetailsForm->addElement($noOfBathrooms);
         
-        $noOfParkingSpots = new Zend_Form_Element_Select('oarking_spots');
+        $noOfParkingSpots = new Zend_Form_Element_Select('parking_spots');
         $noOfParkingSpots->setLabel('No of parking spots');
         $noOfParkingSpots->addMultiOptions(
                 array(
+                    '0' => "0",
                     '1' => "1",
                     '2' => "2",
                     '3' => "3",
