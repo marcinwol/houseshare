@@ -61,10 +61,10 @@ class My_Form_MainPage extends Zend_Form {
         $maxPrice->addDecorator('AnyMarkup', array(
             'markup' => '<span>PLN</span>',
             'placement' => 'append'
-                )
+                        )
         );
         $this->addElement($maxPrice);
-
+        
         $this->addElement('hidden', 'id', 2);
 
         $submit = $this->createElement('submit', 'submit', array('label' => 'Go'));
