@@ -21,6 +21,7 @@ abstract class My_Form_Abstract_AccommodationAbstract extends Zend_Form {
     const ABOUT_YOU_SUBFORM_NAME = 'about_you';
     const PHOTOS_SUBFORM_NAME = 'photos';
     const NEW_CITY_SUBFORM_NAME = 'new_city';
+    const APPARTMENT_DETAILS = 'appartment_details';
 
     public function init() {
         $this->setMethod('post');
@@ -41,6 +42,7 @@ abstract class My_Form_Abstract_AccommodationAbstract extends Zend_Form {
                 array(
                     '1' => "A place in a room",
                     '2' => "Entire room",
+                    '3' => "Appartment",
                 )
         );
         $accTypeChoice->setRequired(true);
@@ -412,6 +414,63 @@ abstract class My_Form_Abstract_AccommodationAbstract extends Zend_Form {
         }
 
         return $featuresForm;
+    }
+    
+        protected function _makeAppartmentDetailsSubForm() {
+        $appartmentDetailsForm = new Zend_Form_SubForm();
+        $appartmentDetailsForm->setLegend('Appartment details');
+        
+               
+        $noOfBedrooms = new Zend_Form_Element_Select('bedrooms');
+        $noOfBedrooms->setLabel('No of bedrooms');
+        $noOfBedrooms->addMultiOptions(
+                array(
+                    '1' => "1",
+                    '2' => "2",
+                    '3' => "3",
+                    '4' => "4",
+                )
+        );
+        $noOfBedrooms->setRequired(true)->setValue('1');
+        $appartmentDetailsForm->addElement($noOfBedrooms);
+        
+        
+        
+        $noOfBathrooms = new Zend_Form_Element_Select('bathrooms');
+        $noOfBathrooms->setLabel('No of bathrooms');
+        $noOfBathrooms->addMultiOptions(
+                array(
+                    '1' => "1",
+                    '2' => "2",
+                    '3' => "3",
+                    '4' => "4",
+                )
+        );
+        $noOfBathrooms->setRequired(true)->setValue('1');
+        $appartmentDetailsForm->addElement($noOfBathrooms);
+        
+        $noOfParkingSpots = new Zend_Form_Element_Select('oarking_spots');
+        $noOfParkingSpots->setLabel('No of parking spots');
+        $noOfParkingSpots->addMultiOptions(
+                array(
+                    '1' => "1",
+                    '2' => "2",
+                    '3' => "3",
+                    '4' => "4",
+                )
+        );
+        $noOfParkingSpots->setRequired(true)->setValue('0');
+        $appartmentDetailsForm->addElement($noOfParkingSpots);
+        
+        
+         // create new element
+        $descriptionInput = $this->createElement('textarea', 'description');
+        $descriptionInput->setRequired(false)->setLabel('Any other details');
+        $descriptionInput->setAttribs(array('cols' => 20, 'rows' => 5));
+        $appartmentDetailsForm->addElement($descriptionInput);
+
+
+        return $appartmentDetailsForm;
     }
 
     protected function _makeBedFeaturesSubForm() {
