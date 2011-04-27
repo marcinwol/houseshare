@@ -411,6 +411,7 @@ abstract class My_Form_Abstract_AccommodationAbstract extends Zend_Form {
     }
     
         protected function _makeAppartmentDetailsSubForm() {
+            
         $appartmentDetailsForm = new Zend_Form_SubForm();
         $appartmentDetailsForm->setLegend('Appartment details');
        // $appartmentDetailsForm->removeDecorator('HtmlTag');

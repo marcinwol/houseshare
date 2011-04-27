@@ -180,22 +180,10 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
         Zend_Mail::setDefaultTransport($tr);
     }
 
-//    protected function _initTest() {
-//        $config = new Zend_Config_Xml(
-//                APPLICATION_PATH . '/configs/1.xml',
-//                null,
-//                array('allowModifications' => true)
-//                
-//                ); 
-//        
-//        $a = simplexml_load_file( APPLICATION_PATH . '/configs/1.xml');
-//        
-//       
-//        var_dump($a->elements->element->children()->count());
-//       
-//       // var_dump($a->toArray());
-//       
-//        var_dump($config->get('elements')->get('element')->toArray());
+//    protected function _initSetupBaseUrl() {
+//        $this->bootstrap('frontcontroller');
+//        $controller = Zend_Controller_Front::getInstance();
+//        $controller->setBaseUrl('/projects/myapp'); 
 //    }
 
 

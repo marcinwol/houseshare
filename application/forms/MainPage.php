@@ -61,15 +61,25 @@ class My_Form_MainPage extends Zend_Form {
         $maxPrice->addDecorator('AnyMarkup', array(
             'markup' => '<span>PLN</span>',
             'placement' => 'append'
-                        )
+                )
         );
         $this->addElement($maxPrice);
-        
+
         $this->addElement('hidden', 'id', 2);
 
         $submit = $this->createElement('submit', 'submit', array('label' => 'Go'));
         $submit->removeDecorator('Label');
         $this->addElement($submit);
+
+//        $total_days = array('1'=>1,'2'=>2);
+//
+//        $days = new Zend_Form_Element_Multiselect('day');
+//        $days->setLabel('Days')
+//                ->addMultiOptions($total_days)
+//                ->setRequired(true)
+//                ->addValidator('NotEmpty');
+//        
+//         $this->addElement($days);
     }
 
 }

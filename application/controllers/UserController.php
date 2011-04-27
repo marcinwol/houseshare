@@ -323,7 +323,7 @@ class UserController extends Zend_Controller_Action {
 
         if ($this->getRequest()->isPost() && null == $openid_identifier) {
             if ($loginForm->isValid($_POST)) {
-
+                
                 $formData = $loginForm->getValues();
 
                 $authAdapter = new My_Auth_Adapter_DbTable();
