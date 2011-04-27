@@ -22,3 +22,4 @@ set_include_path(implode(PATH_SEPARATOR, array(
 require_once('application/ControllerTestCase.php');
 require_once('application/ModelTestCase.php');
 require_once('application/ValidatorTestCase.php');
+require_once('application/FormTestCase.php');
