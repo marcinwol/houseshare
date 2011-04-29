@@ -2,7 +2,7 @@
 
 class UserControllerTest extends ControllerTestCase {
 
-        public function setUp() {
+    public function setUp() {
         parent::setUp();
         $this->_setupAuthAdapter();
     }
