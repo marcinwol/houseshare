@@ -36,7 +36,8 @@ class DemoFormTest extends FormTestCase {
 
         $this->assertFalse($this->_form->isValid($mockInputData));
     }
-
+    
+    // some other tests
 }
 
 ?>
