@@ -18,7 +18,6 @@ class IndexController extends Zend_Controller_Action {
 //        var_dump(get_class($this->view->layout()));
 //        $this->view->layout()->setContentKey('rightColumn');
 //        
-
     }
 
     public function indexAction() {
@@ -28,7 +27,7 @@ class IndexController extends Zend_Controller_Action {
 
         if ($this->getRequest()->isPost()) {
             if ($mainForm->isValid($_POST)) {
-             
+
                 // $whatToDo = $mainForm->getValue('rd_what_to_do');
                 $whatToDo = '0';
                 $cityName = $mainForm->getValue('i_city');

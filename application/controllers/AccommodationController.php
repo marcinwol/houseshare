@@ -88,7 +88,7 @@ class AccommodationController extends Zend_Controller_Action {
         $city_id = $cityName = $this->_request->getParam('city', null);
         $maxPrice = $this->_request->getParam('maxprice', null);
         $page = $this->_getParam('page', 1);
-        
+
         if (is_null($city_id)) {
             $this->_helper->FlashMessenger('City must be specified');
             return $this->_redirect('/');
@@ -100,7 +100,7 @@ class AccommodationController extends Zend_Controller_Action {
 
         $cityModel = new My_Model_Table_City();
         $cityRow = $cityModel->find($city_id)->current();
-       
+
         $city = is_null($cityRow) ? null : $cityRow->name;
 
         $limitForm = new My_Form_LimitForm();
@@ -138,19 +138,19 @@ class AccommodationController extends Zend_Controller_Action {
 
         $accModel = new My_Model_Table_Accommodation();
         $accSelect = $accModel->select(Zend_Db_Table::SELECT_WITH_FROM_PART)
-                              ->setIntegrityCheck(false);
+                ->setIntegrityCheck(false);
         $accSelect->joinInner('ADDRESS', 'ACCOMMODATION.addr_id = ADDRESS.addr_id', array())
                 ->joinLeft('ACCOMODATION_has_FEATURE', 'ACCOMMODATION.acc_id = ACCOMODATION_has_FEATURE.acc_id', array())
                 ->where('ACCOMMODATION.is_enabled = ?', 1);
-        
-      
+
+
 
         if ($city_id) {
             $accSelect->where("ADDRESS.city_id = ?", (int) $city_id);
         }
-        
+
         if ($limitForm->internet->isChecked()) {
-           $accSelect->where("ACCOMODATION_has_FEATURE.feat_id IN ($internet)");
+            $accSelect->where("ACCOMODATION_has_FEATURE.feat_id IN ($internet)");
         }
 
         if ($maxPrice) {
@@ -158,9 +158,9 @@ class AccommodationController extends Zend_Controller_Action {
         }
 
         $accSelect->where("ACCOMMODATION.type_id IN ($bed, $room)");
-        
+
         $accSelect->distinct();
-              
+
 
 
         //$accs = $accModel->fetchAll($accSelect);
@@ -169,7 +169,7 @@ class AccommodationController extends Zend_Controller_Action {
         if ($accPaginator->count() < $page) {
             $page = $accPaginator->count();
         }
-      
+
         $this->view->maxPrice = $maxPrice;
         $this->view->cityRow = $cityRow;
         $this->view->limitForm = $limitForm;
@@ -184,7 +184,7 @@ class AccommodationController extends Zend_Controller_Action {
 
         $addAccForm = new My_Form_Accommodation();
         $addAccForm->setDefaultCity($cityName);
-     //   $addAccForm->setDefaultState($stateName);
+        //   $addAccForm->setDefaultState($stateName);
 
         if (Zend_Auth::getInstance()->hasIdentity()) {
             // if logged in, no need about_you subform.
@@ -236,28 +236,27 @@ class AccommodationController extends Zend_Controller_Action {
                     $newAddress->street_no = $formData['address']['street_no'];
                     $newAddress->street = $formData['address']['street_name'];
                     $newAddress->city = $formData['address']['city'];
-                   // $newAddress->zip = $formData['address']['zip'];
-                   // $newAddress->state = $formData['address']['state'];
+                    // $newAddress->zip = $formData['address']['zip'];
+                    // $newAddress->state = $formData['address']['state'];
 
-                    $addr_id = $newAddress->save();                  
+                    $addr_id = $newAddress->save();
 
                     // save accommodation in db
-                    if ('3' == $formData['basic_info']['acc_type']) {                        
+                    if ('3' == $formData['basic_info']['acc_type']) {
                         // appartment
                         $newDetails = new My_Model_Table_NonSharedDetails();
-                        $details_id = $newDetails->setDetails($formData['appartment_details']);                        
+                        $details_id = $newDetails->setDetails($formData['appartment_details']);
                         $newAcc = My_Houseshare_Factory::appartment();
                         $newAcc->setDetailsId($details_id);
-                        
                     } else {
-                         // shared accommodation
+                        // shared accommodation
                         $newRoomates = new My_Model_Table_Roomates();
                         $roomates_id = $newRoomates->setRoomates($formData['roomates']);
-                        
+
                         $newAcc = My_Houseshare_Factory::shared();
                         $newAcc->setRoomatesId($roomates_id);
                     }
-                    
+
                     $newAcc->title = $formData['basic_info']['title'];
                     $newAcc->description = $formData['basic_info']['description'];
                     $newAcc->date_avaliable = $formData['basic_info']['date_avaliable'];
@@ -269,8 +268,8 @@ class AccommodationController extends Zend_Controller_Action {
                     $newAcc->preferences_info = $formData['preferences']['description'];
                     $newAcc->features_info = $formData['acc_features']['description'];
                     $newAcc->setAddrId($addr_id);
-                    $newAcc->setUserId($user_id);                    
-                    $newAcc->setTypeId($formData['basic_info']['acc_type']);                                       
+                    $newAcc->setUserId($user_id);
+                    $newAcc->setTypeId($formData['basic_info']['acc_type']);
 
                     $acc_id = $newAcc->save();
 
@@ -334,7 +333,7 @@ class AccommodationController extends Zend_Controller_Action {
 
                 $addAccInfoNamespace = new Zend_Session_Namespace('addAccInfo');
                 $addAccInfoNamespace->acc_id = intval($acc_id);
-             //   $addAccInfoNamespace->setExpirationSeconds(60 * 5);
+                //   $addAccInfoNamespace->setExpirationSeconds(60 * 5);
                 $addAccInfoNamespace->lock();
 
 
@@ -356,7 +355,7 @@ class AccommodationController extends Zend_Controller_Action {
 
         $auth = Zend_Auth::getInstance();
         $identity = $auth->getIdentity();
-        
+
         // mark if this marker edition is for logged user 
         // (i.e. he/she updates his localization),
         // or this is adding a new accommodation.       
@@ -367,7 +366,7 @@ class AccommodationController extends Zend_Controller_Action {
             // no session, so just check if this is a requested from logged user
             // who wishes to edit map for one of his accommodations
             $acc_id = $this->_getParam('id', null);
-            
+
             if (null === $acc_id || false === $identity) {
                 // no it is not. So exit from here
                 $this->_helper->FlashMessenger('Cannot retrive accommodation info from session');
@@ -407,7 +406,7 @@ class AccommodationController extends Zend_Controller_Action {
 
         if ($this->getRequest()->isPost()) {
             if ($mapForm->isValid($_POST)) {
-                
+
                 $formData = $mapForm->getValues();
 
                 // start transaction
@@ -417,7 +416,7 @@ class AccommodationController extends Zend_Controller_Action {
 
                     $lat = $formData['addr_lat'];
                     $lng = $formData['addr_lng'];
-                  
+
                     // save/update the marker 
                     /* @var $address My_Houseshare_Address */
                     $address = $acc->address;
@@ -432,16 +431,15 @@ class AccommodationController extends Zend_Controller_Action {
                             throw new Zend_Db_Exception("Updated acc_id=$id !== current acc_id=$acc_id");
                         }
                     }
-                    
+
                     $db->commit();
 
                     if (false === $mapEdit) {
                         // if everything went fine go to step 3:
                         return $this->_redirect('accommodation/addphotos');
                     }
-                    
+
                     return $this->_redirect('accommodation/show/id/' . $acc_id);
-                    
                 } catch (Exception $e) {
                     $db->rollBack();
                     throw $e;
@@ -456,6 +454,7 @@ class AccommodationController extends Zend_Controller_Action {
     }
 
     public function editAction() {
+        
         $acc_id = $this->getRequest()->getParam('id', null);
 
         if (empty($acc_id)) {
@@ -477,14 +476,25 @@ class AccommodationController extends Zend_Controller_Action {
 
 
         $accForm = new My_Form_Accommodation();
-        $accForm->removeSubForm('about_you');                
+        $accForm->removeSubForm('about_you');
+        $accForm->addCancel();
+        
+        // don't allow for changing accommodation type
+        $accForm->basic_info->acc_type->setAttrib('disabled', true);
+        $accForm->basic_info->acc_type->setRequired(false);
+        
+        // get acc_type from database
+        $accTypeID = $acc->type_id;
 
 
         if ($this->getRequest()->isPost()) {
-            
-            
-            
             if ($accForm->isValid($_POST)) {
+                
+                
+                 if ($accForm->cancel->isChecked()) {
+                    // if cancel button was clicked                    
+                    return $this->_redirect('/user');
+                }
 
                 // get form data
                 $formData = $accForm->getValues();
@@ -502,14 +512,33 @@ class AccommodationController extends Zend_Controller_Action {
                     $newAddress->street_no = $formData['address']['street_no'];
                     $newAddress->street = $formData['address']['street_name'];
                     $newAddress->city = $formData['address']['city'];
-                   // $newAddress->zip = $formData['address']['zip'];
-                   // $newAddress->state = $formData['address']['state'];
+                    // $newAddress->zip = $formData['address']['zip'];
+                    // $newAddress->state = $formData['address']['state'];
 
                     $addr_id = $newAddress->save();
 
-                    // save roomates information
-                    $newRoomates = new My_Model_Table_Roomates();
-                    $roomates_id = $newRoomates->setRoomates($formData['roomates'], $acc->roomates_id);
+
+                    // save accommodation in db
+                    if ('3' == $accTypeID) {
+                        // appartment
+                        $newDetails = new My_Model_Table_NonSharedDetails();
+                        $details_id = $newDetails->setDetails($formData['appartment_details'], $acc->details->details_id);
+
+                        if ($acc->details->details_id != $details_id) {
+                            $db->rollBack();
+                            throw new Zend_Db_Exception('Edited details_id is different then updated');
+                        }
+                        // $newAcc = My_Houseshare_Factory::appartment();
+                        // $newAcc->setDetailsId($details_id);
+                    } else {
+                        // shared accommodation
+                        $newRoomates = new My_Model_Table_Roomates();
+                        $roomates_id = $newRoomates->setRoomates($formData['roomates']);
+
+                        $newAcc = My_Houseshare_Factory::shared();
+                        $newAcc->setRoomatesId($roomates_id);
+                    }
+
 
                     $acc->title = $formData['basic_info']['title'];
                     $acc->description = $formData['basic_info']['description'];
@@ -522,8 +551,7 @@ class AccommodationController extends Zend_Controller_Action {
                     $acc->preferences_info = $formData['preferences']['description'];
                     $acc->features_info = $formData['acc_features']['description'];
                     $acc->setAddrId($addr_id);
-                    $acc->setRoomatesId($roomates_id);
-                    $acc->setTypeId($formData['basic_info']['acc_type']);
+                    //$acc->setTypeId($formData['basic_info']['acc_type']);
 
 
                     if ($acc->save() != $acc_id) {
@@ -595,7 +623,7 @@ class AccommodationController extends Zend_Controller_Action {
                     throw $e;
                 }
                 $this->_helper->FlashMessenger('Accommodation data was changed');
-                return $this->_redirect('accommodation/show/id/' . $acc_id);
+                return $this->_redirect('user/index');
             }
         }
 

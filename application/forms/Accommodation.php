@@ -91,8 +91,13 @@ class My_Form_Accommodation extends My_Form_Abstract_AccommodationAbstract {
               //  'zip' => $acc->address->zip,
             ));
 
+            try {
+                $roomates = $acc->roomates;
+            } catch(Exception $e) {
+                $roomates = null;
+            }
             
-            if (null !== $acc->roomates) {
+            if (null !== $roomates) {
                 // populate roomates
                 $roomatesSubForm = $this->getSubForm(self::ROOMATES_SUBFORM_NAME);
                 $roomatesSubForm->populate(array(
@@ -122,8 +127,16 @@ class My_Form_Accommodation extends My_Form_Abstract_AccommodationAbstract {
             }     
             
             // populate appartment details if needed
-            if ('Appartment' == $acc->type->name) {
+            if ('Appartment' == $acc->type->name) {               
+                
                  $appDetailsSubForm = $this->getSubForm(self::APPARTMENT_DETAILS);
+                 $appDetailsSubForm->populate(array(
+                     'bedrooms' => $acc->details->bedrooms,
+                     'bathrooms' => $acc->details->bathrooms,
+                     'parking_spots' => $acc->details->parking_spots,
+                     'furnished' => $acc->details->furnished,
+                     'description' => $acc->details->description
+                 ));
             }
             
          
@@ -161,6 +174,14 @@ class My_Form_Accommodation extends My_Form_Abstract_AccommodationAbstract {
 
             $elem->setValue($val);
         }
+    }
+    
+    /**
+     * Add cancel button.
+     */
+    public function addCancel() {
+        $cancelButton = new Zend_Form_Element_Submit('cancel', 'Cancel');
+        $this->addElement($cancelButton);       
     }
 
 }

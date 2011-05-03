@@ -39,7 +39,7 @@ class My_Form_MainPage extends Zend_Form {
         $cities->addMultiOptions($citiesOption);
         $cities->setLabel('I need accommodation in');
         $cities->setValue('Wroclaw');
-        $cities->setRequired(true);
+       // $cities->setRequired(true);
         $this->addElement($cities);
 
 
@@ -71,15 +71,16 @@ class My_Form_MainPage extends Zend_Form {
         $submit->removeDecorator('Label');
         $this->addElement($submit);
 
-//        $total_days = array('1'=>1,'2'=>2);
 //
-//        $days = new Zend_Form_Element_Multiselect('day');
-//        $days->setLabel('Days')
-//                ->addMultiOptions($total_days)
-//                ->setRequired(true)
-//                ->addValidator('NotEmpty');
+//        $texta = new Zend_Form_Element_Text('TextFieldA');
+//        $texta->setLabel('TextA')->setRequired(false);
+//        $this->addElement($texta);
 //        
-//         $this->addElement($days);
+//        $textb = new Zend_Form_Element_Text('TextFieldB');
+//        $textb->setLabel('TextB')->setRequired(false);
+//        $this->addElement($textb);
+        
+        
     }
 
 }
