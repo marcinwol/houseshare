@@ -28,7 +28,7 @@ $(document).ready(function () {
 //    
     
    
-  
+  $('.listing-preview-img img, .photos img ').corner();
    
 //    $("#i_city").autocomplete({
 //        source: "/houseshare/public/index/getcities",
