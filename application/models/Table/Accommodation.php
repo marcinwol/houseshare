@@ -131,6 +131,7 @@ class My_Model_Table_Accommodation extends Zend_Db_Table_Abstract {
                 ->joinInner('ADDRESS', 'ACCOMMODATION.addr_id = ADDRESS.addr_id', '')
                 ->joinInner('CITY', 'ADDRESS.city_id = CITY.city_id', array('CITY.city_id', 'CITY.name'))
                 ->order('count DESC')
+                ->where('ACCOMMODATION.is_enabled = ?', 1)
                 ->limit($limit)
                 ->group('CITY.name');
 
