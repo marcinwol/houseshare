@@ -437,6 +437,7 @@ class UserController extends Zend_Controller_Action {
         $createForm = new My_Form_UserCreate();
         $createForm->removePasswordFields();
         $createForm->makeDisplayGroups()->removeLegend();
+        $createForm->removeElement('cancel');
 
 
         // pupulate with email grabbed from the provieder
