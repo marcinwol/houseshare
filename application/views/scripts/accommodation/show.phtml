@@ -1,4 +1,8 @@
-
+<?php
+if ($this->preview == true) {
+  //  echo $this->partial('_partials/acc-add-steps-desc.phtml', null, array('active' => 'step4'));
+}
+?>
 <?php
 // <?php echo $this->gravatar($this->user['email'], array('imgSize' => 100, 'defaultImg' => 'identicon')); 
 if (strlen($this->acc->user->description) > 0) {
@@ -57,6 +61,11 @@ if ($this->preview == true) {
 }
 ?>
 
+<?php if ($this->preview == true):?>
+   <div class="grid_6">  
+        <h2>Step 4/4: Preview</h2>
+    </div>
+<?php endif;?>
 
 <div class="grid_6 ">&nbsp;</div>
 <h1 class="title"><?php echo $this->acc->title; ?></h1>
