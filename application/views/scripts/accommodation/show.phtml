@@ -212,7 +212,7 @@ if ($this->preview == true) {
                 <?php endif; ?>
                 <?php if ($this->acc->user->email_public == true): ?>    
                     <dt>Email</dt>
-                    <dd><?php echo $this->acc->user->email; ?> </dd>                
+                    <dd><?php echo $this->mailHide($this->acc->user->email); ?> </dd>                
                 <?php endif; ?>
             </dl>
         </div>   
