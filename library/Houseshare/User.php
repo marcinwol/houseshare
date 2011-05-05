@@ -138,6 +138,18 @@ class My_Houseshare_User extends My_Houseshare_Abstract_PropertyAccessor {
         
         return  $nickname;
     }
+    
+    /**
+     * Check if phone is avaliable and if phone and email are public
+     * 
+     * @return boolean
+     */
+    public function contactDetailsAvaliable() {
+        if ((empty($this->phone) || $this->phone_public == false) && ($this->email_public == false) ) {
+            return false;
+        }
+        return true;
+    }
 
     /**
      * Save the password in the PASSWORD table.       

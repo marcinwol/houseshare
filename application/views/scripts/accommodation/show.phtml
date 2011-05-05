@@ -1,6 +1,6 @@
 <?php
 if ($this->preview == true) {
-  //  echo $this->partial('_partials/acc-add-steps-desc.phtml', null, array('active' => 'step4'));
+    //  echo $this->partial('_partials/acc-add-steps-desc.phtml', null, array('active' => 'step4'));
 }
 ?>
 <?php
@@ -61,11 +61,11 @@ if ($this->preview == true) {
 }
 ?>
 
-<?php if ($this->preview == true):?>
-   <div class="grid_6">  
+<?php if ($this->preview == true): ?>
+    <div class="grid_6">  
         <h2>Step 4/4: Preview</h2>
     </div>
-<?php endif;?>
+<?php endif; ?>
 
 <div class="grid_6 ">&nbsp;</div>
 <h1 class="title"><?php echo $this->acc->title; ?></h1>
@@ -153,7 +153,7 @@ if ($this->preview == true) {
                 <dd><?php echo $this->acc->details->parking_spots; ?> </dd>
                 <dt>Furniture</dt>
                 <dd><?php echo $this->acc->details->furnished; ?> </dd>
-                 <dt>Other</dt>
+                <dt>Other</dt>
                 <dd><?php echo $this->acc->details->description; ?> </dd>
             </dl>
         </div>    
@@ -188,37 +188,57 @@ if ($this->preview == true) {
     </div>
 
 
+    <div class="grid_6 ">&nbsp;</div>
 
-
-
-    <div class="section grid_6 alpha">
-        <h1>Contact</h1> 
+    <div class="section grid_4 alpha">
+        <h1>Send query now</h1> 
         <?php if ($this->form): ?>
-            <a href="javascript:none;" id="ask-question">Ask a question</a>
+            <!--            <a href="javascript:none;" id="ask-question">Ask a question</a>-->
             <div id="email-send-form">
                 <?php echo $this->form; ?>        
             </div>
         <?php endif; ?>
     </div>
 
+
+    <?php if ($this->acc->user->contactDetailsAvaliable() == true): ?>
+
+        <div class="section grid_2 omega">
+            <h1>Contact details</h1>             
+            <dl class="">
+                <?php if ($this->acc->user->phone_public == true && !empty($this->acc->user->phone)): ?>
+                    <dt>Phone</dt>
+                    <dd><?php echo $this->acc->user->phone; ?> </dd>
+                <?php endif; ?>
+                <?php if ($this->acc->user->email_public == true): ?>    
+                    <dt>Email</dt>
+                    <dd><?php echo $this->acc->user->email; ?> </dd>                
+                <?php endif; ?>
+            </dl>
+        </div>   
+
+    <?php endif; ?>
+
+
+
 </div>
 
 
 <script type="text/javascript">      
     
-    errors = <?php echo $this->errors; ?>;
-     
-    if (1 === errors) {
-        $(window).scrollTop($('#send').position().top);
-    }
-    
-    $(function() { 
-        
-        $('#ask-question').click(function() {
-            $('#email-form').toggle('slow');
-        });        
-        
-    });
-    
+    //    errors = <?php echo $this->errors; ?>;
+    //     
+    //    if (1 === errors) {
+    //        $(window).scrollTop($('#send').position().top);
+    //    }
+    //    
+    //    $(function() { 
+    //        
+    //        $('#ask-question').click(function() {
+    //            $('#email-form').toggle('slow');
+    //        });        
+    //        
+    //    });
+    //    
 </script>
 
