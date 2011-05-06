@@ -45,7 +45,7 @@ abstract class My_Form_Abstract_AccommodationAbstract extends Zend_Form {
                     '3' => "Appartment",
                 )
         );
-        $accTypeChoice->setRequired(true);
+        //$accTypeChoice->setRequired(true);
         $accTypeChoice->setValue('2');
 
         // add element
@@ -87,7 +87,7 @@ abstract class My_Form_Abstract_AccommodationAbstract extends Zend_Form {
 
         // create new element
         $shortTermChb = $this->createElement('checkbox', 'short_term');
-        $shortTermChb->setRequired(true);
+        //$shortTermChb->setRequired(true);
         $shortTermChb->setLabel('Is short term OK');
         $shortTermChb->setChecked(true);
 
@@ -178,7 +178,7 @@ abstract class My_Form_Abstract_AccommodationAbstract extends Zend_Form {
             '));
 
         $addressPublicChb = $this->createElement('checkbox', 'address_public');
-        $addressPublicChb->setRequired(true);
+        //$addressPublicChb->setRequired(true);
         $addressPublicChb->setLabel('Unit and street numbers visible to all');
         $addressPublicChb->setChecked(false);
         $addressPublicChb->setAttribs(array('tooltip' => 'If yes, than both 
@@ -259,7 +259,7 @@ abstract class My_Form_Abstract_AccommodationAbstract extends Zend_Form {
                     '5' => "5 or more",
                 )
         );
-        $noOfRoomatesInput->setRequired(true);
+        //$noOfRoomatesInput->setRequired(true);
 
 
         // create new element
@@ -272,7 +272,7 @@ abstract class My_Form_Abstract_AccommodationAbstract extends Zend_Form {
                     '2' => "both male and female",
                 )
         );
-        $genderOfRoomatesInput->setRequired(true);
+        //$genderOfRoomatesInput->setRequired(true);
 
         $ageOptions = array();
 
@@ -284,14 +284,14 @@ abstract class My_Form_Abstract_AccommodationAbstract extends Zend_Form {
         $minAgeInput = new Zend_Form_Element_Select('min_age');
         $minAgeInput->setLabel('Approximate min. age of roomates');
         $minAgeInput->addMultiOptions($ageOptions);
-        $minAgeInput->setRequired(true);
+       // $minAgeInput->setRequired(true);
 
 
         // create new element
         $maxAgeInput = new Zend_Form_Element_Select('max_age');
         $maxAgeInput->setLabel('Approximate max. age of roomates');
         $maxAgeInput->addMultiOptions($ageOptions);
-        $maxAgeInput->setRequired(true);
+        //$maxAgeInput->setRequired(true);
         $maxAgeInput->setValue('35');
         $maxAgeInput->addValidator(new My_Validate_MinMaxAge());
 
@@ -319,7 +319,8 @@ abstract class My_Form_Abstract_AccommodationAbstract extends Zend_Form {
                 continue;
             }
             $newElem = $this->createElement('checkbox', "{$pref['name']}");
-            $newElem->setRequired(true)->setLabel(ucfirst($pref['name']) . ' accepted');
+            //$newElem->setRequired(true);
+            $newElem->setLabel(ucfirst($pref['name']) . ' accepted');
             $newElem->setCheckedValue("{$pref['pref_id']}");
             $newElem->setUnCheckedValue('-1');
             $newElem->setChecked(false);
@@ -336,7 +337,7 @@ abstract class My_Form_Abstract_AccommodationAbstract extends Zend_Form {
                     '2' => "does not matter",
                 )
         );
-        $genderPref->setRequired(true)->setValue('2');
+        $genderPref->setRequired(false)->setValue('2');
         $preferencesForm->addElement($genderPref);
 
 
@@ -359,7 +360,8 @@ abstract class My_Form_Abstract_AccommodationAbstract extends Zend_Form {
                 continue;
             }
             $newElem = $this->createElement('checkbox', $feature['name']);
-            $newElem->setRequired(true)->setLabel(ucfirst($feature['name']));
+            //$newElem->setRequired(true);
+            $newElem->setLabel(ucfirst($feature['name']));
             $newElem->setCheckedValue("{$feature['feat_id']}");
             $newElem->setUnCheckedValue('-1');
             $newElem->setChecked(false);
@@ -376,7 +378,7 @@ abstract class My_Form_Abstract_AccommodationAbstract extends Zend_Form {
                     '2' => "Fully furnished"
                 )
         );
-        $furniture->setRequired(true)->setValue('0');
+        $furniture->setRequired(false)->setValue('0');
         $featuresForm->addElement($furniture);
 
         $descriptionInput = $this->createElement('textarea', 'description');
@@ -400,7 +402,8 @@ abstract class My_Form_Abstract_AccommodationAbstract extends Zend_Form {
                 continue;
             }
             $newElem = $this->createElement('checkbox', $feature['name']);
-            $newElem->setRequired(true)->setLabel(ucfirst($feature['name']));
+            //$newElem->setRequired(true);
+            $newElem->setLabel(ucfirst($feature['name']));
             $newElem->setCheckedValue("{$feature['feat_id']}");
             $newElem->setUnCheckedValue('-1');
             $newElem->setChecked(false);
@@ -428,7 +431,7 @@ abstract class My_Form_Abstract_AccommodationAbstract extends Zend_Form {
                     '4' => "4",
                 )
         );
-        $noOfBedrooms->setRequired(true)->setValue('1');
+        $noOfBedrooms->setRequired(false)->setValue('1');
         $appartmentDetailsForm->addElement($noOfBedrooms);
         
         
@@ -443,7 +446,7 @@ abstract class My_Form_Abstract_AccommodationAbstract extends Zend_Form {
                     '4' => "4",
                 )
         );
-        $noOfBathrooms->setRequired(true)->setValue('1');
+        $noOfBathrooms->setRequired(false)->setValue('1');
         $appartmentDetailsForm->addElement($noOfBathrooms);
         
         $noOfParkingSpots = new Zend_Form_Element_Select('parking_spots');
@@ -457,7 +460,7 @@ abstract class My_Form_Abstract_AccommodationAbstract extends Zend_Form {
                     '4' => "4",
                 )
         );
-        $noOfParkingSpots->setRequired(true)->setValue('0');
+        $noOfParkingSpots->setRequired(false)->setValue('0');
         $appartmentDetailsForm->addElement($noOfParkingSpots);
         
          // create element for furnishead as it is not binary.
@@ -470,7 +473,7 @@ abstract class My_Form_Abstract_AccommodationAbstract extends Zend_Form {
                     '2' => "Fully furnished"
                 )
         );
-        $furniture->setRequired(true)->setValue('0');
+        $furniture->setRequired(false)->setValue('0');
         $appartmentDetailsForm->addElement($furniture);
         
         
@@ -500,7 +503,7 @@ abstract class My_Form_Abstract_AccommodationAbstract extends Zend_Form {
                 continue;
             }
             $newElem = $this->createElement('checkbox', $feature['name']);
-            $newElem->setRequired(true)->setLabel(ucfirst($feature['name']));
+            $newElem->setRequired(false)->setLabel(ucfirst($feature['name']));
             $newElem->setChecked(false);
             $featuresForm->addElement($newElem);
         }

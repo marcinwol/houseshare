@@ -56,7 +56,7 @@ class My_Form_MainPage extends Zend_Form {
         }
 
         $maxPrice->addMultiOptions(array($priceOptions));
-        $maxPrice->setRequired(true);
+       // $maxPrice->setRequired(true);
         $maxPrice->setValue('1000');
         $maxPrice->addDecorator('AnyMarkup', array(
             'markup' => '<span>PLN</span>',

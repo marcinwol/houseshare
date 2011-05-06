@@ -123,6 +123,10 @@ fieldset#fieldset-acc_features dt, fieldset#fieldset-acc_features dd {
    display: inline;
 }
 
+label.required {
+    background:#ffffff url('../images/required_field.gif') no-repeat right top;
+    padding-right: 15px;
+}
 
 /**** ACCOMMODATION ADD STEPS ******/
 
