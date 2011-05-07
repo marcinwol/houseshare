@@ -5,7 +5,7 @@
 
 
 $(document).ready(function () {
-    
+       
     
     // JQTIP 
     
@@ -44,6 +44,9 @@ $(document).ready(function () {
             }
         });
     };
+    
+    // addQtip("basic_info-title",  'Kontaktowy numer telefonu.');
+   
    
     $('input[tooltip], textarea[tooltip] ').each(function()  {        
         $(this).qtip({

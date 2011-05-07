@@ -260,8 +260,6 @@ abstract class My_Form_Abstract_AccommodationAbstract extends Zend_Form {
                 )
         );
         //$noOfRoomatesInput->setRequired(true);
-
-
         // create new element
         $genderOfRoomatesInput = new Zend_Form_Element_Select('gender');
         $genderOfRoomatesInput->setLabel('Gender of roomates');
@@ -284,9 +282,7 @@ abstract class My_Form_Abstract_AccommodationAbstract extends Zend_Form {
         $minAgeInput = new Zend_Form_Element_Select('min_age');
         $minAgeInput->setLabel('Approximate min. age of roomates');
         $minAgeInput->addMultiOptions($ageOptions);
-       // $minAgeInput->setRequired(true);
-
-
+        // $minAgeInput->setRequired(true);
         // create new element
         $maxAgeInput = new Zend_Form_Element_Select('max_age');
         $maxAgeInput->setLabel('Approximate max. age of roomates');
@@ -412,15 +408,15 @@ abstract class My_Form_Abstract_AccommodationAbstract extends Zend_Form {
 
         return $featuresForm;
     }
-    
-        protected function _makeAppartmentDetailsSubForm() {
-            
+
+    protected function _makeAppartmentDetailsSubForm() {
+
         $appartmentDetailsForm = new Zend_Form_SubForm();
         $appartmentDetailsForm->setLegend('Appartment details');
-       // $appartmentDetailsForm->removeDecorator('HtmlTag');
-      //  var_dump($appartmentDetailsForm->getDecorators());
-        
-               
+        // $appartmentDetailsForm->removeDecorator('HtmlTag');
+        //  var_dump($appartmentDetailsForm->getDecorators());
+
+
         $noOfBedrooms = new Zend_Form_Element_Select('bedrooms');
         $noOfBedrooms->setLabel('No of bedrooms');
         $noOfBedrooms->addMultiOptions(
@@ -433,9 +429,9 @@ abstract class My_Form_Abstract_AccommodationAbstract extends Zend_Form {
         );
         $noOfBedrooms->setRequired(false)->setValue('1');
         $appartmentDetailsForm->addElement($noOfBedrooms);
-        
-        
-        
+
+
+
         $noOfBathrooms = new Zend_Form_Element_Select('bathrooms');
         $noOfBathrooms->setLabel('No of bathrooms');
         $noOfBathrooms->addMultiOptions(
@@ -448,7 +444,7 @@ abstract class My_Form_Abstract_AccommodationAbstract extends Zend_Form {
         );
         $noOfBathrooms->setRequired(false)->setValue('1');
         $appartmentDetailsForm->addElement($noOfBathrooms);
-        
+
         $noOfParkingSpots = new Zend_Form_Element_Select('parking_spots');
         $noOfParkingSpots->setLabel('No of parking spots');
         $noOfParkingSpots->addMultiOptions(
@@ -462,8 +458,8 @@ abstract class My_Form_Abstract_AccommodationAbstract extends Zend_Form {
         );
         $noOfParkingSpots->setRequired(false)->setValue('0');
         $appartmentDetailsForm->addElement($noOfParkingSpots);
-        
-         // create element for furnishead as it is not binary.
+
+        // create element for furnishead as it is not binary.
         $furniture = new Zend_Form_Element_Select('furnished');
         $furniture->setLabel('Furniture');
         $furniture->addMultiOptions(
@@ -475,9 +471,9 @@ abstract class My_Form_Abstract_AccommodationAbstract extends Zend_Form {
         );
         $furniture->setRequired(false)->setValue('0');
         $appartmentDetailsForm->addElement($furniture);
-        
-        
-         // create new element
+
+
+        // create new element
         $descriptionInput = $this->createElement('textarea', 'description');
         $descriptionInput->setRequired(false)->setLabel('Any other details');
         $descriptionInput->setAttribs(array('cols' => 20, 'rows' => 5));
@@ -558,6 +554,12 @@ abstract class My_Form_Abstract_AccommodationAbstract extends Zend_Form {
             Zend_Validate_EmailAddress::INVALID_FORMAT => 'Incorrect email format'
         ));
         $emailInput->addValidator($emailValidator);
+        $emailInput->setAttribs(
+                array(
+                    'tooltip' => 'Email that can be used to contact you'
+                )
+        );
+
 
 
         // create new element

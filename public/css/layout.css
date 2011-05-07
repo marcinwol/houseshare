@@ -104,17 +104,18 @@ ul.top-cities a span {
 
 /**** ACCOMMODATION ADD FORM ******/
 
-form#accommodation-form input, form#accommodation-form textarea, form#accommodation-form select {
+form#accommodation-form input, form#accommodation-form textarea, form#accommodation-form select, 
+form#register-form input, form#register-form textarea {
     width:680px;
     border: 1px solid #b5b5b5;
     height: 28px;
     font-size: 18px;
 }
-form#accommodation-form textarea {
+form#accommodation-form textarea,  form#register-form textarea {
     height: 100px;
 }
 
-form#accommodation-form input[type=checkbox] {
+form#accommodation-form input[type=checkbox], form#register-form input[type=checkbox] {
     width: 20px;
     height: 12px;
 }

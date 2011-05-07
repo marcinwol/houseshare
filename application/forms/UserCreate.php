@@ -18,6 +18,8 @@ class My_Form_UserCreate extends My_Form_Abstract_AccommodationAbstract {
     public function init() {
 
         parent::init();
+        
+        $this->setAttrib('id', 'register-form');
 
         $aboutYouSubForm = $this->_makeAboutYouSubForm();
         $this->addSubForm($aboutYouSubForm, self::ABOUT_YOU_SUBFORM_NAME);
