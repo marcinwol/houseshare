@@ -26,6 +26,7 @@ $(function() {
             //var addr_lat = $(this).find('input#addr_lat').val();
             var lat_input = $(this).find('input#addr_lat');
             var lng_input = $(this).find('input#addr_lng');
+            var label = $(this).find('input#label');
         
             if (lat_input.length != 1 && lng_input.length != 1) {
                 return;
@@ -33,16 +34,26 @@ $(function() {
         
             var addr_lat = lat_input.val();
             var addr_lng = lng_input.val();
+            var label = label.val();
         
                 
             var  latlng = new google.maps.LatLng(addr_lat, addr_lng);
         
             // Creating a  marker and adding it to the map
-            marker = new google.maps.Marker({
+            //            marker = new google.maps.Marker({
+            //                map: map,
+            //                draggable: false,
+            //                position: latlng
+            //            });  
+
+            marker = new MarkerWithLabel({
+                position: latlng,
+                draggable: false,              
                 map: map,
-                draggable: false,
-                position: latlng
-            });  
+                labelContent: label,
+                labelAnchor: new google.maps.Point(0,42),
+                labelClass: "maplabel" // the CSS class for the label
+            });
             
             // scroll the map to position of the marker
             if (pan) {

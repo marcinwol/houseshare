@@ -130,6 +130,20 @@ label.required {
     padding-right: 15px;
 }
 
+
+ .maplabel {
+     color: black;
+     background-color: white;
+     font-family: "Lucida Grande", "Arial", sans-serif;
+     font-size: 10px;
+     font-weight: bold;
+     text-align: center;
+     padding-left:2px;
+     padding-right:2px;
+     border: 1px solid #D1D1D1;
+     white-space: nowrap;
+   }
+
 /**** ACCOMMODATION ADD STEPS ******/
 
 .current-step {
