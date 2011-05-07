@@ -24,7 +24,7 @@ class My_Form_LimitForm extends Zend_Form {
         $this->setAttrib('name', 'limit-form');
 
         $maxPrice = $this->createElement('text', 'maxprice');
-        $maxPrice->setRequired(true)->setLabel('Max price per month: ');
+        $maxPrice->setRequired(false)->setLabel('Max price per month: ');
         $maxPrice->setAttrib('style', 'border: 0px; width:50px;');
   
         $slider = create_function(

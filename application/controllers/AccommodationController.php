@@ -191,9 +191,9 @@ class AccommodationController extends Zend_Controller_Action {
             $addAccForm->removeSubForm('about_you');
         }
 
-        if ($this->getRequest()->isPost()) {
+        if ($this->getRequest()->isPost()) {                       
             if ($addAccForm->isValid($_POST)) {
-
+                
                 // get form data
                 $formData = $addAccForm->getValues();
 
