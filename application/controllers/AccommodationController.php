@@ -83,6 +83,25 @@ class AccommodationController extends Zend_Controller_Action {
         $this->view->form = $form;
     }
 
+    public function previewAction() {
+        
+        if ($this->getRequest()->isXmlHttpRequest()) {
+            
+            $this->_helper->layout->disableLayout();
+            
+            $acc_id = $this->getRequest()->getParam('id');
+
+            $acc_id = (int) $acc_id;
+            $acc = My_Houseshare_Factory::accommodation($acc_id);
+            // increase view count
+            $acc->addOneView();
+
+            $this->view->acc = $acc;          
+        } else {
+             throw new Exception('Not an ajax requrests');
+        }
+    }
+
     public function listAction() {
 
         $city_id = $cityName = $this->_request->getParam('city', null);
@@ -193,9 +212,9 @@ class AccommodationController extends Zend_Controller_Action {
             $addAccForm->removeSubForm('about_you');
         }
 
-        if ($this->getRequest()->isPost()) {                       
+        if ($this->getRequest()->isPost()) {
             if ($addAccForm->isValid($_POST)) {
-                
+
                 // get form data
                 $formData = $addAccForm->getValues();
 
@@ -456,7 +475,7 @@ class AccommodationController extends Zend_Controller_Action {
     }
 
     public function editAction() {
-        
+
         $acc_id = $this->getRequest()->getParam('id', null);
 
         if (empty($acc_id)) {
@@ -480,20 +499,20 @@ class AccommodationController extends Zend_Controller_Action {
         $accForm = new My_Form_Accommodation();
         $accForm->removeSubForm('about_you');
         $accForm->addCancel();
-        
+
         // don't allow for changing accommodation type
         $accForm->basic_info->acc_type->setAttrib('disabled', true);
         $accForm->basic_info->acc_type->setRequired(false);
-        
+
         // get acc_type from database
         $accTypeID = $acc->type_id;
 
 
         if ($this->getRequest()->isPost()) {
             if ($accForm->isValid($_POST)) {
-                
-                
-                 if ($accForm->cancel->isChecked()) {
+
+
+                if ($accForm->cancel->isChecked()) {
                     // if cancel button was clicked                    
                     return $this->_redirect('/user');
                 }

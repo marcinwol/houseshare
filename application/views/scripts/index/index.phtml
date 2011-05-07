@@ -40,16 +40,14 @@ $mapDiv = '<div id="map" style="height: 260px"></div>';
 
 
 $this->sideBarElement('Map view', $mapDiv, array('place' => 'prepend'));
-
-
 ?>
 <script type="text/javascript" src="<?php echo $this->baseUrl('/js/mapmainpage.js'); ?>"></script>
 
 <script type="text/javascript">
-$(function() {
-   // center map in poland 
-   showMarker(52.385459, 19.131691,5); 
-});
+    $(function() {
+        // center map in poland 
+        showMarker(52.385459, 19.131691,5); 
+    });
 </script>
 
 <?php

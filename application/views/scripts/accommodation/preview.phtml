@@ -1,0 +1,29 @@
+<div class="preview">
+<h1><?php echo "{$this->acc->title}"; ?></h1>
+<h2><?php echo "Address: {$this->acc->address->street}, {$this->acc->address->city} " ; ?></h2>
+<h3><?php echo "Cena: {$this->acc->price} PLN/month"; ?></h3>
+<p><br/></p>
+<p>
+    <?php echo $this->acc->description; ?>
+</p>
+<p><br/></p>
+<?php
+if (count($this->acc->photosurls) > 0) {
+   
+    $thumbs = $this->acc->thumbsurls;
+
+    $imgsHtml = '';
+    $imgsHtml .= '<ul class="photospreview">';
+    foreach ($this->acc->photosurls as $photo_id => $url) {
+        $thumb = '<img src="' . $thumbs[$photo_id] . '" alt="thumbs" width="120px" heigth="98px" />';
+        $imgsHtml .= '<li>';
+        $imgsHtml .= $thumb;
+        $imgsHtml .= '</li>';
+    }
+    $imgsHtml .= '</ul>';
+    
+    echo $imgsHtml;
+} 
+?>   
+
+</div>

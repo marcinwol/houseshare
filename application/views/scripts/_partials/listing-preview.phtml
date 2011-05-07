@@ -1,13 +1,12 @@
 <div class="listing-preview">
-    
-    
+
+
     <?php
-        if (!$this->acc instanceof My_Houseshare_Accommodation) {         
-            $this->acc = My_Houseshare_Factory::accommodation($this->acc->acc_id);
-        }
-    
+    if (!$this->acc instanceof My_Houseshare_Accommodation) {
+        $this->acc = My_Houseshare_Factory::accommodation($this->acc->acc_id);
+    }
     ?>
-    
+
     <?php
     $firstThumbPath = $this->baseUrl('/images/thumbs/no_pic.jpg');
 
@@ -16,30 +15,34 @@
         $firstThumbPath = array_shift($urls);
     }
     ?>
-      <div class='listing-preview-img'>
-    <a href="<?php echo $this->baseUrl('/accommodation/show/id/' . $this->acc->acc_id); ?>">
-        <img src="<?php echo $firstThumbPath; ?>" alt="Thumb image" class="thumb" height="90px"  />
-    </a>
-        </div>
+    <div class='listing-preview-img'>
+        <a href="<?php echo $this->baseUrl('/accommodation/show/id/' . $this->acc->acc_id); ?>">
+            <img src="<?php echo $firstThumbPath; ?>" alt="Thumb image" class="thumb" height="90px"  />
+        </a>
+    </div>
     <div class="listing-preview-detials" style="float:left">
         <h1 class="advert-title">
+            
             <a href="<?php echo $this->baseUrl('/accommodation/show/id/' . $this->acc->acc_id); ?>">
-            <?php echo  $this->truncate(ucfirst(strtolower($this->acc->title)),0, 60); ?>
+                <?php echo $this->truncate(ucfirst(strtolower($this->acc->title)), 0, 60); ?>
             </a>
-        </h1>
+             <a id="aID<?php echo $this->acc->acc_id; ?>" href="">
+                <img src="<?php echo $this->baseUrl('/images/preview-icon.gif'); ?>" title="Quick preview" alt="Preview" />
+            </a>
+        </h1>        
         <div class="advert-info" >
 
             <div> <?php echo $this->truncate($this->acc->description, 0, 120); ?></div>               
             <dl>
-                <?php $city =  $this->acc->city . ', ' . $this->acc->state;?>
-                <dt>City: </dt><dd><a href="<?php echo $this->baseUrl('/accommodation/list/city/' . $this->acc->address->city_id);?>"><?php echo $city;?></a></dd>                                                           
+                <?php $city = $this->acc->city . ', ' . $this->acc->state; ?>
+                <dt>City: </dt><dd><a href="<?php echo $this->baseUrl('/accommodation/list/city/' . $this->acc->address->city_id); ?>"><?php echo $city; ?></a></dd>                                                           
                 <dt>Type: </dt><dd><?php echo $this->acc->getTypeAsString(); ?></dd> 
-                
-                
-                <dt>Avaliable <?php echo $this->avaliable($this->acc)->inOrFrom();?>: </dt>
-                
+
+
+                <dt>Avaliable <?php echo $this->avaliable($this->acc)->inOrFrom(); ?>: </dt>
+
                 <dd>                 
-                <?php echo $this->avaliable($this->acc)->time(); ?>
+                    <?php echo $this->avaliable($this->acc)->time(); ?>
                 </dd> 
             </dl>
             <dl class="advert-stats">
@@ -51,28 +54,47 @@
     </div>
     <div class="listing-preview-price">
         <p class="value"><?php echo $this->acc->price; ?></p>
-        <p><?php echo $this->translate('Per month');?></p>
+        <p><?php echo $this->translate('Per month'); ?></p>
     </div>
+
+
+    <!-- div used for jquery ui dialog preview of advertisment -->    
+    <div id="dialogDiv<?php echo $this->acc->acc_id; ?>"></div>
+    <script>
+        $(function() {
+            
+            
+        
+        }
+    );
+    </script>
+
     <div style="float:clear"></div>
-    
+
     <?php
     // get marker lat and lng values if possible
     $lat = $this->acc->address->lat;
     $lng = $this->acc->address->lng;
     $label = '';
-    
+
     if ('index' == $this->action()) {
         $label = $this->acc->city;
     } else if ('list' == $this->action()) {
         $label = $this->acc->address->street;
     }
-    
-    
 
+
+
+    echo '<input type="hidden" id="acc_id" value="' . $this->acc->acc_id . '" />';
+    echo '<input type="hidden" id="baseUrl" value="' . $this->baseUrl('/') . '" />';
+    
     if (!empty($lat) && !empty($lng)) {
         echo '<input type="hidden" id="addr_lat" value="' . $lat . '" />';
         echo '<input type="hidden" id="addr_lng" value="' . $lng . '" />';
         echo '<input type="hidden" id="label" value="' . $label . '" />';
     }
+    
+   
+    
     ?>
 </div>
