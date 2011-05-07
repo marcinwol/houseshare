@@ -20,7 +20,7 @@
 class My_Houseshare_Address extends My_Houseshare_Abstract_PropertyAccessor {
 
     protected $_modelName = 'View_Address';
-
+    
     /**
      * Save new address in the database if necessery or update
      * exhisting address if possible. 

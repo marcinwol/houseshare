@@ -1,6 +1,6 @@
 <div class="preview">
 <h1><?php echo "{$this->acc->title}"; ?></h1>
-<h2><?php echo "Address: {$this->acc->address->street}, {$this->acc->address->city} " ; ?></h2>
+<h2><?php echo "Address: {$this->address($this->acc)} " ; ?></h2>
 <h3><?php echo "Cena: {$this->acc->price} PLN/month"; ?></h3>
 <p><br/></p>
 <p>

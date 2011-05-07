@@ -10,6 +10,7 @@ $(function() {
     //get lat and lng of the address
     var addr_lat = $("#addr_lat").val();
     var addr_lng = $("#addr_lng").val();
+    var label = $(this).find('input#label').val();
         
     var  latlng = new google.maps.LatLng(addr_lat, addr_lng);
 
@@ -21,12 +22,24 @@ $(function() {
     });
     
     
+    
+    
     // Creating a  marker and adding it to the map
-    marker = new google.maps.Marker({
-        map: map,
-        draggable: false,
-        position: latlng
-    });
+//    marker = new google.maps.Marker({
+    //        map: map,
+    //        draggable: false,
+    //        position: latlng
+    //    });
+    //    
+    
+     marker = new MarkerWithLabel({
+                position: latlng,
+                draggable: false,              
+                map: map,
+                labelContent: label,
+                labelAnchor: new google.maps.Point(0,42),
+                labelClass: "maplabel" // the CSS class for the label
+            });
     
     
 //    // get the address from the form
