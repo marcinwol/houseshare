@@ -166,7 +166,7 @@ class AccommodationController extends Zend_Controller_Action {
 
 
         //$accs = $accModel->fetchAll($accSelect);
-        $accPaginator = $accModel->getAccPaginator($accSelect, $page, 3);
+        $accPaginator = $accModel->getAccPaginator($accSelect, $page);
 
         if ($accPaginator->count() < $page) {
             $page = $accPaginator->count();

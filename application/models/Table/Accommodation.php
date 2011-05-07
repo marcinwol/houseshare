@@ -84,7 +84,7 @@ class My_Model_Table_Accommodation extends Zend_Db_Table_Abstract {
     
     
     /**
-     * Get accommodation list paginnator.
+     * Get accommodation list paginator.
      *  
      * @param Zend_Db_Select $query
      * @param int $page
