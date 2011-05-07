@@ -15,7 +15,7 @@ class My_Form_SendEmail extends Zend_Form {
     public function init() {
         $this->setMethod('post');
       //  $this->setAttrib('style', 'display:none');
-        $this->setAttrib('id', 'email-form');
+        $this->setAttrib('id', 'form-sendemail');
 
         // add an email field
         $email = $this->createElement('text', 'email');

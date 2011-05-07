@@ -3,6 +3,22 @@ if ($this->preview == true) {
     //  echo $this->partial('_partials/acc-add-steps-desc.phtml', null, array('active' => 'step4'));
 }
 ?>
+
+<?php
+if ($this->acc->user->contactDetailsAvaliable() == true) {
+    $sideBarHtml = '<ul>';
+    if ($this->acc->user->phone_public == true && !empty($this->acc->user->phone)) {
+        $sideBarHtml .= '<li><strong>Phone:</strong> ' . $this->acc->user->phone . '</li>';
+    }
+    if ($this->acc->user->email_public == true) {
+        $sideBarHtml .= '<li><strong>Email:</strong> ' . $this->mailHide($this->acc->user->email) . '</li>';
+    }               
+    $sideBarHtml .= '</ul>';
+    
+    $this->sideBarElement('Contact details', $sideBarHtml);
+    
+}
+?>
 <?php
 // <?php echo $this->gravatar($this->user['email'], array('imgSize' => 100, 'defaultImg' => 'identicon')); 
 if (strlen($this->acc->user->description) > 0) {
@@ -12,10 +28,10 @@ if (strlen($this->acc->user->description) > 0) {
     $sideBarHtml = '<ul>';
     $sideBarHtml .= '<li>' . $this->acc->user->description . '</li>';
     $sideBarHtml .= '</ul>';
-} else {
-    $sideBarHtml = '<ul><li>' . $this->translate('No information avaliable') . '</li></ul>';
-}
-$this->sideBarElement('About ' . $this->acc->user->nickname, $sideBarHtml);
+    
+    $this->sideBarElement('About ' . $this->acc->user->nickname, $sideBarHtml);
+} 
+
 ?>
 
 <?php
@@ -188,9 +204,8 @@ if ($this->preview == true) {
     </div>
 
 
-    <div class="grid_6 ">&nbsp;</div>
 
-    <div class="section grid_4 alpha">
+    <div class="section grid_6 alpha">
         <h1>Send query now</h1> 
         <?php if ($this->form): ?>
             <!--            <a href="javascript:none;" id="ask-question">Ask a question</a>-->
@@ -200,45 +215,7 @@ if ($this->preview == true) {
         <?php endif; ?>
     </div>
 
-
-    <?php if ($this->acc->user->contactDetailsAvaliable() == true): ?>
-
-        <div class="section grid_2 omega">
-            <h1>Contact details</h1>             
-            <dl class="">
-                <?php if ($this->acc->user->phone_public == true && !empty($this->acc->user->phone)): ?>
-                    <dt>Phone</dt>
-                    <dd><?php echo $this->acc->user->phone; ?> </dd>
-                <?php endif; ?>
-                <?php if ($this->acc->user->email_public == true): ?>    
-                    <dt>Email</dt>
-                    <dd><?php echo $this->mailHide($this->acc->user->email); ?> </dd>                                            
-                <?php endif; ?>
-            </dl>
-        </div>   
-
-    <?php endif; ?>
-
-
-
 </div>
 
 
-<script type="text/javascript">      
-    
-    //    errors = <?php echo $this->errors; ?>;
-    //     
-    //    if (1 === errors) {
-    //        $(window).scrollTop($('#send').position().top);
-    //    }
-    //    
-    //    $(function() { 
-    //        
-    //        $('#ask-question').click(function() {
-    //            $('#email-form').toggle('slow');
-    //        });        
-    //        
-    //    });
-    //    
-</script>
 
