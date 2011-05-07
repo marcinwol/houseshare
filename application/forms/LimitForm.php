@@ -71,6 +71,12 @@ class My_Form_LimitForm extends Zend_Form {
         $accTypeRoom->setCheckedValue('2');         
         $this->addElement($accTypeRoom);
         
+         // accommodation type selection
+        $accTypeAppart = $this->createElement('checkbox', "appartment");
+        $accTypeAppart->setLabel('Appartment')->setChecked(true);
+        $accTypeAppart->setCheckedValue('3');         
+        $this->addElement($accTypeAppart);
+        
         
         // have internet
         $internet = $this->createElement('checkbox', "internet");

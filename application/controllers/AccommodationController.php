@@ -118,6 +118,7 @@ class AccommodationController extends Zend_Controller_Action {
 
         $bed = $limitForm->getElement('bed')->getCheckedValue();
         $room = $limitForm->getElement('room')->getCheckedValue();
+        $appartment = $limitForm->getElement('appartment')->getCheckedValue();
         $internet = $limitForm->getElement('internet')->getCheckedValue();
 
         if ($this->getRequest()->isPost()) {
@@ -127,6 +128,7 @@ class AccommodationController extends Zend_Controller_Action {
                 $maxPrice = $formData['maxprice'];
                 $bed = $formData['bed'];
                 $room = $formData['room'];
+                $appartment = $formData['appartment'];
                 $internet = $formData['internet'];
 
                 $limitForm->getElement('maxpricedefault')->setValue($maxPrice);
@@ -157,7 +159,7 @@ class AccommodationController extends Zend_Controller_Action {
             $accSelect->where("ACCOMMODATION.price < ?", $maxPrice);
         }
 
-        $accSelect->where("ACCOMMODATION.type_id IN ($bed, $room)");
+        $accSelect->where("ACCOMMODATION.type_id IN ($bed, $room, $appartment)");
 
         $accSelect->distinct();
 
