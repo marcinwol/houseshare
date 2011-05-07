@@ -9,6 +9,7 @@ application/resources
 /.zfproject.xml
 *.bak
 public/images
+public/captchas
 *.orig
 /application/forms/Decorator/.LCKCaptcha.php~
 /application/forms/Element/.LCKCaptcha.php~

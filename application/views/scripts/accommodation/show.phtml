@@ -3,6 +3,17 @@ if ($this->preview == true) {
     //  echo $this->partial('_partials/acc-add-steps-desc.phtml', null, array('active' => 'step4'));
 }
 ?>
+<?php
+if ($this->preview != true) {
+    $sideBarHtml = '<ul>';
+
+    if ($this->form) {
+        $sideBarHtml .= '<li><div id="email-send-form">' . $this->form . '</div></li>';
+    }
+     $sideBarHtml .= '</ul>';
+    $this->sideBarElement('Send query ', $sideBarHtml);
+}
+?>    
 
 <?php
 if ($this->acc->user->contactDetailsAvaliable() == true) {
@@ -12,11 +23,10 @@ if ($this->acc->user->contactDetailsAvaliable() == true) {
     }
     if ($this->acc->user->email_public == true) {
         $sideBarHtml .= '<li><strong>Email:</strong> ' . $this->mailHide($this->acc->user->email) . '</li>';
-    }               
+    }
     $sideBarHtml .= '</ul>';
-    
+
     $this->sideBarElement('Contact details', $sideBarHtml);
-    
 }
 ?>
 <?php
@@ -28,11 +38,13 @@ if (strlen($this->acc->user->description) > 0) {
     $sideBarHtml = '<ul>';
     $sideBarHtml .= '<li>' . $this->acc->user->description . '</li>';
     $sideBarHtml .= '</ul>';
-    
-    $this->sideBarElement('About ' . $this->acc->user->nickname, $sideBarHtml);
-} 
 
+    $this->sideBarElement('About ' . $this->acc->user->nickname, $sideBarHtml);
+}
 ?>
+
+
+
 
 <?php
 if (count($this->acc->photosurls) > 0) {
@@ -90,7 +102,7 @@ if ($this->preview == true) {
     <div class="section grid_4 alpha">
         <h1 class="title">Description</h1>
         <p>
-            <?php echo $this->acc->description; ?>
+<?php echo $this->acc->description; ?>
         </p>
     </div>
     <div class="section grid_2 omega" >
@@ -100,7 +112,7 @@ if ($this->preview == true) {
             <dt>Bond</dt>
             <dd><?php echo $this->acc->bond; ?> PLN</dd>
 
-            <?php if (strlen($this->acc->price_info) > 0): ?>            
+<?php if (strlen($this->acc->price_info) > 0): ?>            
                 <dt>Price info</dt>
                 <dd><?php echo $this->acc->price_info; ?></dd>        
             <?php endif; ?>
@@ -123,26 +135,26 @@ if ($this->preview == true) {
         </dl>
     </div>
 
-    <?php
-    $lat = $this->acc->address->lat;
-    $lng = $this->acc->address->lng;
+<?php
+$lat = $this->acc->address->lat;
+$lng = $this->acc->address->lng;
 
-    if (!empty($lat) && !empty($lng)) {
-        echo '<input type="hidden" id="addr_lat" value="' . $lat . '" />';
-        echo '<input type="hidden" id="addr_lng" value="' . $lng . '" />';
-        echo '<div id="map" class="grid_6 " style="height: 300px"> </div>';
-        // load google maps api
-        $this->headScript()->appendFile(
-                'http://maps.google.com/maps/api/js?sensor=false&region=PL', $type = 'text/javascript'
-        );
-    }
-    ?>
+if (!empty($lat) && !empty($lng)) {
+    echo '<input type="hidden" id="addr_lat" value="' . $lat . '" />';
+    echo '<input type="hidden" id="addr_lng" value="' . $lng . '" />';
+    echo '<div id="map" class="grid_6 " style="height: 300px"> </div>';
+    // load google maps api
+    $this->headScript()->appendFile(
+            'http://maps.google.com/maps/api/js?sensor=false&region=PL', $type = 'text/javascript'
+    );
+}
+?>
     <script type="text/javascript" src="<?php echo $this->baseUrl('/js/mapshow.js'); ?>"></script>
 
 
 
 
-    <?php if ($this->acc instanceof My_Houseshare_Shared): ?>
+<?php if ($this->acc instanceof My_Houseshare_Shared): ?>
         <div class="section grid_2 alpha">
             <h1>Roomates</h1> 
             <dl class="">
@@ -157,7 +169,7 @@ if ($this->preview == true) {
 
             </dl>
         </div>
-    <?php elseif ($this->acc instanceof My_Houseshare_Appartment): ?>
+<?php elseif ($this->acc instanceof My_Houseshare_Appartment): ?>
         <div class="section grid_2 alpha">
             <h1>Appartment details</h1>             
             <dl class="">
@@ -173,47 +185,37 @@ if ($this->preview == true) {
                 <dd><?php echo $this->acc->details->description; ?> </dd>
             </dl>
         </div>    
-    <?php endif; ?>
+<?php endif; ?>
 
     <div class="section grid_2 alpha  ">
         <h1>Preferences</h1> 
-        <?php
-        $prefs = $this->acc->preferences;
-        if (count($prefs) > 0) {
-            echo '<ul class="feats-prefs">';
-            foreach ($prefs as $p) {
-                echo '<li>' . $p->getName() . '</li>';
-            }
-            echo '</ul>';
-        }
-        ?>
+<?php
+$prefs = $this->acc->preferences;
+if (count($prefs) > 0) {
+    echo '<ul class="feats-prefs">';
+    foreach ($prefs as $p) {
+        echo '<li>' . $p->getName() . '</li>';
+    }
+    echo '</ul>';
+}
+?>
     </div>
 
     <div class="section grid_2 omega ">
         <h1>Features</h1> 
-        <?php
-        $features = $this->acc->features;
-        if (count($features) > 0) {
-            echo '<ul class="feats-prefs">';
-            foreach ($features as $f) {
-                echo '<li>' . $f->getName() . '</li>';
-            }
-            echo '</ul>';
-        }
-        ?>
+<?php
+$features = $this->acc->features;
+if (count($features) > 0) {
+    echo '<ul class="feats-prefs">';
+    foreach ($features as $f) {
+        echo '<li>' . $f->getName() . '</li>';
+    }
+    echo '</ul>';
+}
+?>
     </div>
 
 
-
-    <div class="section grid_6 alpha">
-        <h1>Send query now</h1> 
-        <?php if ($this->form): ?>
-            <!--            <a href="javascript:none;" id="ask-question">Ask a question</a>-->
-            <div id="email-send-form">
-                <?php echo $this->form; ?>        
-            </div>
-        <?php endif; ?>
-    </div>
 
 </div>
 

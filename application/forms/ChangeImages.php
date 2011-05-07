@@ -15,6 +15,8 @@ class My_Form_ChangeImages extends Zend_Form {
     protected $_images = array();
 
     public function init2() {
+        
+        $this->setAttrib('id', 'form-changeimages');
 
         $checkBoxes = $this->_makeMultiImgMultiOptions();
 
