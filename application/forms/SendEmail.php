@@ -21,20 +21,28 @@ class My_Form_SendEmail extends Zend_Form {
         $email = $this->createElement('text', 'email');
         $email->setLabel('Your email');
         $email->setRequired()->addValidator('EmailAddress');
+        $email->removeDecorator('Errors');
+       
 
         // ad a textarea with a body of the email
         $body = $this->createElement('textarea', 'message');
-        $body->setLabel('Your query about the advertisment');
+        $body->setLabel('Your query');
         $body->setRequired();
+        $body->removeDecorator('Errors');
         $body->addValidator('StringLength', array('min' => 30, 'max' => 256));
+    
 
-
-        $captcha = $this->_makeRecaptchaElement2();
+        $accID = $this->createElement('hidden','acc_id');        
+        $accID->removeDecorator('Label');
+        $this->addElement($accID);
+        
+        
+        //$captcha = $this->_makeRecaptchaElement2();
 
         $send = $this->createElement('submit', 'send');
         $send->setLabel('Send');
 
-        $this->addElements(array($email, $body, $captcha, $send));
+        $this->addElements(array($email, $body, $send));
     }
 
     /**

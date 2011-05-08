@@ -112,6 +112,11 @@ form#form-sendemail input, form#form-sendemail textarea {
     height: 28px;
     font-size: 18px;
 }
+
+form#form-sendemail input, form#form-sendemail textarea {
+    font-size: 12px;
+}
+
 form#accommodation-form textarea,  form#register-form textarea, form#form-sendemail textarea {
     height: 100px;
 }
@@ -364,7 +369,7 @@ fieldset  legend {
     font-weight: bolder;
 }
 
-ul.errors {    
+ul.errors, label.error {    
     color: #ff0000;
 }
 

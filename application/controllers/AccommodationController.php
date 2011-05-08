@@ -2,12 +2,75 @@
 
 class AccommodationController extends Zend_Controller_Action {
 
+    /**
+     *
+     * @var Zend_Cache_Core 
+     */
+    private $_cache;
+
     public function init() {
-        /* Initialize action controller here */
+
+        $this->_cache = Zend_Controller_Front::getInstance()
+                ->getParam('bootstrap')
+                ->getResource('cachemanager')
+                ->getCache('mycache');
+
+        $this->_helper->cache(array('preview'), array('previewaction'));
+        //  $this->_helper->cache(array('show'),array('showaction'));
     }
 
     public function indexAction() {
         return $this->_forward('list');
+    }
+
+    public function queryAction() {
+
+        $this->_helper->layout->disableLayout();
+        $this->_helper->viewRenderer->setNoRender(true);
+
+        if ($this->getRequest()->isXmlHttpRequest()) {
+            $form = new My_Form_SendEmail();
+            if ($this->getRequest()->isPost()) {
+                if ($form->isValid($_POST)) {
+
+
+                    $acc_id = $form->getValue('acc_id');
+                    $emailFrom = $form->getValue('email');
+                    $message = $form->getValue('message');
+
+                    // get acc object from cache if possible
+                    $cacheId = 'acc_' . $acc_id;
+                    $acc = $this->_cache->load($cacheId);
+                    if (!$acc) {
+                        $acc = My_Houseshare_Factory::accommodation($acc_id);
+                        $this->_cache->save($acc, $cacheId);
+                    }
+
+                    $emailTo = $acc->user->email;
+
+                   // var_dump($acc_id, $emailFrom, $message, $emailTo);
+
+                    // send email 
+                    $emailObj = new My_Mail_AccQuery();
+                    $emailObj->setFrom($emailFrom);
+                    $emailObj->addTo($emailTo);
+                    $emailObj->setBodyText($message);
+
+//                    try {
+//                        $emailObj->send();
+//                    } catch (Zend_Mail_Exception $e) {
+//                        echo 'Problem with sending your message. Message not send!';
+//                    }
+                    
+                    echo 'Your query was sent.';
+                    
+                } else {
+                    echo 'Form is not valid. Message not send';
+                }
+            }
+        }
+
+        exit;
     }
 
     public function showAction() {
@@ -19,7 +82,17 @@ class AccommodationController extends Zend_Controller_Action {
             return $this->_redirect('/');
         }
         $acc_id = (int) $acc_id;
-        $acc = My_Houseshare_Factory::accommodation($acc_id);
+
+
+
+
+        // get acc object from cache if possible
+        $cacheId = 'acc_' . $acc_id;
+        $acc = $this->_cache->load($cacheId);
+        if (!$acc) {
+            $acc = My_Houseshare_Factory::accommodation($acc_id);
+            $this->_cache->save($acc, $cacheId);
+        }
 
 
         $auth = Zend_Auth::getInstance();
@@ -47,8 +120,10 @@ class AccommodationController extends Zend_Controller_Action {
 
         // email sending form to send a question to the author of the advertisment
         $form = new My_Form_SendEmail();
+        $form->acc_id->setValue($acc_id);
 
         if ($this->getRequest()->isPost()) {
+
             if ($form->isValid($_POST)) {
 
                 $advertCreaterEmail = $acc->user->email;
@@ -84,11 +159,11 @@ class AccommodationController extends Zend_Controller_Action {
     }
 
     public function previewAction() {
-        
+
         if ($this->getRequest()->isXmlHttpRequest()) {
-            
+
             $this->_helper->layout->disableLayout();
-            
+
             $acc_id = $this->getRequest()->getParam('id');
 
             $acc_id = (int) $acc_id;
@@ -96,9 +171,9 @@ class AccommodationController extends Zend_Controller_Action {
             // increase view count
             $acc->addOneView();
 
-            $this->view->acc = $acc;          
+            $this->view->acc = $acc;
         } else {
-             throw new Exception('Not an ajax requrests');
+            throw new Exception('Not an ajax requrests');
         }
     }
 

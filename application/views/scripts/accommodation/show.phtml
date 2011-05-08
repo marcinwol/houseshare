@@ -8,7 +8,7 @@ if ($this->preview != true) {
     $sideBarHtml = '<ul>';
 
     if ($this->form) {
-        $sideBarHtml .= '<li><div id="email-send-form">' . $this->form . '</div></li>';
+        $sideBarHtml .= '<li id="query-form"><div id="email-send-form">' . $this->form . '</div></li>';
     }
     $sideBarHtml .= '</ul>';
     $this->sideBarElement('Send query ', $sideBarHtml);
@@ -95,125 +95,185 @@ if ($this->preview == true) {
     </div>
 <?php endif; ?>
 
-<div class="grid_6 ">&nbsp;</div>
-<h1 class="title"><?php echo $this->acc->title; ?></h1>
-<div id="acc-details" class="grid_6 alpha">    
+<?php if (!($this->viewCache()->start('acc' . (string) $this->acc->acc_id))): ?>
 
-    <div class="section grid_4 alpha">
-        <h1 class="title">Description</h1>
-        <p>
-            <?php echo $this->acc->description; ?>
-        </p>
-    </div>
-    <div class="section grid_2 omega" >
-        <dl class="basic-info">
-            <dt>Price (per month)</dt>
-            <dd><?php echo $this->acc->price; ?> PLN</dd>
-            <dt>Bond</dt>
-            <dd><?php echo $this->acc->bond; ?> PLN</dd>
+    <div class="grid_6 ">&nbsp;</div>
+    <h1 class="title"><?php echo $this->acc->title; ?></h1>
+    <div id="acc-details" class="grid_6 alpha">    
 
-            <?php if (strlen($this->acc->price_info) > 0): ?>            
-                <dt>Price info</dt>
-                <dd><?php echo $this->acc->price_info; ?></dd>        
-            <?php endif; ?>
+        <div class="section grid_4 alpha">
+            <h1 class="title">Description</h1>
+            <p>
+                <?php echo $this->acc->description; ?>
+            </p>
+        </div>
+        <div class="section grid_2 omega" >
+            <dl class="basic-info">
+                <dt>Price (per month)</dt>
+                <dd><?php echo $this->acc->price; ?> PLN</dd>
+                <dt>Bond</dt>
+                <dd><?php echo $this->acc->bond; ?> PLN</dd>
 
-            <dt>Avaliable <?php echo $this->avaliable($this->acc)->inOrFrom(); ?>:</dt>
-            <dd><?php echo $this->avaliable($this->acc)->time(); ?></dd>
-            <dt>Address</dt>
-            <dd><?php echo $this->address($this->acc); ?></dd>        
-        </dl>
+                <?php if (strlen($this->acc->price_info) > 0): ?>            
+                    <dt>Price info</dt>
+                    <dd><?php echo $this->acc->price_info; ?></dd>        
+                <?php endif; ?>
 
-    </div>
+                <dt>Avaliable <?php echo $this->avaliable($this->acc)->inOrFrom(); ?>:</dt>
+                <dd><?php echo $this->avaliable($this->acc)->time(); ?></dd>
+                <dt>Address</dt>
+                <dd><?php echo $this->address($this->acc); ?></dd>        
+            </dl>
 
-    <div class="section grid_6 alpha">
-        <h1>Map view</h1> 
-       
+        </div>
+
+        <div class="section grid_6 alpha">
+            <h1>Map view</h1> 
+
+        </div>
+
+        <?php
+        $lat = $this->acc->address->lat;
+        $lng = $this->acc->address->lng;
+
+        if (!empty($lat) && !empty($lng)) {
+            echo '<input type="hidden" id="addr_lat" value="' . $lat . '" />';
+            echo '<input type="hidden" id="addr_lng" value="' . $lng . '" />';
+            echo '<input type="hidden" id="label" value="' . $this->address($this->acc) . '" />';
+            echo '<div id="map" class="grid_6 alpha" style="height: 300px"> </div>';
+            // load google maps api
+            $this->headScript()->appendFile(
+                    'http://maps.google.com/maps/api/js?sensor=false&region=PL', $type = 'text/javascript'
+            );
+        }
+        ?>
+        <script type="text/javascript" src="<?php echo $this->baseUrl('/js/mapshow.js'); ?>"></script>
+
+
+
+        <?php if ($this->acc instanceof My_Houseshare_Shared): ?>
+            <div class="section grid_2 alpha">
+                <h1>Roomates</h1> 
+                <dl class="">
+                    <dt>Number of roomates</dt>
+                    <dd><?php echo $this->acc->roomates->no_roomates; ?> </dd>
+                    <dt>Approx. min age</dt>
+                    <dd><?php echo $this->acc->roomates->min_age; ?> </dd>
+                    <dt>Approx. max age</dt>
+                    <dd><?php echo $this->acc->roomates->max_age; ?> </dd>
+                    <dt>Gender</dt>
+                    <dd><?php echo $this->acc->roomates->gender; ?> </dd>
+
+                </dl>
+            </div>
+        <?php elseif ($this->acc instanceof My_Houseshare_Appartment): ?>
+            <div class="section grid_2 alpha">
+                <h1>Appartment details</h1>             
+                <dl class="">
+                    <dt>Number of bedrooms</dt>
+                    <dd><?php echo $this->acc->details->bedrooms; ?> </dd>
+                    <dt>Number of bathrooms</dt>
+                    <dd><?php echo $this->acc->details->bathrooms; ?> </dd>
+                    <dt>Number of parking spots</dt>
+                    <dd><?php echo $this->acc->details->parking_spots; ?> </dd>
+                    <dt>Furniture</dt>
+                    <dd><?php echo $this->acc->details->furnished; ?> </dd>
+                    <dt>Other</dt>
+                    <dd><?php echo $this->acc->details->description; ?> </dd>
+                </dl>
+            </div>    
+        <?php endif; ?>
+
+        <div class="section grid_2 alpha  ">
+            <h1>Preferences</h1> 
+            <?php
+            $prefs = $this->acc->preferences;
+            if (count($prefs) > 0) {
+                echo '<ul class="feats-prefs">';
+                foreach ($prefs as $p) {
+                    echo '<li>' . $p->getName() . '</li>';
+                }
+                echo '</ul>';
+            }
+            ?>
+        </div>
+
+        <div class="section grid_2 omega ">
+            <h1>Features</h1> 
+            <?php
+            $features = $this->acc->features;
+            if (count($features) > 0) {
+                echo '<ul class="feats-prefs">';
+                foreach ($features as $f) {
+                    echo '<li>' . $f->getName() . '</li>';
+                }
+                echo '</ul>';
+            }
+            ?>
+        </div>
+
+
+
     </div>
 
     <?php
-    $lat = $this->acc->address->lat;
-    $lng = $this->acc->address->lng;
-
-    if (!empty($lat) && !empty($lng)) {
-        echo '<input type="hidden" id="addr_lat" value="' . $lat . '" />';
-        echo '<input type="hidden" id="addr_lng" value="' . $lng . '" />';
-        echo '<input type="hidden" id="label" value="' . $this->address($this->acc) . '" />';
-        echo '<div id="map" class="grid_6 alpha" style="height: 300px"> </div>';
-        // load google maps api
-        $this->headScript()->appendFile(
-                'http://maps.google.com/maps/api/js?sensor=false&region=PL', $type = 'text/javascript'
-        );
-    }
-    ?>
-    <script type="text/javascript" src="<?php echo $this->baseUrl('/js/mapshow.js'); ?>"></script>
+    $this->viewCache()->end();
+endif;
+?>
 
 
 
-
-    <?php if ($this->acc instanceof My_Houseshare_Shared): ?>
-        <div class="section grid_2 alpha">
-            <h1>Roomates</h1> 
-            <dl class="">
-                <dt>Number of roomates</dt>
-                <dd><?php echo $this->acc->roomates->no_roomates; ?> </dd>
-                <dt>Approx. min age</dt>
-                <dd><?php echo $this->acc->roomates->min_age; ?> </dd>
-                <dt>Approx. max age</dt>
-                <dd><?php echo $this->acc->roomates->max_age; ?> </dd>
-                <dt>Gender</dt>
-                <dd><?php echo $this->acc->roomates->gender; ?> </dd>
-
-            </dl>
-        </div>
-    <?php elseif ($this->acc instanceof My_Houseshare_Appartment): ?>
-        <div class="section grid_2 alpha">
-            <h1>Appartment details</h1>             
-            <dl class="">
-                <dt>Number of bedrooms</dt>
-                <dd><?php echo $this->acc->details->bedrooms; ?> </dd>
-                <dt>Number of bathrooms</dt>
-                <dd><?php echo $this->acc->details->bathrooms; ?> </dd>
-                <dt>Number of parking spots</dt>
-                <dd><?php echo $this->acc->details->parking_spots; ?> </dd>
-                <dt>Furniture</dt>
-                <dd><?php echo $this->acc->details->furnished; ?> </dd>
-                <dt>Other</dt>
-                <dd><?php echo $this->acc->details->description; ?> </dd>
-            </dl>
-        </div>    
-    <?php endif; ?>
-
-    <div class="section grid_2 alpha  ">
-        <h1>Preferences</h1> 
-        <?php
-        $prefs = $this->acc->preferences;
-        if (count($prefs) > 0) {
-            echo '<ul class="feats-prefs">';
-            foreach ($prefs as $p) {
-                echo '<li>' . $p->getName() . '</li>';
-            }
-            echo '</ul>';
-        }
-        ?>
-    </div>
-
-    <div class="section grid_2 omega ">
-        <h1>Features</h1> 
-        <?php
-        $features = $this->acc->features;
-        if (count($features) > 0) {
-            echo '<ul class="feats-prefs">';
-            foreach ($features as $f) {
-                echo '<li>' . $f->getName() . '</li>';
-            }
-            echo '</ul>';
-        }
-        ?>
-    </div>
-
-
-
-</div>
-
-
-
+<script type="text/javascript">
+    $(function() {
+        
+        /*
+         * Script for submit send query form using ajax.
+         */
+        
+        var baseUrl = '<?php echo $this->baseUrl('/'); ?>';
+        
+        $("input#send").click(function() {
+            // validate and process form here
+            
+            $('#form-sendemail').validate({
+                rules: {
+                    email: {
+                        required: true,
+                        email: true
+                    },
+                    message: "required"
+                },
+                messages: {
+                    email: 'Please enter a valid email address',
+                    message:  'You query cannot be empty'
+                },
+                submitHandler: function() {
+                    var accID = $("input#acc_id").val();
+                    var email = $("input#email").val();
+                    var message = $("textarea#message").val();
+        
+                    var dataString = 'acc_id=' + accID + '&email=' + email + '&message=' + message;                    
+                    
+                    
+                    $('#query-form').html('<div style="width:100%"> <img class="loadingimg" src="'+baseUrl+'images/loading2.gif" /></div>');
+                    
+        
+                    $.ajax({
+                        type: "POST",
+                        url: baseUrl + "accommodation/query",
+                        data: dataString,
+                        success: function(data) {
+                            $('#query-form').html(data)              
+                            .hide()
+                            .fadeIn(1500);
+                        }
+                    });
+                    return false;
+                }
+            });
+            
+        });              
+        
+    });
+  
+</script>

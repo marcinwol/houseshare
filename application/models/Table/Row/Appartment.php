@@ -31,6 +31,10 @@ class My_Model_Table_Row_Appartment extends Zend_Db_Table_Row_Abstract {
          return $this->findParentRow('My_Model_Table_NonSharedDetails');
         
     }
+    
+    public function __wakeup() {
+        $this->setTable(new My_Model_Table_Appartment());
+    }
 
 }
 

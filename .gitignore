@@ -10,6 +10,8 @@ application/resources
 *.bak
 public/images
 public/captchas
+public/cached
+cache
 *.orig
 /application/forms/Decorator/.LCKCaptcha.php~
 /application/forms/Element/.LCKCaptcha.php~
