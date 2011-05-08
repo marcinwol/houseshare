@@ -115,7 +115,7 @@ if ($this->preview == true) {
                 <dd><?php echo $this->acc->bond; ?> PLN</dd>
 
                 <?php if (strlen($this->acc->price_info) > 0): ?>            
-                    <dt>Price info</dt>
+                    <dt>Additional expenses</dt>
                     <dd><?php echo $this->acc->price_info; ?></dd>        
                 <?php endif; ?>
 
@@ -153,7 +153,7 @@ if ($this->preview == true) {
 
         <?php if ($this->acc instanceof My_Houseshare_Shared): ?>
             <div class="section grid_2 alpha">
-                <h1>Roomates</h1> 
+                <h1>Current tenants</h1> 
                 <dl class="details">
                     <dt>Number of roomates</dt>
                     <dd><?php echo $this->acc->roomates->no_roomates; ?> </dd>

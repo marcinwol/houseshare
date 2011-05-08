@@ -22,9 +22,10 @@
     </div>
     <div class="listing-preview-detials" style="float:left">
         <h1 class="advert-title">
-            
+            <?php $city = $this->acc->city; ?>
+            <a href="<?php echo $this->baseUrl('/accommodation/list/city/' . $this->acc->address->city_id); ?>"><?php echo '<span style="color:#4A4A4A">' . $city . ': </span>'; ?></a>
             <a href="<?php echo $this->baseUrl('/accommodation/show/id/' . $this->acc->acc_id); ?>">
-                <?php echo $this->truncate(ucfirst(strtolower($this->acc->title)), 0, 60); ?>
+                <?php echo  $this->truncate(ucfirst(strtolower($this->acc->title)), 0, 50); ?>
             </a>
              <a id="aID<?php echo $this->acc->acc_id; ?>" href="">
                 <img src="<?php echo $this->baseUrl('/images/preview-icon.gif'); ?>" title="Quick preview" alt="Preview" />
@@ -32,10 +33,10 @@
         </h1>        
         <div class="advert-info" >
 
-            <div> <?php echo $this->truncate($this->acc->description, 0, 120); ?></div>               
+            <div> <?php echo $this->truncate($this->acc->description, 0, 160); ?></div>               
             <dl>
-                <?php $city = $this->acc->city . ', ' . $this->acc->state; ?>
-                <dt>City: </dt><dd><a href="<?php echo $this->baseUrl('/accommodation/list/city/' . $this->acc->address->city_id); ?>"><?php echo $city; ?></a></dd>                                                           
+                <?php $city = $this->acc->city; ?>
+               <!-- <dt>City: </dt><dd><a href="<?php echo $this->baseUrl('/accommodation/list/city/' . $this->acc->address->city_id); ?>"><?php echo $city; ?></a></dd>  -->                                                         
                 <dt>Type: </dt><dd><?php echo $this->acc->getTypeAsString(); ?></dd> 
 
 
