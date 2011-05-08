@@ -20,8 +20,8 @@ $(document).ready(function () {
         range: "min",
         value: defaultMaxPrice,
         min: 200,
-        max: 2000,
-        step: 50,
+        max: 3000,
+        step: 100,
         slide: function( event, ui ) {          
             $( "#maxprice" ).val( ui.value );
         }

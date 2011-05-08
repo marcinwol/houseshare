@@ -114,37 +114,37 @@ class AccommodationController extends Zend_Controller_Action {
         $form = new My_Form_SendEmail();
         $form->acc_id->setValue($acc_id);
 
-        if ($this->getRequest()->isPost()) {
-
-            if ($form->isValid($_POST)) {
-
-                $advertCreaterEmail = $acc->user->email;
-                $returnEmail = $form->getValue('email');
-                $emailBody = $form->getValue('message');
-
-                $emailObj = new My_Mail_AccQuery();
-                $emailObj->setFrom($returnEmail);
-                $emailObj->addTo($advertCreaterEmail);
-                $emailObj->setBodyText($emailBody);
-
-                try {
-                    $emailObj->send();
-                } catch (Zend_Mail_Exception $e) {
-                    $this->_helper->FlashMessenger('There was a problem sending your message: ' . $e->getMessage());
-                    return $this->_redirect('/accommodation/show/id/' . $acc_id);
-                }
-
-                $this->_helper->FlashMessenger('Your message was sent');
-                return $this->_redirect('/accommodation/show/id/' . $acc_id);
-            } else {
-                $form->removeAttrib('style');
-                $this->view->errors = 1;
-            }
-        } else {
-            // this value is used in JS to scroll the window to form 
-            // if there were some errors.
-            $this->view->errors = 0;
-        }
+//        if ($this->getRequest()->isPost()) {
+//
+//            if ($form->isValid($_POST)) {
+//
+//                $advertCreaterEmail = $acc->user->email;
+//                $returnEmail = $form->getValue('email');
+//                $emailBody = $form->getValue('message');
+//
+//                $emailObj = new My_Mail_AccQuery();
+//                $emailObj->setFrom($returnEmail);
+//                $emailObj->addTo($advertCreaterEmail);
+//                $emailObj->setBodyText($emailBody);
+//
+//                try {
+//                    $emailObj->send();
+//                } catch (Zend_Mail_Exception $e) {
+//                    $this->_helper->FlashMessenger('There was a problem sending your message: ' . $e->getMessage());
+//                    return $this->_redirect('/accommodation/show/id/' . $acc_id);
+//                }
+//
+//                $this->_helper->FlashMessenger('Your message was sent');
+//                return $this->_redirect('/accommodation/show/id/' . $acc_id);
+//            } else {
+//                $form->removeAttrib('style');
+//                $this->view->errors = 1;
+//            }
+//        } else {
+//            // this value is used in JS to scroll the window to form 
+//            // if there were some errors.
+//            $this->view->errors = 0;
+//        }
 
         $this->view->acc = $acc;
         $this->view->form = $form;
