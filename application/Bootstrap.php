@@ -169,22 +169,20 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
     }
 
     protected function _initSetZendMail() {
+        
+        $file = APPLICATION_PATH . '/configs/mailsmtp.ini';
+
+        if (file_exists($file)) {
+            $smtp = new Zend_Config_Ini($file);
+        } else {
+            throw new Zend_Mail_Exception('No mailsmtp.ini found');
+        }
+       
         $tr = new Zend_Mail_Transport_Smtp(
-                        'mail.active24.pl',
-                        array(
-                            'auth' => 'login',
-                            'username' => 'mwol@born2die.eu',
-                            'password' => '123qwe'
-                        )
+                        $smtp->mail->host, $smtp->mail->toArray()                        
         );
+        
         Zend_Mail::setDefaultTransport($tr);
     }
-
-//    protected function _initSetupBaseUrl() {
-//        $this->bootstrap('frontcontroller');
-//        $controller = Zend_Controller_Front::getInstance();
-//        $controller->setBaseUrl('/projects/myapp'); 
-//    }
-
 
 }

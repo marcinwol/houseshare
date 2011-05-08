@@ -56,11 +56,11 @@ class AccommodationController extends Zend_Controller_Action {
                     $emailObj->addTo($emailTo);
                     $emailObj->setBodyText($message);
 
-//                    try {
-//                        $emailObj->send();
-//                    } catch (Zend_Mail_Exception $e) {
-//                        echo 'Problem with sending your message. Message not send!';
-//                    }
+                    try {
+                        $emailObj->send();
+                    } catch (Zend_Mail_Exception $e) {
+                        echo 'Problem with sending your message. Message not send!';
+                    }
                     
                     echo 'Your query was sent.';
                     

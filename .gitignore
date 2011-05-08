@@ -5,6 +5,7 @@ library/ZendX
 application/resources
 /application/scripts/_data
 /application/configs/appkeys.ini
+/application/configs/mailsmtp.ini
 /tmp
 /.zfproject.xml
 *.bak
