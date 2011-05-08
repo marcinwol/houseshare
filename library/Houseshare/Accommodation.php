@@ -509,6 +509,34 @@ class My_Houseshare_Accommodation extends My_Houseshare_Abstract_PropertyAccesso
         
         return $noOfDeletedPhotos;
     }
+    
+    /**
+     * Get an url for this accommodation
+     * 
+     * @return $url string 
+     */
+    public function getUrl() {
+        $baseUrl = Zend_Controller_Front::getInstance()->getBaseUrl(); 
+        $host = $_SERVER['SERVER_NAME'];
+        $url = "http://$host"."$baseUrl/accommodation/show/id/{$this->acc_id}";
+        return $url;        
+    }
+    
+    
+    /**
+     * Get an tiny url for this accommodation
+     * 
+     * @return $url string 
+     */
+    public function getTinyUrl() {        
+        $fullUrl = $this->getUrl();
+        
+        $tinyurl = new Zend_Service_ShortUrl_TinyUrlCom();
+        $short = $tinyurl->shorten($fullUrl);
+        
+        return $short;        
+    }
+    
 
     /**
      * Get address for this accommodation

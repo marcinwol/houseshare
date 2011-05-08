@@ -46,24 +46,16 @@ class AccommodationController extends Zend_Controller_Action {
                         $this->_cache->save($acc, $cacheId);
                     }
 
-                    $emailTo = $acc->user->email;
-
-                   // var_dump($acc_id, $emailFrom, $message, $emailTo);
-
                     // send email 
-                    $emailObj = new My_Mail_AccQuery();
-                    $emailObj->setFrom($emailFrom);
-                    $emailObj->addTo($emailTo);
-                    $emailObj->setBodyText($message);
-
+                    $emailObj = new My_Mail_AccQuery($acc, $emailFrom, $message);
+                 
                     try {
                         $emailObj->send();
                     } catch (Zend_Mail_Exception $e) {
                         echo 'Problem with sending your message. Message not send!';
                     }
-                    
+
                     echo 'Your query was sent.';
-                    
                 } else {
                     echo 'Form is not valid. Message not send';
                 }
@@ -94,7 +86,7 @@ class AccommodationController extends Zend_Controller_Action {
             $this->_cache->save($acc, $cacheId);
         }
 
-
+        
         $auth = Zend_Auth::getInstance();
 
 
