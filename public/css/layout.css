@@ -149,6 +149,10 @@ label.required {
      white-space: nowrap;
    }
 
+   
+   
+   
+   
 /**** ACCOMMODATION ADD STEPS ******/
 
 .current-step {
@@ -371,6 +375,33 @@ fieldset  legend {
 
 ul.errors, label.error {    
     color: #ff0000;
+}
+
+
+/** FEATURES and PREFERENCES display ***/
+ul.feats-prefs {
+    padding-left: 30px;
+}
+
+ul.feats-prefs li {
+    list-style-image: url("../images/tick.gif");
+    height: 20px;    
+}
+
+ul.feats-prefs li.other {
+    padding-top: 5px;
+    list-style-image: none;
+    list-style-type: none;
+}
+
+/** APPARTMENT AND ROOMATES details **/
+
+dl.details dt, dl.details dd  {    
+   float: left;
+   height: 20px;
+}
+dl.details dt {
+    width: 90%;
 }
 
 
