@@ -10,10 +10,14 @@ class UserController extends Zend_Controller_Action {
     protected $_keys;
 
     public function init() {
+        
         $this->_keys = Zend_Registry::get('keys');
     }
 
     public function indexAction() {
+        
+        // don't need this session namespace here
+        Zend_Session::namespaceUnset('addAccInfo');
 
         $auth = Zend_Auth::getInstance();
 

@@ -111,6 +111,62 @@ class My_Form_Map extends Zend_Form {
         );
     }
 
+    public function populateFromAccArray(array $address) {
+
+        $fullAddress = "{$address['street_name']} {$address['street_no']}, {$address['city']} ";
+
+       
+        $cityModel = new My_Model_Table_City();
+        $cityRow = $cityModel->findByName($address['city']);
+
+
+        $city_lat = $city_lng = $state = '';
+
+
+        if (null !== $cityRow) {
+            /* @var $cityMarker Zend_Db_Table_Row_Marker */
+            $cityMarker = $cityRow->getMarker(true);
+
+            if ($cityMarker instanceof My_Model_Table_Row_Marker) {
+                $city_lat = (string) $cityMarker->lat;
+                $city_lng = (string) $cityMarker->lng;
+            }
+            
+            $state = $cityRow->getState()->name;
+        }
+
+
+
+        $geocoder_used = '0';
+        $addr_lat = $addr_lng = '';
+
+        //  try to get address lat and lng from google       
+        $geocoder = new ZC_GeocodingAdapter();
+        $latAndLng = $geocoder->getGeocodedLatitudeAndLongitude($fullAddress);
+
+        if (!empty($latAndLng)) {
+            $addr_lat = $latAndLng->lat;
+            $addr_lng = $latAndLng->lng;
+            $geocoder_used = '1';
+        }
+
+        $this->populate(
+                array(
+                    'street_no' => $address['street_no'],
+                    'street_name' => $address['street_name'],
+                    'zip' => '',
+                    'city' => $address['city'],
+                    'state' => $state,
+                    'address_for_geocoder' => $fullAddress,
+                    'addr_lat' => $addr_lat,
+                    'addr_lng' => $addr_lng,
+                    'city_lat' => $city_lat,
+                    'city_lng' => $city_lng,
+                    'geocoder_used' => $geocoder_used
+                )
+        );
+    }
+
 }
 
 ?>

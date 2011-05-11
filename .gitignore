@@ -13,6 +13,7 @@ public/images
 public/captchas
 public/cached
 cache
+session
 *.orig
 /application/forms/Decorator/.LCKCaptcha.php~
 /application/forms/Element/.LCKCaptcha.php~

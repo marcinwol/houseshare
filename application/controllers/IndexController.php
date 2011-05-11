@@ -2,17 +2,13 @@
 
 class IndexController extends Zend_Controller_Action {
 
-    public function init() {
-        /* Initialize action controller here */
-      //  $this->_helper->cache(array('index'),array('indexaction'));
-    }
 
     /**
      * This is for tests, experiments, etc.
      */
     public function testAction() {
 
-        $db = Zend_Db_Table::getDefaultAdapter();
+     //   $db = Zend_Db_Table::getDefaultAdapter();
 
         //  $innerSelect = $db->select('em.firstnm')->from('tbl_employeemaster em')->where('em.idemp = empl.approvedby');
         //  $select = $db->select()->from(tbl_empleaveapplication empl)
@@ -22,6 +18,8 @@ class IndexController extends Zend_Controller_Action {
     }
 
     public function indexAction() {
+        
+        Zend_Session::namespaceUnset('addAccInfo');
 
         $mainForm = new My_Form_MainPage();
         $page = $this->_getParam('page', 1);
