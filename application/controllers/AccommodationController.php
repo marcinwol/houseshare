@@ -285,153 +285,13 @@ class AccommodationController extends Zend_Controller_Action {
 
                 // get form data
                 $formData = $addAccForm->getValues();
-//
-//                // start transaction
-//                $db = Zend_Db_Table::getDefaultAdapter();
-//                $db->beginTransaction();
-//
-//                try {
-//
-//
-//
-//                    if (Zend_Auth::getInstance()->hasIdentity()) {
-//                        // if logged in, no need about_you subform.
-//                        // just use logged user info.
-//                        $user_id = Zend_Auth::getInstance()->getIdentity()->property->user_id;
-//                    } else {
-//                        // otherise need to create a user.
-//                        // save user in not registered (assume it is roomate)
-//                        // this is controlled by live_in_acc selecte element
-//                        // that for now is not used.
-//                        //@todo Add logic for checking if registered or not.
-//                        //@todo Add other types of users, not only roomates in the future.
-//                        $newUser = My_Houseshare_Factory::roomate();
-//                        $newUser->nickname = $formData['about_you']['nickname'];
-//                        $newUser->description = $formData['about_you']['description'];
-//                        $newUser->email = $formData['about_you']['email'];
-//                        $newUser->email_public = $formData['about_you']['email_public'];
-//                        $newUser->password = $formData['about_you']['password1'];
-//                        $newUser->phone = $formData['about_you']['phone_no'];
-//                        $newUser->phone_public = $formData['about_you']['phone_public'];
-//                        $newUser->type = 'ROOMATE';
-//                        $newUser->is_owner = 0; // at the moment don't use this field
-//
-//                        $user_id = $newUser->save();
-//                    }
-//
-//                    // save address in db
-//                    $newAddress = new My_Houseshare_Address();
-//                    $newAddress->unit_no = $formData['address']['unit_no'];
-//                    $newAddress->street_no = $formData['address']['street_no'];
-//                    $newAddress->street = $formData['address']['street_name'];
-//                    $newAddress->city = $formData['address']['city'];
-//                    // $newAddress->zip = $formData['address']['zip'];
-//                    // $newAddress->state = $formData['address']['state'];
-//
-//                    $addr_id = $newAddress->save();
-//
-//                    // save accommodation in db
-//                    if ('3' == $formData['basic_info']['acc_type']) {
-//                        // appartment
-//                        $newDetails = new My_Model_Table_NonSharedDetails();
-//                        $details_id = $newDetails->setDetails($formData['appartment_details']);
-//                        $newAcc = My_Houseshare_Factory::appartment();
-//                        $newAcc->setDetailsId($details_id);
-//                    } else {
-//                        // shared accommodation
-//                        $newRoomates = new My_Model_Table_Roomates();
-//                        $roomates_id = $newRoomates->setRoomates($formData['roomates']);
-//
-//                        $newAcc = My_Houseshare_Factory::shared();
-//                        $newAcc->setRoomatesId($roomates_id);
-//                    }
-//
-//                    $newAcc->title = $formData['basic_info']['title'];
-//                    $newAcc->description = $formData['basic_info']['description'];
-//                    $newAcc->date_avaliable = $formData['basic_info']['date_avaliable'];
-//                    $newAcc->price = $formData['basic_info']['price'];
-//                    $newAcc->price_info = $formData['basic_info']['price_info'];
-//                    $newAcc->bond = $formData['basic_info']['bond'];
-//                    $newAcc->street_address_public = $formData['address']['address_public'];
-//                    $newAcc->short_term_ok = $formData['basic_info']['short_term'];
-//                    $newAcc->preferences_info = $formData['preferences']['description'];
-//                    $newAcc->features_info = $formData['acc_features']['description'];
-//                    $newAcc->setAddrId($addr_id);
-//                    $newAcc->setUserId($user_id);
-//                    $newAcc->setTypeId($formData['basic_info']['acc_type']);
-//
-//                    $acc_id = $newAcc->save();
-//
-//                    // set preferences (first binary ones)
-//                    $accPrefModel = new My_Model_Table_AccsPreferences();
-//                    $binaryPrefs = array();
-//                    $binaryPrefs ['smokers'] = $formData['preferences']['smokers'];
-//                    $binaryPrefs ['kids'] = $formData['preferences']['kids'];
-//                    $binaryPrefs ['couples'] = $formData['preferences']['couples'];
-//                    $binaryPrefs ['pets'] = $formData['preferences']['pets'];
-//
-//                    foreach ($binaryPrefs as $name => $pref_id) {
-//                        if (intval($pref_id) > -1) {
-//                            // if checked
-//                            $accPrefModel->setAccPreference(
-//                                    array('value' => 1), array('acc_id' => $acc_id, 'pref_id' => $pref_id)
-//                            );
-//                        }
-//                    }
-//
-//                    // non binary preferences (i.e. gender)
-//                    $prefModel = new My_Model_Table_Preference();
-//                    $prefRow = $prefModel->fetchRow(" name = 'gender' ");
-//                    $accPrefModel->setAccPreference(
-//                            array('value' => $formData['preferences']['gender']), array('acc_id' => $acc_id, 'pref_id' => $prefRow->pref_id)
-//                    );
-//
-//                    // set features (first binary ones)
-//                    $accFeatModel = new My_Model_Table_AccsFeatures();
-//                    $binaryFeats = array();
-//                    $binaryFeats ['internet'] = $formData['acc_features']['internet'];
-//                    $binaryFeats ['parking'] = $formData['acc_features']['parking'];
-//                    $binaryFeats ['tv'] = $formData['acc_features']['tv'];
-//                    $binaryFeats ['airconditioning'] = $formData['acc_features']['airconditioning'];
-//                    if (isset($formData['room_features'])) {
-//                        $binaryFeats ['privatebath'] = $formData['room_features']['privatebath'];
-//                        $binaryFeats ['privatebalcony'] = $formData['room_features']['privatebalcony'];
-//                    }
-//
-//                    foreach ($binaryFeats as $name => $feat_id) {
-//                        if (intval($feat_id) > -1) {
-//                            // if checked
-//                            $accFeatModel->setAccFeature(
-//                                    array('value' => 1), array('acc_id' => $acc_id, 'feat_id' => $feat_id)
-//                            );
-//                        }
-//                    }
-//
-//                    // non binary features (i.e. furnished)
-//                    $featModel = new My_Model_Table_Feature();
-//                    $featRow = $featModel->fetchRow(" name = 'furnished' ");
-//                    $accFeatModel->setAccFeature(
-//                            array('value' => $formData['acc_features']['furnished']), array('acc_id' => $acc_id, 'feat_id' => $featRow->feat_id)
-//                    );
-//
-//                    $db->commit();
-//                } catch (Exception $e) {
-//                    $db->rollBack();
-//                    throw $e;
-//                }
 
+                // save form data in a session for later use
                 $addAccInfoNamespace = new Zend_Session_Namespace('addAccInfo');
                 $addAccInfoNamespace->step = array(1 => $formData);
 
-
-                //   $addAccInfoNamespace->setExpirationSeconds(60 * 5);
-                //$addAccInfoNamespace->lock();
-
-
                 return $this->_redirect('accommodation/map');
-                //return $this->_forward('addphotos');
             }
-            //Zend_Debug::dump($addAccForm->getValues());
         }
 
         $this->view->form = $addAccForm;
@@ -440,9 +300,17 @@ class AccommodationController extends Zend_Controller_Action {
     public function mapAction() {
 
 
-        // retrive created accommodation info (e.g. acc_id) from session.                  
+        // retrive created accommodation from session.                  
         $addAccInfoNamespace = new Zend_Session_Namespace('addAccInfo');
-        //$acc_id = $addAccInfoNamespace->acc_id;
+
+
+        if (!isset($addAccInfoNamespace->step)) {
+            // no it is not. So exit from here
+            $this->_helper->FlashMessenger('Cannot retrive accommodation info from session');
+            return $this->_redirect('index');
+        }
+
+
 
         $identity = Zend_Auth::getInstance()->getIdentity();
 
@@ -507,44 +375,8 @@ class AccommodationController extends Zend_Controller_Action {
 
                 $formData = $mapForm->getValues();
 
-//                // start transaction
-//                $db = Zend_Db_Table::getDefaultAdapter();
-//                $db->beginTransaction();
-//                try {
-//
-//                    $lat = $formData['addr_lat'];
-//                    $lng = $formData['addr_lng'];
-//
-//                    // save/update the marker 
-//                    /* @var $address My_Houseshare_Address */
-//                    $address = $acc->address;
-//                    $address->lat = $lat;
-//                    $address->lng = $lng;
-//                    $addr_id = $address->save(true); // true because we want to do an update.
-//
-//                    if ($addr_id !== $acc->address->id) {
-//                        $acc->setAddrId($addr_id);
-//
-//                        if ($acc->save() !== $acc_id) {
-//                            throw new Zend_Db_Exception("Updated acc_id=$id !== current acc_id=$acc_id");
-//                        }
-//                    }
-//
-//                    $db->commit();
-//
-//                    if (false === $mapEdit) {
-//                        // if everything went fine go to step 3:
-//                        return $this->_redirect('accommodation/addphotos');
-//                    }
-//
-//                    return $this->_redirect('accommodation/show/id/' . $acc_id);
-//                } catch (Exception $e) {
-//                    $db->rollBack();
-//                    throw $e;
-//                }
-
                 if (false === $mapEdit) {
-//                  // if everything went fine go to step 3:
+                    // if everything went fine go to step 3:
                     $addAccInfoNamespace->step[2] = $formData;
                     return $this->_redirect('accommodation/addphotos');
                 }
@@ -741,7 +573,7 @@ class AccommodationController extends Zend_Controller_Action {
         // retrive just creatend accommodation info from session.
         $addAccInfoNamespace = new Zend_Session_Namespace('addAccInfo');
 
-        if (null === $addAccInfoNamespace->step) {
+        if (!isset($addAccInfoNamespace->step)) {
             //throw new Zend_Session_Exception('Cannot retrive accommodation info from session');
             $this->_helper->FlashMessenger('Cannot retrive accommodation info from session');
             return $this->_redirect('index');
@@ -780,9 +612,9 @@ class AccommodationController extends Zend_Controller_Action {
                     $addAccInfoNamespace->step[3] = array();
                     return $this->_redirect('accommodation/create-acc');
                 }
-                
-                
-               $savedPhotos = $this->_processUploads($photosForm);
+
+
+                $savedPhotos = $this->_processUploads($photosForm);
 
 
 
@@ -812,7 +644,7 @@ class AccommodationController extends Zend_Controller_Action {
      * @return array 
      */
     private function _processUploads($photosForm, $targetUrl = 'accommodation/create-acc') {
-        
+
         $photoElem = $photosForm->getElement('photo');
         $adapter = $photoElem->getTransferAdapter();
 
@@ -862,26 +694,12 @@ class AccommodationController extends Zend_Controller_Action {
             }
 
 
-
-            // write the path and filename in PHOTO table.
-            // filepath is relative to PHOTOS_PATH constant.
-            // Thus full paths will be PHOTOS_PATH/$photo->path/$photo->filename
-//                    $photo = My_Houseshare_Factory::photo();
-//                    $photo->filename = basename($imgPath);
-//                    $photo->path = My_Houseshare_Tools::addDirSeperator($uploadSubDir);
-//                    $photo->setAccId($acc_id);
-//
-//                    $photo_id = $photo->save();
-//                    if (!is_numeric($photo_id)) {
-//                        throw new Exception("Information about \"$imgPath\" was not saved in the database");
-//                    }
-
             $savedPhotos[] = array(
                 'filename' => basename($imgPath),
                 'path' => My_Houseshare_Tools::addDirSeperator($uploadSubDir)
             );
         }
-        
+
         return $savedPhotos;
     }
 
@@ -898,8 +716,195 @@ class AccommodationController extends Zend_Controller_Action {
             return $this->_redirect('index');
         }
 
-        echo "save data ";
-        var_dump($addAccInfoNamespace->step);
+        // retrive data from previous steps
+        $step1Data = $addAccInfoNamespace->step[1];
+        $step2Data = $addAccInfoNamespace->step[2];
+        $step3Data = $addAccInfoNamespace->step[3];
+        
+//        var_dump($step2Data);
+//        exit;
+
+        // start transaction
+        $db = Zend_Db_Table::getDefaultAdapter();
+        $db->beginTransaction();
+
+        try {
+
+
+            if (Zend_Auth::getInstance()->hasIdentity()) {
+                // if logged in, no need about_you subform.
+                // just use logged user info.
+                $user_id = Zend_Auth::getInstance()->getIdentity()->property->user_id;
+            } else {
+                // otherise need to create a user.
+                // save user in not registered (assume it is roomate)
+                // this is controlled by live_in_acc selecte element
+                // that for now is not used.
+                //@todo Add logic for checking if registered or not.
+                //@todo Add other types of users, not only roomates in the future.
+                $newUser = My_Houseshare_Factory::roomate();
+                $newUser->nickname = $step1Data['about_you']['nickname'];
+                $newUser->description = $step1Data['about_you']['description'];
+                $newUser->email = $step1Data['about_you']['email'];
+                $newUser->email_public = $step1Data['about_you']['email_public'];
+                $newUser->password = $step1Data['about_you']['password1'];
+                $newUser->phone = $step1Data['about_you']['phone_no'];
+                $newUser->phone_public = $step1Data['about_you']['phone_public'];
+                $newUser->type = 'ROOMATE';
+                $newUser->is_owner = 0; // at the moment don't use this field
+
+                $user_id = $newUser->save();
+            }
+
+            
+            
+            // create marker
+            $markerModel = new My_Model_Table_Marker();
+            $marker_id = $markerModel->insertMarker(array(
+                'lat' => $step2Data['addr_lat'],
+                'lng' => $step2Data['addr_lng'],
+            ));
+
+            // save address in db
+            $newAddress = new My_Houseshare_Address();
+            $newAddress->unit_no = $step1Data['address']['unit_no'];
+            $newAddress->street_no = $step1Data['address']['street_no'];
+            $newAddress->street = $step1Data['address']['street_name'];
+            $newAddress->city = $step1Data['address']['city'];
+
+            $addr_id = $newAddress->save();
+            
+            // set the marker for this address
+            $addressModel = new My_Model_Table_Address();
+            $addressRow = $addressModel->find($addr_id)->current();
+            
+            if (null === $addressRow) {
+                throw new Exception("Cannot get address of id $addr_id");
+            }
+            
+            $addressRow->marker_id = $marker_id;
+            if ($addr_id != $addressRow->save()) {
+                throw new Exception("Cannot save marker for address of id $addr_id");
+            }
+
+            // save accommodation in db
+            if ('3' == $step1Data['basic_info']['acc_type']) {
+                // appartment
+                $newDetails = new My_Model_Table_NonSharedDetails();
+                $details_id = $newDetails->setDetails($step1Data['appartment_details']);
+                $newAcc = My_Houseshare_Factory::appartment();
+                $newAcc->setDetailsId($details_id);
+            } else {
+                // shared accommodation
+                $newRoomates = new My_Model_Table_Roomates();
+                $roomates_id = $newRoomates->setRoomates($step1Data['roomates']);
+
+                $newAcc = My_Houseshare_Factory::shared();
+                $newAcc->setRoomatesId($roomates_id);
+            }
+
+            $newAcc->title = $step1Data['basic_info']['title'];
+            $newAcc->description = $step1Data['basic_info']['description'];
+            $newAcc->date_avaliable = $step1Data['basic_info']['date_avaliable'];
+            $newAcc->price = $step1Data['basic_info']['price'];
+            $newAcc->price_info = $step1Data['basic_info']['price_info'];
+            $newAcc->bond = $step1Data['basic_info']['bond'];
+            $newAcc->street_address_public = $step1Data['address']['address_public'];
+            $newAcc->short_term_ok = $step1Data['basic_info']['short_term'];
+            $newAcc->preferences_info = $step1Data['preferences']['description'];
+            $newAcc->features_info = $step1Data['acc_features']['description'];
+            $newAcc->setAddrId($addr_id);
+            $newAcc->setUserId($user_id);
+            $newAcc->setTypeId($step1Data['basic_info']['acc_type']);
+
+            $acc_id = $newAcc->save();
+
+            // set preferences (first binary ones)
+            $accPrefModel = new My_Model_Table_AccsPreferences();
+            $binaryPrefs = array();
+            $binaryPrefs ['smokers'] = $step1Data['preferences']['smokers'];
+            $binaryPrefs ['kids'] = $step1Data['preferences']['kids'];
+            $binaryPrefs ['couples'] = $step1Data['preferences']['couples'];
+            $binaryPrefs ['pets'] = $step1Data['preferences']['pets'];
+
+            foreach ($binaryPrefs as $name => $pref_id) {
+                if (intval($pref_id) > -1) {
+                    // if checked
+                    $accPrefModel->setAccPreference(
+                            array('value' => 1), array('acc_id' => $acc_id, 'pref_id' => $pref_id)
+                    );
+                }
+            }
+
+            // non binary preferences (i.e. gender)
+            $prefModel = new My_Model_Table_Preference();
+            $prefRow = $prefModel->fetchRow(" name = 'gender' ");
+            $accPrefModel->setAccPreference(
+                    array('value' => $step1Data['preferences']['gender']), array('acc_id' => $acc_id, 'pref_id' => $prefRow->pref_id)
+            );
+
+            // set features (first binary ones)
+            $accFeatModel = new My_Model_Table_AccsFeatures();
+            $binaryFeats = array();
+            $binaryFeats ['internet'] = $step1Data['acc_features']['internet'];
+            $binaryFeats ['parking'] = $step1Data['acc_features']['parking'];
+            $binaryFeats ['tv'] = $step1Data['acc_features']['tv'];
+            $binaryFeats ['airconditioning'] = $step1Data['acc_features']['airconditioning'];
+            if (isset($formData['room_features'])) {
+                $binaryFeats ['privatebath'] = $step1Data['room_features']['privatebath'];
+                $binaryFeats ['privatebalcony'] = $step1Data['room_features']['privatebalcony'];
+            }
+
+            foreach ($binaryFeats as $name => $feat_id) {
+                if (intval($feat_id) > -1) {
+                    // if checked
+                    $accFeatModel->setAccFeature(
+                            array('value' => 1), array('acc_id' => $acc_id, 'feat_id' => $feat_id)
+                    );
+                }
+            }
+
+            // non binary features (i.e. furnished)
+            $featModel = new My_Model_Table_Feature();
+            $featRow = $featModel->fetchRow(" name = 'furnished' ");
+            $accFeatModel->setAccFeature(
+                    array('value' => $step1Data['acc_features']['furnished']), array('acc_id' => $acc_id, 'feat_id' => $featRow->feat_id)
+            );
+
+
+            // if photos were uploaded
+            if (count($step3Data)) {
+                // write the path and filename in PHOTO table.
+                // filepath is relative to PHOTOS_PATH constant.
+                // Thus full paths will be PHOTOS_PATH/$photo->path/$photo->filename
+
+
+                foreach ($step3Data as $photoData) {
+
+                    $photo = My_Houseshare_Factory::photo();
+                    $photo->filename = $photoData['filename'];
+                    $photo->path = $photoData['path'];
+                    $photo->setAccId($acc_id);
+
+
+                    $photo_id = $photo->save();
+                    if (!is_numeric($photo_id)) {
+                        throw new Exception("Information about \"{$photoData['filename']}\" was not saved in the database");
+                    }
+                }
+            }
+
+            $db->commit();
+
+            // save new acc_id in session
+            $addAccInfoNamespace->acc_id = $acc_id;
+
+            // everything went fine, so just redirect.
+            return $this->_redirect('accommodation/success');
+        } catch (Exception $e) {
+            $db->rollBack();
+            throw $e;
+        }
     }
 
     public function addphotosAction_old() {

@@ -369,23 +369,7 @@ class AddressHouseshareTest extends ModelTestCase {
                     $address->lng
                 )
         );
-//
-//
-//        // after that check updating new address.
-//        $address = new My_Houseshare_Address(2);
-//        $address->street = 'Aleja 2000 lecia';
-//        $row_id = $address->save();
-//        $this->assertEquals(
-//                array(
-//                    $row_id,
-//                ),
-//                array(
-//                    7, // this should be new ID since there are more than
-//                // one refs. in Accommodation to address of ID=2.
-//                // Thus we don't want to update the address for other
-//                // accommodations.
-//                )
-//        );
+
     }
 
     
