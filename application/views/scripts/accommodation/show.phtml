@@ -18,7 +18,8 @@ if ($this->preview != true) {
 <?php
 if ($this->acc->user->contactDetailsAvaliable() == true) {
     $sideBarHtml = '<ul>';
-    if ($this->acc->user->phone_public == true && !empty($this->acc->user->phone)) {
+    
+    if ($this->acc->user->phone_public == true && strlen($this->acc->user->phone) > 4) {
         $sideBarHtml .= '<li><strong>Phone:</strong> ' . $this->acc->user->phone . '</li>';
     }
     if ($this->acc->user->email_public == true) {
