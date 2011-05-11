@@ -267,6 +267,9 @@ class AccommodationController extends Zend_Controller_Action {
     }
 
     public function addAction() {
+
+        $addAccInfoNamespace = new Zend_Session_Namespace('addAccInfo');
+
         $city = $this->_request->getParam('city', null);
         @list($cityName, $stateName) = explode(', ', $city);
 
@@ -286,11 +289,14 @@ class AccommodationController extends Zend_Controller_Action {
                 // get form data
                 $formData = $addAccForm->getValues();
 
-                // save form data in a session for later use
-                $addAccInfoNamespace = new Zend_Session_Namespace('addAccInfo');
-                $addAccInfoNamespace->step = array(1 => $formData);
+                // save form data in a session for later use              
+                $addAccInfoNamespace->step[1] = $formData;
 
                 return $this->_redirect('accommodation/map');
+            }
+        } else {
+            if (isset($addAccInfoNamespace->step[1])) {
+                $addAccForm->populate($addAccInfoNamespace->step[1]);
             }
         }
 
@@ -309,31 +315,14 @@ class AccommodationController extends Zend_Controller_Action {
         if (!isset($addAccInfoNamespace->step)) {
             // no session, so just check if this is a requested from logged user
             // who wishes to edit map for one of his accommodations
+
             $acc_id = $this->_getParam('id', null);
-            $identity = Zend_Auth::getInstance()->getIdentity();           
 
+            $acc = $this->_getAccForEdit($acc_id);
 
-            // make sure we have $acc_id and $identity
-            if (null === $acc_id || null === $identity) {
-                // no it is not. So exit from here
-                $this->_helper->FlashMessenger('Cannot retrive accommodation info from session');
-                return $this->_redirect('/user/index');
-            }
-
-
-            // get user's id
-            $user_id = null;
-            
-            if ($identity) {
-               $user_id = $identity->property->user_id;
-            }
-           
-            // check if a given accommodation belongs to this user
-            $acc = My_Houseshare_Factory::accommodation($acc_id);
-
-            if ($user_id !== $acc->user->user_id) {
-                $this->_helper->FlashMessenger('You cannot modify this accommodation');
-                return $this->_redirect('/user/index');
+            if (null === $acc) {
+                $this->_helper->FlashMessenger("Cannot edit accommodation $acc_id");
+                return $this->_redirect('index');
             }
 
             // it seems that user is loged and this accommodation belongs to him            
@@ -354,7 +343,7 @@ class AccommodationController extends Zend_Controller_Action {
         }
 
 
-       
+
         $mapForm->getElement('Submit')->setLabel($submitButtonText);
 
 
@@ -373,7 +362,6 @@ class AccommodationController extends Zend_Controller_Action {
                 }
 
                 // this is mapedit, so perform map marker update
-               
                 // save/update the marker 
                 /* @var $address My_Houseshare_Address */
                 $address = $acc->address;
@@ -391,6 +379,10 @@ class AccommodationController extends Zend_Controller_Action {
 
 
                 return $this->_redirect('accommodation/show/id/' . $acc_id);
+            }
+        } else {
+            if (isset($addAccInfoNamespace->step[2])) {
+                $mapForm->populate($addAccInfoNamespace->step[2]);
             }
         }
 
@@ -585,66 +577,139 @@ class AccommodationController extends Zend_Controller_Action {
         $addAccInfoNamespace = new Zend_Session_Namespace('addAccInfo');
 
         if (!isset($addAccInfoNamespace->step)) {
-            //throw new Zend_Session_Exception('Cannot retrive accommodation info from session');
-            $this->_helper->FlashMessenger('Cannot retrive accommodation info from session');
-            return $this->_redirect('index');
-        }
-//
-//        $referer = $addAccInfoNamespace->referer;
-//
-//        $acc_id = $addAccInfoNamespace->acc_id;
-//
-//        $photoModel = new My_Model_Table_Photo();
-//        $noOfcurrentAccPhotos = $photoModel->findAccPhotos($acc_id);
-//
-//        // determine number of photos that can be added.
-//        $noOfPhotosToAdd = PHOTOS_NUMBER - count($noOfcurrentAccPhotos);
-//
-//        if ($noOfPhotosToAdd <= 0) {
-//            $this->_helper->FlashMessenger('Cannot add more photos than 3');
-//            return $this->_redirect('index');
-//        }
+            // no session, so just check if this is a requested from logged user
+            // who wishes to edit map for one of his accommodations
 
+            $acc_id = $this->_getParam('id', null);
+           
+
+            $acc = $this->_getAccForEdit($acc_id);
+
+            if (null === $acc) {
+                $this->_helper->FlashMessenger("Cannot edit accommodation $acc_id");
+                return $this->_redirect('index');
+            }
+
+            // it seems that user is loged and this accommodation belongs to him            
+            // determine number of photos that can be added.
+            $noOfPhotosToAdd = PHOTOS_NUMBER - count($acc->photos);
+
+            if ($noOfPhotosToAdd <= 0) {
+                $this->_helper->FlashMessenger('Cannot add more photos than ' . PHOTOS_NUMBER . 'photos');
+                return $this->_redirect('index');
+            }
+            
+            $photoEdit = true;
+            $showSteps = false;
+            $title = "Photos upload";
+        } else {
+            // mark if this photos adding is for logged user 
+            // (i.e. he/she updates his photos),
+            // or this is adding a new accommodation.    
+            $noOfPhotosToAdd = PHOTOS_NUMBER;
+            $photoEdit = false;
+            $showSteps = true;
+            $title = "Step 3/4: Photos upload";
+        }
+
+
+       
         $photosForm = new My_Form_Photos();
-        $photosForm->setNoOfPhotosToAdd(PHOTOS_NUMBER)->init();
+        $photosForm->setNoOfPhotosToAdd($noOfPhotosToAdd)->init();
 
         if ($this->getRequest()->isPost()) {
             if ($photosForm->isValid($_POST)) {
+                
+               
 
                 if ($photosForm->skip->isChecked()) {
                     // if skip button was clicked
-//                    if ('addphotos' == $referer) {
-//                        // this is when a user add photos to existing accommodation
-//                        // rather then creates when he/she creates a new accommodation.
-//                        // don't need this session namespace anymore
-//                        Zend_Session::namespaceUnset('addAccInfo');
-//                        return $this->_redirect('accommodation/photochange/id/' . $acc_id);
-//                    }
+                    if (true == $photoEdit) {
+                        // this is when a user add photos to existing accommodation
+                        // rather then creates when he/she creates a new accommodation.
+                        // don't need this session namespace anymore
+                        return $this->_redirect('accommodation/photochange/id/' . $acc_id);
+                    }
+
                     $addAccInfoNamespace->step[3] = array();
                     return $this->_redirect('accommodation/create-acc');
                 }
 
 
                 $savedPhotos = $this->_processUploads($photosForm);
+ 
+                if (false == $photoEdit) {
+                    // if this addition of photos for a new acc
+                    // than save photos data in a session and 
+                    // go to next step.
+                    $addAccInfoNamespace->step[3] = $savedPhotos;
+
+                    // everything went fine, so just redirect.
+                    return $this->_redirect('accommodation/create-acc');
+                }
+            
+                // this is addition of photos for an existing acc
+                // so add the new photos now.
+
+                foreach ($savedPhotos as $photoData) {
+
+                    $photo = My_Houseshare_Factory::photo();
+                    $photo->filename = $photoData['filename'];
+                    $photo->path = $photoData['path'];
+                    $photo->setAccId($acc_id);
 
 
+                    $photo_id = $photo->save();
+                    if (!is_numeric($photo_id)) {
+                        throw new Exception("Information about \"{$photoData['filename']}\" was not saved in the database");
+                    }
+                }
 
-                //if ('addphotos' == $referer) {
-                // this is when a user add photos to existing accommodation
-                // rather then creates when he/she creates a new accommodation.
-                // don't need this session namespace anymore
-                // Zend_Session::namespaceUnset('addAccInfo');
-                // return $this->_redirect('accommodation/photochange/id/' . $acc_id);
-                //}
-
-                $addAccInfoNamespace->step[3] = $savedPhotos;
-
-                // everything went fine, so just redirect.
-                return $this->_redirect('accommodation/create-acc');
+                return $this->_redirect('accommodation/photochange/id/' . $acc_id);
             }
         }
-
+        
+        $this->view->showSteps = $showSteps;
+        $this->view->title = $title;
         $this->view->form = $photosForm;
+    }
+
+    /**
+     * Check if we have everything that is needed for editing accommodation
+     * info (e.g. marker and photos). 
+     * 
+     * Basically what we need is an acc_id, user_id, and we need to make
+     * sure that acc_id belongs to a user identified by user_id.
+     * 
+     * @return My_Houseshare_Accommodation|null 
+     */
+    private function _getAccForEdit($acc_id) {
+
+        $identity = Zend_Auth::getInstance()->getIdentity();
+
+
+        // make sure we have $acc_id and $identity
+        if (null === $acc_id || null === $identity) {
+            // no it is not. So exit from here            
+            return null;
+        }
+
+
+        // get user's id
+        $user_id = null;
+
+        if ($identity) {
+            $user_id = $identity->property->user_id;
+        }
+
+        // check if a given accommodation belongs to this user
+        $acc = My_Houseshare_Factory::accommodation($acc_id);
+
+        if ($user_id !== $acc->user->user_id) {
+            return null;
+        }
+
+        return $acc;
     }
 
     /**
@@ -1058,7 +1123,7 @@ class AccommodationController extends Zend_Controller_Action {
 
                 if ($form->cancel->isChecked()) {
                     // if cancel button was clicked
-                    return $this->_redirect('/');
+                    return $this->_redirect('user/');
                 }
 
                 $imagesToChange = $form->getValue('images');
@@ -1088,7 +1153,7 @@ class AccommodationController extends Zend_Controller_Action {
                     $addAccInfoNamespace->referer = 'addphotos';
                     $addAccInfoNamespace->lock();
 
-                    return $this->_redirect('accommodation/addphotos');
+                    return $this->_redirect('accommodation/addphotos/id/' . $acc_id);
                 }
 
 
