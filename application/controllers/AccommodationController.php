@@ -303,70 +303,58 @@ class AccommodationController extends Zend_Controller_Action {
         // retrive created accommodation from session.                  
         $addAccInfoNamespace = new Zend_Session_Namespace('addAccInfo');
 
+        $mapForm = new My_Form_Map();
+
 
         if (!isset($addAccInfoNamespace->step)) {
-            // no it is not. So exit from here
-            $this->_helper->FlashMessenger('Cannot retrive accommodation info from session');
-            return $this->_redirect('index');
+            // no session, so just check if this is a requested from logged user
+            // who wishes to edit map for one of his accommodations
+            $acc_id = $this->_getParam('id', null);
+            $identity = Zend_Auth::getInstance()->getIdentity();           
+
+
+            // make sure we have $acc_id and $identity
+            if (null === $acc_id || null === $identity) {
+                // no it is not. So exit from here
+                $this->_helper->FlashMessenger('Cannot retrive accommodation info from session');
+                return $this->_redirect('/user/index');
+            }
+
+
+            // get user's id
+            $user_id = null;
+            
+            if ($identity) {
+               $user_id = $identity->property->user_id;
+            }
+           
+            // check if a given accommodation belongs to this user
+            $acc = My_Houseshare_Factory::accommodation($acc_id);
+
+            if ($user_id !== $acc->user->user_id) {
+                $this->_helper->FlashMessenger('You cannot modify this accommodation');
+                return $this->_redirect('/user/index');
+            }
+
+            // it seems that user is loged and this accommodation belongs to him            
+            $mapForm->populateFromAcc($acc);
+            $showSteps = false;
+            $mapEdit = true;
+            $title = "Map localization";
+            $submitButtonText = "Update";
+        } else {
+            // mark if this marker edition is for logged user 
+            // (i.e. he/she updates his localization),
+            // or this is adding a new accommodation.       
+            $mapForm->populateFromAccArray($addAccInfoNamespace->step[1]['address']);
+            $mapEdit = false;
+            $showSteps = true;
+            $title = "Step 2/3: Map localization";
+            $submitButtonText = "Go to step 3";
         }
 
 
-
-        $identity = Zend_Auth::getInstance()->getIdentity();
-
-
-        // mark if this marker edition is for logged user 
-        // (i.e. he/she updates his localization),
-        // or this is adding a new accommodation.       
-        $mapEdit = false;
-
-
-//        if (!isset($addAccInfoNamespace->step[2])) {
-//            // no session, so just check if this is a requested from logged user
-//            // who wishes to edit map for one of his accommodations
-//            $acc_id = $this->_getParam('id', null);
-//
-//            if (null === $acc_id || false === $identity) {
-//                // no it is not. So exit from here
-//                $this->_helper->FlashMessenger('Cannot retrive accommodation info from session');
-//                return $this->_redirect('index');
-//            }
-//
-//            $user_id = null;
-//
-//            if ($identity) {
-//                $user_id = $identity->property->user_id;
-//            }
-//
-//            $acc = My_Houseshare_Factory::accommodation($acc_id);
-//
-//            if ($user_id !== $acc->user->user_id) {
-//                $this->_helper->FlashMessenger('You cannot see this accommodation');
-//                return $this->_redirect('/');
-//            }
-//
-//            // user is logged and this is his accommodation.
-//            $showSteps = false;
-//            $mapEdit = true;
-//            $title = "Map localization";
-//            $submitButtonText = "Update";
-//            
-//        } else {
-//            //$acc = My_Houseshare_Factory::accommodation($acc_id);
-//            $showSteps = true;
-//            $title = "Step 2/3: Map localization";
-//            $submitButtonText = "Go to step 3";
-//        }
-//        
-        $showSteps = true;
-        $title = "Step 2/3: Map localization";
-        $submitButtonText = "Go to step 3";
-
-        // var_dump($addAccInfoNamespace->step[1]['address']);
-        //   exit;
-        $mapForm = new My_Form_Map();
-        //$mapForm->populateFromAcc($acc);
-        $mapForm->populateFromAccArray($addAccInfoNamespace->step[1]['address']);
+       
         $mapForm->getElement('Submit')->setLabel($submitButtonText);
 
 
@@ -376,10 +364,33 @@ class AccommodationController extends Zend_Controller_Action {
                 $formData = $mapForm->getValues();
 
                 if (false === $mapEdit) {
-                    // if everything went fine go to step 3:
+                    // this is not mapEdit, but adding new marker
+                    // during advertisment adding
+                    // if everything went fine save data into session
+                    // and go to step 3:
                     $addAccInfoNamespace->step[2] = $formData;
                     return $this->_redirect('accommodation/addphotos');
                 }
+
+                // this is mapedit, so perform map marker update
+               
+                // save/update the marker 
+                /* @var $address My_Houseshare_Address */
+                $address = $acc->address;
+                $address->lat = $formData['addr_lat'];
+                $address->lng = $formData['addr_lng'];
+                $addr_id = $address->save(true); // true because we want to do an update.
+
+                if ($addr_id !== $acc->address->id) {
+                    $acc->setAddrId($addr_id);
+
+                    if ($acc->save() !== $acc_id) {
+                        throw new Zend_Db_Exception("Updated acc_id=$id !== current acc_id=$acc_id");
+                    }
+                }
+
+
+                return $this->_redirect('accommodation/show/id/' . $acc_id);
             }
         }
 
@@ -720,10 +731,9 @@ class AccommodationController extends Zend_Controller_Action {
         $step1Data = $addAccInfoNamespace->step[1];
         $step2Data = $addAccInfoNamespace->step[2];
         $step3Data = $addAccInfoNamespace->step[3];
-        
+
 //        var_dump($step2Data);
 //        exit;
-
         // start transaction
         $db = Zend_Db_Table::getDefaultAdapter();
         $db->beginTransaction();
@@ -756,14 +766,14 @@ class AccommodationController extends Zend_Controller_Action {
                 $user_id = $newUser->save();
             }
 
-            
-            
+
+
             // create marker
             $markerModel = new My_Model_Table_Marker();
             $marker_id = $markerModel->insertMarker(array(
-                'lat' => $step2Data['addr_lat'],
-                'lng' => $step2Data['addr_lng'],
-            ));
+                        'lat' => $step2Data['addr_lat'],
+                        'lng' => $step2Data['addr_lng'],
+                    ));
 
             // save address in db
             $newAddress = new My_Houseshare_Address();
@@ -773,15 +783,15 @@ class AccommodationController extends Zend_Controller_Action {
             $newAddress->city = $step1Data['address']['city'];
 
             $addr_id = $newAddress->save();
-            
+
             // set the marker for this address
             $addressModel = new My_Model_Table_Address();
             $addressRow = $addressModel->find($addr_id)->current();
-            
+
             if (null === $addressRow) {
                 throw new Exception("Cannot get address of id $addr_id");
             }
-            
+
             $addressRow->marker_id = $marker_id;
             if ($addr_id != $addressRow->save()) {
                 throw new Exception("Cannot save marker for address of id $addr_id");
