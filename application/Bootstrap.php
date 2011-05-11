@@ -2,11 +2,6 @@
 
 class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
 
-//    protected function _initSessions() {
-//        $this->bootstrap('session');
-//        Zend_Session::start();
-//    }
-//    
     
     protected function _initDoctype() {
         $this->bootstrap('view');
