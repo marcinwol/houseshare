@@ -65,20 +65,10 @@ class My_Form_MainPage extends Zend_Form {
         );
         $this->addElement($maxPrice);
 
-        $this->addElement('hidden', 'id', 2);
-
         $submit = $this->createElement('submit', 'submit', array('label' => 'Go'));
         $submit->removeDecorator('Label');
         $this->addElement($submit);
 
-//
-//        $texta = new Zend_Form_Element_Text('TextFieldA');
-//        $texta->setLabel('TextA')->setRequired(false);
-//        $this->addElement($texta);
-//        
-//        $textb = new Zend_Form_Element_Text('TextFieldB');
-//        $textb->setLabel('TextB')->setRequired(false);
-//        $this->addElement($textb);
         
         
     }
