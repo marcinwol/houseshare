@@ -7,17 +7,14 @@ class IndexController extends Zend_Controller_Action {
      * This is for tests, experiments, etc.
      */
     public function testAction() {
-
-     //   $db = Zend_Db_Table::getDefaultAdapter();
-
-        //  $innerSelect = $db->select('em.firstnm')->from('tbl_employeemaster em')->where('em.idemp = empl.approvedby');
-        //  $select = $db->select()->from(tbl_empleaveapplication empl)
-//        var_dump(get_class($this->view->layout()));
-//        $this->view->layout()->setContentKey('rightColumn');
-//        
+               
+     
+     $this->view->form = new My_Form_InventoryForm();
+        
     }
 
-    public function indexAction() {
+    
+    public function indexAction() {        
         
         Zend_Session::namespaceUnset('addAccInfo');
 

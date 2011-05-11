@@ -92,6 +92,7 @@ class UserController extends Zend_Controller_Action {
                     // so that he is logged in to the system.
 
                     $this->_writeAuthData($newUser, true);
+                    Zend_Session::rememberMe();
 
                     $this->_helper->FlashMessenger('Welcom to sharehouse');
                     return $this->_redirect('user/');
@@ -307,7 +308,7 @@ class UserController extends Zend_Controller_Action {
 
                     // immidiately authenticate the new user,                    
                     $this->_writeAuthData($user);
-
+                    Zend_Session::rememberMe();
                     return $this->_redirect('user/index');
                 }
 
@@ -349,7 +350,7 @@ class UserController extends Zend_Controller_Action {
                     // immidiately authenticate the new user,
                     // so that he is logged in to the system.                                           
                     $this->_writeAuthData($user);
-
+                    Zend_Session::rememberMe();
                     return $this->_redirect('user/index');
                 }
 
