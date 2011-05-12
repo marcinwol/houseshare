@@ -1,0 +1,33 @@
+<table class="details">
+    <tbody>
+        <?php
+        $data = $this->data;
+        $labels = $this->data->getLabels();
+
+        foreach ($data as $name => $value) {
+
+            if (strpos($name, '_id') > 3 || is_null($value) || strlen($value) == 0) {
+                continue;
+            }
+
+
+            $nameLabel = $name;
+            $valueLabel = $value;
+
+            if (array_key_exists($name, $labels)) {
+                $nameLabel = $labels[$name]['label'];
+                // check if a label for a value exists
+
+                if (array_key_exists('value', $labels[$name]) && isset($labels[$name]['value'][$value])) {
+                    $valueLabel = $labels[$name]['value'][$value];
+                }
+            }
+
+            echo "<tr>";
+            echo "<td class=\"name\">$nameLabel</td>";
+            echo "<td class=\"value\">$valueLabel</td>";
+            echo "</tr>";
+        }
+        ?>
+    </tbody>
+</table>

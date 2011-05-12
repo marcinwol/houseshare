@@ -15,7 +15,34 @@ class My_Model_Table_Roomates extends Zend_Db_Table_Abstract {
     protected $_name = "ROOMATES";
     protected $_rowClass = 'My_Model_Table_Row_Roomates';
     protected $_dependentTables = array('My_Model_Table_Shared');
-
+    
+    /**
+     * user friendly names for the properties and their values. 
+     * Used e.g. in a accommodation/show
+     */
+    static public $labels = array(
+        'no_roomates' => array(
+            'label' => 'Number of roomates',            
+        ),
+        'min_age' => array(
+            'label' => 'Approx. min. age',
+        ),
+        'max_age' => array(
+            'label' => 'Approx. max. age',
+        ),
+        'gender' => array(
+            'label' => 'Gender',
+            'value' => array(
+                '0' => 'Male', 
+                '1' => 'Female',
+                '2' => 'Both male and female'
+                ),
+            'default' => '2'
+        ),
+        'description' => array(
+            'label' => 'Description',
+        )
+    );
 
     /**
      * Update/insert roomates row.
@@ -31,7 +58,7 @@ class My_Model_Table_Roomates extends Zend_Db_Table_Abstract {
         if (is_null($row)) {
             $row = $this->createRow();
         }
-       
+
         $row->no_roomates = $data['no_roomates'];
         $row->min_age = $data['min_age'];
         $row->max_age = $data['max_age'];
@@ -40,7 +67,6 @@ class My_Model_Table_Roomates extends Zend_Db_Table_Abstract {
 
         return $row->save();
     }
-
 
 }
 

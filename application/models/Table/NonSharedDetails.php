@@ -16,6 +16,26 @@ class My_Model_Table_NonSharedDetails extends Zend_Db_Table_Abstract {
     protected $_rowClass = 'My_Model_Table_Row_NonSharedDetails';
     protected $_dependentTables = array('My_Model_Table_Appartment');
 
+    
+      /**
+     * user friendly names for the properties and their values. 
+     * Used e.g. in a accommodation/show
+     */
+    static public $labels = array(
+        'bedrooms' => array(
+            'label' => 'No. of bedrooms',            
+        ),
+        'bathrooms' => array(
+            'label' => 'No. of bathrooms',
+        ),
+        'parking_spots' => array(
+            'label' => 'No. of parking spots',
+        ),
+        'description' => array(
+            'label' => 'Description',
+        )
+    );
+
 
     /**
      * Update/insert details row.
@@ -35,7 +55,7 @@ class My_Model_Table_NonSharedDetails extends Zend_Db_Table_Abstract {
         $row->bedrooms = $data['bedrooms'];
         $row->bathrooms = $data['bathrooms'];
         $row->parking_spots = $data['parking_spots'];
-        $row->furnished = $data['furnished'];                
+        $row->furnished = (isset($data['furnished']) ? $data['furnished'] : new Zend_Db_Expr('NULL'));                
         $row->size = (isset($data['size']) ? $data['size'] : new Zend_Db_Expr('NULL'));
         $row->description = (isset($data['description']) ? $data['description'] : new Zend_Db_Expr('NULL'));      
 

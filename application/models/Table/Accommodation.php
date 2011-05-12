@@ -29,6 +29,16 @@ class My_Model_Table_Accommodation extends Zend_Db_Table_Abstract {
             'columns' => array('type_id'),
             'refTableClass' => 'My_Model_Table_Type',
             'refColumns' => array('type_id'),
+        ),
+        'Features' => array(
+            'columns' => array('features_id'),
+            'refTableClass' => 'My_Model_Table_Features',
+            'refColumns' => array('features_id'),
+        ),
+        'Preferences' => array(
+            'columns' => array('preferences_id'),
+            'refTableClass' => 'My_Model_Table_Preferences',
+            'refColumns' => array('preferences_id'),
         )
     );
 
@@ -57,8 +67,8 @@ class My_Model_Table_Accommodation extends Zend_Db_Table_Abstract {
         $row->bond = $data['bond'];
         $row->street_address_public = $data['street_address_public'];
         $row->short_term_ok = $data['short_term_ok'];
-        $row->preferences_info = $data['preferences_info'];
-        $row->features_info = $data['features_info'];
+        $row->preferences_id = $data['preferences_id'];
+        $row->features_id = $data['features_id'];
         $row->type_id = $data['type_id'];
         if (isset($data['is_enabled'])) {
             $row->is_enabled = $data['is_enabled'];

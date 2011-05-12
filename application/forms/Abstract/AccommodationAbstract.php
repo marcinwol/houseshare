@@ -15,7 +15,7 @@ abstract class My_Form_Abstract_AccommodationAbstract extends Zend_Form {
     const ADDRESS_SUBFORM_NAME = 'address';
     const ROOMATES_SUBFORM_NAME = 'roomates';
     const PREFERENCES_SUBFORM_NAME = 'preferences';
-    const ACC_FEATURES_SUBFORM_NAME = 'acc_features';
+    const ACC_FEATURES_SUBFORM_NAME = 'features';
     const ROOM_FEATURES_SUBFORM_NAME = 'room_features';
     const BED_FEATURES_SUBFORM_NAME = 'bed_features';
     const ABOUT_YOU_SUBFORM_NAME = 'about_you';
@@ -259,18 +259,12 @@ abstract class My_Form_Abstract_AccommodationAbstract extends Zend_Form {
                     '5' => "5 or more",
                 )
         );
-        //$noOfRoomatesInput->setRequired(true);
-        // create new element
-        $genderOfRoomatesInput = new Zend_Form_Element_Select('gender');
-        $genderOfRoomatesInput->setLabel('Gender of roomates');
-        $genderOfRoomatesInput->addMultiOptions(
-                array(
-                    '0' => "male",
-                    '1' => "female",
-                    '2' => "both male and female",
-                )
-        );
-        //$genderOfRoomatesInput->setRequired(true);
+
+
+
+
+
+
 
         $ageOptions = array();
 
@@ -292,14 +286,27 @@ abstract class My_Form_Abstract_AccommodationAbstract extends Zend_Form {
         $maxAgeInput->addValidator(new My_Validate_MinMaxAge());
 
 
+        $aroomatesForm->addElements(array($noOfRoomatesInput, $minAgeInput, $maxAgeInput));
+
+
+
+        $labels = My_Model_Table_Roomates::$labels;
+
+        foreach ($labels as $name => $options) {
+            if (isset($options['value'])) {
+                $elem = $this->_addSelectElem($name, $options['value'], $options['label'], $options['default']);
+                $aroomatesForm->addElement($elem);
+            }
+        }
+
+
+
+
         $descriptionInput = $this->createElement('textarea', 'description');
         $descriptionInput->setRequired(false)->setLabel('Few words about roomates');
         $descriptionInput->setAttribs(array('cols' => 20, 'rows' => 5));
 
-        $aroomatesForm->addElements(array(
-            $noOfRoomatesInput, $genderOfRoomatesInput,
-            $minAgeInput, $maxAgeInput, $descriptionInput)
-        );
+        $aroomatesForm->addElements(array($descriptionInput));
 
         return $aroomatesForm;
     }
@@ -308,38 +315,19 @@ abstract class My_Form_Abstract_AccommodationAbstract extends Zend_Form {
         $preferencesForm = new Zend_Form_SubForm();
         $preferencesForm->setLegend('Preferences');
 
-        $allPreferences = My_Model_Table_Preference::getAllPreferences()->toArray();
+        $labels = My_Model_Table_Preferences::$labels;
 
-        foreach ($allPreferences as $pref) {
-            if ('0' === $pref['binary']) {
-                continue;
+        foreach ($labels as $name => $options) {
+            if (isset($options['value'])) {
+                $elem = $this->_addSelectElem($name, $options['value'], $options['label'], $options['default']);
+                $preferencesForm->addElement($elem);
             }
-            $newElem = $this->createElement('checkbox', "{$pref['name']}");
-            //$newElem->setRequired(true);
-            $newElem->setLabel(ucfirst($pref['name']) . ' accepted');
-            $newElem->setCheckedValue("{$pref['pref_id']}");
-            $newElem->setUnCheckedValue('-1');
-            $newElem->setChecked(false);
-            $preferencesForm->addElement($newElem);
         }
-
-        // create element for gender as it is not binary.
-        $genderPref = new Zend_Form_Element_Select('gender');
-        $genderPref->setLabel('Prefered geneder');
-        $genderPref->addMultiOptions(
-                array(
-                    '0' => "male",
-                    '1' => "female",
-                    '2' => "does not matter",
-                )
-        );
-        $genderPref->setRequired(false)->setValue('2');
-        $preferencesForm->addElement($genderPref);
-
 
         $descriptionInput = $this->createElement('textarea', 'description');
         $descriptionInput->setRequired(false)->setLabel('Any other preferences');
         $descriptionInput->setAttribs(array('cols' => 20, 'rows' => 5));
+
         $preferencesForm->addElement($descriptionInput);
 
         return $preferencesForm;
@@ -349,65 +337,61 @@ abstract class My_Form_Abstract_AccommodationAbstract extends Zend_Form {
         $featuresForm = new Zend_Form_SubForm();
         $featuresForm->setLegend('Accommodation features');
 
-        $accFeatures = My_Model_Table_Feature::getAllByType()->toArray();
+        $labels = My_Model_Table_Features::$labels;
 
-        foreach ($accFeatures as $feature) {
-            if ('0' === $feature['binary']) {
-                continue;
+        foreach ($labels as $name => $options) {
+            if (isset($options['value'])) {
+                $elem = $this->_addSelectElem($name, $options['value'], $options['label'], $options['default']);
+                $featuresForm->addElement($elem);
             }
-            $newElem = $this->createElement('checkbox', $feature['name']);
-            //$newElem->setRequired(true);
-            $newElem->setLabel(ucfirst($feature['name']));
-            $newElem->setCheckedValue("{$feature['feat_id']}");
-            $newElem->setUnCheckedValue('-1');
-            $newElem->setChecked(false);
-            $featuresForm->addElement($newElem);
         }
 
-        // create element for furnishead as it is not binary.
-        $furniture = new Zend_Form_Element_Select('furnished');
-        $furniture->setLabel('Furniture');
-        $furniture->addMultiOptions(
-                array(
-                    '0' => "Unfurnished",
-                    '1' => "Partially furnished",
-                    '2' => "Fully furnished"
-                )
-        );
-        $furniture->setRequired(false)->setValue('0');
-        $featuresForm->addElement($furniture);
 
         $descriptionInput = $this->createElement('textarea', 'description');
         $descriptionInput->setRequired(false)->setLabel('Any other features');
         $descriptionInput->setAttribs(array('cols' => 20, 'rows' => 5));
+
         $featuresForm->addElement($descriptionInput);
 
         return $featuresForm;
     }
 
-    protected function _makeRoomFeaturesSubForm() {
-        $featuresForm = new Zend_Form_SubForm();
-        $featuresForm->setLegend('Room features');
-
-        $roomTypeID = My_Model_Table_Type::getByName('Room');
-
-        $roomFeatures = My_Model_Table_Feature::getAllByType($roomTypeID->type_id)->toArray();
-
-        foreach ($roomFeatures as $feature) {
-            if ('0' === $feature['binary']) {
-                continue;
-            }
-            $newElem = $this->createElement('checkbox', $feature['name']);
-            //$newElem->setRequired(true);
-            $newElem->setLabel(ucfirst($feature['name']));
-            $newElem->setCheckedValue("{$feature['feat_id']}");
-            $newElem->setUnCheckedValue('-1');
-            $newElem->setChecked(false);
-            $featuresForm->addElement($newElem);
-        }
-
-        return $featuresForm;
+    protected function _addSelectElem($name, $options, $label='', $default = 0) {
+        $elem = new Zend_Form_Element_Select($name);
+        
+        if (empty($label)) {
+            $label = ucfirst($name);
+        } 
+        
+        $elem->setLabel($label);
+        $elem->addMultiOptions($options);
+        $elem->setRequired(false)->setValue($default);
+        return $elem;
     }
+
+//    protected function _makeRoomFeaturesSubForm() {
+//        $featuresForm = new Zend_Form_SubForm();
+//        $featuresForm->setLegend('Room features');
+//
+//        $roomTypeID = My_Model_Table_Type::getByName('Room');
+//
+//        $roomFeatures = My_Model_Table_Feature::getAllByType($roomTypeID->type_id)->toArray();
+//
+//        foreach ($roomFeatures as $feature) {
+//            if ('0' === $feature['binary']) {
+//                continue;
+//            }
+//            $newElem = $this->createElement('checkbox', $feature['name']);
+//            //$newElem->setRequired(true);
+//            $newElem->setLabel(ucfirst($feature['name']));
+//            $newElem->setCheckedValue("{$feature['feat_id']}");
+//            $newElem->setUnCheckedValue('-1');
+//            $newElem->setChecked(false);
+//            $featuresForm->addElement($newElem);
+//        }
+//
+//        return $featuresForm;
+//    }
 
     protected function _makeAppartmentDetailsSubForm() {
 
@@ -418,7 +402,7 @@ abstract class My_Form_Abstract_AccommodationAbstract extends Zend_Form {
 
 
         $noOfBedrooms = new Zend_Form_Element_Select('bedrooms');
-        $noOfBedrooms->setLabel('No of bedrooms');
+        $noOfBedrooms->setLabel('Number of bedrooms');
         $noOfBedrooms->addMultiOptions(
                 array(
                     '1' => "1",
@@ -433,7 +417,7 @@ abstract class My_Form_Abstract_AccommodationAbstract extends Zend_Form {
 
 
         $noOfBathrooms = new Zend_Form_Element_Select('bathrooms');
-        $noOfBathrooms->setLabel('No of bathrooms');
+        $noOfBathrooms->setLabel('Number of bathrooms');
         $noOfBathrooms->addMultiOptions(
                 array(
                     '1' => "1",
@@ -446,7 +430,7 @@ abstract class My_Form_Abstract_AccommodationAbstract extends Zend_Form {
         $appartmentDetailsForm->addElement($noOfBathrooms);
 
         $noOfParkingSpots = new Zend_Form_Element_Select('parking_spots');
-        $noOfParkingSpots->setLabel('No of parking spots');
+        $noOfParkingSpots->setLabel('Number of parking spots');
         $noOfParkingSpots->addMultiOptions(
                 array(
                     '0' => "0",
@@ -459,18 +443,18 @@ abstract class My_Form_Abstract_AccommodationAbstract extends Zend_Form {
         $noOfParkingSpots->setRequired(false)->setValue('0');
         $appartmentDetailsForm->addElement($noOfParkingSpots);
 
-        // create element for furnishead as it is not binary.
-        $furniture = new Zend_Form_Element_Select('furnished');
-        $furniture->setLabel('Furniture');
-        $furniture->addMultiOptions(
-                array(
-                    '0' => "Unfurnished",
-                    '1' => "Partially furnished",
-                    '2' => "Fully furnished"
-                )
-        );
-        $furniture->setRequired(false)->setValue('0');
-        $appartmentDetailsForm->addElement($furniture);
+//        // create element for furnishead as it is not binary.
+//        $furniture = new Zend_Form_Element_Select('furnished');
+//        $furniture->setLabel('Furniture');
+//        $furniture->addMultiOptions(
+//                array(
+//                    '0' => "Unfurnished",
+//                    '1' => "Partially furnished",
+//                    '2' => "Fully furnished"
+//                )
+//        );
+//        $furniture->setRequired(false)->setValue('0');
+//        $appartmentDetailsForm->addElement($furniture);
 
 
         // create new element
@@ -483,29 +467,29 @@ abstract class My_Form_Abstract_AccommodationAbstract extends Zend_Form {
         return $appartmentDetailsForm;
     }
 
-    protected function _makeBedFeaturesSubForm() {
-        $featuresForm = new Zend_Form_SubForm();
-        $featuresForm->setLegend('Bed features');
-
-        $bedTypeID = My_Model_Table_Type::getByName('Bed');
-        $bedFeatures = My_Model_Table_Feature::getAllByType($bedTypeID->type_id)->toArray();
-
-        if (count($bedFeatures) == 0) {
-            return null;
-        }
-
-        foreach ($bedFeatures as $feature) {
-            if ('0' === $feature['binary']) {
-                continue;
-            }
-            $newElem = $this->createElement('checkbox', $feature['name']);
-            $newElem->setRequired(false)->setLabel(ucfirst($feature['name']));
-            $newElem->setChecked(false);
-            $featuresForm->addElement($newElem);
-        }
-
-        return $featuresForm;
-    }
+//    protected function _makeBedFeaturesSubForm() {
+//        $featuresForm = new Zend_Form_SubForm();
+//        $featuresForm->setLegend('Bed features');
+//
+//        $bedTypeID = My_Model_Table_Type::getByName('Bed');
+//        $bedFeatures = My_Model_Table_Feature::getAllByType($bedTypeID->type_id)->toArray();
+//
+//        if (count($bedFeatures) == 0) {
+//            return null;
+//        }
+//
+//        foreach ($bedFeatures as $feature) {
+//            if ('0' === $feature['binary']) {
+//                continue;
+//            }
+//            $newElem = $this->createElement('checkbox', $feature['name']);
+//            $newElem->setRequired(false)->setLabel(ucfirst($feature['name']));
+//            $newElem->setChecked(false);
+//            $featuresForm->addElement($newElem);
+//        }
+//
+//        return $featuresForm;
+//    }
 
     protected function _makeAboutYouSubForm() {
         $aboutYouForm = new Zend_Form_SubForm();

@@ -22,30 +22,23 @@ class My_Form_Accommodation extends My_Form_Abstract_AccommodationAbstract {
         $roomatesSubForm = $this->_makeRoomatesSubForm();
         $preferencesSubForm = $this->_makePreferencesSubForm();
         $accFeaturesSubForm = $this->_makeAccFeaturesSubForm();
-        $roomFeaturesSubForm = $this->_makeRoomFeaturesSubForm();
-        $bedFeaturesSubForm = $this->_makeBedFeaturesSubForm();
         $appartmentDetailsForm = $this->_makeAppartmentDetailsSubForm();
-        // $photosSubForm = $this->_makePhotosSubForm();
         $aboutYouSubForm = $this->_makeAboutYouSubForm();
         $newCitySubForm = $this->_makeNewCitySubForm();
 
         $this->addSubForm($accInfoSubForm, self::BASIC_INFO_SUBFORM_NAME);
         $this->addSubForm($addressSubForm, self::ADDRESS_SUBFORM_NAME);
-        //  $this->addSubForm($newCitySubForm, self::NEW_CITY_SUBFORM_NAME);
         $this->addSubForm($appartmentDetailsForm, self::APPARTMENT_DETAILS);
-        $this->addSubForm($roomatesSubForm, self::ROOMATES_SUBFORM_NAME);
-        $this->addSubForm($preferencesSubForm, self::PREFERENCES_SUBFORM_NAME);
+        
         $this->addSubForm($accFeaturesSubForm, self::ACC_FEATURES_SUBFORM_NAME);
-        $this->addSubForm($roomFeaturesSubForm, self::ROOM_FEATURES_SUBFORM_NAME);       
+        $this->addSubForm($roomatesSubForm, self::ROOMATES_SUBFORM_NAME);
+        $this->addSubForm($preferencesSubForm, self::PREFERENCES_SUBFORM_NAME);        
         $this->addSubForm($aboutYouSubForm, self::ABOUT_YOU_SUBFORM_NAME);
 
-        if ($bedFeaturesSubForm) {
-            $this->addSubForm($bedFeaturesSubForm, self::BED_FEATURES_SUBFORM_NAME);
-        }
         
          $this->setAttrib('id', 'accommodation-form');
 
-        //  $this->addSubForm($photosSubForm, self::PHOTOS_SUBFORM_NAME);
+        
         // Create a submit button.
         $this->addElement('submit', 'Submit', array('label'=>'Go to step 2'));
     }
@@ -111,20 +104,16 @@ class My_Form_Accommodation extends My_Form_Abstract_AccommodationAbstract {
 
             // populate preferences
             $prefsSubForm = $this->getSubForm(self::PREFERENCES_SUBFORM_NAME);
-            $this->_populateFeatsOrPrefs($prefsSubForm, $acc->preferences);
-            $prefsSubForm->description->setValue($acc->preferences_info);
+            $prefsSubForm->populate($acc->preferences->toArray());
+           
+            
 
 
             // populate accommodation features
             $featsSubForm = $this->getSubForm(self::ACC_FEATURES_SUBFORM_NAME);
-            $this->_populateFeatsOrPrefs($featsSubForm, $acc->features);
-            $featsSubForm->description->setValue($acc->features_info);
+            $featsSubForm->populate($acc->features->toArray());
+            
 
-            // populate room features if needed
-            if ('Room' == $acc->type->name) {
-                $roomSubForm = $this->getSubForm(self::ROOM_FEATURES_SUBFORM_NAME);
-                $this->_populateFeatsOrPrefs($roomSubForm, $acc->features);
-            }     
             
             // populate appartment details if needed
             if ('Appartment' == $acc->type->name) {               
@@ -133,8 +122,7 @@ class My_Form_Accommodation extends My_Form_Abstract_AccommodationAbstract {
                  $appDetailsSubForm->populate(array(
                      'bedrooms' => $acc->details->bedrooms,
                      'bathrooms' => $acc->details->bathrooms,
-                     'parking_spots' => $acc->details->parking_spots,
-                     'furnished' => $acc->details->furnished,
+                     'parking_spots' => $acc->details->parking_spots,                    
                      'description' => $acc->details->description
                  ));
             }
@@ -144,37 +132,7 @@ class My_Form_Accommodation extends My_Form_Abstract_AccommodationAbstract {
         }
     }
 
-    /**
-     * Populates checkboxex and select fields for features and preferences
-     * 
-     * @param Zend_Form $subForm
-     * @param Zend_Db_Table_Rowset $rowset 
-     */
-    protected function _populateFeatsOrPrefs($subForm, $rowset) {
-        foreach ($subForm->getElements() as $elem) {
-            /* @var $elem Zend_Form_Element */
-            $elemName = $elem->getName();
-          //  var_dump($elemName);
-            $row = $rowset->getByName($elemName);
-
-            if (null === $row) {
-                continue;
-            }
-
-            $val = $row->value;
-
-            if ('Zend_Form_Element_Checkbox' == $elem->getType()) {
-             //   var_dump($row->getName(), $elem->getName());
-                //var_dump($elem->getValue());
-                //$elem->setValue($row->value);
-                $elem->setChecked(true);
-                continue;
-            }
-                
-
-            $elem->setValue($val);
-        }
-    }
+   
     
     /**
      * Add cancel button.

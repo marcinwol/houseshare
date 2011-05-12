@@ -82,10 +82,10 @@ class My_Model_Table_Row_Accommodation extends Zend_Db_Table_Row_Abstract {
     /**
      * Get features of a given accommodations.
      * 
-     * @return Zend_Db_Table_Rowset_AccsFeatures
+     * @return My_Model_Table_Features
      */
     public function getFeatures() {
-        return $this->findDependentRowset('My_Model_Table_AccsFeatures');
+        return $this->findParentRow('My_Model_Table_Features');
     }
 
     /**
@@ -93,21 +93,17 @@ class My_Model_Table_Row_Accommodation extends Zend_Db_Table_Row_Abstract {
      * @return int The number of rows deleted.
      */
     public function deteleFeatures() {
-        $rowset = $this->getFeatures();
-        $noOfRowsDeleted = 0;
-        foreach ($rowset as $row) {
-            $noOfRowsDeleted += $row->delete();
-        }
-        return $noOfRowsDeleted;
+        $row = $this->getFeatures();      
+        return  $row->delete();
     }
 
     /**
      * Get preferences for this accommodations.
      *
-     * @return Zend_Db_Table_Rowset_AccsPreferences
+     * @return My_Model_Table_Preferences
      */
     public function getPreferences() {
-        return $this->findDependentRowset('My_Model_Table_AccsPreferences');
+        return $this->findParentRow('My_Model_Table_Preferences');
     }
 
     /**
@@ -115,12 +111,8 @@ class My_Model_Table_Row_Accommodation extends Zend_Db_Table_Row_Abstract {
      * @return int The number of rows deleted.
      */
     public function detelePreferences() {
-        $rowset = $this->getPreferences();
-        $noOfRowsDeleted = 0;
-        foreach ($rowset as $row) {
-            $noOfRowsDeleted += $row->delete();
-        }
-        return $noOfRowsDeleted;
+        $row= $this->getPreferences();        
+        return  $row->delete();
     }
 
     /**

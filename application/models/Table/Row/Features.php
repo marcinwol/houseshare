@@ -6,11 +6,11 @@
  */
 
 /**
- * Description of NonSharedDetails
+ * Description of Feature
  *
  * @author marcin
  */
-class My_Model_Table_Row_NonSharedDetails extends Zend_Db_Table_Row_Abstract {
+class My_Model_Table_Row_Features extends Zend_Db_Table_Row_Abstract {
 
     /**
      * Get user friendly names of properties

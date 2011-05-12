@@ -6,11 +6,11 @@
  */
 
 /**
- * Description of NonSharedDetails
+ * Description of Preference
  *
  * @author marcin
  */
-class My_Model_Table_Row_NonSharedDetails extends Zend_Db_Table_Row_Abstract {
+class My_Model_Table_Row_Preferences extends Zend_Db_Table_Row_Abstract {
 
     /**
      * Get user friendly names of properties
@@ -28,6 +28,7 @@ class My_Model_Table_Row_NonSharedDetails extends Zend_Db_Table_Row_Abstract {
 
         return $labels;
     }
+  
 
 }
 

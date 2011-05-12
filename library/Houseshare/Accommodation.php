@@ -118,43 +118,43 @@ class My_Houseshare_Accommodation extends My_Houseshare_Abstract_PropertyAccesso
     /**
      * Preferences for this accommodation
      *
-     * @return My_Model_Table_Rowset_AccsPreferences
+     * @return My_Model_Table_Row_Preferences
      */
     public function getPreferences() {
         return $this->_acc->_row->getPreferences();
     }
 
-    /**
-     * Set new preferences. The format of $value should be such as
-     * that returned by $this->getPreferences()->toArray().
-     *
-     * To remove all preferences set $value = array();
-     *
-     * @param string $property name
-     * @param array $value rowset in array form of new preferences
-     */
-    public function setPreferences($property, array $value) {
-        
-        if (is_null($this->_acc->_row)) {
-            throw new Zend_Db_Table_Row_Exception(
-                    "Cannot set properties if accommodation row is NULL."
-            );
-        }
-
-        $acc_id = $this->_acc->_row->acc_id;
-
-        $accsPrefsModel = new My_Model_Table_AccsPreferences();
-
-        // set key acc_id for each preference row
-        foreach ($value as &$arrayRow) {
-            $arrayRow['acc_id'] = $acc_id;
-        }
-        unset($arrayRow);
-
-        $this->_checkIfColsArePresentInRowset($accsPrefsModel, $value, $property);
-
-        $this->_newProperties['preferences'] = $value;
-    }
+//    /**
+//     * Set new preferences. The format of $value should be such as
+//     * that returned by $this->getPreferences()->toArray().
+//     *
+//     * To remove all preferences set $value = array();
+//     *
+//     * @param string $property name
+//     * @param array $value rowset in array form of new preferences
+//     */
+//    public function setPreferences($property, array $value) {
+//        
+//        if (is_null($this->_acc->_row)) {
+//            throw new Zend_Db_Table_Row_Exception(
+//                    "Cannot set properties if accommodation row is NULL."
+//            );
+//        }
+//
+//        $acc_id = $this->_acc->_row->acc_id;
+//
+//        $accsPrefsModel = new My_Model_Table_AccsPreferences();
+//
+//        // set key acc_id for each preference row
+//        foreach ($value as &$arrayRow) {
+//            $arrayRow['acc_id'] = $acc_id;
+//        }
+//        unset($arrayRow);
+//
+//        $this->_checkIfColsArePresentInRowset($accsPrefsModel, $value, $property);
+//
+//        $this->_newProperties['preferences'] = $value;
+//    }
     
     public function setDate_avaliable($property, $value) {
         
@@ -173,83 +173,83 @@ class My_Houseshare_Accommodation extends My_Houseshare_Abstract_PropertyAccesso
         return $value;
     }
 
-    protected function _savePreferences() {
-
-        $accsPrefsModel = new My_Model_Table_AccsPreferences();
-
-        $noOfDeletes = $this->_acc->_row->detelePreferences();
-
-        $result_ids = array();
-
-
-        foreach ($this->_newProperties['preferences'] as $preference) {
-            $id = array('acc_id' => $preference['acc_id'], 'pref_id' => $preference['pref_id']);
-            $data = array('value' => $preference['value']);
-
-            $result_ids [] = $accsPrefsModel->setAccPreference($data, $id);
-        }
-
-        return $result_ids;
-    }
+//    protected function _savePreferences() {
+//
+//        $accsPrefsModel = new My_Model_Table_AccsPreferences();
+//
+//        $noOfDeletes = $this->_acc->_row->detelePreferences();
+//
+//        $result_ids = array();
+//
+//
+//        foreach ($this->_newProperties['preferences'] as $preference) {
+//            $id = array('acc_id' => $preference['acc_id'], 'pref_id' => $preference['pref_id']);
+//            $data = array('value' => $preference['value']);
+//
+//            $result_ids [] = $accsPrefsModel->setAccPreference($data, $id);
+//        }
+//
+//        return $result_ids;
+//    }
 
     /**
      * Features for this accommodation
      *
-     * @return My_Model_Table_Rowset_AccsFeatures
+     * @return My_Model_Table_Row_Features
      */
     public function getFeatures() {
         return $this->_acc->_row->getFeatures();
     }
 
-    /**
-     * Set new features. The format of $value should be such as
-     * that returned by $this->getFeatures()->toArray().
-     *
-     * To remove all features set $value = array();
-     *
-     * @param string $property name
-     * @param array $value rowset in array form of new features
-     */
-    public function setFeatures($property, array $value) {
+//    /**
+//     * Set new features. The format of $value should be such as
+//     * that returned by $this->getFeatures()->toArray().
+//     *
+//     * To remove all features set $value = array();
+//     *
+//     * @param string $property name
+//     * @param array $value rowset in array form of new features
+//     */
+//    public function setFeatures($property, array $value) {
+//
+//        if (is_null($this->_acc->_row)) {
+//            throw new Zend_Db_Table_Row_Exception(
+//                    "Cannot set features if accommodation row is NULL."
+//            );
+//        }
+//
+//        $acc_id = $this->_acc->_row->acc_id;
+//
+//        $accsFeatsModel = new My_Model_Table_AccsFeatures();
+//
+//        // set key acc_id for each feature row
+//        foreach ($value as &$arrayRow) {
+//            $arrayRow['acc_id'] = $acc_id;
+//        }
+//        unset($arrayRow);
+//
+//        $this->_checkIfColsArePresentInRowset($accsFeatsModel, $value, $property);
+//
+//        $this->_newProperties['features'] = $value;
+//    }
 
-        if (is_null($this->_acc->_row)) {
-            throw new Zend_Db_Table_Row_Exception(
-                    "Cannot set features if accommodation row is NULL."
-            );
-        }
-
-        $acc_id = $this->_acc->_row->acc_id;
-
-        $accsFeatsModel = new My_Model_Table_AccsFeatures();
-
-        // set key acc_id for each feature row
-        foreach ($value as &$arrayRow) {
-            $arrayRow['acc_id'] = $acc_id;
-        }
-        unset($arrayRow);
-
-        $this->_checkIfColsArePresentInRowset($accsFeatsModel, $value, $property);
-
-        $this->_newProperties['features'] = $value;
-    }
-
-    protected function _saveFeatures() {
-        $acc_id = $this->_acc->_row->acc_id;
-        $accsFeatsModel = new My_Model_Table_AccsFeatures();
-
-        $noOfDeletes = $this->_acc->_row->deteleFeatures();
-
-        $result_ids = array();
-
-        foreach ($this->_newProperties['features'] as $feature) {
-            $id = array('acc_id' => $feature['acc_id'], 'feat_id' => $feature['feat_id']);
-            $data = array('value' => $feature['value']);
-
-            $result_ids [] = $accsFeatsModel->setAccFeature($data, $id);
-        }
-
-        return $result_ids;
-    }
+//    protected function _saveFeatures() {
+//        $acc_id = $this->_acc->_row->acc_id;
+//        $accsFeatsModel = new My_Model_Table_AccsFeatures();
+//
+//        $noOfDeletes = $this->_acc->_row->deteleFeatures();
+//
+//        $result_ids = array();
+//
+//        foreach ($this->_newProperties['features'] as $feature) {
+//            $id = array('acc_id' => $feature['acc_id'], 'feat_id' => $feature['feat_id']);
+//            $data = array('value' => $feature['value']);
+//
+//            $result_ids [] = $accsFeatsModel->setAccFeature($data, $id);
+//        }
+//
+//        return $result_ids;
+//    }
     
     public function getCreationtimestamp() {
         $create = $this->created;
@@ -381,6 +381,25 @@ class My_Houseshare_Accommodation extends My_Houseshare_Abstract_PropertyAccesso
      */
     public function setAddrId($addr_id) {
         $this->_properties['addr_id'] = $addr_id;
+    }
+    
+    
+     /**
+     * Set $pref_id
+     * 
+     * @param int $pref_id
+     */
+    public function setPreferencesId($pref_id) {
+        $this->_properties['preferences_id'] = $pref_id;
+    }
+    
+         /**
+     * Set $feat_id
+     * 
+     * @param int $feat_id
+     */
+    public function setFeaturesId($feat_id) {
+        $this->_properties['features_id'] = $feat_id;
     }
 
     /**
@@ -628,17 +647,17 @@ class My_Houseshare_Accommodation extends My_Houseshare_Abstract_PropertyAccesso
      */
     public function save($rePopulate = true) {
 
-        $prefs_ids = array();
-
-        if (array_key_exists('preferences', $this->getNewProperties())) {
-            $prefs_ids = $this->_savePreferences();
-        }
-
-        $feat_ids = array();
-
-        if (array_key_exists('features', $this->getNewProperties())) {
-            $feat_ids = $this->_saveFeatures();
-        }
+//        $prefs_ids = array();
+//
+//        if (array_key_exists('preferences', $this->getNewProperties())) {
+//            $prefs_ids = $this->_savePreferences();
+//        }
+//
+//        $feat_ids = array();
+//
+//        if (array_key_exists('features', $this->getNewProperties())) {
+//            $feat_ids = $this->_saveFeatures();
+//        }
 
         $photos_ids = array();
 

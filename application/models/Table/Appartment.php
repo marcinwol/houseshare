@@ -28,7 +28,9 @@ class My_Model_Table_Appartment extends Zend_Db_Table_Abstract {
             'refColumns' => array('details_id'),
         )
     );
-
+    
+    
+  
 
     /**
      * Update/insert appartment.

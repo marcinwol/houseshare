@@ -396,12 +396,15 @@ ul.feats-prefs li.other {
 
 /** APPARTMENT AND ROOMATES details **/
 
-dl.details dt, dl.details dd  {    
-   float: left;
-   height: 20px;
+table.details   {    
+    width:100%;
 }
-dl.details dt {
-    width: 90%;
+table.details .name {
+    
+}
+
+table.details .value {    
+    text-align: center;
 }
 
 

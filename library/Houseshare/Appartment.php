@@ -33,6 +33,8 @@ class My_Houseshare_Appartment extends My_Houseshare_Accommodation {
         $this->_acc = new My_Houseshare_Accommodation($id);
 
         $this->_mergeProperties();
+        
+       
     }
 
     /**
@@ -47,7 +49,7 @@ class My_Houseshare_Appartment extends My_Houseshare_Accommodation {
     /**
      * Get appartment details.
      *
-     * @return My_Model_Table_Row_Details
+     * @return My_Model_Table_Row_NonSharedDetails
      */
     public function getDetails() {
         return $this->_row->getDetails();
