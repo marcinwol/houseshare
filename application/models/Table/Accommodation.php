@@ -84,15 +84,13 @@ class My_Model_Table_Accommodation extends Zend_Db_Table_Abstract {
      */
     public function getLastAccommodations($page = 1, $no = 5) {
         $select = $this->select();
-        
+
         $select->order('created DESC')
                 ->where('ACCOMMODATION.is_enabled = ?', 1);
-        
-        return $this->getAccPaginator($select, $page, $no);
 
+        return $this->getAccPaginator($select, $page, $no);
     }
-    
-    
+
     /**
      * Get accommodation list paginator.
      *  
@@ -170,6 +168,53 @@ class My_Model_Table_Accommodation extends Zend_Db_Table_Abstract {
                 ->limit($limit);
 
         return $db->fetchAll($select);
+    }
+
+    /**
+     * Create initial JOIN that will be used in application/list
+     * to search and limit the list of avaliable accommodations 
+     * for display
+     * 
+     * @param $conditions List of condition for the join, e.g. city_id
+     * @return Zend_Db_Select  
+     */
+    public function getListofAccommodations(array $conditions = array()) {
+
+        $select = $this->select(Zend_Db_Table::SELECT_WITH_FROM_PART)
+                ->setIntegrityCheck(false)
+                ->where('ACCOMMODATION.is_enabled = ?', 1);
+
+        $select->joinInner(
+                'ADDRESS', 'ACCOMMODATION.addr_id = ADDRESS.addr_id', array()
+        );
+
+        $select->joinInner(
+                'PREFERENCES', 'ACCOMMODATION.preferences_id = PREFERENCES.preferences_id', array()
+        );
+
+        $select->joinInner(
+                'FEATURES', 'ACCOMMODATION.features_id = FEATURES.features_id', array()
+        );
+
+        if (isset($conditions['city_id'])) {
+            $select->where("ADDRESS.city_id = ?", $conditions['city_id']);
+        }
+        
+        if (isset($conditions['internet'])) {
+            $select->where("FEATURES.internet > 0");
+        }
+        
+         if (isset($conditions['price'])) {
+            $select->where("ACCOMMODATION.price < ?", $conditions['price']);
+         }
+         
+         if (isset($conditions['type_id'])) {
+            $select->where("ACCOMMODATION.type_id IN " . $conditions['type_id']);
+         }        
+        
+        $select->distinct();
+        
+        return $select;
     }
 
 }

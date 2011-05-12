@@ -2,14 +2,13 @@
 
 class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
 
-    
     protected function _initDoctype() {
         $this->bootstrap('view');
         /* @var $view Zend_View */
         $view = $this->getResource('view');
         $view->doctype('XHTML1_STRICT');
         $view->addHelperPath(APPLICATION_PATH . '/views/helpers/', 'My_View_Helper');
-       
+
         $container = new Zend_Navigation(
                         new Zend_Config_Xml(APPLICATION_PATH . '/configs/navigation.xml', 'nav')
         );
@@ -170,7 +169,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
     }
 
     protected function _initSetZendMail() {
-        
+
         $file = APPLICATION_PATH . '/configs/mailsmtp.ini';
 
         if (file_exists($file)) {
@@ -178,16 +177,12 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
         } else {
             throw new Zend_Mail_Exception('No mailsmtp.ini found');
         }
-       
+
         $tr = new Zend_Mail_Transport_Smtp(
-                        $smtp->mail->host, $smtp->mail->toArray()                        
+                        $smtp->mail->host, $smtp->mail->toArray()
         );
-        
+
         Zend_Mail::setDefaultTransport($tr);
     }
-    
-    
-    
-    
 
 }

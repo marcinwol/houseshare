@@ -15,8 +15,7 @@ class AccommodationController extends Zend_Controller_Action {
                 ->getResource('cachemanager')
                 ->getCache('mycache');
 
-      //  $this->_helper->cache(array('preview'), array('previewaction'));
-      
+        //  $this->_helper->cache(array('preview'), array('previewaction'));
     }
 
     public function indexAction() {
@@ -87,7 +86,7 @@ class AccommodationController extends Zend_Controller_Action {
 //            $acc = My_Houseshare_Factory::accommodation($acc_id);
 //            $this->_cache->save($acc, $cacheId);
 //        }
-        
+
         $acc = My_Houseshare_Factory::accommodation($acc_id);
 
 
@@ -195,40 +194,39 @@ class AccommodationController extends Zend_Controller_Action {
             }
         }
 
-        $accModel = new My_Model_Table_Accommodation();
-        $accSelect = $accModel->select(Zend_Db_Table::SELECT_WITH_FROM_PART)
-                ->setIntegrityCheck(false);
-        $accSelect->joinInner('ADDRESS', 'ACCOMMODATION.addr_id = ADDRESS.addr_id', array())
-                ->joinLeft('ACCOMODATION_has_FEATURE', 'ACCOMMODATION.acc_id = ACCOMODATION_has_FEATURE.acc_id', array())
-                ->where('ACCOMMODATION.is_enabled = ?', 1);
 
-
+        // make a list of accommodation that meets the limit criteria
+        $conditions = array();
 
         if ($city_id) {
-            $accSelect->where("ADDRESS.city_id = ?", (int) $city_id);
+            $conditions['city_id'] = $city_id;
         }
 
         if ($limitForm->internet->isChecked()) {
-            $accSelect->where("ACCOMODATION_has_FEATURE.feat_id IN ($internet)");
+            // whatever value is good here, not only true
+            $conditions['internet'] = true;
         }
-
+        
         if ($maxPrice) {
-            $accSelect->where("ACCOMMODATION.price < ?", $maxPrice);
+            $conditions['price'] = $maxPrice;           
         }
+        
+        $conditions['type_id'] = "($bed, $room, $appartment)";   
+                        
+        
+        // get the select statement
+        $accModel = new My_Model_Table_Accommodation();
+        $accSelect = $accModel->getListofAccommodations($conditions);
 
-        $accSelect->where("ACCOMMODATION.type_id IN ($bed, $room, $appartment)");
 
-        $accSelect->distinct();
-
-
-
-        //$accs = $accModel->fetchAll($accSelect);
+        // get the paginator for the above select statement      
         $accPaginator = $accModel->getAccPaginator($accSelect, $page);
 
         if ($accPaginator->count() < $page) {
             $page = $accPaginator->count();
         }
 
+        // set variables to be used in a list.phtml
         $this->view->maxPrice = $maxPrice;
         $this->view->cityRow = $cityRow;
         $this->view->limitForm = $limitForm;
@@ -441,12 +439,11 @@ class AccommodationController extends Zend_Controller_Action {
 
 
                     // save accommodation in db
-                    if ('3' == $accTypeID) {                        
+                    if ('3' == $accTypeID) {
                         // set appartment details 
                         $featModel = new My_Model_Table_NonSharedDetails();
                         $noOfRowUpdated = $featModel->update(
-                                $formData['appartment_details'], 
-                                array('details_id ', $acc->details->details_id)
+                                        $formData['appartment_details'], array('details_id ', $acc->details->details_id)
                         );
                     } else {
                         // shared accommodation
