@@ -316,7 +316,7 @@ div#welcome form {
 
 #login {
 
-    float: right;    
+    text-align: right;    
     font-weight: bold;
     padding-right: 10px;
     font-size: 12px;

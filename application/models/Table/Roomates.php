@@ -35,7 +35,7 @@ class My_Model_Table_Roomates extends Zend_Db_Table_Abstract {
             'value' => array(
                 '0' => 'Male', 
                 '1' => 'Female',
-                '2' => 'Both male and female'
+                '2' => 'Mixed'
                 ),
             'default' => '2'
         ),

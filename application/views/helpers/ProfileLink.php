@@ -37,8 +37,8 @@ class My_View_Helper_ProfileLink extends Zend_View_Helper_Abstract {
             $fnameLink = "<a href=\"$url\"/>$fname</a>";
             $html = $fnameLink . ' <span>|</span> <a href="'.$baseUrl.'/user/logout"> Logout </a>'
             ;
-        }        
-
+        }   
+        
         return $html;
     }
 
