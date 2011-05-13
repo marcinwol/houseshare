@@ -23,7 +23,7 @@ class My_Model_Table_Preferences extends Zend_Db_Table_Abstract {
             'value' => array(
                 '0' => 'No',
                 '1' => 'Yes',
-                '2' => 'Not important'
+                '2' => 'No opinion'
             ),
             'default' => '2'
         ),
@@ -32,7 +32,7 @@ class My_Model_Table_Preferences extends Zend_Db_Table_Abstract {
             'value' => array(
                 '0' => 'No',
                 '1' => 'Yes',
-                '2' => 'Not important'
+                '2' => 'No opinion'
             ),
             'default' => '2'
         ),
@@ -41,7 +41,7 @@ class My_Model_Table_Preferences extends Zend_Db_Table_Abstract {
             'value' => array(
                 '0' => 'No',
                 '1' => 'Yes',
-                '2' => 'Not important'
+                '2' => 'No opinion'
             ),
             'default' => '2'
         ),
@@ -50,7 +50,7 @@ class My_Model_Table_Preferences extends Zend_Db_Table_Abstract {
             'value' => array(
                 '0' => 'No',
                 '1' => 'Yes',
-                '2' => 'Not important'
+                '2' => 'No opinion'
             ),
             'default' => '2'
         ),

@@ -398,15 +398,38 @@ ul.feats-prefs li.other {
 
 table.details   {    
     width:100%;
+    text-align: center;
 }
-table.details .name {
+table.details tr {
+    height: 30px;
+    
     
 }
 
-table.details .value {    
-    text-align: center;
+/*table.details  tr:nth-child(even) {    
+    background-color: #f0f0f0;
 }
 
+table.details  tr:nth-child(odd) {    
+    background-color: #d1d1d1;
+}*/
+
+table.details td {
+    border-bottom-style: dotted;
+    border-bottom-width: 1px;
+    border-bottom-color: #BD3D00;
+}
+
+table.details .value {    
+    
+}
+
+
+
+/*table.details .other {    
+    padding: 5px 5px 5px 5px;
+    background-color: #eaeaea;
+}*/
 
 /* ---------->>> recent advters <<<---------------------------------------------------------------*/
 

@@ -6,7 +6,8 @@
 
         foreach ($data as $name => $value) {
 
-            if (strpos($name, '_id') > 3 || is_null($value) || strlen($value) == 0) {
+            if (strpos($name, '_id') > 3 || is_null($value)
+                    || strlen($value) == 0 || $name == 'description') {
                 continue;
             }
 
@@ -27,6 +28,11 @@
             echo "<td class=\"name\">$nameLabel</td>";
             echo "<td class=\"value\">$valueLabel</td>";
             echo "</tr>";
+        }
+
+        $description = $data['description'];
+        if (strlen($description) > 0) {                                 
+            echo "<tr><td class=\"other\" colspan=\"2\">Other: $description</td></tr>";            
         }
         ?>
     </tbody>
