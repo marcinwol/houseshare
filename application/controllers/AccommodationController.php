@@ -206,14 +206,14 @@ class AccommodationController extends Zend_Controller_Action {
             // whatever value is good here, not only true
             $conditions['internet'] = true;
         }
-        
+
         if ($maxPrice) {
-            $conditions['price'] = $maxPrice;           
+            $conditions['price'] = $maxPrice;
         }
-        
-        $conditions['type_id'] = "($bed, $room, $appartment)";   
-                        
-        
+
+        $conditions['type_id'] = "($bed, $room, $appartment)";
+
+
         // get the select statement
         $accModel = new My_Model_Table_Accommodation();
         $accSelect = $accModel->getListofAccommodations($conditions);
@@ -387,9 +387,8 @@ class AccommodationController extends Zend_Controller_Action {
         $accForm->addCancel();
 
         // don't allow for changing accommodation type
-        $accForm->basic_info->acc_type->setAttrib('disabled', true);
-        $accForm->basic_info->acc_type->setRequired(false);
-
+        //$accForm->basic_info->acc_type->setAttrib('disabled', true);
+        //$accForm->basic_info->acc_type->setRequired(false);
         // get acc_type from database
         $accTypeID = $acc->type_id;
 
@@ -408,7 +407,7 @@ class AccommodationController extends Zend_Controller_Action {
 
                 // start transaction
                 $db = Zend_Db_Table::getDefaultAdapter();
-                $db->beginTransaction();
+               // $db->beginTransaction();
 
 
                 try {
@@ -441,8 +440,8 @@ class AccommodationController extends Zend_Controller_Action {
                     // save accommodation in db
                     if ('3' == $accTypeID) {
                         // set appartment details 
-                        $featModel = new My_Model_Table_NonSharedDetails();
-                        $noOfRowUpdated = $featModel->update(
+                        $appartmentDetailsModel = new My_Model_Table_NonSharedDetails();
+                        $noOfRowUpdated = $appartmentDetailsModel->update(
                                         $formData['appartment_details'], array('details_id ', $acc->details->details_id)
                         );
                     } else {
@@ -450,6 +449,87 @@ class AccommodationController extends Zend_Controller_Action {
                         $acc->roomates->save($formData['roomates']);
                         $newRoomates = new My_Model_Table_Roomates();
                         $roomates_id = $newRoomates->setRoomates($formData['roomates']);
+                    }
+
+                    // if changing accommodation type, e.g. from room to appartment
+                    // need to create/delete rows in APPARTMENT/SHARED tabels
+                    // to reflect this this
+
+                    if ($acc->type_id != $formData['basic_info']['acc_type']) {
+                        $oldType = $acc->type_id;
+                        $newTypeId = $formData['basic_info']['acc_type'];
+                        
+                        
+
+                        // if changing from room or place in a room into apprtment
+                        // delete SHARED and create APPARTMENT row
+                        if ($newTypeId == 3 && ($oldType == 2 || $oldType == 2)) {
+
+
+                            // set appartment details for this 'new' appartment
+                            $appDetailsModel = new My_Model_Table_NonSharedDetails();
+                            $details_id = $appDetailsModel->insert($formData['appartment_details']);
+
+                            // make APPARTMENT row
+                            $appartmentModel = new My_Model_Table_Appartment();
+                            $app_id = $appartmentModel->insert(
+                                            array(
+                                                'acc_id' => $acc_id,
+                                                'details_id' => $details_id
+                                            )
+                            );
+
+                            if ($app_id != $acc_id) {
+                                throw new Zend_Db_Exception('Inserted appartment id != of acc_id');
+                            }
+
+                            // since APPARTMENT row was created, remove 
+                            // SHARED row and associated ROOMATES details
+                            $sharedModel = new My_Model_Table_Shared();
+                            $sharedRow = $sharedModel->fetchRow("acc_id = $acc_id");
+                            $roomatesRow = $sharedRow->getRoomates();                           
+                            $noOfDeleted = $sharedRow->delete();
+                            $roomatesRow->delete();
+                           // var_dump($noOfDeleted);exit;
+                            
+                            // generate new accommodation model
+                            $acc = new My_Houseshare_Appartment($acc_id);
+                            
+                            
+                        } elseif (($newTypeId == 2 || $newTypeId == 1) && $oldType == 3) {
+                            // if changing from appartment to shared do the oposite to above
+                            
+                            
+                            // set roomates for this 'new' shared acc
+                            $newRoomates = new My_Model_Table_Roomates();
+                            $roomates_id = $newRoomates->setRoomates($formData['roomates']);
+                            
+                            
+                             // make SHARED row
+                            $sharedModel = new My_Model_Table_Shared();
+                            $shared_id = $sharedModel->insert(
+                                            array(
+                                                'acc_id' => $acc_id,
+                                                'roomates_id' => $roomates_id
+                                            )
+                            );
+
+                            if ($shared_id != $acc_id) {
+                                throw new Zend_Db_Exception('Inserted appartment id != of acc_id');
+                            }
+                            
+                            // since SHARED row was created, remove 
+                            // APPARTMENT row and associated NONSHARE_ACC_DETAILS
+                            $appModel = new My_Model_Table_Appartment();
+                            $appRow = $appModel->fetchRow("acc_id = $acc_id");
+                            $detailsRow = $appRow->getDetails();                          
+                            $noOfDeleted = $appRow->delete(); 
+                            $detailsRow->delete();          
+                            
+                            // generate new accommodation model
+                            $acc =  $acc = new My_Houseshare_Shared($acc_id);;
+                            
+                        }
                     }
 
 
@@ -462,21 +542,22 @@ class AccommodationController extends Zend_Controller_Action {
                     $acc->street_address_public = $formData['address']['address_public'];
                     $acc->short_term_ok = $formData['basic_info']['short_term'];
                     $acc->setAddrId($addr_id);
-
-                    //$acc->setTypeId($formData['basic_info']['acc_type']);
+                    $acc->setTypeId($formData['basic_info']['acc_type']);
 
 
                     if ($acc->save() != $acc_id) {
-                        $db->rollBack();
+                       // $db->rollBack();
                         throw new Zend_Db_Exception('Editted acc_id is different then updated');
                     }
 
 
-                    $db->commit();
+                  //  $db->commit();
                 } catch (Exception $e) {
-                    $db->rollBack();
+                 //   $db->rollBack();
                     throw $e;
                 }
+//                var_dump($noOfDeleted);
+//                exit;
                 $this->_helper->FlashMessenger('Accommodation data was changed');
                 return $this->_redirect('user/index');
             }

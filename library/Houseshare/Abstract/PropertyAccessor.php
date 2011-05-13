@@ -32,7 +32,9 @@ abstract class My_Houseshare_Abstract_PropertyAccessor {
     public function __construct($id = null) {
 
         $modelObj = "My_Model_{$this->_modelName}";
+        
         $this->_model = new $modelObj();
+        
 
         $this->checkIfView();
 
@@ -113,10 +115,11 @@ abstract class My_Houseshare_Abstract_PropertyAccessor {
      */
     protected function _populateProperties($id) {
 
+        
         $this->_row = $this->_model->find($id)->current();
 
         if (is_null($this->_row)) {
-            throw new Zend_Db_Exception("Row with id=$id was not found");
+            throw new Zend_Db_Exception("Row with id=$id was not found for model: " . get_class($this->_model));
         }
 
         foreach ($this->_properties as $prop => $val) {

@@ -177,7 +177,9 @@ CREATE  TABLE IF NOT EXISTS `TYPE` (
   `name` VARCHAR(45) NOT NULL ,
   `is_shared` TINYINT(1) NOT NULL DEFAULT '1' ,
   PRIMARY KEY (`type_id`) )
-ENGINE = InnoDB;
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8
+COLLATE = utf8_polish_ci;
 
 CREATE UNIQUE INDEX `type_id_UNIQUE` ON `TYPE` (`type_id` ASC) ;
 
@@ -196,7 +198,9 @@ CREATE  TABLE IF NOT EXISTS `FEATURES` (
   `parking` TINYINT NULL ,
   `description` TEXT NULL ,
   PRIMARY KEY (`features_id`) )
-ENGINE = InnoDB;
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8
+COLLATE = utf8_polish_ci;
 
 
 -- -----------------------------------------------------
@@ -213,7 +217,9 @@ CREATE  TABLE IF NOT EXISTS `PREFERENCES` (
   `gender` TINYINT NULL ,
   `description` TEXT NULL ,
   PRIMARY KEY (`preferences_id`) )
-ENGINE = InnoDB;
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8
+COLLATE = utf8_polish_ci;
 
 
 -- -----------------------------------------------------
@@ -592,7 +598,7 @@ DROP TABLE IF EXISTS `SHARED` ;
 
 CREATE  TABLE IF NOT EXISTS `SHARED` (
   `acc_id` INT UNSIGNED NOT NULL ,
-  `roomates_id` INT UNSIGNED NULL ,
+  `roomates_id` INT UNSIGNED NOT NULL ,
   PRIMARY KEY (`acc_id`) ,
   CONSTRAINT `fk_BED_ACCOMODATION10`
     FOREIGN KEY (`acc_id` )
@@ -697,6 +703,11 @@ CREATE TABLE IF NOT EXISTS `VIEW_PHOTO` (`photo_id` INT, `filename` INT, `acc_id
 CREATE TABLE IF NOT EXISTS `VIEW_USER_FOR_AUTH` (`key` INT, `provider_type` INT, `user_id` INT, `password` INT, `email` INT, `phone` INT, `phone_public` INT, `created` INT, `first_name` INT, `last_name` INT, `last_name_public` INT, `type` INT, `is_enabled` INT, `privilage` INT, `description` INT, `email_public` INT, `nickname` INT);
 
 -- -----------------------------------------------------
+-- Placeholder table for view `VIEW_ACCOMMODATION`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `VIEW_ACCOMMODATION` (`acc_id` INT, `title` INT, `price` INT, `smokers` INT, `internet` INT);
+
+-- -----------------------------------------------------
 -- View `VIEW_CITY`
 -- -----------------------------------------------------
 DROP VIEW IF EXISTS `VIEW_CITY` ;
@@ -774,6 +785,21 @@ SELECT * FROM `USER`
 LEFT JOIN `PASSWORD` USING (`user_id`)
 LEFT JOIN `AUTH_PROVIDER` USING (`user_id`)
 
+$$
+DELIMITER ;
+
+;
+
+-- -----------------------------------------------------
+-- View `VIEW_ACCOMMODATION`
+-- -----------------------------------------------------
+DROP VIEW IF EXISTS `VIEW_ACCOMMODATION` ;
+DROP TABLE IF EXISTS `VIEW_ACCOMMODATION`;
+DELIMITER $$
+CREATE  OR REPLACE VIEW `VIEW_ACCOMMODATION` AS 
+SELECT ac.acc_id, ac.title, ac.price, p.smokers,  f.internet  FROM `ACCOMMODATION` ac
+INNER JOIN (`PREFERENCES` p, `FEATURES` f) USING (`preferences_id`, `features_id`)
+INNER JOIN `VIEW_ADDRESS` ad ON ad.id = ac.addr_id
 $$
 DELIMITER ;
 
