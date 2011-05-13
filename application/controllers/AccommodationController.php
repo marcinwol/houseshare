@@ -387,8 +387,8 @@ class AccommodationController extends Zend_Controller_Action {
         $accForm->addCancel();
 
         // don't allow for changing accommodation type
-        //$accForm->basic_info->acc_type->setAttrib('disabled', true);
-        //$accForm->basic_info->acc_type->setRequired(false);
+        $accForm->basic_info->acc_type->setAttrib('disabled', true);
+        $accForm->basic_info->acc_type->setRequired(false);
         // get acc_type from database
         $accTypeID = $acc->type_id;
 
@@ -407,7 +407,7 @@ class AccommodationController extends Zend_Controller_Action {
 
                 // start transaction
                 $db = Zend_Db_Table::getDefaultAdapter();
-               // $db->beginTransaction();
+                $db->beginTransaction();
 
 
                 try {
@@ -480,6 +480,7 @@ class AccommodationController extends Zend_Controller_Action {
                             );
 
                             if ($app_id != $acc_id) {
+                                 $db->rollBack();
                                 throw new Zend_Db_Exception('Inserted appartment id != of acc_id');
                             }
 
@@ -546,18 +547,16 @@ class AccommodationController extends Zend_Controller_Action {
 
 
                     if ($acc->save() != $acc_id) {
-                       // $db->rollBack();
+                        $db->rollBack();
                         throw new Zend_Db_Exception('Editted acc_id is different then updated');
                     }
 
 
-                  //  $db->commit();
+                    $db->commit();
                 } catch (Exception $e) {
-                 //   $db->rollBack();
+                    $db->rollBack();
                     throw $e;
                 }
-//                var_dump($noOfDeleted);
-//                exit;
                 $this->_helper->FlashMessenger('Accommodation data was changed');
                 return $this->_redirect('user/index');
             }

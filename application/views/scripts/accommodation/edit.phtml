@@ -1,3 +1,19 @@
+<?php
+    $sideBarContent = '
+   
+    Unfortunately, you <strong>cannot</strong> change accommodation 
+    type using this form. 
+            
+            <p> What you can do tough, is to <strong>add new accommodation</strong> and deactive this one. </p>
+            
+            <p>    We can prefill new accommodation form with some data, to make this process
+                easy.
+            </p>
+           
+           ';
+    $this->sideBarElement('Cannot change accommodation type?', $sideBarContent, array('class' => 'side-bar-info','break'=>true));
+
+?>
 <h2>Edit accommodation data</h2>
 <div>
     <?php echo $this->form;?>
