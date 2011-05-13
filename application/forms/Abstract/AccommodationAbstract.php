@@ -538,6 +538,7 @@ abstract class My_Form_Abstract_AccommodationAbstract extends Zend_Form {
             Zend_Validate_EmailAddress::INVALID_FORMAT => 'Incorrect email format'
         ));
         $emailInput->addValidator($emailValidator);
+        $emailInput->addValidator(new My_Validate_UniqueEmail());
         $emailInput->setAttribs(
                 array(
                     'tooltip' => 'Email that can be used to contact you'
