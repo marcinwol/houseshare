@@ -27,16 +27,15 @@ class My_View_Helper_AccUrl extends Zend_View_Helper_Abstract {
      */
     public function accUrl(My_Houseshare_Accommodation $acc, $route = 'showacc') {
 
-        $type   = lcfirst($acc->getTypeAsString());
-        $city   = strtolower($acc->city);
+        $type = lcfirst($acc->getTypeAsString());
+        $city = My_Houseshare_Tools::toAscii(strtolower($acc->city));
         $acc_id = $acc->acc_id;
-        $title  = strtolower($acc->title); 
-        
-        $url = $this->view->url(array('city' => $city, 'type'=>$type, 'id' => $acc_id, 'title' => "$title"), $route);
+        $title =  My_Houseshare_Tools::toAscii(strtolower(substr($acc->title,0,40)));
+
+        $url = $this->view->url(array('city' => $city, 'type' => $type, 'id' => $acc_id, 'title' => "$title"), $route);
 
         return $url;
     }
-
 
     /**
      * Get Zend_View instance
@@ -46,6 +45,6 @@ class My_View_Helper_AccUrl extends Zend_View_Helper_Abstract {
     public function setView(Zend_View_Interface $view) {
         $this->view = $view;
     }
-
+   
 }
-    ?>
+?>
