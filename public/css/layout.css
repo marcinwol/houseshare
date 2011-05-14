@@ -127,7 +127,7 @@ form#accommodation-form input[type=checkbox], form#register-form input[type=chec
 }
 
 fieldset#fieldset-acc_features dt, fieldset#fieldset-acc_features dd {
-   display: inline;
+    display: inline;
 }
 
 label.required {
@@ -136,23 +136,23 @@ label.required {
 }
 
 
- .maplabel {
-     color: black;
-     background-color: white;
-     font-family: "Lucida Grande", "Arial", sans-serif;
-     font-size: 12px;
-     font-weight: bold;
-     text-align: center;
-     padding-left:2px;
-     padding-right:2px;
-     border: 1px solid #D1D1D1;
-     white-space: nowrap;
-   }
+.maplabel {
+    color: black;
+    background-color: white;
+    font-family: "Lucida Grande", "Arial", sans-serif;
+    font-size: 12px;
+    font-weight: bold;
+    text-align: center;
+    padding-left:2px;
+    padding-right:2px;
+    border: 1px solid #D1D1D1;
+    white-space: nowrap;
+}
 
-   
-   
-   
-   
+
+
+
+
 /**** ACCOMMODATION ADD STEPS ******/
 
 .current-step {
@@ -402,8 +402,8 @@ table.details   {
 }
 table.details tr {
     height: 30px;
-    
-    
+
+
 }
 
 /*table.details  tr:nth-child(even) {    
@@ -421,7 +421,7 @@ table.details td {
 }
 
 table.details .value {    
-    
+
 }
 
 
@@ -470,9 +470,36 @@ h1.advert-title a {
     text-decoration: none;
     color: #fd5416;
 }
+h1.advert-title a.city {
+    
+    color: #2e2e2e;
+}
+h1.advert-title a:hover {  
+   
+    color: #767676;
+}
 div.advert-info {
+   
     padding-left: 5px;
 }
+
+.listing-preview-type {
+     float: left;
+    color: white;
+    width: 20px;
+    padding: 0px 1px 0px 1px;
+    background-color: #fe7c3b;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    font-weight: bold;
+    text-align: center;
+}
+
+.listing-preview-description {
+   padding-left:3px;
+}
+
+
 
 .listing-preview-img, .listing-preview-detials {
     float:left;   
@@ -481,6 +508,7 @@ div.advert-info {
 .listing-preview-detials {
     width: 510px;
 }
+
 
 .listing-preview-price {
     margin-top: 10px;
@@ -529,6 +557,8 @@ dl.advert-stats dt, dl.advert-stats dd{
 
     color: #afafaf;
 }
+
+
 
 /**** PAGINATION CONTROL */
 div.paginationControl {
@@ -639,7 +669,7 @@ dl.basic-info dd {
 }
 
 dl.basic-info .price {
-    
+
     font-size: 18px;
     font-weight: bold;
 }

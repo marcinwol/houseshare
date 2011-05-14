@@ -23,7 +23,7 @@
     <div class="listing-preview-detials" style="float:left">
         <h1 class="advert-title">
             <?php $city = $this->acc->city; ?>
-            <a href="<?php echo $this->baseUrl('/accommodation/list/city/' . $this->acc->address->city_id); ?>"><?php echo '<span style="color:#4A4A4A">' . $city . ': </span>'; ?></a>
+            <a class="city" href="<?php echo $this->baseUrl('/accommodation/list/city/' . $this->acc->address->city_id); ?>"><?php echo $city . ':'; ?></a>
             <a href="<?php echo $this->baseUrl('/accommodation/show/id/' . $this->acc->acc_id); ?>">
                 <?php echo  $this->truncate(ucfirst(strtolower($this->acc->title)), 0, 50); ?>
             </a>
@@ -33,13 +33,13 @@
         </h1>        
         <div class="advert-info" >
 
-            <div> <?php echo $this->truncate($this->acc->description, 0, 160); ?></div>               
+            <div> <span class="listing-preview-type" title="<?php echo $this->acc->getTypeAsString(); ?>">
+            <?php echo $this->acc->getTypeAsCharacter(); ?></span>
+            <span class="listing-preview-description" ><?php echo $this->truncate($this->acc->description, 0, 155); ?></span>
+            </div>               
             <dl>
-                <?php $city = $this->acc->city; ?>
-               <!-- <dt>City: </dt><dd><a href="<?php echo $this->baseUrl('/accommodation/list/city/' . $this->acc->address->city_id); ?>"><?php echo $city; ?></a></dd>  -->                                                         
-                <dt>Type: </dt><dd><?php echo $this->acc->getTypeAsString(); ?></dd> 
-
-
+                <?php // $city = $this->acc->city; ?>
+              
                 <dt>Avaliable <?php echo $this->avaliable($this->acc)->inOrFrom(); ?>: </dt>
 
                 <dd>                 

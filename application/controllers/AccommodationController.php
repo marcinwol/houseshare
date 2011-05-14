@@ -455,83 +455,83 @@ class AccommodationController extends Zend_Controller_Action {
                     // need to create/delete rows in APPARTMENT/SHARED tabels
                     // to reflect this this
 
-                    if ($acc->type_id != $formData['basic_info']['acc_type']) {
-                        $oldType = $acc->type_id;
-                        $newTypeId = $formData['basic_info']['acc_type'];
-                        
-                        
-
-                        // if changing from room or place in a room into apprtment
-                        // delete SHARED and create APPARTMENT row
-                        if ($newTypeId == 3 && ($oldType == 2 || $oldType == 2)) {
-
-
-                            // set appartment details for this 'new' appartment
-                            $appDetailsModel = new My_Model_Table_NonSharedDetails();
-                            $details_id = $appDetailsModel->insert($formData['appartment_details']);
-
-                            // make APPARTMENT row
-                            $appartmentModel = new My_Model_Table_Appartment();
-                            $app_id = $appartmentModel->insert(
-                                            array(
-                                                'acc_id' => $acc_id,
-                                                'details_id' => $details_id
-                                            )
-                            );
-
-                            if ($app_id != $acc_id) {
-                                 $db->rollBack();
-                                throw new Zend_Db_Exception('Inserted appartment id != of acc_id');
-                            }
-
-                            // since APPARTMENT row was created, remove 
-                            // SHARED row and associated ROOMATES details
-                            $sharedModel = new My_Model_Table_Shared();
-                            $sharedRow = $sharedModel->fetchRow("acc_id = $acc_id");
-                            $roomatesRow = $sharedRow->getRoomates();                           
-                            $noOfDeleted = $sharedRow->delete();
-                            $roomatesRow->delete();
-                           // var_dump($noOfDeleted);exit;
-                            
-                            // generate new accommodation model
-                            $acc = new My_Houseshare_Appartment($acc_id);
-                            
-                            
-                        } elseif (($newTypeId == 2 || $newTypeId == 1) && $oldType == 3) {
-                            // if changing from appartment to shared do the oposite to above
-                            
-                            
-                            // set roomates for this 'new' shared acc
-                            $newRoomates = new My_Model_Table_Roomates();
-                            $roomates_id = $newRoomates->setRoomates($formData['roomates']);
-                            
-                            
-                             // make SHARED row
-                            $sharedModel = new My_Model_Table_Shared();
-                            $shared_id = $sharedModel->insert(
-                                            array(
-                                                'acc_id' => $acc_id,
-                                                'roomates_id' => $roomates_id
-                                            )
-                            );
-
-                            if ($shared_id != $acc_id) {
-                                throw new Zend_Db_Exception('Inserted appartment id != of acc_id');
-                            }
-                            
-                            // since SHARED row was created, remove 
-                            // APPARTMENT row and associated NONSHARE_ACC_DETAILS
-                            $appModel = new My_Model_Table_Appartment();
-                            $appRow = $appModel->fetchRow("acc_id = $acc_id");
-                            $detailsRow = $appRow->getDetails();                          
-                            $noOfDeleted = $appRow->delete(); 
-                            $detailsRow->delete();          
-                            
-                            // generate new accommodation model
-                            $acc =  $acc = new My_Houseshare_Shared($acc_id);;
-                            
-                        }
-                    }
+//                    if ($acc->type_id != $formData['basic_info']['acc_type']) {
+//                        $oldType = $acc->type_id;
+//                        $newTypeId = $formData['basic_info']['acc_type'];
+//                        
+//                        
+//
+//                        // if changing from room or place in a room into apprtment
+//                        // delete SHARED and create APPARTMENT row
+//                        if ($newTypeId == 3 && ($oldType == 2 || $oldType == 2)) {
+//
+//
+//                            // set appartment details for this 'new' appartment
+//                            $appDetailsModel = new My_Model_Table_NonSharedDetails();
+//                            $details_id = $appDetailsModel->insert($formData['appartment_details']);
+//
+//                            // make APPARTMENT row
+//                            $appartmentModel = new My_Model_Table_Appartment();
+//                            $app_id = $appartmentModel->insert(
+//                                            array(
+//                                                'acc_id' => $acc_id,
+//                                                'details_id' => $details_id
+//                                            )
+//                            );
+//
+//                            if ($app_id != $acc_id) {
+//                                 $db->rollBack();
+//                                throw new Zend_Db_Exception('Inserted appartment id != of acc_id');
+//                            }
+//
+//                            // since APPARTMENT row was created, remove 
+//                            // SHARED row and associated ROOMATES details
+//                            $sharedModel = new My_Model_Table_Shared();
+//                            $sharedRow = $sharedModel->fetchRow("acc_id = $acc_id");
+//                            $roomatesRow = $sharedRow->getRoomates();                           
+//                            $noOfDeleted = $sharedRow->delete();
+//                            $roomatesRow->delete();
+//                           // var_dump($noOfDeleted);exit;
+//                            
+//                            // generate new accommodation model
+//                            $acc = new My_Houseshare_Appartment($acc_id);
+//                            
+//                            
+//                        } elseif (($newTypeId == 2 || $newTypeId == 1) && $oldType == 3) {
+//                            // if changing from appartment to shared do the oposite to above
+//                            
+//                            
+//                            // set roomates for this 'new' shared acc
+//                            $newRoomates = new My_Model_Table_Roomates();
+//                            $roomates_id = $newRoomates->setRoomates($formData['roomates']);
+//                            
+//                            
+//                             // make SHARED row
+//                            $sharedModel = new My_Model_Table_Shared();
+//                            $shared_id = $sharedModel->insert(
+//                                            array(
+//                                                'acc_id' => $acc_id,
+//                                                'roomates_id' => $roomates_id
+//                                            )
+//                            );
+//
+//                            if ($shared_id != $acc_id) {
+//                                throw new Zend_Db_Exception('Inserted appartment id != of acc_id');
+//                            }
+//                            
+//                            // since SHARED row was created, remove 
+//                            // APPARTMENT row and associated NONSHARE_ACC_DETAILS
+//                            $appModel = new My_Model_Table_Appartment();
+//                            $appRow = $appModel->fetchRow("acc_id = $acc_id");
+//                            $detailsRow = $appRow->getDetails();                          
+//                            $noOfDeleted = $appRow->delete(); 
+//                            $detailsRow->delete();          
+//                            
+//                            // generate new accommodation model
+//                            $acc =  $acc = new My_Houseshare_Shared($acc_id);;
+//                            
+//                        }
+//                    }
 
 
                     $acc->title = $formData['basic_info']['title'];
@@ -543,7 +543,7 @@ class AccommodationController extends Zend_Controller_Action {
                     $acc->street_address_public = $formData['address']['address_public'];
                     $acc->short_term_ok = $formData['basic_info']['short_term'];
                     $acc->setAddrId($addr_id);
-                    $acc->setTypeId($formData['basic_info']['acc_type']);
+                   // $acc->setTypeId($formData['basic_info']['acc_type']);
 
 
                     if ($acc->save() != $acc_id) {
