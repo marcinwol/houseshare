@@ -27,6 +27,8 @@ $(function() {
             var lat_input = $(this).find('input#addr_lat');
             var lng_input = $(this).find('input#addr_lng');
             var label = $(this).find('input#label');
+            var baseUrl = $(this).find('input#baseUrl').val();
+            var type_id = $(this).find('input#type_id').val();
         
             if (lat_input.length != 1 && lng_input.length != 1) {
                 return;
@@ -45,13 +47,22 @@ $(function() {
             //                draggable: false,
             //                position: latlng
             //            });  
+            
+            var icon;
+            if (type_id == '2') {
+                icon = baseUrl + '/icons/map-marker-room.png'
+            }else if(type_id == '3') {
+                icon = baseUrl + '/icons/map-marker-app.png'
+            }
+            icon = null;
 
             marker = new MarkerWithLabel({
                 position: latlng,
                 draggable: false,              
                 map: map,
+                icon: icon,
                 labelContent: label,
-                labelAnchor: new google.maps.Point(0,42),
+                labelAnchor: new google.maps.Point(0,40),
                 labelClass: "maplabel" // the CSS class for the label
             });
             

@@ -145,7 +145,7 @@ class UserController extends Zend_Controller_Action {
         $auth = Zend_Auth::getInstance();
         $auth->clearIdentity();
         $this->_helper->FlashMessenger('You were logged out');
-        return $this->_redirect('/index/index');
+        return $this->_redirect('/');
     }
 
     public function loginAction() {
@@ -155,7 +155,7 @@ class UserController extends Zend_Controller_Action {
 
         if ($auth->hasIdentity()) {
             $this->_helper->FlashMessenger('It seems you are already logged into the system ');
-            return $this->_redirect('/index/index');
+            return $this->_redirect('/');
         }
 
         // if the user is not logged, the do the logging
@@ -202,7 +202,7 @@ class UserController extends Zend_Controller_Action {
 
             // the following two lines should never be executed unless the redirection faild.
             $this->_helper->FlashMessenger('Redirection faild');
-            return $this->_redirect('/index/index');
+            return $this->_redirect('/');
         } else if ($openid_mode || $code || $oauth_token) {
             // this will be exectued after provider redirected the user back to us
             //echo serialize($_GET);return;
@@ -316,7 +316,7 @@ class UserController extends Zend_Controller_Action {
             } else {
                 $this->_helper->FlashMessenger('Failed authentication');
                 $this->_helper->FlashMessenger($result->getMessages());
-                return $this->_redirect('/index/index');
+                return $this->_redirect('/');
             }
         }
 
@@ -351,7 +351,7 @@ class UserController extends Zend_Controller_Action {
                     // so that he is logged in to the system.                                           
                     $this->_writeAuthData($user);
                     Zend_Session::rememberMe();
-                    return $this->_redirect('user/index');
+                    return $this->_redirect('user/');
                 }
 
                 // normally, if everything went OK, user should be already
@@ -518,7 +518,7 @@ class UserController extends Zend_Controller_Action {
 
         if (null === $user) {
             $this->_helper->FlashMessenger('Cannot retrive user data');
-            return $this->_redirect('/index/index');
+            return $this->_redirect('/');
         }
 
         $authProvider = $user->getAuthProvider();

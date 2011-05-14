@@ -163,9 +163,8 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
     }
 
     protected function _initSetDefaultKeywords() {
-        $view = $this->bootstrap('view')->getResource('view');
-        //$this->bootstrap('frontcontroller');        
-        $view->keywords = 'default keywords';
+        $view = $this->bootstrap('view')->getResource('view');          
+        $view->keywords = 'sharehouse, rooms for rent, appartments, students';
     }
 
     protected function _initSetZendMail() {
