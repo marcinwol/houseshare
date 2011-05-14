@@ -55,6 +55,7 @@ class My_Model_Table_Accommodation extends Zend_Db_Table_Abstract {
 
         if (is_null($row)) {
             $row = $this->createRow();
+            $row->created = new Zend_Db_Expr('NOW()');
         }
 
         $row->title = $data['title'];
@@ -70,6 +71,7 @@ class My_Model_Table_Accommodation extends Zend_Db_Table_Abstract {
         $row->preferences_id = $data['preferences_id'];
         $row->features_id = $data['features_id'];
         $row->type_id = $data['type_id'];
+        $row->updated = new Zend_Db_Expr('NOW()');
         if (isset($data['is_enabled'])) {
             $row->is_enabled = $data['is_enabled'];
         }

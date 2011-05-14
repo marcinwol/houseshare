@@ -253,8 +253,11 @@ class My_Houseshare_Accommodation extends My_Houseshare_Abstract_PropertyAccesso
     
     public function getCreationtimestamp() {
         $create = $this->created;
-       // var_dump($create, strtotime($create));
         return strtotime($create);
+    }
+     public function getUpdatetimestamp() {
+        $updated = $this->updated;
+        return strtotime($updated);
     }
     
     public function getAvaliabletimestamp() {

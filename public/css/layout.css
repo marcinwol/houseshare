@@ -553,9 +553,21 @@ div.advert-info dd a:hover {
     text-decoration: underline;
 }
 
-dl.advert-stats dt, dl.advert-stats dd{
-
+.advert-stats dt, dl.advert-stats dd, div.advert-stats{
     color: #afafaf;
+}
+
+div.advert-stats {  
+    padding-top: 20px;
+    
+}
+
+div.advert-stats dl {
+    float:right;
+}
+
+div.advert-stats dd, div.advert-stats dt {
+    display:inline;
 }
 
 

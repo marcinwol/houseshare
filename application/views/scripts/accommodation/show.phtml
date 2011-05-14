@@ -192,6 +192,19 @@ if ($this->preview == true) {
         ?>
     </div>
 
+    <div class="grid_6 alpha advert-stats">
+        <dl>
+            <?php if ($this->acc->updatetimestamp > $this->acc->creationtimestamp): ?>
+            <dt>Updated:</dt>
+            <dd><?php echo $this->timeSince($this->acc->updatetimestamp);?></dd> </br>
+            <?php endif;?>
+            <dt>Created:</dt>
+            <dd><?php echo $this->timeSince($this->acc->creationtimestamp);?></dd> </br/>
+            <dt>Views: </dt><dd><?php echo $this->acc->views_count; ?></dd> 
+        </dl>
+        
+    </div>
+        
 
 
 </div>
