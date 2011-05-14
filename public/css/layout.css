@@ -106,7 +106,7 @@ ul.top-cities a span {
 
 form#accommodation-form input, form#accommodation-form textarea, form#accommodation-form select, 
 form#register-form input, form#register-form textarea,
-form#form-sendemail input, form#form-sendemail textarea {
+form#form-sendemail input, form#form-sendemail textarea, form#limit-form button  {
     width:98%;
     border: 1px solid #b5b5b5;
     height: 28px;
@@ -135,6 +135,17 @@ label.required {
     padding-right: 15px;
 }
 
+/**********limit-form style *****/
+
+form#limit-form dt, form#limit-form  dd{
+    display: inline;
+}
+
+
+form#limit-form input#maxprice {
+    
+    font-size: 14px;
+}
 
 .maplabel {
     color: black;
