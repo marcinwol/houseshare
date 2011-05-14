@@ -638,6 +638,12 @@ dl.basic-info dd {
     font-size: 12px;
 }
 
+dl.basic-info .price {
+    
+    font-size: 18px;
+    font-weight: bold;
+}
+
 div.section {
 
     padding-top: 10px;

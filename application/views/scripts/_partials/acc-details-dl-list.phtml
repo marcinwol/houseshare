@@ -23,8 +23,11 @@
                     $valueLabel = $labels[$name]['value'][$value];
                 }
             }
+            
+          //  $img = "<img style=\"vertical-align:middle;\" src=\"{$this->baseUrl('/icons/bedrooms.gif')}\" alt=\'$nameLabel\'/>";
 
             echo "<tr>";
+           // echo "<td class=\"name\">$img</td>";
             echo "<td class=\"name\">$nameLabel</td>";
             echo "<td class=\"value\">$valueLabel</td>";
             echo "</tr>";

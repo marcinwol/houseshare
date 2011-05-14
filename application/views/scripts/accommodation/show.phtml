@@ -110,15 +110,16 @@ if ($this->preview == true) {
     </div>
     <div class="section grid_2 omega" >
         <dl class="basic-info">
-            <dt>Price (per month)</dt>
-            <dd><?php echo $this->acc->price; ?> PLN</dd>
-            <dt>Bond</dt>
-            <dd><?php echo $this->acc->bond; ?> PLN</dd>
-
+            <dt>Price </dt>
+            <dd>
+            <span class="price">Rent: <?php echo $this->acc->price; ?> PLN/month</span>
             <?php if (strlen($this->acc->price_info) > 0): ?>            
-                <dt>Additional expenses</dt>
-                <dd><?php echo $this->acc->price_info; ?></dd>        
+                 <br /> Additional expenses: <?php echo $this->acc->price_info; ?>
             <?php endif; ?>
+                 <?php if (strlen($this->acc->bond) > 0): ?>            
+                 <br /> Bond: <?php echo $this->acc->bond; ?> PLN
+            <?php endif; ?>
+            </dd>            
 
             <dt>Avaliable <?php echo $this->avaliable($this->acc)->inOrFrom(); ?>:</dt>
             <dd><?php echo $this->avaliable($this->acc)->time(); ?></dd>

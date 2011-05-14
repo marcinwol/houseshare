@@ -15,7 +15,8 @@ return array(
     "I have a room in ..." => "Mam pokoj do wynajecia w ...",
     "Search" => "Szukaj",
     " * A record matching '123' was found" => 'sdfsdaf',
-    'Per month' => 'Na miesiac'
+    'Per month' => 'Na miesiac',
+    'Spread the word' => 'Podziel sie'
     );
 ?>
 
