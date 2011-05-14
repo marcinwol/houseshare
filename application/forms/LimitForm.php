@@ -98,7 +98,7 @@ class My_Form_LimitForm extends Zend_Form {
 
         $this->setDecorators(
                 array(
-                     new My_Form_Decorator_FormElements(array('separator' => '<br />')) ,
+                     new My_Form_Decorator_FormElements(array('separator' => '<br />')) ,                  
                     'Form'
                 )
         );

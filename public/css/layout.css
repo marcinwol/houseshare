@@ -113,6 +113,13 @@ form#form-sendemail input, form#form-sendemail textarea, form#limit-form button 
     font-size: 18px;
 }
 
+input[type=submit]:hover, button:hover  {
+    
+  
+    cursor: pointer;
+}
+
+
 form#form-sendemail input, form#form-sendemail textarea {
     font-size: 12px;
 }

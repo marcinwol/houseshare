@@ -55,7 +55,7 @@ class My_Form_Decorator_FormElements extends Zend_Form_Decorator_FormElements {
             if ($item instanceof Zend_Form_Element_Hidden) {
                 $elementContent .= $item->render();
             } else {
-                $elementContent .= $separator . $item->render();
+                $elementContent .=  $item->render() . $separator;
             }
             
             
@@ -85,7 +85,7 @@ class My_Form_Decorator_FormElements extends Zend_Form_Decorator_FormElements {
                 return $elementContent . $separator . $content;
             case self::APPEND:
             default:
-                return $content . $separator . $elementContent;
+                return $content . $elementContent;
         }
     }
 
