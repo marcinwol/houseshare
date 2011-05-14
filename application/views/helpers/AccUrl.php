@@ -28,10 +28,11 @@ class My_View_Helper_AccUrl extends Zend_View_Helper_Abstract {
     public function accUrl(My_Houseshare_Accommodation $acc, $route = 'showacc') {
 
         $type   = lcfirst($acc->getTypeAsString());
+        $city   = strtolower($acc->city);
         $acc_id = $acc->acc_id;
         $title  = strtolower($acc->title); 
         
-        $url = $this->view->url(array('type'=>$type, 'id' => $acc_id, 'title' => $title), $route);
+        $url = $this->view->url(array('city' => $city, 'type'=>$type, 'id' => $acc_id, 'title' => "$title"), $route);
 
         return $url;
     }
