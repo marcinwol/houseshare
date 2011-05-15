@@ -44,12 +44,12 @@ class My_Form_UserCreate extends My_Form_Abstract_AccommodationAbstract {
         
        $subForm->addDisplayGroup(
                 array('email','email_public','password1','password2'),'essential',
-                array('legend' => 'Required')
+                array('legend' => 'Required fields')
                 );
        
        $subForm->addDisplayGroup(
                 array('nickname','phone_no','phone_public', 'description'),'nonessential',
-                array('legend' => 'Optional')
+                array('legend' => 'Optional fields')
                 );
        return $this;
        

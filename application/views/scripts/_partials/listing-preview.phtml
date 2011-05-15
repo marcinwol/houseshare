@@ -17,7 +17,7 @@
     ?>
     <div class='listing-preview-img'>
         <a href="<?php echo $this->accUrl($this->acc); ?>">
-            <img src="<?php echo $firstThumbPath; ?>" alt="Thumb image" class="thumb" height="90px"  />
+            <img src="<?php echo $firstThumbPath; ?>" alt="Thumb image" class="thumb" height="94px"  />
         </a>
     </div>
     <div class="listing-preview-detials" style="float:left">
@@ -25,7 +25,7 @@
             <?php $city = $this->acc->city; ?>
             <a class="city" href="<?php echo $this->baseUrl('/accommodation/list/city/' . $this->acc->address->city_id); ?>"><?php echo $city . ':'; ?></a>
             <a href="<?php echo $this->accUrl($this->acc); ?>">
-                <?php echo  $this->truncate(ucfirst(strtolower($this->acc->title)), 0, 50); ?>
+                <?php echo  $this->truncate(ucfirst(strtolower($this->acc->title)), 0, 45); ?>
             </a>
              <a id="aID<?php echo $this->acc->acc_id; ?>" href="">
                 <img src="<?php echo $this->baseUrl('/images/preview-icon.gif'); ?>" title="Quick preview" alt="Preview" />
@@ -33,24 +33,51 @@
         </h1>        
         <div class="advert-info" >
 
-            <div> <span class="listing-preview-type" title="<?php echo $this->acc->getTypeAsString(); ?>">
-            <?php echo $this->acc->getTypeAsCharacter(); ?></span>
-            <span class="listing-preview-description" ><?php echo $this->truncate($this->acc->description, 0, 155); ?></span>
+            <div> 
+                
+             
+                    
+                    
+                
+                <span class="listing-preview-description" >
+                <?php echo $this->truncate($this->acc->description, 0, 155); ?>
+                </span>
             </div>               
-            <dl>
-                <?php // $city = $this->acc->city; ?>
-              
-                <dt>Avaliable <?php echo $this->avaliable($this->acc)->inOrFrom(); ?>: </dt>
 
-                <dd>                 
-                    <?php echo $this->avaliable($this->acc)->time(); ?>
-                </dd> 
-            </dl>
             <dl class="advert-stats">
-                <dt>Added: </dt><dd><?php echo $this->timeSince($this->acc->creationtimestamp) . ' ago by ' . $this->acc->user->nickname; ?></dd> 
-                <dt>Views: </dt><dd><?php echo $this->acc->views_count; ?></dd> 
-                <dt>Queries sent: </dt><dd><?php echo 5; ?></dd>                                                           
+                 <dt>Avaliable <?php echo $this->avaliable($this->acc)->inOrFrom(); ?>: </dt>
+                <dd> <?php echo $this->avaliable($this->acc)->time(); ?>       </dd> 
+                <dt>Added: </dt><dd><?php echo $this->timeSince($this->acc->creationtimestamp); ?></dd> 
+                <dt>Views: </dt><dd><?php echo $this->acc->views_count; ?></dd>                                                                       
             </dl>
+            
+               <!-- ICONS REPRESENTIG BASIC FEATURES -->
+                <span class="listing-preview-type" title="<?php echo $this->acc->getTypeAsString(); ?>" >
+                 <?php echo $this->acc->getTypeAsString(); ?>
+                </span>
+                <span class="listing-preview-type" style="margin-left:2px" title="<?php echo $this->acc->features->getAsString('furniture'); ?>">
+                 <?php echo $this->acc->features->getAsString('furniture'); ?>
+                </span>
+                <?php if ($this->acc->features->internet > 0):?>
+                    <span class="listing-preview-type"  style="margin-left:2px">
+                        <?php echo 'Internet: ' . $this->acc->features->getAsString('internet'); ?>
+                    </span>
+                <?php endif;?>
+               
+                 <?php if ($this->acc->features->parking > 0):?>
+                    <span class="listing-preview-type"  style="margin-left:2px">
+                        <?php echo 'Parking: ' . $this->acc->features->getAsString('parking'); ?>
+                    </span>
+                <?php endif;?>
+               
+                 <?php if ($this->acc->features->tv > 0):?>
+                    <span class="listing-preview-type"  style="margin-left:2px">
+                        <?php echo 'TV: ' . $this->acc->features->getAsString('tv'); ?>
+                    </span>
+                <?php endif;?>
+                
+                   
+            
         </div>
     </div>
     <div class="listing-preview-price">

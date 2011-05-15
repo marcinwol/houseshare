@@ -1,37 +1,52 @@
 <?php
+$sideBarHtml = $this->partial('_partials/add-this.phtml', array('title' => false));
+$this->sideBarElement('Spread the word', $sideBarHtml);
+?>   
+
+
+<?php
+// permanent placeholder for map view
+$mapDiv = '<div id="map" style="height: 240px"></div>';
+$this->sideBarElement('Map view', $mapDiv, array('place' => 'prepend'));
+?>
+
+
+<?php
 // setup content for the side bar placeholder   
 $this->sideBarElement('Limit the list', $this->limitForm);
 ?>
 
-<?php
-// permanent placeholder for map view
 
-$mapDiv = '<div id="map" style="height: 240px"></div>';
-
-
-$this->sideBarElement('Map view', $mapDiv, array('place' => 'append'));
-
-?>
 <script type="text/javascript" src="<?php echo $this->baseUrl('/js/mapmainpage.js'); ?>"></script>
 
 <script type="text/javascript">
-$(function() {
-   // center map in the city
-   var city_lat = <?php echo $this->cityRow->getMarker()->lat;?>;
-   var city_lng = <?php echo $this->cityRow->getMarker()->lng;?>;
-   showMarker(city_lat, city_lng, 11, true); 
-});
+    $(function() {
+        // center map in the city
+        var city_lat = <?php echo $this->cityRow->getMarker()->lat; ?>;
+        var city_lng = <?php echo $this->cityRow->getMarker()->lng; ?>;
+        showMarker(city_lat, city_lng, 11, true); 
+    });
 </script>
-
+<div class="grid_6 ">&nbsp;</div>
+  <h1>Accommodation in <?php echo $this->city;?></h1>
 <div>
     <?php
-    echo $this->partial('_partials/_recentAdverts.phtml', null, array(
-        'accommodations' => $this->accs,
-        'title' => $this->listTitle,
-        'editMenu' => false
-            )
-    );
+    if (count($this->accs) > 0):
+        echo $this->partial('_partials/_recentAdverts.phtml', null, array(
+            'accommodations' => $this->accs,
+            'title' => '',
+            'editMenu' => false
+                )
+        );
     ?>
+    
+    <?php else: ?>
+    <br />
+    <h3>
+        <?php echo $this->translate('No accommodetion were found with the selected criteria ' );?>
+    </h3>
+    
+    <?php endif;?>
 </div>
 
 <script type="text/javascript">

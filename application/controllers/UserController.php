@@ -54,6 +54,11 @@ class UserController extends Zend_Controller_Action {
         
 
         if ($this->getRequest()->isPost()) {
+            
+              if (true == isset($_POST['cancel']))  {
+                return $this->_redirect('/user');
+            }
+            
             if ($createForm->isValid($_POST)) {
 
                 $formData = $createForm->getValues();
@@ -384,14 +389,12 @@ class UserController extends Zend_Controller_Action {
 
 
         if ($this->getRequest()->isPost()) {
+           
+            if (true == isset($_POST['cancel']))  {
+                return $this->_redirect('/user');
+            }
+            
             if ($userForm->isValid($_POST)) {
-
-                if ($userForm->cancel->isChecked()) {
-                    // if cancel button was clicked
-                    //$this->_helper->FlashMessenger('No changes were made to your user information');
-                    return $this->_redirect('/user');
-                }
-
 
                 $formData = $userForm->getValues();
 

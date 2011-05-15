@@ -28,7 +28,7 @@ class My_Form_ChangeImages extends Zend_Form {
         );
 
 
-        $cancel = new Zend_Form_Element_Submit('cancel', 'Go back');
+        $cancel = new Zend_Form_Element_Submit('cancel', 'Return');
         
         if (count($checkBoxes) > 0) {
             $this->addElements(array($images));

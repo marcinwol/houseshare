@@ -61,7 +61,15 @@ class My_Form_MainPage extends Zend_Form {
         $priceOptions = array();
         //$priceOptions["0"] = "less than";
 
-        for ($p = 200; $p <= 2000; $p+=100) {
+        for ($p = 200; $p <= 1000; $p+=100) {
+            $priceOptions[$p] = (string) $p;
+        }
+        
+         for ($p = 1200; $p <= 2000; $p+=200) {
+            $priceOptions[$p] = (string) $p;
+        }
+        
+          for ($p = 2500; $p <= 3000; $p+=500) {
             $priceOptions[$p] = (string) $p;
         }
 

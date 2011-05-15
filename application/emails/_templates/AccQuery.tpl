@@ -5,6 +5,8 @@ There is a query regarding your advertisement titled:
 Url: <?php echo $advertUrl;?>
 
 The text of the query is:
+
+
 <?php echo $message; ?>
 
 

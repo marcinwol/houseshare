@@ -26,4 +26,48 @@ if (count($this->acc->photosurls) > 0) {
 } 
 ?>   
 
+
+    <?php if ($this->acc instanceof My_Houseshare_Shared): ?>
+        <div class="section preview">
+            <h1>Current tenants</h1> 
+
+            <?php
+            echo $this->partial(
+                    '_partials/acc-details-dl-list.phtml', array('data' => $this->acc->roomates)
+            );
+            ?>
+
+        </div>
+    <?php elseif ($this->acc instanceof My_Houseshare_Appartment): ?>
+        <div class="section ">
+            <h1>Appartement details</h1>             
+            <?php
+            echo $this->partial(
+                    '_partials/acc-details-dl-list.phtml', array('data' => $this->acc->details)
+            );
+            ?>
+        </div>    
+    <?php endif; ?>
+   
+
+    <div class="section  ">
+        <h1>Preferences</h1> 
+
+        <?php
+        echo $this->partial(
+                '_partials/acc-details-dl-list.phtml', array('data' => $this->acc->preferences)
+        );
+        ?>
+    </div>
+
+    <div class="section ">
+        <h1>Features</h1> 
+        <?php
+        echo $this->partial(
+                '_partials/acc-details-dl-list.phtml', array('data' => $this->acc->features)
+        );
+        ?>
+    </div>
+
+
 </div>

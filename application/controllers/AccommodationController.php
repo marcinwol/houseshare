@@ -174,20 +174,28 @@ class AccommodationController extends Zend_Controller_Action {
         }
 
         $bed = $room = $appartment = 0;
-        
-        if ($limitForm->getElement('bed')->getCheckedValue() == $accType) {
-            $bed = $limitForm->getElement('bed')->getCheckedValue();
-            $limitForm->getElement('bed')->setValue($bed);
-        }else if ($limitForm->getElement('room')->getCheckedValue() == $accType) {
-            $room = $limitForm->getElement('room')->getCheckedValue();
-            $limitForm->getElement('room')->setValue($room);
-        }else if ($limitForm->getElement('appartment')->getCheckedValue() == $accType) {
-            $appartment = $limitForm->getElement('appartment')->getCheckedValue();
-            $limitForm->getElement('appartment')->setValue($appartment);
+
+        // if accType given than show only this type and disable other types
+        if (!is_null($accType)) {
+            if ( $limitForm->getElement('bed')->getCheckedValue() == $accType) {
+                $bed = $limitForm->getElement('bed')->getCheckedValue();
+                $limitForm->getElement('bed')->setValue($bed);
+            } else if ($limitForm->getElement('room')->getCheckedValue() == $accType) {
+                $room = $limitForm->getElement('room')->getCheckedValue();
+                $limitForm->getElement('room')->setValue($room);
+            } else if ($limitForm->getElement('appartment')->getCheckedValue() == $accType) {
+                $appartment = $limitForm->getElement('appartment')->getCheckedValue();
+                $limitForm->getElement('appartment')->setValue($appartment);
+            }
+        } else {
+            //no accType given, so show all types
+            $bed = $limitForm->getElement('bed')->setChecked(true)->getCheckedValue();
+            $room = $limitForm->getElement('room')->setChecked(true)->getCheckedValue();
+            $appartment = $limitForm->getElement('appartment')->setChecked(true)->getCheckedValue();
         }
-       
-      
-        
+
+
+
         $internet = $limitForm->getElement('internet')->getCheckedValue();
 
         if ($this->getRequest()->isPost()) {
@@ -243,6 +251,7 @@ class AccommodationController extends Zend_Controller_Action {
         $this->view->maxPrice = $maxPrice;
         $this->view->cityRow = $cityRow;
         $this->view->limitForm = $limitForm;
+        $this->view->city = $city;
         $this->view->listTitle = $city ? "Avaliable accommodation in $city" : 'Avaliable accommodation';
         $this->view->page = $page;
         $this->view->accs = $accPaginator;
@@ -438,14 +447,14 @@ class AccommodationController extends Zend_Controller_Action {
                     // set preferences 
                     $prefModel = new My_Model_Table_Preferences();
                     $noOfRowUpdated = $prefModel->update(
-                                    $formData['preferences'], array('preferences_id ', $acc->preferences->preferences_id)
+                                    $formData['preferences'], 'preferences_id = ' . $acc->preferences->preferences_id
                     );
 
 
                     // set features 
                     $featModel = new My_Model_Table_Features();
                     $noOfRowUpdated = $featModel->update(
-                                    $formData['features'], array('features_id ', $acc->features->features_id)
+                                    $formData['features'], 'features_id = ' . $acc->features->features_id
                     );
 
 
@@ -467,7 +476,6 @@ class AccommodationController extends Zend_Controller_Action {
                     // if changing accommodation type, e.g. from room to appartment
                     // need to create/delete rows in APPARTMENT/SHARED tabels
                     // to reflect this this
-
 //                    if ($acc->type_id != $formData['basic_info']['acc_type']) {
 //                        $oldType = $acc->type_id;
 //                        $newTypeId = $formData['basic_info']['acc_type'];
@@ -556,7 +564,7 @@ class AccommodationController extends Zend_Controller_Action {
                     $acc->street_address_public = $formData['address']['address_public'];
                     $acc->short_term_ok = $formData['basic_info']['short_term'];
                     $acc->setAddrId($addr_id);
-                   // $acc->setTypeId($formData['basic_info']['acc_type']);
+                    // $acc->setTypeId($formData['basic_info']['acc_type']);
 
 
                     if ($acc->save() != $acc_id) {

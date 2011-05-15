@@ -27,7 +27,7 @@
         $this->headScript()->prependFile($this->baseUrl('/js/jquery-1.4.4.min.js'));
         
         //   $this->headScript()->appendFile($this->baseUrl('/js/jquery.formtips.1.2.3.packed.js'));
-        $this->headScript()->appendFile($this->baseUrl('/js/jquery.corner.js'));
+       // $this->headScript()->appendFile($this->baseUrl('/js/jquery.corner.js'));
         $this->headScript()->appendFile($this->baseUrl('/js/jquery.qtip-1.0.0-rc3.min.js'));
         $this->headScript()->appendFile($this->baseUrl('/js/shadowbox.js'));
         $this->headScript()->appendFile($this->baseUrl('/js/jquery.validate.js'));
@@ -38,7 +38,7 @@
 
 
         <?php // the application specific  ?>
-        <?php $this->headScript()->appendFile($this->baseUrl('/js/houseshare.js')); ?>
+        <?php //$this->headScript()->appendFile($this->baseUrl('/js/houseshare.js')); ?>
         <?php
         if ($this->controller() == 'accommodation') {
             $this->headScript()->appendFile($this->baseUrl('/js/houseshare_acc.js'));

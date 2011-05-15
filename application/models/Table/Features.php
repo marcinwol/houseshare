@@ -23,8 +23,8 @@ class My_Model_Table_Features extends Zend_Db_Table_Abstract {
             'value' => array(
                 '0' => 'No',
                 '1' => 'Yes',
-                '2' => 'Yes (Dial-up)',
-                '3' => 'Yes (Broadband)'
+                '2' => 'Dial-up',
+                '3' => 'Broadband'
             ),
             'default' => '0'
         ),
@@ -33,8 +33,8 @@ class My_Model_Table_Features extends Zend_Db_Table_Abstract {
             'value' => array(
                 '0' => 'No',
                 '1' => 'Yes',
-                '2' => 'Yes (Cable)',
-                '3' => 'Yes (Satelite)'
+                '2' => 'Cable',
+                '3' => 'Satelite'
             ),
             'default' => '0'
         ),
@@ -51,7 +51,7 @@ class My_Model_Table_Features extends Zend_Db_Table_Abstract {
             'value' => array(
                 '0' => 'No',
                 '1' => 'Yes',
-                '3' => 'Yes (Garage)'
+                '3' => 'Garage'
             ),
             'default' => '0'
         ),

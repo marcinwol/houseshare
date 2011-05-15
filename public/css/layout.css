@@ -107,7 +107,7 @@ ul.top-cities a span {
 form#accommodation-form input, form#accommodation-form textarea, form#accommodation-form select, 
 form#register-form input, form#register-form textarea,
 form#form-sendemail input, form#form-sendemail textarea, form#limit-form button,
-form#photos-form input{
+form#photos-form input, form.login-form input {
     width:98%;
     border: 1px solid #b5b5b5;
     height: 28px;
@@ -229,11 +229,20 @@ a.acc-add:hover {
 
 /*LOGIN FORM */
 
-#login-form {
-
+a.acc-recovery {
+    text-decoration: none;
+    color: #FD5416;
+}
+a.acc-recovery:hover {
+    
+    text-decoration: underline;
 }
 
-.login-form input[type=text], .login-form input[type=password], .zend_form textarea {
+/*#login-form {
+
+}*/
+
+/*.login-form input[type=text], .login-form input[type=password], .zend_form textarea {
     width:320px;
     border: 1px solid #b5b5b5;
     height: 28px;
@@ -245,7 +254,7 @@ a.acc-add:hover {
     height: 28px;
     font-size: 18px;
 
-}
+}*/
 
 
 /* MAIN FORM */
@@ -298,7 +307,7 @@ div#welcome form {
     
 }
 #maxprice {
-    width:100px;
+    width:80px;
 }
 
 form#main-search-form input[type=submit] {
@@ -445,11 +454,13 @@ table.details td {
     border-bottom-style: dotted;
     border-bottom-width: 1px;
     border-bottom-color: #BD3D00;
+     width:50%;
 }
 
 table.details .value {    
-
+   
 }
+
 
 
 
@@ -484,9 +495,17 @@ table.details .value {
     padding-bottom: 3px;
 }
 
-img.thumb {
-    float: left;
+
+img {
+    -moz-border-radius: 10px;
+    border-radius: 10px; 
 }
+
+
+img.thumb {
+    float: left;   
+}
+
 h1.advert-title  {
     padding-top: 0px;
     padding-left: 5px;
@@ -512,10 +531,10 @@ div.advert-info {
 
 .listing-preview-type {
      float: left;
-    color: white;
-    width: 20px;
-    padding: 0px 1px 0px 1px;
-    background-color: #fe7c3b;
+    color: #FEFEFE;
+   
+    padding: 0px 5px 0px 5px;
+    background-color: #989898;
     -moz-border-radius: 3px;
     border-radius: 3px;
     font-weight: bold;
@@ -533,7 +552,7 @@ div.advert-info {
 }
 
 .listing-preview-detials {
-    width: 510px;
+    width: 505px;
 }
 
 
