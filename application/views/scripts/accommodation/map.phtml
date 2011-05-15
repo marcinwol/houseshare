@@ -17,7 +17,11 @@ if ($this->showSteps) {
 
  <div id="map" class="grid_6 " style="height: 600px">  </div>
  <div id="map" class="grid_6 ">
-     Drag the marker if its at incorrect place. 
+     
+  <img src="<?php echo $this->baseUrl('/icons/red-dot.gif');?>" 
+       style="vertical-align:middle"
+       alt="map marker icon"/>  
+  <span style="font-size:14px">Drag the marker on the map if its at incorrect place. </span>
  </div>
     
  <script type="text/javascript" src="<?php echo $this->baseUrl('/js/mapedit.js');?>"></script>

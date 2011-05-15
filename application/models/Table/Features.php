@@ -24,7 +24,7 @@ class My_Model_Table_Features extends Zend_Db_Table_Abstract {
                 '0' => 'No',
                 '1' => 'Yes',
                 '2' => 'Dial-up',
-                '3' => 'Broadband'
+                '3' => 'Broadband'                
             ),
             'default' => '0'
         ),
