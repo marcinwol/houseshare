@@ -38,6 +38,7 @@ class My_Form_Photos extends Zend_Form {
     public function init() {
         $this->setMethod('post');
         $this->setAttrib('enctype', 'multipart/form-data');
+        $this->setAttrib('id', 'photos-form');
         $this->_makeElements();
         $this->loadDefaultDecorators();
     }

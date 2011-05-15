@@ -106,7 +106,8 @@ ul.top-cities a span {
 
 form#accommodation-form input, form#accommodation-form textarea, form#accommodation-form select, 
 form#register-form input, form#register-form textarea,
-form#form-sendemail input, form#form-sendemail textarea, form#limit-form button  {
+form#form-sendemail input, form#form-sendemail textarea, form#limit-form button,
+form#photos-form input{
     width:98%;
     border: 1px solid #b5b5b5;
     height: 28px;
@@ -276,7 +277,7 @@ div#welcome form {
 }
 
 
-#i_city, #maxprice  {    
+#i_city, #maxprice, #acctype  {    
     font-size: 20px;
     border: 0px;
     width: 160px; 
@@ -293,8 +294,16 @@ div#welcome form {
     border-bottom-color: #a6a6a6;
     border-top-color: #a6a6a6;
 }
+#acctype {
+    
+}
 #maxprice {
-    width:80px;
+    width:100px;
+}
+
+form#main-search-form input[type=submit] {
+    font-size: 16px;
+    padding: 5px 10px 5px 10px;
 }
 
 
@@ -578,14 +587,6 @@ div.advert-info dd a:hover {
 div.advert-stats {  
     padding-top: 20px;
     
-}
-
-div.advert-stats dl {
-    float:right;
-}
-
-div.advert-stats dd, div.advert-stats dt {
-    display:inline;
 }
 
 

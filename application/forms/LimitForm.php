@@ -44,20 +44,20 @@ class My_Form_LimitForm extends Zend_Form {
 
         // accommodation type selection
         $accTypeBed = $this->createElement('checkbox', "bed");
-        $accTypeBed->setLabel('Place in a room')->setChecked(true);
+        $accTypeBed->setLabel('Place in a room')->setChecked(false);
         $accTypeBed->setCheckedValue('1');
         $this->addElement($accTypeBed);
 
 
         // accommodation type selection
         $accTypeRoom = $this->createElement('checkbox', "room");
-        $accTypeRoom->setLabel('Room')->setChecked(true);
+        $accTypeRoom->setLabel('Room')->setChecked(false);
         $accTypeRoom->setCheckedValue('2');
         $this->addElement($accTypeRoom);
 
         // accommodation type selection
         $accTypeAppart = $this->createElement('checkbox', "appartment");
-        $accTypeAppart->setLabel('Appartment')->setChecked(true);
+        $accTypeAppart->setLabel('Appartment')->setChecked(false);
         $accTypeAppart->setCheckedValue('3');
         $this->addElement($accTypeAppart);
 

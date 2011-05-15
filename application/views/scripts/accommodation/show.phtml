@@ -1,8 +1,26 @@
 <?php
 if ($this->preview == true) {
-    //  echo $this->partial('_partials/acc-add-steps-desc.phtml', null, array('active' => 'step4'));
+    //echo $this->partial('_partials/acc-add-steps-desc.phtml', null, array('active' => 'step4'));
 }
 ?>
+
+
+<?php
+$sideBarHtml = $this->partial('_partials/add-this.phtml', array('title' => false));
+$this->sideBarElement('Spread the word', $sideBarHtml);
+?>   
+
+<?php
+$sideBarHtml = '<ul>';
+
+$sideBarHtml .= '<li>' . $this->acc->tinyUrl . '</li>';
+
+$sideBarHtml .= '</ul>';
+$this->sideBarElement('Tiny url ', $sideBarHtml);
+?>    
+
+
+
 <?php
 if ($this->preview != true) {
     $sideBarHtml = '<ul>';
@@ -65,7 +83,7 @@ if (count($this->acc->photosurls) > 0) {
     //  echo '<script type="text/javascript">  $("#pikame").PikaChoose(); </script>';
 
     $this->sideBarElement('Photos', $imgsHtml);
-} 
+}
 ?>   
 
 
@@ -97,7 +115,7 @@ if ($this->preview == true) {
 <?php //if (!($this->viewCache()->start('acc' . (string) $this->acc->acc_id))): ?>
 
 <div class="grid_6 ">&nbsp;</div>
-<h1 class="title"><?php echo $this->acc->city .': ' .$this->acc->title; ?></h1>
+<h1 class="title"><?php echo $this->acc->city . ': ' . $this->acc->title; ?></h1>
 <div id="acc-details" class="grid_6 alpha">    
 
     <div class="section grid_4 alpha">
@@ -110,13 +128,13 @@ if ($this->preview == true) {
         <dl class="basic-info">
             <dt>Price </dt>
             <dd>
-            <span class="price">Rent: <?php echo $this->acc->price; ?> PLN/month</span>
-            <?php if (strlen($this->acc->price_info) > 0): ?>            
-                 <br /> Additional expenses: <?php echo $this->acc->price_info; ?>
-            <?php endif; ?>
-                 <?php if (strlen($this->acc->bond) > 0): ?>            
-                 <br /> Bond: <?php echo $this->acc->bond; ?> PLN
-            <?php endif; ?>
+                <span class="price">Rent: <?php echo $this->acc->price; ?> PLN/month</span>
+                <?php if (strlen($this->acc->price_info) > 0): ?>            
+                    <br /> Additional expenses: <?php echo $this->acc->price_info; ?>
+                <?php endif; ?>
+                <?php if (strlen($this->acc->bond) > 0): ?>            
+                    <br /> Bond: <?php echo $this->acc->bond; ?> PLN
+                <?php endif; ?>
             </dd>            
 
             <dt>Avaliable <?php echo $this->avaliable($this->acc)->inOrFrom(); ?>:</dt>
@@ -193,19 +211,15 @@ if ($this->preview == true) {
     </div>
 
     <div class="grid_6 alpha advert-stats">
-        <dl>
+       
             <?php if ($this->acc->updatetimestamp > $this->acc->creationtimestamp): ?>
-            <dt>Updated:</dt>
-            <dd><?php echo $this->timeSince($this->acc->updatetimestamp);?></dd> </br>
+            Updated:  <?php echo $this->timeSince($this->acc->updatetimestamp);?> ago |
             <?php endif;?>
-            <dt>Created:</dt>
-            <dd><?php echo $this->timeSince($this->acc->creationtimestamp);?></dd> </br/>
-            <dt>Views: </dt><dd><?php echo $this->acc->views_count; ?></dd> 
-        </dl>
-        
-    </div>
-        
+            Created: <?php echo $this->timeSince($this->acc->creationtimestamp);?> ago |
+            Views: <?php echo $this->acc->views_count; ?> 
+       
 
+    </div>
 
 </div>
 

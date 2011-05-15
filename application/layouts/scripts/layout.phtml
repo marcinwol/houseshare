@@ -94,7 +94,7 @@
 
 
         <div id="content" class="container_8">
-
+ 
             <div id="" class="grid_6">
                 <?php if ($this->getHelper('flashMessenger')->hasMassages()): ?>
                     <div id="dialog-message" title="Message">
@@ -114,6 +114,8 @@
                     </script>
 
                 <?php endif; ?>    
+                    
+                     
 
                 <?php echo $this->layout()->content; ?>    
             </div>            
@@ -129,8 +131,7 @@
                 <?php
                 
                 // display all side-bar boxes
-                echo $this->placeholder('side-bar');
-                echo $this->partial('_partials/add-this.phtml');
+                echo $this->placeholder('side-bar');              
                 ?>
 
 

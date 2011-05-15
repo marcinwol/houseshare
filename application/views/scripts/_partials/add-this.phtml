@@ -1,5 +1,9 @@
 <div class="side-bar-box">
-<?php echo '<h3>' . $this->translate('Spread the word') . '</h3>'; ?>
+<?php 
+    if (true === $this->title) {
+        echo '<h3>' . $this->translate('Spread the word') . '</h3>'; 
+    }
+?>
     <ul>
         <li>
             <div class="addthis_toolbox addthis_default_style ">

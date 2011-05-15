@@ -1,6 +1,13 @@
 <!-- ----------- RECENTLY VIEWED ADVERS ---------- -->
 
 <?php
+$sideBarHtml = $this->partial('_partials/add-this.phtml', array('title' => false));
+$this->sideBarElement('Spread the word', $sideBarHtml);
+?>   
+
+
+
+<?php
 // permanent placeholder for recently viewed adds
 
 $accs = '<ul class="top-cities">';
@@ -76,7 +83,10 @@ $sideBarContent = '<br/>
            <br/><br/><br/>';
 $this->sideBarElement('', $sideBarContent);
 ?>
-<div id="welcome">
+<?php
+    //$this->layout()->mainForm = $this->mainForm;
+?>
+<div id="welcome">    
     <?php echo $this->mainForm; ?>
 </div>
 

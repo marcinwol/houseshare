@@ -28,11 +28,12 @@ class IndexController extends Zend_Controller_Action {
                 $whatToDo = '0';
                 $cityName = $mainForm->getValue('i_city');
                 $maxPrice = $mainForm->getValue('maxprice');
+                $accType = $mainForm->getValue('acctype');
 
                 if ('1' === $whatToDo) {
                     return $this->_redirect('/add/city/' . $cityName);
                 } elseif ('0' === $whatToDo) {
-                    return $this->_redirect("/list/city/$cityName/maxprice/$maxPrice");
+                    return $this->_redirect("/list/city/$cityName/maxprice/$maxPrice/acctype/$accType");
                 }
             }
         }

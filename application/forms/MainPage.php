@@ -25,11 +25,21 @@ class My_Form_MainPage extends Zend_Form {
 
         $this->setAttrib('id', 'main-search-form');
 
+        $acctype =  new Zend_Form_Element_Select('acctype');
+        $acctype->addMultiOptions(array(
+            '1' => 'place in a room',
+            '2' => 'room',
+            '3' => 'appartment'
+        ));
+        $acctype->setLabel('I need');
+        $acctype->setValue('2');
+       // $cities->setRequired(true);
+        $this->addElement($acctype);
 
         $cities = My_Model_Table_Accommodation::getDistinctCities();
 
         $citiesOption = array();
-
+        
         /* @var $addrRow My_Model_Table_Row_Address */
         foreach ($cities as $city) {
             $citiesOption[$city['city_id']] = $city['name'];
@@ -37,7 +47,7 @@ class My_Form_MainPage extends Zend_Form {
 
         $cities = new Zend_Form_Element_Select('i_city');
         $cities->addMultiOptions($citiesOption);
-        $cities->setLabel('I need accommodation in');
+        $cities->setLabel(' in');
         $cities->setValue('Wroclaw');
        // $cities->setRequired(true);
         $this->addElement($cities);
@@ -45,7 +55,7 @@ class My_Form_MainPage extends Zend_Form {
 
         // add element
         $maxPrice = new Zend_Form_Element_Select('maxprice');
-        $maxPrice->setLabel(' for less than ');
+        $maxPrice->setLabel(' for max ');
         // $maxPrice->setAttrib('id', 'paxprice-select');
 
         $priceOptions = array();

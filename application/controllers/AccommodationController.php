@@ -143,6 +143,7 @@ class AccommodationController extends Zend_Controller_Action {
 
         $city_id = $cityName = $this->_request->getParam('city', null);
         $maxPrice = $this->_request->getParam('maxprice', null);
+        $accType = $this->_request->getParam('acctype', null);
         $page = $this->_getParam('page', 1);
 
         if (is_null($city_id)) {
@@ -172,9 +173,21 @@ class AccommodationController extends Zend_Controller_Action {
             $limitForm->getElement('maxpricedefault')->setValue($maxPrice);
         }
 
-        $bed = $limitForm->getElement('bed')->getCheckedValue();
-        $room = $limitForm->getElement('room')->getCheckedValue();
-        $appartment = $limitForm->getElement('appartment')->getCheckedValue();
+        $bed = $room = $appartment = 0;
+        
+        if ($limitForm->getElement('bed')->getCheckedValue() == $accType) {
+            $bed = $limitForm->getElement('bed')->getCheckedValue();
+            $limitForm->getElement('bed')->setValue($bed);
+        }else if ($limitForm->getElement('room')->getCheckedValue() == $accType) {
+            $room = $limitForm->getElement('room')->getCheckedValue();
+            $limitForm->getElement('room')->setValue($room);
+        }else if ($limitForm->getElement('appartment')->getCheckedValue() == $accType) {
+            $appartment = $limitForm->getElement('appartment')->getCheckedValue();
+            $limitForm->getElement('appartment')->setValue($appartment);
+        }
+       
+      
+        
         $internet = $limitForm->getElement('internet')->getCheckedValue();
 
         if ($this->getRequest()->isPost()) {
