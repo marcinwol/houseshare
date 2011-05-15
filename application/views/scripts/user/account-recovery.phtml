@@ -1,8 +1,16 @@
-<h3>
-     If you provided us with a correct email address, enter an email address 
-     below and we will email your account information to you.     
-</h3>
+<?php
+$sideBarContent = <<<END
+ If you provided us with a correct email address, enter an email address 
+     and we will email your account information to you.      
+     
+<p>The information will allow you to log back into the system.</p>
+       
+END;
 
+$this->sideBarElement('Account Recovery?',$sideBarContent, array('class' => 'side-bar-info'));  
+?>
+
+<h1>Account Recovery</h1>
 <?php 
     if (count($this->form->getErrorMessages()) > 0 ) {
         $errors = $this->form->getErrorMessages();
