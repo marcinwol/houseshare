@@ -115,9 +115,17 @@ form#address input{
     font-size: 18px;
 }
 
+#limit-form {
+    border: 1px solid #CCC;
+    padding: 0.4em 1em;
+    background: #F6F6F6 url(images/ui-bg_glass_100_f6f6f6_1x400.png) 50% 50% repeat-x;
+    font-weight: bold;
+    color: #1C94C4;
+}
+
 input[type=submit]:hover, button:hover  {
-    
-  
+
+
     cursor: pointer;
 }
 
@@ -152,7 +160,7 @@ form#limit-form dt, form#limit-form  dd{
 
 
 form#limit-form input#maxprice {
-    
+
     font-size: 14px;
 }
 
@@ -235,7 +243,7 @@ a.acc-recovery {
     color: #FD5416;
 }
 a.acc-recovery:hover {
-    
+
     text-decoration: underline;
 }
 
@@ -305,7 +313,7 @@ div#welcome form {
     border-top-color: #a6a6a6;
 }
 #acctype {
-    
+
 }
 #maxprice {
     width:80px;
@@ -455,11 +463,11 @@ table.details td {
     border-bottom-style: dotted;
     border-bottom-width: 1px;
     border-bottom-color: #BD3D00;
-     width:50%;
+    width:50%;
 }
 
 table.details .value {    
-   
+
 }
 
 
@@ -518,22 +526,22 @@ h1.advert-title a {
     color: #fd5416;
 }
 h1.advert-title a.city {
-    
+
     color: #2e2e2e;
 }
 h1.advert-title a:hover {  
-   
+
     color: #767676;
 }
 div.advert-info {
-   
+
     padding-left: 5px;
 }
 
 .listing-preview-type {
-     float: left;
+    float: left;
     color: #FEFEFE;
-   
+
     padding: 0px 5px 0px 5px;
     background-color: #989898;
     -moz-border-radius: 3px;
@@ -543,7 +551,7 @@ div.advert-info {
 }
 
 .listing-preview-description {
-   padding-left:3px;
+
 }
 
 
@@ -601,12 +609,12 @@ div.advert-info dd a:hover {
 }
 
 .advert-stats dt, dl.advert-stats dd, div.advert-stats{
-    color: #afafaf;
+    color: #868686;
 }
 
 div.advert-stats {  
     padding-top: 20px;
-    
+
 }
 
 

@@ -21,6 +21,11 @@ $this->sideBarElement('Limit the list', $this->limitForm);
 
 <script type="text/javascript">
     $(function() {
+        
+        //
+      //   $('#limit-form').button();
+        // $('#limit-form').buttonset();
+        
         // center map in the city
         var city_lat = <?php echo $this->cityRow->getMarker()->lat; ?>;
         var city_lng = <?php echo $this->cityRow->getMarker()->lng; ?>;
