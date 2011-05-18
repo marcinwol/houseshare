@@ -245,7 +245,7 @@ CREATE  TABLE IF NOT EXISTS `ACCOMMODATION` (
   `queries_counter` INT NOT NULL DEFAULT 0 ,
   `features_id` INT NOT NULL ,
   `preferences_id` INT NOT NULL ,
-  `updated` TIMESTAMP NOT NULL ,
+  `updated` TIMESTAMP NULL ,
   PRIMARY KEY (`acc_id`) ,
   CONSTRAINT `fk_ACCOMODATION_ADDRESS1`
     FOREIGN KEY (`addr_id` )

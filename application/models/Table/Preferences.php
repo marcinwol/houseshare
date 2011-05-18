@@ -67,6 +67,10 @@ class My_Model_Table_Preferences extends Zend_Db_Table_Abstract {
             'label' => 'Other',
         )
     );
+    
+    public function getLabels() {
+        return self::$labels;
+    }
    
 
 }

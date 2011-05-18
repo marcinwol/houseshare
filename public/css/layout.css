@@ -118,7 +118,7 @@ form#address input{
 #limit-form {
     border: 1px solid #CCC;
     padding: 0.4em 1em;
-    background: #F6F6F6 url(images/ui-bg_glass_100_f6f6f6_1x400.png) 50% 50% repeat-x;
+    background: #F6F6F6 ;
     font-weight: bold;
     color: #1C94C4;
 }

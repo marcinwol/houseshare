@@ -12,22 +12,22 @@
  */
 class My_Model_Table_Row_Appartment extends Zend_Db_Table_Row_Abstract {
 
-    /**
-     * Get user friendly names of properties
-     * 
-     * @return array 
-     */
-    public function getLabels() {
-
-        $tableClass = $this->_tableClass;
-        $labels = array();
-
-        if (isset($tableClass::$labels)) {
-            $labels = $tableClass::$labels;
-        }
-
-        return $labels;
-    }
+//    /**
+//     * Get user friendly names of properties
+//     * 
+//     * @return array 
+//     */
+//    public function getLabels() {
+//
+//        $tableClass = $this->_tableClass;
+//        $labels = array();
+//
+//        if (isset($tableClass::$labels)) {
+//            $labels = $tableClass::$labels;
+//        }
+//
+//        return $labels;
+//    }
 
     /**
      * Return Accommodation row for the current shared accommodation

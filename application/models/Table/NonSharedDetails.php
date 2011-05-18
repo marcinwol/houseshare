@@ -37,6 +37,10 @@ class My_Model_Table_NonSharedDetails extends Zend_Db_Table_Abstract {
     );
 
 
+    public function getLabels() {
+        return self::$labels;
+    }
+    
     /**
      * Update/insert details row.
      *

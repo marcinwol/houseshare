@@ -18,19 +18,17 @@ class My_Model_Table_Row_Features extends Zend_Db_Table_Row_Abstract {
      * @return array 
      */
     public function getLabels() {
+       
+        $class = $this->_tableClass;
 
-        $tableClass = $this->_tableClass;
-        $labels = array();
+        $tableClass = new $class();
 
-        if (isset($tableClass::$labels)) {
-            $labels = $tableClass::$labels;
-        }
-
-        return $labels;
+        return $tableClass->getLabels();
     }
     
     public function getAsString($feature = 'furniture') {
         $labels = $this->getLabels();
+        
         $value = $this->$feature;
         return $labels[$feature]['value'][$value];
     }

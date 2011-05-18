@@ -67,6 +67,10 @@ class My_Model_Table_Roomates extends Zend_Db_Table_Abstract {
 
         return $row->save();
     }
+    
+    public function getLabels() {
+        return self::$labels;
+    }
 
 }
 
