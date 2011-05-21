@@ -7,7 +7,14 @@ class IndexController extends Zend_Controller_Action {
      */
     public function testAction() {
 
+        $db = Zend_Db_Table::getDefaultAdapter();
+        $select = $db->select();
 
+        $select->from(array('s' => 'sayer'), array('id', 'firstname', 'lastname', 'mydate', 'mount'))
+                ->joinLeft(array('u' => 'users'), 's.sh = u.sh', array('nameOffice'))
+                ->order(array('date(s.mydate) DESC', 's.mount DESC'));
+
+        print($select->assemble());
     }
 
     public function indexAction() {
@@ -123,6 +130,15 @@ class IndexController extends Zend_Controller_Action {
             $this->_helper->json($matches);
         } else {
             throw new Exception('Not an ajax requrests');
+        }
+    }
+
+    public function getRecentAdvertsAction() {
+        if ($this->getRequest()->isXmlHttpRequest()) {
+            $this->_helper->layout->disableLayout();
+           
+            $page = $this->getRequest()->getParam('page', 1);
+            $this->page = $page;
         }
     }
 

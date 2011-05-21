@@ -16,7 +16,7 @@ class My_View_Helper_RecentAdverts extends Zend_View_Helper_Abstract {
     /**
      * Number of newest accommodations to return
      */
-    const NO_OF_ACCS = 10;
+    const NO_OF_ACCS = 2;
     
     /**
      * View instance
@@ -25,7 +25,7 @@ class My_View_Helper_RecentAdverts extends Zend_View_Helper_Abstract {
      */
     public $view;
 
-    public function recentAdverts($page = 1) {
+    public function recentAdverts($page = 1, $ajax = false) {
 
         $lastAccs = $this->_getLastAccommodations($page);        
 
@@ -33,7 +33,8 @@ class My_View_Helper_RecentAdverts extends Zend_View_Helper_Abstract {
                 '_partials/_recentAdverts.phtml', null, 
                 array(
                     'accommodations' => $lastAccs,
-                    'title'   => 'Recent advertisements'
+                    'title'   => 'Recent advertisements',
+                    'isAjax'  => $ajax
                     )
         );
     }
