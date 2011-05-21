@@ -86,6 +86,16 @@ class My_Form_MainPage extends Zend_Form {
         $submit = $this->createElement('submit', 'submit', array('label' => 'Go'));
         $submit->removeDecorator('Label');
         $this->addElement($submit);
+        
+//        $data = array(
+//            'renditaImpianti' => 12,
+//            'renditaAggiunte' => 32
+//        );
+//        
+//        $t = new My_Form_Element_TabellaRendite('somename', array('modificabile' =>'1'));
+//        $t->setValue($data);        
+//        
+//        $this->addElement($t);
 
         
         

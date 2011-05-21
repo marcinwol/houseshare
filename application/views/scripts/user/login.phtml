@@ -25,9 +25,7 @@ $this->sideBarElement('How to register?',$sideBarContent, array('class' => 'side
 <script type="text/javascript">
 
     var imgPath = '<?php echo $this->baseUrl('images/');?>';
-
-    console.log(imgPath);
-
+   
     $(document).ready(function() {
         openid.img_path = imgPath;
         openid.init('openid_identifier');

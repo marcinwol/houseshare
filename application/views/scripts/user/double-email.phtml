@@ -1,18 +1,20 @@
 <h2>A user with the email <?php echo $this->user->email;?> 
     already exists in our database.
 </h2>
-<div>         
+<div class="grid_6"> </div>
+<div class="grid_6">         
 <?php if ($this->authProvider):?>
     
         This user used 
         <strong><?php echo $this->authProvider->provider_type;?> </strong>
         to register. If you are this user please try to 
     <a href="<?php echo $this->baseUrl('/login');?>">login</a>
-    using your facebook account.
+    using your <strong> <?php echo $this->authProvider->provider_type;?></strong> account.
 
 <?php else:?>
 
-    This user was directly registered with houseshare. If you are this user please try to 
+    This user was directly registered with <strong>ShareHouse</strong>.
+    If you are this user please try to 
     <a href="<?php echo $this->baseUrl('/login');?>">login</a>
     using the email and your password into the system. If you don't remember 
     your password please click here. 

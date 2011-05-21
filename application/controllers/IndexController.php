@@ -2,20 +2,16 @@
 
 class IndexController extends Zend_Controller_Action {
 
-
     /**
      * This is for tests, experiments, etc.
      */
     public function testAction() {
-               
-     
-     $this->view->form = new My_Form_InventoryForm();
-        
+
+
     }
 
-    
-    public function indexAction() {        
-        
+    public function indexAction() {
+
         Zend_Session::namespaceUnset('addAccInfo');
 
         $mainForm = new My_Form_MainPage();
@@ -50,22 +46,22 @@ class IndexController extends Zend_Controller_Action {
             $nostate = $this->getRequest()->getParam('nostate', 0);
 
             $cityModel = new My_Model_View_City();
-            //$cities = $cityModel->findCitiesBasedOnName($term, 5)->toArray();
-            $cities = $cityModel->fetchAll()->toArray();
+            $cities = $cityModel->findCitiesBasedOnName($term, 5)->toArray();
+            // $cities = $cityModel->fetchAll()->toArray();
 
             $matches = array();
             foreach ($cities as $city) {
 
                 if (1 == $nostate) {
-                    $label = $value = $city['city_name'];
+                    $label = $value = utf8_encode($city['city_name']);
                 } else {
                     $label = $value = "{$city['city_name']}, {$city['state_name']}";
                 }
                 $value = $city['city_name'];
-                $city['value'] = $value;
-                $city['label'] = $label;
+                $city['value'] = utf8_encode($value);
+                $city['label'] = utf8_encode($label);
                 $city['city_id'] = $city['city_id'];
-                $city['state'] = $city['state_name'];
+                $city['state'] = utf8_encode($city['state_name']);
                 $matches[] = $city;
             }
 
@@ -101,19 +97,26 @@ class IndexController extends Zend_Controller_Action {
 
     public function getstreetsAction() {
 
+//         $term = $this->getRequest()->getParam('term');
+//            $streetModel = new My_Model_Table_Street();
+//
+//            $streets = $streetModel->findBasedOnName($term, 10)->toArray();
+//            var_dump($streets);
+//            exit;
+
         if ($this->getRequest()->isXmlHttpRequest()) {
 
             $term = $this->getRequest()->getParam('term');
             $streetModel = new My_Model_Table_Street();
 
-            //$streets = $streetModel->findBasedOnName($term, 5)->toArray();
-            $streets = $streetModel->fetchAll()->toArray();
+            $streets = $streetModel->findBasedOnName($term, 10)->toArray();
+            //$streets = $streetModel->fetchAll()->toArray();
 
             $matches = array();
             foreach ($streets as $street) {
 
-                $street['value'] = $street['name'];
-                $street['label'] = $street['name'];
+                $street['value'] = utf8_encode($street['name']);
+                $street['label'] = $street['value'];
                 $matches[] = $street;
             }
 

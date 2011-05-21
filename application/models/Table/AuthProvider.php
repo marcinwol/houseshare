@@ -21,9 +21,48 @@ class My_Model_Table_AuthProvider extends Zend_Db_Table_Abstract {
             'refColumns' => array('user_id'),
         )
     );
-    
-    
-     /**
+    /**
+     * 
+     * Associate array representing url openid identifiers and 
+     * the names of thier providers
+     *
+     * @return array 
+     */
+    static public $_identifiers = array(
+        'https://www.google.com/accounts/o8/id' => 'google',
+        'http://me.yahoo.com/' => 'yahoo',
+        'http://marcinwol.myopenid.com/' => 'myopenid',
+        'https://www.facebook.com' => 'facebook',
+        'https://www.twitter.com' => 'twitter'
+    );
+
+    /**
+     * 
+     * Associate array representing url openid identifiers and 
+     * the names of thier providers
+     *
+     * @return array 
+     */
+    static public function getIdentifies() {
+        return self::$_identifiers;
+    }
+
+    /**
+     * 
+     * Get auth provider name based on url openid identifiers 
+     *
+     * @return string Auth Provider name
+     */
+    static public function getProvider($identifier) {
+        
+        if (isset(self::$_identifiers[$identifier])) {
+            return self::$_identifiers[$identifier];
+        }
+        
+        return 'Unknown';                
+    }
+
+    /**
      * Find provider by key
      *
      * @param string $value key value
@@ -31,13 +70,12 @@ class My_Model_Table_AuthProvider extends Zend_Db_Table_Abstract {
      */
     public function findByKey($value) {
 
-        $value = trim($value);       
-        $select = $this->select()->where("AUTH_PROVIDER.key = ?", $value);       
+        $value = trim($value);
+        $select = $this->select()->where("AUTH_PROVIDER.key = ?", $value);
         return $this->fetchRow($select);
     }
-    
-    
-      /**
+
+    /**
      * Find provider by key
      *
      * @param string $key key value
@@ -49,4 +87,5 @@ class My_Model_Table_AuthProvider extends Zend_Db_Table_Abstract {
     }
 
 }
+
 ?>

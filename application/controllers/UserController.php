@@ -175,8 +175,8 @@ class UserController extends Zend_Controller_Action {
 
         // while this one will be set by twitter
         $oauth_token = $this->getRequest()->getParam('oauth_token', null);
-
-
+        
+        
         // do the first query to the openid provider
         if ($openid_identifier) {
 
@@ -202,6 +202,12 @@ class UserController extends Zend_Controller_Action {
                 $adapter->setExtensions($ext);
             }
             
+            // save $openid_identifier in a 10 minute cookie that will be writen
+            // when we return from the auth provider.                        
+            if (!setcookie('auth_identifier', $openid_identifier, time()+600)) {
+                throw new Zend_Auth_Exception('A cookie with an idnetfier cound not be set');
+            }
+                  
             // here a user is redirect to the provider for loging
             $result = $auth->authenticate($adapter);
 
@@ -211,6 +217,16 @@ class UserController extends Zend_Controller_Action {
         } else if ($openid_mode || $code || $oauth_token) {
             // this will be exectued after provider redirected the user back to us
             //echo serialize($_GET);return;
+            
+            
+            // retrive the auth idnetifier provider name from cookie set above
+            $auth_provider = 'Unknown';
+            if (isset($_COOKIE['auth_identifier'])) {                
+                $auth_provider = My_Model_Table_AuthProvider::getProvider($_COOKIE['auth_identifier']);
+                // remove the cookie as we do not need it now
+                setcookie("auth_identifier", "", time()-3600);                
+            }     
+            
             
             if ($code) {
                 // for facebook
@@ -252,13 +268,11 @@ class UserController extends Zend_Controller_Action {
 
                 if (isset($ext)) {
                     // for openId
-                    $toStore->property = (object) $ext->getProperties();
-                    $toStore->provider = 'openid';
+                    $toStore->property = (object) $ext->getProperties();                    
                 } else if ($code) {
                     // for facebook
                     $msgs = $result->getMessages();
-                    $toStore->property = $msgs['user'];
-                    $toStore->provider = 'facebook';
+                    $toStore->property = $msgs['user'];                    
                 } else if ($oauth_token) {
                     // for twitter
                     $identity = $result->getIdentity();
@@ -266,10 +280,12 @@ class UserController extends Zend_Controller_Action {
                     $twitterUserData = $adapter->verifyCredentials();
 
                     $toStore = (object) array('identity' => $identity['user_id']);
-                    $toStore->property = $twitterUserData;
-                    $toStore->provider = 'twitter';
+                    $toStore->property = $twitterUserData;                
                 }
-
+                
+                // save the providers name. Useful in account recovery.
+                $toStore->provider = $auth_provider;
+                
                 // set temprorary default privilage 
                 $toStore->property->privilage = 'BASIC';
 
@@ -516,13 +532,15 @@ class UserController extends Zend_Controller_Action {
         $tmpSession = new Zend_Session_Namespace('toStore');
 
         /* @var $user My_Model_Table_Row_User  */
-        $user = $tmpSession->user;
-        $user->setTable(new My_Model_Table_User());
+        $user = $tmpSession->user;      
+                
 
         if (null === $user) {
             $this->_helper->FlashMessenger('Cannot retrive user data');
             return $this->_redirect('/');
         }
+        
+        $user->setTable(new My_Model_Table_User());
 
         $authProvider = $user->getAuthProvider();
 
@@ -611,6 +629,7 @@ class UserController extends Zend_Controller_Action {
                 throw new Zend_Exception("Cannot create $dir to store tmp auth data.");
             }
         }
+        
         $adapter->setStorage(new Zend_OpenId_Consumer_Storage_File($dir));
 
         return $adapter;

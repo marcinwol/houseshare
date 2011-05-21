@@ -2,6 +2,20 @@
 
 class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
 
+    function _initViewHelpers() {
+        $this->bootstrap('view');
+        $view = $this->getResource('view');
+        $view->doctype('HTML4_STRICT');
+        $view->setHelperPath(APPLICATION_PATH . '/helpers', '');
+        $view->headMeta()->appendHttpEquiv('Content-type', 'text/html;charset=utf-8')
+                ->appendName('description', 'Zend Framework');
+        $view->headTitle()->setSeparator(' - ');
+        $view->headTitle('Zend Custom View');
+        $view->setScriptPath(APPLICATION_PATH . '/themes/admin');
+
+        return $view;
+    }
+
     protected function _initDoctype() {
         $this->bootstrap('view');
         /* @var $view Zend_View */
@@ -48,29 +62,29 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
         $resourceLoader->addResourceType('controller', 'controllers/', 'My_Controller_');
         $resourceLoader->addResourceType('acl', 'acl/', 'My_');
         $resourceLoader->addResourceType('openidextension', 'openid/extension/', 'My_OpenId_Extension');
-        //$resourceLoader->addResourceType('authAdapter', 'auth/Adapter', 'My_Auth_Adapter');
+//$resourceLoader->addResourceType('authAdapter', 'auth/Adapter', 'My_Auth_Adapter');
 
 
         $autoLoader->pushAutoloader($resourceLoader);
-        //  require_once APPLICATION_PATH . '/loaders/Autoloader/PhpThumb.php';
+//  require_once APPLICATION_PATH . '/loaders/Autoloader/PhpThumb.php';
         $autoLoader->pushAutoloader(new My_Loader_Autoloader_PhpThumb());
 
-        //   var_dump($autoLoader->getAutoloaders());
-        // add 'My_' namespace for library/houseshare
+//   var_dump($autoLoader->getAutoloaders());
+// add 'My_' namespace for library/houseshare
         $resourceLoader_hs = new Zend_Loader_Autoloader_Resource(array(
                     'basePath' => APPLICATION_PATH . '/../library',
                     'namespace' => 'My_',
                 ));
 
         $resourceLoader_hs->addResourceType('houseshare', 'Houseshare/', 'Houseshare_');
-        //var_dump($resourceLoader_cms->getResourceTypes());
+//var_dump($resourceLoader_cms->getResourceTypes());
         $autoLoader->pushAutoloader($resourceLoader_hs);
 
         $autoLoader->registerNamespace('ZC_');
     }
 
     protected function _initLocale() {
-        // define locale
+// define locale
         $locale = new Zend_Locale('en');
 
         $cache = Zend_Cache::factory(
@@ -79,16 +93,16 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
 
         $locale->setCache($cache);
 
-        // register it so that it can be used all over the website
+// register it so that it can be used all over the website
         Zend_Registry::set('Zend_Locale', $locale);
     }
 
     protected function _initTranslate() {
-        // get Locale
+// get Locale
         $locale = Zend_Registry::get('Zend_Locale');
 
 
-        // Set up and load the translations
+// Set up and load the translations
         $translate = new Zend_Translate(
                         array(
                             'adapter' => 'array',
@@ -119,8 +133,8 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
     }
 
     protected function _initImageDirConstants() {
-        // define path to directory where photos should be uploaded
-        // and the name of thumbs directory
+// define path to directory where photos should be uploaded
+// and the name of thumbs directory
         $imagePaths = $this->getOption('myimages');
 
 
@@ -163,7 +177,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
     }
 
     protected function _initSetDefaultKeywords() {
-        $view = $this->bootstrap('view')->getResource('view');          
+        $view = $this->bootstrap('view')->getResource('view');
         $view->keywords = 'sharehouse, rooms for rent, appartments, students';
     }
 
