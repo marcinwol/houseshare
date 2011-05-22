@@ -5,8 +5,27 @@ if ($this->showSteps) {
 ?>
 
 <div class="grid_6">  
-    <h2><?php echo $this->title;?></h2>
+    <h2><?php echo $this->title; ?></h2>
 </div>
-<div class="grid_6">
-    <?php echo $this->form; ?>
+<div  class="grid_6">
+    <div id="photos-upload-form">
+        <?php echo $this->form; ?>
+    </div>
+    <div  id="progress"  style="display:none; width:100%"> 
+        <img class="loadingimg"  src="/sharehouse/public/images/loading2.gif" />
+    </div>
+
 </div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#Upload').live('click', function(e) {              
+            $('#photos-upload-form').empty();
+            $('#progress').show();
+            $('#progress').html('<img class="loadingimg" src="/sharehouse/public/images/loading2.gif" /><p style="text-align:center;">Please wait.</p>');
+            //$('#resent-adverts').empty().html('<div style="width:100%"> <img class="loadingimg" src="http://localhost.com/sharehouse/public/images/loading2.gif" /></div>');                                       
+            //   $('#resent-adverts').load(href);
+            // return false;
+        });
+    });    
+
+</script>
