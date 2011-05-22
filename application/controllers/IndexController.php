@@ -60,15 +60,15 @@ class IndexController extends Zend_Controller_Action {
             foreach ($cities as $city) {
 
                 if (1 == $nostate) {
-                    $label = $value = utf8_encode($city['city_name']);
+                    $label = $value = ($city['city_name']);
                 } else {
                     $label = $value = "{$city['city_name']}, {$city['state_name']}";
                 }
                 $value = $city['city_name'];
-                $city['value'] = utf8_encode($value);
-                $city['label'] = utf8_encode($label);
+                $city['value'] = ($value);
+                $city['label'] = ($label);
                 $city['city_id'] = $city['city_id'];
-                $city['state'] = utf8_encode($city['state_name']);
+                $city['state'] = ($city['state_name']);
                 $matches[] = $city;
             }
 
@@ -122,7 +122,7 @@ class IndexController extends Zend_Controller_Action {
             $matches = array();
             foreach ($streets as $street) {
 
-                $street['value'] = utf8_encode($street['name']);
+                $street['value'] = ($street['name']);
                 $street['label'] = $street['value'];
                 $matches[] = $street;
             }

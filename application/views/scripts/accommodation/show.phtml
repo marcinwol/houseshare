@@ -103,6 +103,19 @@ if ($this->preview == true) {
     }
 
     $this->sideBarElement('Success!', $sideBarContent, array('class' => 'side-bar-info', 'break' => true));
+    
+} elseif (false == $this->acc->is_enabled) {
+     $sideBarContent = "Your advertisment is <strong>disactivated</strong>.";
+
+    if ($this->isLogged()) {
+        $sideBarContent .= " <p> 
+   <a class=\"acc-add\" href=\"{$this->baseUrl('/accommodation/enable/id/' . $this->acc->acc_id)}\" alt=\"Activate\">Activate it now</a>
+  <br /><br />  If you want to <strong>change</strong> something go <a href=\"{$this->baseUrl('/user/')}\">here</a>.
+ </p>";
+    } 
+    
+    $this->sideBarElement('Disactivated', $sideBarContent, array('class' => 'side-bar-info', 'break' => true));
+    
 }
 ?>
 
