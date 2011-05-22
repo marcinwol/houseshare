@@ -97,6 +97,18 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
         Zend_Registry::set('Zend_Locale', $locale);
     }
 
+    protected function _initMyRoutes() {
+        $this->bootstrap('frontcontroller');
+        $front = Zend_Controller_Front::getInstance();
+        
+        /*@var Zend_Controller_Router_Rewrite $router */
+        $router = $front->getRouter();      
+
+        $myRoutes = new Zend_Config_Ini(APPLICATION_PATH . '/configs/routes.ini');
+        
+        $router->addConfig($myRoutes,'routes');
+    }
+
     protected function _initTranslate() {
 // get Locale
         $locale = Zend_Registry::get('Zend_Locale');

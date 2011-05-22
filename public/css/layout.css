@@ -319,9 +319,9 @@ div#welcome form {
     width:80px;
 }
 
-form#main-search-form input[type=submit] {
+#main-page-submit {
     font-size: 16px;
-    padding: 5px 10px 5px 10px;
+    padding: 5px 5px 5px 5px;
 }
 
 

@@ -5,6 +5,9 @@
     <tbody>
 
         <?php foreach ($this->accommodations as $acc): ?>
+         <!-- <tr>
+                <td><?php //echo $this->timeSince(strtotime($acc->created),1); ?></td>
+            </tr>-->
             <tr>
                 <td><?php echo $this->partial('_partials/listing-preview.phtml', null, array('acc' => $acc)); ?></td>
             </tr>

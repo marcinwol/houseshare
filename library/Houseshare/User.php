@@ -138,7 +138,7 @@ class My_Houseshare_User extends My_Houseshare_Abstract_PropertyAccessor {
         
         return  $nickname;
     }
-    
+            
     /**
      * Check if phone is avaliable and if phone and email are public
      * 

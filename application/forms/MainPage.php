@@ -84,6 +84,7 @@ class My_Form_MainPage extends Zend_Form {
         $this->addElement($maxPrice);
 
         $submit = $this->createElement('submit', 'submit', array('label' => 'Go'));
+        $submit->setAttrib('id', 'main-page-submit');
         $submit->removeDecorator('Label');
         $this->addElement($submit);
         
