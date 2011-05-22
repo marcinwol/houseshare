@@ -100,8 +100,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
     protected function _initMyRoutes() {
         $this->bootstrap('frontcontroller');
         $front = Zend_Controller_Front::getInstance();
-        
-        /*@var Zend_Controller_Router_Rewrite $router */
+                
         $router = $front->getRouter();      
 
         $myRoutes = new Zend_Config_Ini(APPLICATION_PATH . '/configs/routes.ini');

@@ -3,6 +3,22 @@
 class IndexController extends Zend_Controller_Action {
 
     /**
+     *
+     * @var Zend_Cache_Core 
+     */
+    private $_cache;
+
+    public function init() {
+
+        $this->_cache = Zend_Controller_Front::getInstance()
+                ->getParam('bootstrap')
+                ->getResource('cachemanager')
+                ->getCache('mycache');
+
+        //  $this->_helper->cache(array('preview'), array('previewaction'));
+    }
+
+    /**
      * This is for tests, experiments, etc.
      */
     public function testAction() {
@@ -47,30 +63,43 @@ class IndexController extends Zend_Controller_Action {
 
     public function getcitiesAction() {
 
+        $autocompleterCache = Zend_Controller_Front::getInstance()
+                ->getParam('bootstrap')
+                ->getResource('cachemanager')
+                ->getCache('autocompleter');
+
+
         if ($this->getRequest()->isXmlHttpRequest()) {
 
             $term = $this->getRequest()->getParam('term');
             $nostate = $this->getRequest()->getParam('nostate', 0);
+           
+            $cacheId = 'cities_' . md5($term);
+            $matches = $autocompleterCache->load($cacheId);
 
-            $cityModel = new My_Model_View_City();
-            $cities = $cityModel->findCitiesBasedOnName($term, 5)->toArray();
-            // $cities = $cityModel->fetchAll()->toArray();
+            if (!$matches) {
+                $cityModel = new My_Model_View_City();
+                $cities = $cityModel->findCitiesBasedOnName($term, 5)->toArray();
 
-            $matches = array();
-            foreach ($cities as $city) {
+                $matches = array();
+                foreach ($cities as $city) {
 
-                if (1 == $nostate) {
-                    $label = $value = ($city['city_name']);
-                } else {
-                    $label = $value = "{$city['city_name']}, {$city['state_name']}";
+                    if (1 == $nostate) {
+                        $label = $value = ($city['city_name']);
+                    } else {
+                        $label = $value = "{$city['city_name']}, {$city['state_name']}";
+                    }
+                    $value = $city['city_name'];
+                    $city['value'] = ($value);
+                    $city['label'] = ($label);
+                    $city['city_id'] = $city['city_id'];
+                    $city['state'] = ($city['state_name']);
+                    $matches [] = $city;
                 }
-                $value = $city['city_name'];
-                $city['value'] = ($value);
-                $city['label'] = ($label);
-                $city['city_id'] = $city['city_id'];
-                $city['state'] = ($city['state_name']);
-                $matches[] = $city;
+
+                $autocompleterCache->save($matches, $cacheId);
             }
+
 
             $this->_helper->json($matches);
         } else {
@@ -104,30 +133,37 @@ class IndexController extends Zend_Controller_Action {
 
     public function getstreetsAction() {
 
-//         $term = $this->getRequest()->getParam('term');
-//            $streetModel = new My_Model_Table_Street();
-//
-//            $streets = $streetModel->findBasedOnName($term, 10)->toArray();
-//            var_dump($streets);
-//            exit;
+        $autocompleterCache = Zend_Controller_Front::getInstance()
+                ->getParam('bootstrap')
+                ->getResource('cachemanager')
+                ->getCache('autocompleter');
+
 
         if ($this->getRequest()->isXmlHttpRequest()) {
 
             $term = $this->getRequest()->getParam('term');
-            $streetModel = new My_Model_Table_Street();
 
-            $streets = $streetModel->findBasedOnName($term, 10)->toArray();
-            //$streets = $streetModel->fetchAll()->toArray();
+            $t1 = microtime(true);
+            $cacheId = 'streets_' . md5($term);
+            $matches = $autocompleterCache->load($cacheId);
 
-            $matches = array();
-            foreach ($streets as $street) {
+            if (!$matches) {
+                $streetModel = new My_Model_Table_Street();
+                $streets = $streetModel->findBasedOnName($term, 10)->toArray();
 
-                $street['value'] = ($street['name']);
-                $street['label'] = $street['value'];
-                $matches[] = $street;
+                $matches = array();
+                foreach ($streets as $street) {
+
+                    $street['value'] = ($street['name']);
+                    $street['label'] = $street['value'];
+                    $matches[] = $street;
+                }
+
+                $autocompleterCache->save($matches, $cacheId);
             }
-
+  
             $this->_helper->json($matches);
+            
         } else {
             throw new Exception('Not an ajax requrests');
         }
@@ -136,7 +172,7 @@ class IndexController extends Zend_Controller_Action {
     public function getRecentAdvertsAction() {
         if ($this->getRequest()->isXmlHttpRequest()) {
             $this->_helper->layout->disableLayout();
-           
+
             $page = $this->getRequest()->getParam('page', 1);
             $this->page = $page;
         }
