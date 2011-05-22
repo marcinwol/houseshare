@@ -550,6 +550,10 @@ div.advert-info {
     text-align: center;
 }
 
+.no-feature {
+     background-color: #D6D6D6;
+}
+
 .listing-preview-description {
 
 }
