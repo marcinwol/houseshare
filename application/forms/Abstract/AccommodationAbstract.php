@@ -150,6 +150,7 @@ abstract class My_Form_Abstract_AccommodationAbstract extends Zend_Form {
         $cityInput = $this->createElement('text', 'city');
         $cityInput->setRequired(true)->setLabel('City');
         $cityInput->setFilters(array('stripTags', 'stringTrim'));
+        $cityInput->setAttribs(array('tooltip' => 'AUTOCOMPLETER should kick in after two leters'));
 
 
         $cities = My_Model_Table_City::getAllCitiesAsArray();
@@ -188,6 +189,7 @@ abstract class My_Form_Abstract_AccommodationAbstract extends Zend_Form {
         $streetNameInput = $this->createElement('text', 'street_name');
         $streetNameInput->setRequired(true)->setLabel('Street name');
         $streetNameInput->setFilters(array('stripTags', 'stringTrim'));
+        $streetNameInput->setAttribs(array('tooltip' => 'AUTOCOMPLETER should kick in after two leters'));
 
 
         // create new element
