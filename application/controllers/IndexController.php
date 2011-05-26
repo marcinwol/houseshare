@@ -23,14 +23,14 @@ class IndexController extends Zend_Controller_Action {
      */
     public function testAction() {
 
-        $db = Zend_Db_Table::getDefaultAdapter();
-        $select = $db->select();
+       $request = $this->getRequest();
+       $router = Zend_Controller_Front::getInstance()->getRouter();
+       $dispacher = Zend_Controller_Front::getInstance()->getDispatcher();
+        // var_dump($dispacher->getParams());
+       
+      // var_dump($router->getParams());
 
-        $select->from(array('s' => 'sayer'), array('id', 'firstname', 'lastname', 'mydate', 'mount'))
-                ->joinLeft(array('u' => 'users'), 's.sh = u.sh', array('nameOffice'))
-                ->order(array('date(s.mydate) DESC', 's.mount DESC'));
-
-        print($select->assemble());
+        var_dump($request->getUserParams());
     }
 
     public function indexAction() {

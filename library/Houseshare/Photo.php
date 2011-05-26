@@ -71,7 +71,7 @@ class My_Houseshare_Photo extends My_Houseshare_Abstract_PropertyAccessor {
         $fileName = $pinfo['filename'];
         $fileExt = $pinfo['extension'];
 
-        return $dirName . DIRECTORY_SEPARATOR .  $fileName . '.jpg';
+        return $dirName . '/' .  $fileName . '.jpg';
     }
 
     /**

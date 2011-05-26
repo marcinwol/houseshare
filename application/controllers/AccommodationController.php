@@ -140,7 +140,7 @@ class AccommodationController extends Zend_Controller_Action {
     }
 
     public function listAction() {
-
+        
         $city_id = $cityName = $this->_request->getParam('city', null);
         $maxPrice = $this->_request->getParam('maxprice', null);
         $accType = $this->_request->getParam('acctype', null);
