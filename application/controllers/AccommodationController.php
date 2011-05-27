@@ -15,7 +15,7 @@ class AccommodationController extends Zend_Controller_Action {
                 ->getResource('cachemanager')
                 ->getCache('mycache');
 
-        //  $this->_helper->cache(array('preview'), array('previewaction'));
+        $this->_helper->cache(array('preview'), array('previewaction'));
     }
 
     public function indexAction() {
@@ -1193,6 +1193,11 @@ class AccommodationController extends Zend_Controller_Action {
             $db->rollBack();
             throw new Zend_Db_Exception('Returned acc_id is different then updated one');
         }
+        
+        //when an accommodation is disabled
+        //clean recentAdvertsCache
+        $cache = Zend_Registry::get('recentAdvertsCache');
+        $cache->clean(Zend_Cache::CLEANING_MODE_ALL);
 
         $this->_helper->FlashMessenger('Accommodation was disabled');
         return $this->_redirect('/user/');
@@ -1228,6 +1233,11 @@ class AccommodationController extends Zend_Controller_Action {
             $db->rollBack();
             throw new Zend_Db_Exception('Returned acc_id is different then updated one');
         }
+        
+        //when an accommodation is enabled
+        //clean recentAdvertsCache
+        $cache = Zend_Registry::get('recentAdvertsCache');
+        $cache->clean(Zend_Cache::CLEANING_MODE_ALL);
 
         $this->_helper->FlashMessenger('Accommodation was enabled');
         return $this->_redirect('/user/');

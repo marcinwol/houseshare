@@ -143,8 +143,8 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
     }
 
     protected function _initImageDirConstants() {
-// define path to directory where photos should be uploaded
-// and the name of thumbs directory
+        // define path to directory where photos should be uploaded
+        // and the name of thumbs directory
         $imagePaths = $this->getOption('myimages');
 
 
@@ -206,6 +206,13 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
         );
 
         Zend_Mail::setDefaultTransport($tr);
+    }
+    
+    protected function _initPutChacesIntoRegistry() {
+         $this->bootstrap('cachemanager');
+         $cacheManager = $this->getResource('cachemanager');
+         
+         Zend_Registry::set('recentAdvertsCache', $cacheManager->getCache('recentAdverts'));
     }
 
 }

@@ -11,13 +11,11 @@
  * @author marcin
  */
 class My_View_Helper_RecentAdverts extends Zend_View_Helper_Abstract {
-
-    
     /**
      * Number of newest accommodations to return
      */
     const NO_OF_ACCS = 10;
-    
+
     /**
      * View instance
      *
@@ -27,19 +25,29 @@ class My_View_Helper_RecentAdverts extends Zend_View_Helper_Abstract {
 
     public function recentAdverts($page = 1, $ajax = false) {
 
-        $lastAccs = $this->_getLastAccommodations($page);        
+        $cache = $this->getCache();
 
-        return $this->view->partial(
-                '_partials/_recentAdverts.phtml', null, 
-                array(
-                    'accommodations' => $lastAccs,
-                    'title'   => 'Recent advertisements',
-                    'isAjax'  => $ajax
-                    )
-        );
+        $cacheId = 'recentAdverts_' . $page;
+        $html = $cache->load($cacheId);
+
+        if (!$html) {
+            $lastAccs = $this->_getLastAccommodations($page);
+           
+            
+            $html = $this->view->partial(
+                            '_partials/_recentAdverts.phtml', null, array(
+                        'accommodations' => $lastAccs,
+                        'title' => 'Recent advertisements',
+                        'isAjax' => $ajax
+                            )
+            );
+                                    
+             $cache->save($html, $cacheId, array('adverts'));             
+        }
+
+        return $html;
     }
-    
-    
+
     /**
      *
      * @return Zend_Paginator Zend_Paginator
@@ -57,6 +65,16 @@ class My_View_Helper_RecentAdverts extends Zend_View_Helper_Abstract {
      */
     public function setView(Zend_View_Interface $view) {
         $this->view = $view;
+    }
+
+    /**
+     *
+     * Get recentAdverts cache
+     * 
+     * @return  Zend_Cache_Core
+     */
+    public function getCache() { 
+        return Zend_Registry::get('recentAdvertsCache');
     }
 
 }
