@@ -151,12 +151,19 @@
 
             <p>
                 about | info | faq | contact us | 
-                <a href="http://sharehouse.uservoice.com/forums/116853-general" title="Open feedback & support "><strong>feedback</strong></a>
+                <a href="javascript:UserVoice.showPopupWidget();" title="Open feedback & support dialog (powered by UserVoice)">feedback & support</a>
             </p>     
         </div>
 
 </div>
-
+<script type="text/javascript">
+  var uvOptions = {};
+  (function() {
+    var uv = document.createElement('script'); uv.type = 'text/javascript'; uv.async = true;
+    uv.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'widget.uservoice.com/INXEyHuHxPT70Brhsgm0Ww.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(uv, s);
+  })();
+</script>
     </body>
 </html>       
 
