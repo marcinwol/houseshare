@@ -9,8 +9,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
         $view->setHelperPath(APPLICATION_PATH . '/helpers', '');
         $view->headMeta()->appendHttpEquiv('Content-type', 'text/html;charset=utf-8')
                 ->appendName('description', 'Zend Framework');
-        $view->headTitle()->setSeparator(' - ');
-        $view->headTitle('Zend Custom View');
+        $view->headTitle()->setSeparator(' - ');    
         $view->setScriptPath(APPLICATION_PATH . '/themes/admin');
 
         return $view;
