@@ -4,177 +4,178 @@
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />       
 
         <?php
-        echo $this->headTitle('ShareHouse: Its not complicated');
-        echo $this->headMeta()->appendName('keywords', $this->keywords);
-        ?>
+       
+        $cache = Zend_Registry::get('genericCache');
 
-        <?php
-        // CSS  ; 
-        // $this->headLink()->appendStylesheet('http://960ls.atomidata.com//static/cssserve/2011/3/20/a9ee67bb90b44f8eb9ebe4e630122280.css');
-        $this->headLink()->appendStylesheet($this->baseUrl('/css/grid960.css'));
-        $this->headLink()->appendStylesheet($this->baseUrl('/css/layout.css'));
-        $this->headLink()->appendStylesheet($this->baseUrl('/css/ui-lightness/jquery-ui-1.8.12.custom.css'));
-        $this->headLink()->appendStylesheet($this->baseUrl('/css/shadowbox.css'));
-        //$this->headLink()->appendStylesheet($this->baseUrl('/css/jqtransform.css'));
-        //  $this->headLink()->appendStylesheet($this->baseUrl('/css/right-without.css'));
-        ?>
+        $headers = $cache->load('headers');
+
+        if (!$headers) {
+
+            // CSS  ; 
+            // $this->headLink()->appendStylesheet('http://960ls.atomidata.com//static/cssserve/2011/3/20/a9ee67bb90b44f8eb9ebe4e630122280.css');
+            $this->headLink()->appendStylesheet($this->baseUrl('/css/grid960.css'));
+            $this->headLink()->appendStylesheet($this->baseUrl('/css/layout.css'));
+            $this->headLink()->appendStylesheet($this->baseUrl('/css/ui-lightness/jquery-ui-1.8.12.custom.css'));
+            $this->headLink()->appendStylesheet($this->baseUrl('/css/shadowbox.css'));
+            //$this->headLink()->appendStylesheet($this->baseUrl('/css/jqtransform.css'));
+            //  $this->headLink()->appendStylesheet($this->baseUrl('/css/right-without.css'));
+            // jQuery  
+            $this->headScript()->prependFile($this->baseUrl('/js/jquery-ui-1.8.7.custom.min.js'));
+            $this->headScript()->prependFile($this->baseUrl('/js/jquery-1.4.4.min.js'));
+
+            //   $this->headScript()->appendFile($this->baseUrl('/js/jquery.formtips.1.2.3.packed.js'));
+            // $this->headScript()->appendFile($this->baseUrl('/js/jquery.corner.js'));
+            $this->headScript()->appendFile($this->baseUrl('/js/jquery.qtip-1.0.0-rc3.min.js'));
+            $this->headScript()->appendFile($this->baseUrl('/js/shadowbox.js'));
+            $this->headScript()->appendFile($this->baseUrl('/js/jquery.validate.js'));
+            $this->headScript()->appendFile('http://maps.google.com/maps/api/js?sensor=false&region=PL');
+            $this->headScript()->appendFile($this->baseUrl('/js/markerwithlabel.js'));
+            $this->headScript()->appendFile($this->baseUrl('/js/advertpreviewdialog.js'));
 
 
+            // the application specific 
+            if ($this->controller() == 'accommodation') {
+                $this->headScript()->appendFile($this->baseUrl('/js/houseshare_acc.js'));
+            }
 
-        <?php
-        // jQuery  
-        $this->headScript()->prependFile($this->baseUrl('/js/jquery-ui-1.8.7.custom.min.js'));
-        $this->headScript()->prependFile($this->baseUrl('/js/jquery-1.4.4.min.js'));
+            // openid-selector
+
+            if ($this->controller() == 'user' || $this->controller() == 'accommodation') {
+                $this->headLink()->appendStylesheet($this->baseUrl('/css/openid.css'));
+                $this->headScript()->appendFile($this->baseUrl('/js/openid-jquery.js'));
+                $this->headScript()->appendFile($this->baseUrl('/js/openid-en.js'));
+            }
+
+
+            $headers = (string) $this->headTitle('ShareHouse: Its not complicated');
+            $headers .= (string) $this->headMeta()->appendName('keywords', $this->keywords);
+            $headers = (string) $this->headLink();
+            $headers .= (string) $this->headScript();
+
+            $cache->save($headers, 'headers');
+        }
+
+        echo $headers;
         
-        //   $this->headScript()->appendFile($this->baseUrl('/js/jquery.formtips.1.2.3.packed.js'));
-       // $this->headScript()->appendFile($this->baseUrl('/js/jquery.corner.js'));
-        $this->headScript()->appendFile($this->baseUrl('/js/jquery.qtip-1.0.0-rc3.min.js'));
-        $this->headScript()->appendFile($this->baseUrl('/js/shadowbox.js'));
-        $this->headScript()->appendFile($this->baseUrl('/js/jquery.validate.js'));
-        $this->headScript()->appendFile('http://maps.google.com/maps/api/js?sensor=false&region=PL');
-        $this->headScript()->appendFile($this->baseUrl('/js/markerwithlabel.js'));
-        $this->headScript()->appendFile($this->baseUrl('/js/advertpreviewdialog.js'));
-        ?>        
-
-
-        <?php // the application specific  ?>
-        <?php //$this->headScript()->appendFile($this->baseUrl('/js/houseshare.js')); ?>
-        <?php
-        if ($this->controller() == 'accommodation') {
-            $this->headScript()->appendFile($this->baseUrl('/js/houseshare_acc.js'));
-        }
+      
         ?>
-
-        <?php // openid-selector  ?>
-        <?php
-        if ($this->controller() == 'user' || $this->controller() == 'accommodation') {
-            $this->headLink()->appendStylesheet($this->baseUrl('/css/openid.css'));
-            $this->headScript()->appendFile($this->baseUrl('/js/openid-jquery.js'));
-            $this->headScript()->appendFile($this->baseUrl('/js/openid-en.js'));
-        }
-        ?>
-
-        <?php //render the headLink and headScript  ?>
-        <?php echo $this->headLink(); ?>
-        <?php echo $this->headScript(); ?>
 
     </head>
 
 
     <body>
 
-<div id="wrap">
-    <div id="top-margin-color"></div>
-        <div id="header" class="container_8">
+        <div id="wrap">
+            <div id="top-margin-color"></div>
+            <div id="header" class="container_8">
 
-            <div id="" class="grid_3 ">
-                <div>
-                    <a href="<?php echo $this->baseUrl(); ?>"> 
-                        <img src="<?php echo $this->baseUrl('/images/house.png'); ?>" 
-                             alt="ShareHouse.com" style="float:left"/> 
-                    </a>
-                </div>
-                <div>
-                    <h1><a href="<?php echo $this->baseUrl(); ?>">
-                            <?php echo $this->translate('ShareHouse'); ?>
-                        </a></h1> 
+                <div id="" class="grid_3 ">
+                    <div>
+                        <a href="<?php echo $this->baseUrl(); ?>"> 
+                            <img src="<?php echo $this->baseUrl('/images/house.png'); ?>" 
+                                 alt="ShareHouse.com" style="float:left"/> 
+                        </a>
+                    </div>
+                    <div>
+                        <h1><a href="<?php echo $this->baseUrl(); ?>">
+<?php echo $this->translate('ShareHouse'); ?>
+                            </a></h1> 
 
 
-                    <h2><?php echo $this->translate('Its not complicated'); ?></h2> 
-                </div>
-
-            </div>
-
-            <div id="" class="grid_5 ">
-                <div id="login"><?php echo $this->profileLink(); ?> </div>
-            </div>
-
-        </div>
-
-        <div id="content" class="container_8">
- 
-            <div id="" class="grid_6">
-                <?php if ($this->getHelper('flashMessenger')->hasMassages()): ?>
-                    <div id="dialog-message" title="Message">
-                        <p style="font-size: 14px;"> <?php echo $this->flashMessenger(); ?></p>   
+                        <h2><?php echo $this->translate('Its not complicated'); ?></h2> 
                     </div>
 
-                    <script>
-                        $( "#dialog-message" ).dialog({
-                            modal: true,
-                            draggable: false,
-                            buttons: {
-                                Ok: function() {
-                                    $( this ).dialog( "close" );
-                                }
-                            }
-                        });
-                    </script>
+                </div>
 
-                <?php endif; ?>    
-                    
-                     
+                <div id="" class="grid_5 ">
+                    <div id="login"><?php echo $this->profileLink(); ?> </div>
+                </div>
+
+            </div>
+
+            <div id="content" class="container_8">
+
+                <div id="" class="grid_6">
+<?php if ($this->getHelper('flashMessenger')->hasMassages()): ?>
+                        <div id="dialog-message" title="Message">
+                            <p style="font-size: 14px;"> <?php echo $this->flashMessenger(); ?></p>   
+                        </div>
+
+                        <script>
+                            $( "#dialog-message" ).dialog({
+                                modal: true,
+                                draggable: false,
+                                buttons: {
+                                    Ok: function() {
+                                        $( this ).dialog( "close" );
+                                    }
+                                }
+                            });
+                        </script>
+
+<?php endif; ?>    
+
+
                     <!-- show breadcrumbs if avaliable -->
-                    <?php  $breadcrumbs = $this->navigation()->breadcrumbs(); ?>
-                    <?php if (strlen($breadcrumbs)>1):?>
+<?php $breadcrumbs = $this->navigation()->breadcrumbs(); ?>
+                    <?php if (strlen($breadcrumbs) > 1): ?>
                         <div id="breadcrumbs">
-                            <?php echo  $breadcrumbs; ?>
+                        <?php echo $breadcrumbs; ?>
                         </div>                    
-                    <?php endif;?>
-                    
-                    
+                        <?php endif; ?>
+
+
                     <!-- show main content of the page -->
                     <div>    
-                        <?php echo $this->layout()->content; ?>    
+<?php echo $this->layout()->content; ?>    
                     </div>
-            </div>            
+                </div>            
 
 
-            <div id="" class="grid_2">
-
-
-
-
-
-
-                <?php
-                
-                // display all side-bar boxes
-                echo $this->placeholder('side-bar');              
-                ?>
+                <div id="" class="grid_2">
 
 
 
 
 
+
+<?php
+// display all side-bar boxes
+echo $this->placeholder('side-bar');
+?>
+
+
+
+
+
+
+                </div>
 
             </div>
 
+
+
+            <div style="height:15px;"></div>
+
         </div>
+        <div id="footer">
+            <div class="footerWrapper">
 
-     
+                <p>
+                    about | info | faq | contact us | 
+                    <a href="javascript:UserVoice.showPopupWidget();" title="Open feedback & support dialog (powered by UserVoice)">feedback & support</a>
+                </p>     
+            </div>
 
-    <div style="height:15px;"></div>
-
-</div>
-<div id="footer">
-        <div class="footerWrapper">
-
-            <p>
-                about | info | faq | contact us | 
-                <a href="javascript:UserVoice.showPopupWidget();" title="Open feedback & support dialog (powered by UserVoice)">feedback & support</a>
-            </p>     
         </div>
-
-</div>
-<script type="text/javascript">
-  var uvOptions = {};
-  (function() {
-    var uv = document.createElement('script'); uv.type = 'text/javascript'; uv.async = true;
-    uv.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'widget.uservoice.com/INXEyHuHxPT70Brhsgm0Ww.js';
-    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(uv, s);
-  })();
-</script>
+        <script type="text/javascript">
+            var uvOptions = {};
+            (function() {
+                var uv = document.createElement('script'); uv.type = 'text/javascript'; uv.async = true;
+                uv.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'widget.uservoice.com/INXEyHuHxPT70Brhsgm0Ww.js';
+                var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(uv, s);
+            })();
+        </script>
     </body>
 </html>       
 
