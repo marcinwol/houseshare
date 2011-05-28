@@ -34,17 +34,17 @@
 
 
             // the application specific 
-            if ($this->controller() == 'accommodation') {
+            //if ($this->controller() == 'accommodation') {
                 $this->headScript()->appendFile($this->baseUrl('/js/houseshare_acc.js'));
-            }
+           // }
 
             // openid-selector
 
-            if ($this->controller() == 'user' || $this->controller() == 'accommodation') {
+            //if ($this->controller() == 'user' || $this->controller() == 'accommodation') {
                 $this->headLink()->appendStylesheet($this->baseUrl('/css/openid.css'));
                 $this->headScript()->appendFile($this->baseUrl('/js/openid-jquery.js'));
                 $this->headScript()->appendFile($this->baseUrl('/js/openid-en.js'));
-            }
+            //}
 
 
             $headers = (string) $this->headTitle('ShareHouse: Its not complicated');
