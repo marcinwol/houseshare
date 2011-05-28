@@ -145,7 +145,7 @@ class IndexController extends Zend_Controller_Action {
 
             $term = $this->getRequest()->getParam('term');
 
-            $t1 = microtime(true);
+          //  $t1 = microtime(true);
             $cacheId = 'streets_' . md5($term);
             $matches = $autocompleterCache->load($cacheId);
 

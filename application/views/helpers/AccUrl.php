@@ -28,7 +28,8 @@ class My_View_Helper_AccUrl extends Zend_View_Helper_Abstract {
     public function accUrl(My_Houseshare_Accommodation $acc, $route = 'showacc') {
 
         $type = strtolower($acc->getTypeAsString());
-        $city = My_Houseshare_Tools::toAscii(strtolower($acc->city));
+        //$city = My_Houseshare_Tools::toAscii(strtolower($acc->city));
+        $city = strtolower($acc->city);
         $acc_id = $acc->acc_id;
       //  var_dump($acc->title);
         //$title =  My_Houseshare_Tools::toAscii(strtolower(substr($acc->title,0,40)));

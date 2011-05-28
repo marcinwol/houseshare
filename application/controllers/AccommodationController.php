@@ -10,12 +10,9 @@ class AccommodationController extends Zend_Controller_Action {
 
     public function init() {
 
-        $this->_cache = Zend_Controller_Front::getInstance()
-                ->getParam('bootstrap')
-                ->getResource('cachemanager')
-                ->getCache('mycache');
+        $this->_cache = Zend_Registry::get('genericCache');
 
-        $this->_helper->cache(array('preview'), array('previewaction'));
+       // $this->_helper->cache(array('preview'), array('previewaction'));
     }
 
     public function indexAction() {
@@ -44,9 +41,11 @@ class AccommodationController extends Zend_Controller_Action {
 //                        $acc = My_Houseshare_Factory::accommodation($acc_id);
 //                        $this->_cache->save($acc, $cacheId);
 //                    }
-//                    
+//                  
+                    //$t1 = microtime(true);
                     $acc = My_Houseshare_Factory::accommodation($acc_id);
-
+                    //$t2 = microtime(true);
+                    // echo $t2-$t1;exit;
                     // send email 
                     $emailObj = new My_Mail_AccQuery($acc, $emailFrom, $message);
 
@@ -78,16 +77,19 @@ class AccommodationController extends Zend_Controller_Action {
 
 
 
+        //  $t1 = microtime(true);
+        // get acc object from cache if possible
+        $cacheId = 'acc_' . $acc_id;
+        $acc = $this->_cache->load($cacheId);
+        if (!$acc) {
+            $acc = My_Houseshare_Factory::accommodation($acc_id);
+            $this->_cache->save($acc, $cacheId);
+        }
 
-//        // get acc object from cache if possible
-//        $cacheId = 'acc_' . $acc_id;
-//        $acc = $this->_cache->load($cacheId);
-//        if (!$acc) {
-//            $acc = My_Houseshare_Factory::accommodation($acc_id);
-//            $this->_cache->save($acc, $cacheId);
-//        }
-
-        $acc = My_Houseshare_Factory::accommodation($acc_id);
+        //$t1 = microtime(true);
+        //$acc = My_Houseshare_Factory::accommodation($acc_id);
+        //$t2 = microtime(true);
+        //echo $t2 - $t1;
 
 
         $auth = Zend_Auth::getInstance();
@@ -129,7 +131,12 @@ class AccommodationController extends Zend_Controller_Action {
             $acc_id = $this->getRequest()->getParam('id');
 
             $acc_id = (int) $acc_id;
-            $acc = My_Houseshare_Factory::accommodation($acc_id);
+            $cacheId = 'acc_' . $acc_id;
+            $acc = $this->_cache->load($cacheId);
+            if (!$acc) {
+                $acc = My_Houseshare_Factory::accommodation($acc_id);
+                $this->_cache->save($acc, $cacheId);
+            }
             // increase view count
             $acc->addOneView();
 
@@ -140,7 +147,7 @@ class AccommodationController extends Zend_Controller_Action {
     }
 
     public function listAction() {
-        
+
         $city_id = $cityName = $this->_request->getParam('city', null);
         $maxPrice = $this->_request->getParam('maxprice', null);
         $accType = $this->_request->getParam('acctype', null);
@@ -177,7 +184,7 @@ class AccommodationController extends Zend_Controller_Action {
 
         // if accType given than show only this type and disable other types
         if (!is_null($accType)) {
-            if ( $limitForm->getElement('bed')->getCheckedValue() == $accType) {
+            if ($limitForm->getElement('bed')->getCheckedValue() == $accType) {
                 $bed = $limitForm->getElement('bed')->getCheckedValue();
                 $limitForm->getElement('bed')->setValue($bed);
             } else if ($limitForm->getElement('room')->getCheckedValue() == $accType) {
@@ -571,6 +578,9 @@ class AccommodationController extends Zend_Controller_Action {
                         $db->rollBack();
                         throw new Zend_Db_Exception('Editted acc_id is different then updated');
                     }
+
+                    //clean this acc's cache
+                    $this->_cache->remove('acc_' . $acc_id);
 
 
                     $db->commit();
@@ -1193,7 +1203,7 @@ class AccommodationController extends Zend_Controller_Action {
             $db->rollBack();
             throw new Zend_Db_Exception('Returned acc_id is different then updated one');
         }
-        
+
         //when an accommodation is disabled
         //clean recentAdvertsCache
         $cache = Zend_Registry::get('recentAdvertsCache');
@@ -1233,7 +1243,7 @@ class AccommodationController extends Zend_Controller_Action {
             $db->rollBack();
             throw new Zend_Db_Exception('Returned acc_id is different then updated one');
         }
-        
+
         //when an accommodation is enabled
         //clean recentAdvertsCache
         $cache = Zend_Registry::get('recentAdvertsCache');

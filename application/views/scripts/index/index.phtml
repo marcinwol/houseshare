@@ -88,7 +88,13 @@ $this->sideBarElement('', $sideBarContent);
 ?>
 <div id="welcome">    
     <?php         
-       echo $this->mainForm; 
+      //  $t1 = microtime(true);
+        if (!$this->viewCache()->start('mainForm')) {
+            echo $this->mainForm; 
+            $this->viewCache()->end();
+        }
+       // $t2 = microtime(true);
+      //  echo $t2-$t1;
     ?>
 </div>
 

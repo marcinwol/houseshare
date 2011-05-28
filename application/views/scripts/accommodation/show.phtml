@@ -4,6 +4,9 @@ if ($this->preview == true) {
 }
 ?>
 
+<?php
+   // $t1 = microtime(true);
+?>
 
 <?php
 $sideBarHtml = $this->partial('_partials/add-this.phtml', array('title' => false));
@@ -118,6 +121,8 @@ if ($this->preview == true) {
     
 }
 ?>
+
+
 
 <?php if ($this->preview == true): ?>
     <div class="grid_6">  
@@ -241,6 +246,10 @@ if ($this->preview == true) {
 //endif;
 ?>
 
+<?php
+//    $t2 = microtime(true);
+//    var_dump($t2-$t1);
+?>
 
 
 <script type="text/javascript">
