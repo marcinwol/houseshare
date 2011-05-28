@@ -10,12 +10,12 @@ class UserController extends Zend_Controller_Action {
     protected $_keys;
 
     public function init() {
-        
+
         $this->_keys = Zend_Registry::get('keys');
     }
 
     public function indexAction() {
-        
+
         // don't need this session namespace here
         Zend_Session::namespaceUnset('addAccInfo');
 
@@ -31,7 +31,7 @@ class UserController extends Zend_Controller_Action {
         /* @var My_Houseshare_User $user */
 
         $accsRowset = $user->getAccommodations();
-       
+
         $this->view->user = $user->toArray();
         $this->view->accs = count($accsRowset) > 0 ? $accsRowset->toModels() : null;
     }
@@ -51,14 +51,14 @@ class UserController extends Zend_Controller_Action {
 
         $createForm = new My_Form_UserCreate();
         $createForm->makeDisplayGroups()->removeLegend();
-        
+
 
         if ($this->getRequest()->isPost()) {
-            
-              if (true == isset($_POST['cancel']))  {
+
+            if (true == isset($_POST['cancel'])) {
                 return $this->_redirect('/user');
             }
-            
+
             if ($createForm->isValid($_POST)) {
 
                 $formData = $createForm->getValues();
@@ -80,7 +80,7 @@ class UserController extends Zend_Controller_Action {
                 // Create a user
                 $newUser = My_Houseshare_Factory::user();
 
-                $newUser->nickname = $formData['about_you']['nickname'];                
+                $newUser->nickname = $formData['about_you']['nickname'];
                 $newUser->email = $formData['about_you']['email'];
                 $newUser->email_public = $formData['about_you']['email_public'];
                 $newUser->password = $formData['about_you']['password1'];
@@ -175,8 +175,8 @@ class UserController extends Zend_Controller_Action {
 
         // while this one will be set by twitter
         $oauth_token = $this->getRequest()->getParam('oauth_token', null);
-        
-        
+
+
         // do the first query to the openid provider
         if ($openid_identifier) {
 
@@ -201,13 +201,13 @@ class UserController extends Zend_Controller_Action {
 
                 $adapter->setExtensions($ext);
             }
-            
+
             // save $openid_identifier in a 10 minute cookie that will be writen
             // when we return from the auth provider.                        
-            if (!setcookie('auth_identifier', $openid_identifier, time()+600)) {
+            if (!setcookie('auth_identifier', $openid_identifier, time() + 600)) {
                 throw new Zend_Auth_Exception('A cookie with an idnetfier cound not be set');
             }
-                  
+
             // here a user is redirect to the provider for loging
             $result = $auth->authenticate($adapter);
 
@@ -217,17 +217,15 @@ class UserController extends Zend_Controller_Action {
         } else if ($openid_mode || $code || $oauth_token) {
             // this will be exectued after provider redirected the user back to us
             //echo serialize($_GET);return;
-            
-            
             // retrive the auth idnetifier provider name from cookie set above
             $auth_provider = 'Unknown';
-            if (isset($_COOKIE['auth_identifier'])) {                
+            if (isset($_COOKIE['auth_identifier'])) {
                 $auth_provider = My_Model_Table_AuthProvider::getProvider($_COOKIE['auth_identifier']);
                 // remove the cookie as we do not need it now
-                setcookie("auth_identifier", "", time()-3600);                
-            }     
-            
-            
+                setcookie("auth_identifier", "", time() - 3600);
+            }
+
+
             if ($code) {
                 // for facebook
                 $adapter = $this->_getFacebookAdapter();
@@ -268,11 +266,11 @@ class UserController extends Zend_Controller_Action {
 
                 if (isset($ext)) {
                     // for openId
-                    $toStore->property = (object) $ext->getProperties();                    
+                    $toStore->property = (object) $ext->getProperties();
                 } else if ($code) {
                     // for facebook
                     $msgs = $result->getMessages();
-                    $toStore->property = $msgs['user'];                    
+                    $toStore->property = $msgs['user'];
                 } else if ($oauth_token) {
                     // for twitter
                     $identity = $result->getIdentity();
@@ -280,12 +278,12 @@ class UserController extends Zend_Controller_Action {
                     $twitterUserData = $adapter->verifyCredentials();
 
                     $toStore = (object) array('identity' => $identity['user_id']);
-                    $toStore->property = $twitterUserData;                
+                    $toStore->property = $twitterUserData;
                 }
-                
+
                 // save the providers name. Useful in account recovery.
                 $toStore->provider = $auth_provider;
-                
+
                 // set temprorary default privilage 
                 $toStore->property->privilage = 'BASIC';
 
@@ -349,7 +347,7 @@ class UserController extends Zend_Controller_Action {
 
         if ($this->getRequest()->isPost() && null == $openid_identifier) {
             if ($loginForm->isValid($_POST)) {
-                
+
                 $formData = $loginForm->getValues();
 
                 $authAdapter = new My_Auth_Adapter_DbTable();
@@ -405,16 +403,16 @@ class UserController extends Zend_Controller_Action {
 
 
         if ($this->getRequest()->isPost()) {
-           
-            if (true == isset($_POST['cancel']))  {
+
+            if (true == isset($_POST['cancel'])) {
                 return $this->_redirect('/user');
             }
-            
+
             if ($userForm->isValid($_POST)) {
 
                 $formData = $userForm->getValues();
 
-                $user->nickname = $formData['about_you']['nickname'];                
+                $user->nickname = $formData['about_you']['nickname'];
                 $user->email = $formData['about_you']['email'];
                 $user->email_public = $formData['about_you']['email_public'];
                 $user->description = $formData['about_you']['description'];
@@ -426,9 +424,9 @@ class UserController extends Zend_Controller_Action {
                 if ($id !== $user_id) {
                     throw new Zend_Db_Exception("User id $user_id and retun value from update ($id) don't match");
                 }
-                
+
                 $authData->property->nickname = $formData['about_you']['nickname'];
-                
+
                 $this->_helper->FlashMessenger('Your data was changed');
                 return $this->_redirect('/user');
             }
@@ -479,7 +477,7 @@ class UserController extends Zend_Controller_Action {
                 // Create a user
                 $newUser = My_Houseshare_Factory::user();
 
-                $newUser->nickname = $formData['about_you']['nickname'];                
+                $newUser->nickname = $formData['about_you']['nickname'];
                 $newUser->email = $formData['about_you']['email'];
                 $newUser->phone = $formData['about_you']['phone_no'];
                 $newUser->phone_public = $formData['about_you']['phone_public'];
@@ -510,7 +508,7 @@ class UserController extends Zend_Controller_Action {
 
                     // don't need this session namespace anymore
                     Zend_Session::namespaceUnset('toStore');
-                    
+
                     $this->_helper->FlashMessenger('Welcom to sharehouse');
                     return $this->_redirect('user/');
                 }
@@ -532,14 +530,14 @@ class UserController extends Zend_Controller_Action {
         $tmpSession = new Zend_Session_Namespace('toStore');
 
         /* @var $user My_Model_Table_Row_User  */
-        $user = $tmpSession->user;      
-                
+        $user = $tmpSession->user;
+
 
         if (null === $user) {
             $this->_helper->FlashMessenger('Cannot retrive user data');
             return $this->_redirect('/');
         }
-        
+
         $user->setTable(new My_Model_Table_User());
 
         $authProvider = $user->getAuthProvider();
@@ -573,7 +571,7 @@ class UserController extends Zend_Controller_Action {
                 if (null === $user) {
                     $emailForm->setErrorMessages(array('No email in database'));
                 } else {
-                    
+
                     $emailObj = new My_Mail_AccRecovery();
                     $emailObj->setFrom('mwol@born2die.eu');
                     $emailObj->addTo($email);
@@ -629,7 +627,7 @@ class UserController extends Zend_Controller_Action {
                 throw new Zend_Exception("Cannot create $dir to store tmp auth data.");
             }
         }
-        
+
         $adapter->setStorage(new Zend_OpenId_Consumer_Storage_File($dir));
 
         return $adapter;

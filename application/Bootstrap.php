@@ -61,29 +61,26 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
         $resourceLoader->addResourceType('controller', 'controllers/', 'My_Controller_');
         $resourceLoader->addResourceType('acl', 'acl/', 'My_');
         $resourceLoader->addResourceType('openidextension', 'openid/extension/', 'My_OpenId_Extension');
-//$resourceLoader->addResourceType('authAdapter', 'auth/Adapter', 'My_Auth_Adapter');
 
 
         $autoLoader->pushAutoloader($resourceLoader);
-//  require_once APPLICATION_PATH . '/loaders/Autoloader/PhpThumb.php';
+
         $autoLoader->pushAutoloader(new My_Loader_Autoloader_PhpThumb());
 
-//   var_dump($autoLoader->getAutoloaders());
-// add 'My_' namespace for library/houseshare
         $resourceLoader_hs = new Zend_Loader_Autoloader_Resource(array(
                     'basePath' => APPLICATION_PATH . '/../library',
                     'namespace' => 'My_',
                 ));
 
         $resourceLoader_hs->addResourceType('houseshare', 'Houseshare/', 'Houseshare_');
-//var_dump($resourceLoader_cms->getResourceTypes());
+
         $autoLoader->pushAutoloader($resourceLoader_hs);
 
         $autoLoader->registerNamespace('ZC_');
     }
 
     protected function _initLocale() {
-// define locale
+        // define locale
         $locale = new Zend_Locale('en');
 
         $cache = Zend_Cache::factory(
@@ -92,7 +89,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
 
         $locale->setCache($cache);
 
-// register it so that it can be used all over the website
+        // register it so that it can be used all over the website
         Zend_Registry::set('Zend_Locale', $locale);
     }
 
@@ -256,6 +253,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
         $cacheManager = $this->getResource('cachemanager');
 
         Zend_Registry::set('recentAdvertsCache', $cacheManager->getCache('recentAdverts'));
+        Zend_Registry::set('outputCache', $cacheManager->getCache('myviewcache'));
     }
 
 }

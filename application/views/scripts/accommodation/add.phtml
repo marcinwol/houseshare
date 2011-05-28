@@ -1,5 +1,4 @@
 <?php
-
 if (!$this->isLogged()):
     $sideBarContent = '
             We encourage to <a href="' . $this->baseUrl('/login') . '">login</a> before 
@@ -12,18 +11,32 @@ if (!$this->isLogged()):
                    </p>
 
            ';
-    $this->sideBarElement('Better to login?', $sideBarContent, array('class' => 'side-bar-info','break'=>true));
+    $this->sideBarElement('Better to login?', $sideBarContent, array('class' => 'side-bar-info', 'break' => true));
 
 endif;
 ?>
 
 <?php
-    echo $this->partial('_partials/acc-add-steps-desc.phtml', null, array('active' => 'step1') );
+echo $this->partial('_partials/acc-add-steps-desc.phtml', null, array('active' => 'step1'));
 ?>
 
 <div class="grid_6">  
-        <h1> Step 1: Basic information </h1>
+    <h1> Step 1: Basic information </h1>
 </div>
 <div class="grid_6">
-    <?php echo $this->form; ?>
+    <?php
+
+    $cache = Zend_Registry::get('outputCache');
+    
+    if (empty($_POST)) {
+        // show form from the cache only if $_POST is empty.
+        if (!$cache->start('addForm')) {
+            echo $this->form;
+            $cache->end();
+        }
+    } else {
+        echo $this->form;
+    }
+
+    ?>
 </div>
