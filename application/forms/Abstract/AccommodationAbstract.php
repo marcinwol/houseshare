@@ -72,6 +72,7 @@ abstract class My_Form_Abstract_AccommodationAbstract extends Zend_Form {
         // create new element
         $descriptionInput = $this->createElement('textarea', 'description');
         $descriptionInput->setRequired(true)->setLabel('Description');
+        $descriptionInput->setFilters(array('stripTags', 'stringTrim'));
         $descriptionInput->setAttribs(array('cols' => 20, 'rows' => 5));
         $descriptionInput->setAttribs(array('tooltip' => 'Short description to accompany the advertisment'));
 

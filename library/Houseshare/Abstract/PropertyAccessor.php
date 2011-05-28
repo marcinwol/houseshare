@@ -84,8 +84,14 @@ abstract class My_Houseshare_Abstract_PropertyAccessor {
         if (!array_key_exists($propertyName, $this->_properties)) {
             throw new Zend_Exception("Invalid property: $propertyName");
         } else {
-            return $this->_properties[$propertyName];
+            return $this->escape($this->_properties[$propertyName]);
         }
+    }
+    
+    public function escape($str) {
+       // $filter = new Zend_Filter_StripTags();
+       // return $filter->filter($str);
+        return $str;
     }
 
     public function __set($propertyName, $value) {
