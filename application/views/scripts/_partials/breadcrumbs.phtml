@@ -1,0 +1,10 @@
+<?php
+
+/*@var $page Zend_Navigation_Page_Mvc */
+foreach ($this->pages as $page) {
+    
+    var_dump($page->getLabel());
+    $page->setParams(array('id' =>'12'));
+    var_dump($page->getHref(), get_class($page));
+}
+?>

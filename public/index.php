@@ -25,6 +25,9 @@ $application = new Zend_Application(
 );
 
 
-
 $application->bootstrap()
             ->run();
+
+//var_dump("asfd " . memory_get_usage()/1024/1024);
+//exit;
+

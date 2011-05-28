@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <config>
     <nav>
+     
         <home>
             <label>Home</label>           
             <controller>index</controller>            
@@ -26,6 +27,16 @@
                     <label>List</label>
                     <controller>accommodation</controller>
                     <action>list</action>
+                    <reset_params>0</reset_params>
+                    <pages>
+                        <show>
+                            <label>Show</label>
+                            <route>showacc</route>                            
+                            <controller>accommodation</controller>
+                            <action>show</action>
+                            
+                        </show>
+                    </pages>
                           
                 </list>
                         

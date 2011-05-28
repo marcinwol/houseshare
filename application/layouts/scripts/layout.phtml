@@ -115,7 +115,15 @@
                     
                      
 
+                    <div>
+                        <?php 
+                            echo $this->navigation()->breadcrumbs()
+                                      ->setPartial(array('_partials/breadcrumbs.phtml', 'default'));
+                        ?>
+                    </div>
+                    <div>    
                 <?php echo $this->layout()->content; ?>    
+                    </div>
             </div>            
 
 

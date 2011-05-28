@@ -15,19 +15,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
         return $view;
     }
 
-    protected function _initDoctype() {
-        $this->bootstrap('view');
-        /* @var $view Zend_View */
-        $view = $this->getResource('view');
-        $view->doctype('XHTML1_STRICT');
-        $view->addHelperPath(APPLICATION_PATH . '/views/helpers/', 'My_View_Helper');
-
-        $container = new Zend_Navigation(
-                        new Zend_Config_Xml(APPLICATION_PATH . '/configs/navigation.xml', 'nav')
-        );
-
-        $view->navigation()->setContainer($container);
-    }
+   
 
     protected function _initAutoload() {
         $autoLoader = Zend_Loader_Autoloader::getInstance();
@@ -51,10 +39,14 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
                         'email' => array(
                             'path' => 'emails/',
                             'namespace' => 'My_Mail_'
+                        ),
+                        'navigation' => array(
+                            'path' => 'navigation/',
+                            'namespace' => 'My_Navigation_'
                         )
                     )
                 ));
-
+       
         $resourceLoader->addResourceType('validate', 'validators/', 'My_Validate_');
         $resourceLoader->addResourceType('loader', 'loaders/', 'My_Loader_');
         $resourceLoader->addResourceType('authAdapter', 'auth/', 'My_Auth_');
@@ -74,9 +66,29 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
 
         $resourceLoader_hs->addResourceType('houseshare', 'Houseshare/', 'Houseshare_');
 
-        $autoLoader->pushAutoloader($resourceLoader_hs);
-
+        $autoLoader->pushAutoloader($resourceLoader_hs);        
         $autoLoader->registerNamespace('ZC_');
+    }
+    
+    
+     protected function _initDoctype() {
+        $this->bootstrap('view');
+        /* @var $view Zend_View */
+        $view = $this->getResource('view');
+        $view->doctype('XHTML1_STRICT');
+        $view->addHelperPath(APPLICATION_PATH . '/views/helpers/', 'My_View_Helper');
+       
+        
+        Zend_Navigation_Page::setDefaultPageType('My_Navigation_Page_Mvc');
+        
+        $container = new Zend_Navigation(
+                        new Zend_Config_Xml(APPLICATION_PATH . '/configs/navigation.xml', 'nav')
+        );
+        
+       
+       
+
+        $view->navigation()->setContainer($container);
     }
 
     protected function _initLocale() {
