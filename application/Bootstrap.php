@@ -9,7 +9,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
         $view->setHelperPath(APPLICATION_PATH . '/helpers', '');
         $view->headMeta()->appendHttpEquiv('Content-type', 'text/html;charset=utf-8')
                 ->appendName('description', 'Zend Framework');
-        $view->headTitle()->setSeparator(' - ');    
+        $view->headTitle()->setSeparator(' - ');
         $view->setScriptPath(APPLICATION_PATH . '/themes/admin');
 
         return $view;
@@ -99,12 +99,24 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
     protected function _initMyRoutes() {
         $this->bootstrap('frontcontroller');
         $front = Zend_Controller_Front::getInstance();
-                
-        $router = $front->getRouter();      
+        $router = $front->getRouter();
 
-        $myRoutes = new Zend_Config_Ini(APPLICATION_PATH . '/configs/routes.ini');
-        
-        $router->addConfig($myRoutes,'routes');
+        // get cache for config files
+        $cacheManager = $this->bootstrap('cachemanager')->getResource('cachemanager');
+        $cache = $cacheManager->getCache('configFiles');
+        $cacheId = 'routesini';
+
+        # $t1 = microtime(true);
+        $myRoutes = $cache->load($cacheId);
+
+        if (!$myRoutes) {
+            $myRoutes = new Zend_Config_Ini(APPLICATION_PATH . '/configs/routes.ini');
+            $cache->save($myRoutes, $cacheId);
+        }
+        #$t2 = microtime(true);
+        #echo ($t2-$t1);
+
+        $router->addConfig($myRoutes, 'routes');
     }
 
     protected function _initTranslate() {
@@ -128,13 +140,28 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
 
     protected function _initAclControllerPlugin() {
         $this->bootstrap('frontcontroller');
-
         $front = Zend_Controller_Front::getInstance();
-        $aclConfig = new Zend_Config_Ini(APPLICATION_PATH . '/configs/acl.ini');
 
-        $acl = new My_Acl($aclConfig);
+        // get cache for config files
+        $cacheManager = $this->bootstrap('cachemanager')->getResource('cachemanager');
+        $cache = $cacheManager->getCache('generic');
+        $cacheId = 'acl';
 
-        $aclPlugin = new My_Controller_Plugin_Acl($acl);
+
+        $aclArray = $cache->load($cacheId);
+        $acl = $aclArray[0];
+        $aclPlugin = $aclArray[1];
+
+        if (!$aclArray) {
+            $aclConfig = new Zend_Config_Ini(APPLICATION_PATH . '/configs/acl.ini');
+
+            $acl = new My_Acl($aclConfig);
+
+            $aclPlugin = new My_Controller_Plugin_Acl($acl);
+            $cache->save(array($acl, $aclPlugin), $cacheId);
+        }
+
+
 
         $front->registerPlugin($aclPlugin);
 
@@ -193,26 +220,42 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
 
     protected function _initSetZendMail() {
 
-        $file = APPLICATION_PATH . '/configs/mailsmtp.ini';
 
-        if (file_exists($file)) {
-            $smtp = new Zend_Config_Ini($file);
-        } else {
-            throw new Zend_Mail_Exception('No mailsmtp.ini found');
+        // get cache for config files
+        $cacheManager = $this->bootstrap('cachemanager')->getResource('cachemanager');
+        $cache = $cacheManager->getCache('generic');
+        $cacheId = 'mail';
+
+  
+
+        $tr = $cache->load($cacheId);
+
+        if (!$tr) {
+            
+             $file = APPLICATION_PATH . '/configs/mailsmtp.ini';
+            
+            if (file_exists($file)) {
+                $smtp = new Zend_Config_Ini($file);
+            } else {
+                throw new Zend_Mail_Exception('No mailsmtp.ini found');
+            }
+
+            $tr = new Zend_Mail_Transport_Smtp(
+                            $smtp->mail->host, $smtp->mail->toArray()
+            );
+            
+            $cache->save($tr, $cacheId);
         }
 
-        $tr = new Zend_Mail_Transport_Smtp(
-                        $smtp->mail->host, $smtp->mail->toArray()
-        );
 
         Zend_Mail::setDefaultTransport($tr);
     }
-    
+
     protected function _initPutChacesIntoRegistry() {
-         $this->bootstrap('cachemanager');
-         $cacheManager = $this->getResource('cachemanager');
-         
-         Zend_Registry::set('recentAdvertsCache', $cacheManager->getCache('recentAdverts'));
+        $this->bootstrap('cachemanager');
+        $cacheManager = $this->getResource('cachemanager');
+
+        Zend_Registry::set('recentAdvertsCache', $cacheManager->getCache('recentAdverts'));
     }
 
 }

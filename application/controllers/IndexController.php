@@ -29,6 +29,8 @@ class IndexController extends Zend_Controller_Action {
         // var_dump($dispacher->getParams());
        
       // var_dump($router->getParams());
+       
+       $this->view->layout()->some_val = 100;
 
         var_dump($request->getUserParams());
     }
