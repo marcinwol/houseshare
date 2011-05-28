@@ -264,11 +264,6 @@ abstract class My_Form_Abstract_AccommodationAbstract extends Zend_Form {
         );
 
 
-
-
-
-
-
         $ageOptions = array();
 
         for ($i = 10; $i < 65; $i+=5) {
@@ -306,6 +301,7 @@ abstract class My_Form_Abstract_AccommodationAbstract extends Zend_Form {
 
 
         $descriptionInput = $this->createElement('textarea', 'description');
+        $descriptionInput->setFilters(array('stripTags', 'stringTrim'));
         $descriptionInput->setRequired(false)->setLabel('Few words about roomates');
         $descriptionInput->setAttribs(array('cols' => 20, 'rows' => 5));
 
@@ -328,6 +324,7 @@ abstract class My_Form_Abstract_AccommodationAbstract extends Zend_Form {
         }
 
         $descriptionInput = $this->createElement('textarea', 'description');
+        $descriptionInput->setFilters(array('stripTags', 'stringTrim'));
         $descriptionInput->setRequired(false)->setLabel('Any other preferences');
         $descriptionInput->setAttribs(array('cols' => 20, 'rows' => 5));
 
@@ -351,6 +348,7 @@ abstract class My_Form_Abstract_AccommodationAbstract extends Zend_Form {
 
 
         $descriptionInput = $this->createElement('textarea', 'description');
+        $descriptionInput->setFilters(array('stripTags', 'stringTrim'));
         $descriptionInput->setRequired(false)->setLabel('Any other features');
         $descriptionInput->setAttribs(array('cols' => 20, 'rows' => 5));
 
@@ -462,6 +460,7 @@ abstract class My_Form_Abstract_AccommodationAbstract extends Zend_Form {
 
         // create new element
         $descriptionInput = $this->createElement('textarea', 'description');
+        $descriptionInput->setFilters(array('stripTags', 'stringTrim'));
         $descriptionInput->setRequired(false)->setLabel('Any other details');
         $descriptionInput->setAttribs(array('cols' => 20, 'rows' => 5));
         $appartmentDetailsForm->addElement($descriptionInput);
@@ -570,6 +569,7 @@ abstract class My_Form_Abstract_AccommodationAbstract extends Zend_Form {
 
         // create new element
         $descriptionInput = $this->createElement('textarea', 'description');
+        $descriptionInput->setFilters(array('stripTags', 'stringTrim'));
         $descriptionInput->setRequired(false)->setLabel('Few words about you');
         $descriptionInput->setAttribs(array('cols' => 20, 'rows' => 5));
 
