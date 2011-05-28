@@ -213,8 +213,10 @@ class My_Model_Table_Accommodation extends Zend_Db_Table_Abstract {
          if (isset($conditions['type_id'])) {
             $select->where("ACCOMMODATION.type_id IN " . $conditions['type_id']);
          }        
+         
+         $select->order("ACCOMMODATION.created DESC");
         
-        $select->distinct();
+         $select->distinct();
         
         return $select;
     }
