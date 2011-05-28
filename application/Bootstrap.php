@@ -257,13 +257,14 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
         Zend_Mail::setDefaultTransport($tr);
     }
 
-    protected function _initPutChacesIntoRegistry() {
+    protected function _initPutChachesIntoRegistry() {
         $this->bootstrap('cachemanager');
         $cacheManager = $this->getResource('cachemanager');
 
         Zend_Registry::set('recentAdvertsCache', $cacheManager->getCache('recentAdverts'));
         Zend_Registry::set('outputCache', $cacheManager->getCache('myviewcache'));
         Zend_Registry::set('genericCache', $cacheManager->getCache('generic'));
+        Zend_Registry::set('frontsidebarCache', $cacheManager->getCache('frontsidebar'));
     }
 
 }

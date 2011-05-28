@@ -10,31 +10,44 @@ $this->sideBarElement('Spread the word', $sideBarHtml);
 <?php
 // permanent placeholder for recently viewed adds
 
-$accs = '<ul class="top-cities">';
+$cache = Zend_Registry::get('frontsidebarCache');
+$accs = $cache->load('recentlyViewd');
+if (!$accs) {
+    $accs = '<ul class="top-cities">';
 
-$results = My_Model_Table_Accommodation::getRecentlyViewed();
+    $results = My_Model_Table_Accommodation::getRecentlyViewed();
 
-foreach ($results as $acc) {
-    $title = $this->truncate(ucfirst(strtolower($acc['title'])), 0, 25);
-    $accs .= '<li><a href="' . $this->baseUrl('/accommodation/show/id/' . $acc['acc_id']) . '">' . $title . ' <span>(' . $acc['city'] . ')</span></a></li>';
+    foreach ($results as $acc) {
+        $title = $this->truncate(ucfirst(strtolower($acc['title'])), 0, 25);
+        $accs .= '<li><a href="' . $this->baseUrl('/accommodation/show/id/' . $acc['acc_id']) . '">' . $title . ' <span>(' . $acc['city'] . ')</span></a></li>';
+    }
+
+    $accs .= '<ul class="top-cities">';
+    $cache->save($accs, 'recentlyViewd');
+    
 }
 
-$accs .= '<ul class="top-cities">';
-
-$this->sideBarElement('Just viewed', $accs, array('place' => 'prepend'));
+$this->sideBarElement('Recently viewed', $accs, array('place' => 'prepend'));
 ?>
 <?php
 // permanent placeholder for top cities
 
-$cities = '<ul class="top-cities">';
+$cache = Zend_Registry::get('frontsidebarCache');
+$cities = $cache->load('topCities');
 
-$results = My_Model_Table_Accommodation::getTopCities();
+if (!$cities) {
 
-foreach ($results as $city) {
-    $cities .= '<li><a href="' . $this->baseUrl('/accommodation/list/city/' . $city['city_id']) . '">' . $city['name'] . ' <span>(' . $city['count'] . ')</span></a></li>';
+    $cities = '<ul class="top-cities">';
+
+    $results = My_Model_Table_Accommodation::getTopCities();
+
+    foreach ($results as $city) {
+        $cities .= '<li><a href="' . $this->baseUrl('/accommodation/list/city/' . $city['city_id']) . '">' . $city['name'] . ' <span>(' . $city['count'] . ')</span></a></li>';
+    }
+
+    $cities .= '<ul class="top-cities">';
+    $cache->save($cities, 'topCities');
 }
-
-$cities .= '<ul class="top-cities">';
 
 $this->sideBarElement('Top cities', $cities, array('place' => 'prepend'));
 ?>
