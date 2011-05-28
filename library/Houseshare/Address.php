@@ -22,6 +22,19 @@ class My_Houseshare_Address extends My_Houseshare_Abstract_PropertyAccessor {
     protected $_modelName = 'View_Address';
     
     /**
+     * Get address row
+     * 
+     *
+     * @return type My_Model_Table_Row_Address
+     */
+    public function getRow() {
+        $addressId = $this->_properties['id'];
+        $model = new My_Model_Table_Address();
+        return $model->find($addressId)->current();
+    }
+    
+    
+    /**
      * Save new address in the database if necessery or update
      * exhisting address if possible. 
      * 

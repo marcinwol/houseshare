@@ -39,6 +39,9 @@ html, body {
     padding-bottom: 100px;
 }  /* must be same height as the footer */
 
+#breadcrumbs {
+    padding-top: 15px;
+}
 
 #footer {
     position: relative;

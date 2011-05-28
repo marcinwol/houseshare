@@ -12,7 +12,7 @@ class AccommodationController extends Zend_Controller_Action {
 
         $this->_cache = Zend_Registry::get('genericCache');
 
-       // $this->_helper->cache(array('preview'), array('previewaction'));
+        // $this->_helper->cache(array('preview'), array('previewaction'));
     }
 
     public function indexAction() {
@@ -86,11 +86,16 @@ class AccommodationController extends Zend_Controller_Action {
             $this->_cache->save($acc, $cacheId);
         }
 
-        //$t1 = microtime(true);
-        //$acc = My_Houseshare_Factory::accommodation($acc_id);
-        //$t2 = microtime(true);
-        //echo $t2 - $t1;
-
+        
+        /* set page for navigatoin */
+        
+        /* @var $navigation Zend_Navigation */
+        $navigation = $this->view->navigation()->getContainer();
+        /*@var $accshowPage My_Navigation_Page_AccShow */
+        $accshowPage = $navigation->findBy('Name', 'accshow');
+        $accshowPage->setAcc($acc);
+      
+        
 
         $auth = Zend_Auth::getInstance();
 
@@ -164,6 +169,18 @@ class AccommodationController extends Zend_Controller_Action {
 
         $cityModel = new My_Model_Table_City();
         $cityRow = $cityModel->find($city_id)->current();
+        
+        
+        /* set page for navigatoin */
+        
+        /* @var $navigation Zend_Navigation */
+        $navigation = $this->view->navigation()->getContainer();
+        /*@var $accshowPage My_Navigation_Page_AccShow */
+        $acclistPage = $navigation->findBy('Name', 'acclist');
+        $acclistPage->setCity($cityRow);
+      
+        
+        
 
         $city = is_null($cityRow) ? null : $cityRow->name;
 
@@ -171,8 +188,7 @@ class AccommodationController extends Zend_Controller_Action {
         $limitForm->page->setValue($page);
         $limitForm->city->setValue($city_id);
         $limitForm->setAction($this->view->baseUrl('/accommodation/list'));
-
-
+      
 
         if (null === $maxPrice) {
             $maxPrice = $limitForm->getElement('maxpricedefault')->getValue();

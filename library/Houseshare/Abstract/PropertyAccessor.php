@@ -107,6 +107,10 @@ abstract class My_Houseshare_Abstract_PropertyAccessor {
             $this->_changedProperties[$propertyName] = true;
         }
     }
+    
+    public function getRow() {
+        return $this->_row;
+    }
 
     /**
      * Fetch data from database.

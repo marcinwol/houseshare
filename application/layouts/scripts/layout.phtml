@@ -114,15 +114,18 @@
                 <?php endif; ?>    
                     
                      
-
-                    <div>
-                        <?php 
-                            echo $this->navigation()->breadcrumbs()
-                                      ->setPartial(array('_partials/breadcrumbs.phtml', 'default'));
-                        ?>
-                    </div>
+                    <!-- show breadcrumbs if avaliable -->
+                    <?php  $breadcrumbs = $this->navigation()->breadcrumbs(); ?>
+                    <?php if (strlen($breadcrumbs)>1):?>
+                        <div id="breadcrumbs">
+                            <?php echo  $breadcrumbs; ?>
+                        </div>                    
+                    <?php endif;?>
+                    
+                    
+                    <!-- show main content of the page -->
                     <div>    
-                <?php echo $this->layout()->content; ?>    
+                        <?php echo $this->layout()->content; ?>    
                     </div>
             </div>            
 

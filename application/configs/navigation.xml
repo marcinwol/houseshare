@@ -6,78 +6,30 @@
             <label>Home</label>           
             <controller>index</controller>            
             <action>index</action>
-            <route>default</route>
-        </home>
-            
-        <accommodation>
-            <label>Accommodation</label>
-                    
-            <controller>accommodation</controller>
-            <action>index</action>
-            <route>default</route>
-            <pages>                       
-                <add>
-                    <label>Add</label>
-                    <controller>accommodation</controller>
-                    <action>add</action>
-                    <visible>1</visible>
-                </add>
-
+            <route>default</route>  
+            <defaultPageType>My_Navigation_Page_Mvc</defaultPageType>
+            <pages>
                 <list>
-                    <label>List</label>
+                    <type>My_Navigation_Page_AccList</type>
+                    <label>List</label>   
+                    <route>acclist</route>
+                    <name>acclist</name>
                     <controller>accommodation</controller>
-                    <action>list</action>
-                    <reset_params>0</reset_params>
+                    <action>list</action>                                              
                     <pages>
                         <show>
+                            <type>My_Navigation_Page_AccShow</type>
                             <label>Show</label>
+                            <name>accshow</name>
                             <route>showacc</route>                            
                             <controller>accommodation</controller>
-                            <action>show</action>
-                            
+                            <action>show</action>                            
                         </show>
                     </pages>
                           
                 </list>
-                        
-                <success>
-                    <label>Success</label>
-                           
-                    <controller>accommodation</controller>
-                    <action>success</action>
-                    <visible>0</visible>
-                </success>
-                       
+ 
             </pages>
-        </accommodation>
-                
-        <user>
-            <label>User</label>
-            <controller>user</controller>
-            <action>index</action>
-            <route>default</route>
-            <pages>
-                <login>
-                    <label>Login</label>                          
-                    <controller>user</controller>
-                    <action>login</action>
-                </login>
-
-                <register>                           
-                    <label>Register</label>
-                    <controller>user</controller>
-                    <action>create</action>
-                </register>
-                <edit>                           
-                    <label>Edit</label>
-                    <controller>user</controller>
-                    <action>edit</action>
-                    <resource>user</resource>
-                    <privilege>edit</privilege>
-                </edit>
-
-            </pages>
-        </user>
-             
+        </home> 
     </nav>
 </config>
