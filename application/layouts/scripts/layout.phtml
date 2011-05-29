@@ -162,7 +162,12 @@ echo $this->placeholder('side-bar');
             <div class="footerWrapper">
 
                 <p>
-                    about | info | faq | contact us | 
+                     <a href="<?php echo $this->baseUrl('/about');?>" >about</a>
+                     |
+                     <a href="<?php echo $this->baseUrl('/faq');?>" >faq</a>
+                     |
+                     <a href="<?php echo $this->baseUrl('/contact');?>" >contact</a>                     
+                     | 
                     <a href="javascript:UserVoice.showPopupWidget();" title="Open feedback & support dialog (powered by UserVoice)">feedback & support</a>
                 </p>     
             </div>
