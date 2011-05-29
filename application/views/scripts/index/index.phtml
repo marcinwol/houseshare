@@ -92,7 +92,7 @@ $this->sideBarElement('Why ShareHouse?', $sideBarContent, array('class' => 'side
 ?>
 <?php
 $sideBarContent = '<br/>
-       <a class="acc-add" href="' . $this->baseUrl("/add") . '" alt="Add accommodation">Add accommodation</a>
+       <a class="acc-add" href="' . $this->baseUrl("/add") . '" alt="Add accommodation">'.$this->translate('Add accommodation').'</a>
            <br/><br/><br/>';
 $this->sideBarElement('', $sideBarContent);
 ?>
@@ -102,10 +102,10 @@ $this->sideBarElement('', $sideBarContent);
 <div id="welcome">    
     <?php         
       //  $t1 = microtime(true);
-        if (!$this->viewCache()->start('mainForm')) {
+       // if (!$this->viewCache()->start('mainForm')) {
             echo $this->mainForm; 
-            $this->viewCache()->end();
-        }
+        //    $this->viewCache()->end();
+       // }
        // $t2 = microtime(true);
       //  echo $t2-$t1;
     ?>

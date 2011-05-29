@@ -45,10 +45,10 @@
             </div>               
 
             <dl class="advert-stats">
-                <dt>Avaliable <?php echo $this->avaliable($this->acc)->inOrFrom(); ?>: </dt>
-                <dd> <?php echo $this->avaliable($this->acc)->time(); ?>       </dd> 
-                <dt>Added: </dt><dd><?php echo $this->timeSince($this->acc->creationtimestamp,1); ?> ago</dd> 
-                <dt>Views: </dt><dd><?php echo $this->acc->views_count; ?></dd>                                                                       
+                <dt><?php echo $this->translate('Avaliable'), ' ', $this->avaliable($this->acc)->inOrFrom(); ?>: </dt>
+                <dd><?php echo $this->avaliable($this->acc)->time(); ?>       </dd> 
+                <dt><?php echo  $this->translate('Added');?> </dt><dd><?php echo  $this->timeSince($this->acc->creationtimestamp,1); ?> ago</dd> 
+                <dt><?php echo  $this->translate('Views');?>  </dt><dd><?php echo $this->acc->views_count; ?></dd>                                                                       
             </dl>
 
             <!-- ICONS REPRESENTIG BASIC FEATURES -->

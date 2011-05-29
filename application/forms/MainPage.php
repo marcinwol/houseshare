@@ -48,7 +48,7 @@ class My_Form_MainPage extends Zend_Form {
         $cities = new Zend_Form_Element_Select('i_city');
         $cities->addMultiOptions($citiesOption);
         $cities->setLabel(' in');
-        $cities->setValue('Wroclaw');
+        $cities->setValue('156'); //156 is and id of Wroclaw
        // $cities->setRequired(true);
         $this->addElement($cities);
 

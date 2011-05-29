@@ -149,13 +149,13 @@ echo $this->placeholder('side-bar');
             <div class="footerWrapper">
 
                 <p>
-                     <a href="<?php echo $this->baseUrl('/about');?>" >about</a>
+                     <a href="<?php echo $this->baseUrl('/about');?>" ><?php echo $this->translate('about');?></a>
                      |
-                     <a href="<?php echo $this->baseUrl('/faq');?>" >faq</a>
+                     <a href="<?php echo $this->baseUrl('/faq');?>" ><?php echo $this->translate('faq');?></a>
                      |
-                     <a href="<?php echo $this->baseUrl('/contact');?>" >contact</a>                     
+                     <a href="<?php echo $this->baseUrl('/contact');?>" ><?php echo $this->translate('contact');?></a>                     
                      | 
-                    <a href="javascript:UserVoice.showPopupWidget();" title="Open feedback & support dialog (powered by UserVoice)">feedback & support</a>
+                    <a href="javascript:UserVoice.showPopupWidget();" title="Open feedback & support dialog (powered by UserVoice)"><?php echo $this->translate('feedback');?></a>
                 </p>     
             </div>
 

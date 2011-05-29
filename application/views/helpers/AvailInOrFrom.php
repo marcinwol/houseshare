@@ -20,7 +20,7 @@ class My_View_Helper_AvailInOrFrom extends Zend_View_Helper_Abstract {
         if ($acc->isAlreadyAvaliable()) {
             return 'from';
         } else {
-            return 'in';
+            return 'in _time';
         }
     }
 
