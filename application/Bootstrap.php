@@ -66,6 +66,11 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
 
         $autoLoader->pushAutoloader($resourceLoader_hs);
         $autoLoader->registerNamespace('ZC_');
+
+
+        Zend_Controller_Action_HelperBroker::addPath(
+                APPLICATION_PATH . '/controllers/Action/Helper', 'My_Controller_Action_Helper_'
+        );
     }
 
     protected function _initDoctype() {
@@ -76,8 +81,8 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
         $view->addHelperPath(APPLICATION_PATH . '/views/helpers/', 'My_View_Helper');
 
 
-       // Zend_Navigation_Page::setDefaultPageType('My_Navigation_Page_Mvc');
-        
+        // Zend_Navigation_Page::setDefaultPageType('My_Navigation_Page_Mvc');
+
         $container = new Zend_Navigation(
                         new Zend_Config_Xml(APPLICATION_PATH . '/configs/navigation.xml', 'nav')
         );
