@@ -26,7 +26,7 @@ $(document).ready(function () {
             $( "#maxprice" ).val( ui.value );
         }
     });
-    $( "#maxprice" ).val(  $( "#slider" ).slider( "value" ) );
+    $( "#limit-form #maxprice" ).val(  $( "#slider" ).slider( "value" ) );
 
 
     $( "#basic_info-date_avaliable" ).datepicker({ 
