@@ -1160,7 +1160,7 @@ class AccommodationController extends Zend_Controller_Action {
                     if (count($imagesToChange) != $noOfDeletedPhotos) {
                         throw new Zend_Db_Exception('Problem when deleting photos');
                     }
-                    $this->_helper->FlashMessenger("$noOfDeletedPhotos photos were deleted");
+                   // $this->_helper->FlashMessenger("$noOfDeletedPhotos photos were deleted");
                     return $this->_redirect('accommodation/photochange/id/' . $acc_id);
                 }
 
@@ -1242,7 +1242,7 @@ class AccommodationController extends Zend_Controller_Action {
         $cache = Zend_Registry::get('recentAdvertsCache');
         $cache->clean(Zend_Cache::CLEANING_MODE_ALL);
 
-        $this->_helper->FlashMessenger('Accommodation was disabled');
+        //$this->_helper->FlashMessenger('Accommodation was disabled');
         return $this->_redirect('/user/');
     }
 
@@ -1282,7 +1282,7 @@ class AccommodationController extends Zend_Controller_Action {
         $cache = Zend_Registry::get('recentAdvertsCache');
         $cache->clean(Zend_Cache::CLEANING_MODE_ALL);
 
-        $this->_helper->FlashMessenger('Accommodation was enabled');
+        //$this->_helper->FlashMessenger('Accommodation was enabled');
         return $this->_redirect('/user/');
     }
 

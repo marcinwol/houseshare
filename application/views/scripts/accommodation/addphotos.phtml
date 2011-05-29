@@ -17,14 +17,16 @@ if ($this->showSteps) {
 
 </div>
 <script type="text/javascript">
-    $(document).ready(function () {
-        $('#Upload').live('click', function(e) {              
+    $(document).ready(function (e) {
+        $('#Upload').live('submit', function(e) {   
+           
+            $('#photos-form').submit();
             $('#photos-upload-form').empty();
             $('#progress').show();
-            $('#progress').html('<img class="loadingimg" src="/sharehouse/public/images/loading2.gif" /><p style="text-align:center;">Please wait.</p>');
-            //$('#resent-adverts').empty().html('<div style="width:100%"> <img class="loadingimg" src="http://localhost.com/sharehouse/public/images/loading2.gif" /></div>');                                       
-            //   $('#resent-adverts').load(href);
-            // return false;
+            $('#progress').html('<img class="loadingimg" src="/sharehouse/public/images/loading2.gif" /><p style="text-align:center;">Please wait.<br />It may take a while, depending on your Internet speed and size of the photos uploaded.</p>');
+            
+            return true;
+           
         });
     });    
 
