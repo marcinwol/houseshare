@@ -23,20 +23,15 @@ echo $this->partial('_partials/acc-add-steps-desc.phtml', null, array('active' =
 <div class="grid_6">  
     <h1> Step 1: Basic information </h1>
 </div>
+<?php if (true == $this->formInValid):?>
+
+<div class="grid_6">  
+    <div class="form-invalid">
+        Form validation of the  faild. Please see below.
+    </div>
+</div>
+
+<?endif;?>
 <div class="grid_6">
-    <?php
-
-    $cache = Zend_Registry::get('outputCache');
-    
-    if (empty($_POST)) {
-        // show form from the cache only if $_POST is empty.
-        if (!$cache->start('addForm')) {
-            echo $this->form;
-            $cache->end();
-        }
-    } else {
-        echo $this->form;
-    }
-
-    ?>
+    <?php echo $this->form;  ?>
 </div>

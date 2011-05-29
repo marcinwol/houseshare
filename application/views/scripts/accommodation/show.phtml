@@ -78,7 +78,7 @@ if (count($this->acc->photosurls) > 0) {
     $imgsHtml = $cache->load($cacheId);
 
     if (!$imgsHtml) {
-       
+
 
         $thumbs = $this->acc->thumbsurls;
 
@@ -114,7 +114,7 @@ if ($this->preview == true) {
   <br /><br />  If you want to <strong>change</strong> something go <a href=\"{$this->baseUrl('/user/')}\">here</a>.
  </p>";
     } else {
-        $sideBarContent .= "<p>To activate it or make changes, please <a href=\"{$this->baseUrl('/login/')}\">login</a>. </p> ";
+        $sideBarContent .= "<p>To activate it or make changes, please <a href=\"{$this->baseUrl('/login/')}\">login</a>. <br/></p> ";
     }
 
     $this->sideBarElement('Success!', $sideBarContent, array('class' => 'side-bar-info', 'break' => true));
@@ -138,6 +138,7 @@ if ($this->preview == true) {
     <div class="grid_6">  
         <h2>Step 4/4: Preview</h2>
     </div>
+    
 <?php endif; ?>
 
 
@@ -147,118 +148,116 @@ if ($this->preview == true) {
 
 
 <?php
-if (false == $this->preview):
-    if (!($this->viewCache()->start('acc' . (string) $this->acc->acc_id))):
-        ?>
+if (!($this->viewCache()->start('acc' . (string) $this->acc->acc_id))):
+    ?>
 
 
-        <h1 class="title"><?php echo $this->acc->title; ?></h1>
-        <div id="acc-details" class="grid_6 alpha">    
+    <h1 class="title"><?php echo $this->acc->title; ?></h1>
+    <div id="acc-details" class="grid_6 alpha">    
 
-            <div class="section grid_4 alpha">
-                <h1 class="title">Description</h1>
-                <p>
-                    <?php echo $this->acc->description; ?>
-                </p>
-            </div>
-            <div class="section grid_2 omega" >
-                <dl class="basic-info">
-                    <dt>Price </dt>
-                    <dd>
-                        <span class="price">Rent: <?php echo $this->acc->price; ?> PLN/month</span>
-                        <?php if (strlen($this->acc->price_info) > 0): ?>            
-                            <br /> Additional expenses: <?php echo $this->acc->price_info; ?>
-                        <?php endif; ?>
-                        <?php if (strlen($this->acc->bond) > 0): ?>            
-                            <br /> Bond: <?php echo $this->acc->bond; ?> PLN
-                        <?php endif; ?>
-                    </dd>            
+        <div class="section grid_4 alpha">
+            <h1 class="title">Description</h1>
+            <p>
+                <?php echo $this->acc->description; ?>
+            </p>
+        </div>
+        <div class="section grid_2 omega" >
+            <dl class="basic-info">
+                <dt>Price </dt>
+                <dd>
+                    <span class="price">Rent: <?php echo $this->acc->price; ?> PLN/month</span>
+                    <?php if (strlen($this->acc->price_info) > 0): ?>            
+                        <br /> Additional expenses: <?php echo $this->acc->price_info; ?>
+                    <?php endif; ?>
+                    <?php if (strlen($this->acc->bond) > 0): ?>            
+                        <br /> Bond: <?php echo $this->acc->bond; ?> PLN
+                    <?php endif; ?>
+                </dd>            
 
-                    <dt>Avaliable <?php echo $this->avaliable($this->acc)->inOrFrom(); ?>:</dt>
-                    <dd><?php echo $this->avaliable($this->acc)->time(); ?></dd>
-                    <dt>Address</dt>
-                    <dd><?php echo $this->address($this->acc); ?></dd>        
-                </dl>
+                <dt>Avaliable <?php echo $this->avaliable($this->acc)->inOrFrom(); ?>:</dt>
+                <dd><?php echo $this->avaliable($this->acc)->time(); ?></dd>
+                <dt>Address</dt>
+                <dd><?php echo $this->address($this->acc); ?></dd>        
+            </dl>
 
-            </div>
+        </div>
 
-            <div class="section grid_6 alpha">
-                <h1>Map view</h1> 
-
-            </div>
-
-            <?php
-            $lat = $this->acc->address->lat;
-            $lng = $this->acc->address->lng;
-
-            if (!empty($lat) && !empty($lng)) {
-                echo '<input type="hidden" id="addr_lat" value="' . $lat . '" />';
-                echo '<input type="hidden" id="addr_lng" value="' . $lng . '" />';
-                echo '<input type="hidden" id="label" value="' . $this->address($this->acc) . '" />';
-                echo '<div id="map" class="grid_6 alpha" style="height: 300px"> </div>';
-            }
-            ?>
-            <script type="text/javascript" src="<?php echo $this->baseUrl('/js/mapshow.js'); ?>"></script>
-
-
-
-            <?php if ($this->acc instanceof My_Houseshare_Shared): ?>
-                <div class="section grid_2 alpha">
-                    <h1>Current tenants</h1> 
-
-                    <?php
-                    echo $this->partial(
-                            '_partials/acc-details-dl-list.phtml', array('data' => $this->acc->roomates)
-                    );
-                    ?>
-
-                </div>
-            <?php elseif ($this->acc instanceof My_Houseshare_Appartment): ?>
-                <div class="section grid_2 alpha">
-                    <h1>Appartement details</h1>             
-                    <?php
-                    echo $this->partial(
-                            '_partials/acc-details-dl-list.phtml', array('data' => $this->acc->details)
-                    );
-                    ?>
-                </div>    
-            <?php endif; ?>
-
-            <div class="section grid_2 alpha  ">
-                <h1>Preferences</h1> 
-
-                <?php
-                echo $this->partial(
-                        '_partials/acc-details-dl-list.phtml', array('data' => $this->acc->preferences)
-                );
-                ?>
-            </div>
-
-            <div class="section grid_2 omega ">
-                <h1>Features</h1> 
-                <?php
-                echo $this->partial(
-                        '_partials/acc-details-dl-list.phtml', array('data' => $this->acc->features)
-                );
-                ?>
-            </div>
-
-            <div class="grid_6 alpha advert-stats">
-
-                <?php if ($this->acc->updatetimestamp > $this->acc->creationtimestamp): ?>
-                    Updated:  <?php echo $this->timeSince($this->acc->updatetimestamp); ?> ago |
-                <?php endif; ?>
-                Created: <?php echo $this->timeSince($this->acc->creationtimestamp); ?> ago |
-                Views: <?php echo $this->acc->views_count; ?> 
-
-
-            </div>
+        <div class="section grid_6 alpha">
+            <h1>Map view</h1> 
 
         </div>
 
         <?php
-        $this->viewCache()->end();
-    endif;
+        $lat = $this->acc->address->lat;
+        $lng = $this->acc->address->lng;
+
+        if (!empty($lat) && !empty($lng)) {
+            echo '<input type="hidden" id="addr_lat" value="' . $lat . '" />';
+            echo '<input type="hidden" id="addr_lng" value="' . $lng . '" />';
+            echo '<input type="hidden" id="label" value="' . $this->address($this->acc) . '" />';
+            echo '<div id="map" class="grid_6 alpha" style="height: 300px"> </div>';
+        }
+        ?>
+        <script type="text/javascript" src="<?php echo $this->baseUrl('/js/mapshow.js'); ?>"></script>
+
+
+
+        <?php if ($this->acc instanceof My_Houseshare_Shared): ?>
+            <div class="section grid_2 alpha">
+                <h1>Current tenants</h1> 
+
+                <?php
+                echo $this->partial(
+                        '_partials/acc-details-dl-list.phtml', array('data' => $this->acc->roomates)
+                );
+                ?>
+
+            </div>
+        <?php elseif ($this->acc instanceof My_Houseshare_Appartment): ?>
+            <div class="section grid_2 alpha">
+                <h1>Appartement details</h1>             
+                <?php
+                echo $this->partial(
+                        '_partials/acc-details-dl-list.phtml', array('data' => $this->acc->details)
+                );
+                ?>
+            </div>    
+        <?php endif; ?>
+
+        <div class="section grid_2 alpha  ">
+            <h1>Preferences</h1> 
+
+            <?php
+            echo $this->partial(
+                    '_partials/acc-details-dl-list.phtml', array('data' => $this->acc->preferences)
+            );
+            ?>
+        </div>
+
+        <div class="section grid_2 omega ">
+            <h1>Features</h1> 
+            <?php
+            echo $this->partial(
+                    '_partials/acc-details-dl-list.phtml', array('data' => $this->acc->features)
+            );
+            ?>
+        </div>
+
+        <div class="grid_6 alpha advert-stats">
+
+            <?php if ($this->acc->updatetimestamp > $this->acc->creationtimestamp): ?>
+                Updated:  <?php echo $this->timeSince($this->acc->updatetimestamp); ?> ago |
+            <?php endif; ?>
+            Created: <?php echo $this->timeSince($this->acc->creationtimestamp); ?> ago |
+            Views: <?php echo $this->acc->views_count; ?> 
+
+
+        </div>
+
+    </div>
+
+    <?php
+    $this->viewCache()->end();
 endif;
 ?>
 

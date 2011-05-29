@@ -296,6 +296,8 @@ class AccommodationController extends Zend_Controller_Action {
             // if logged in, no need about_you subform.
             $addAccForm->removeSubForm('about_you');
         }
+        
+        $this->view->formInValid = false;
 
         if ($this->getRequest()->isPost()) {
             if ($addAccForm->isValid($_POST)) {
@@ -307,6 +309,8 @@ class AccommodationController extends Zend_Controller_Action {
                 $addAccInfoNamespace->step[1] = $formData;
 
                 return $this->_redirect('accommodation/map');
+            } else {
+                $this->view->formInValid = true;
             }
         } else {
             if (isset($addAccInfoNamespace->step[1])) {
@@ -597,6 +601,8 @@ class AccommodationController extends Zend_Controller_Action {
 
                     //clean this acc's cache
                     $this->_cache->remove('acc_' . $acc_id);
+                    // clean output cache for this acc
+                    $this->view->viewCache()->remove('acc' . $acc_id);
 
 
                     $db->commit();

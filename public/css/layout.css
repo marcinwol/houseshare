@@ -43,6 +43,17 @@ html, body {
     padding-top: 15px;
 }
 
+div#flashmessage {
+    text-align: center;
+    line-height: 30px;
+    background-color: #E0EAB9;
+    font-weight: bold;    
+    border: 1px solid #AFB596;
+    margin-bottom: 5px;
+    color: #DF3E24;
+    font-size: 14px;
+}
+
 #footer {
     position: relative;
      background-color: #8c8c8c;
@@ -186,6 +197,17 @@ form#accommodation-form input[type=checkbox], form#register-form input[type=chec
 
 fieldset#fieldset-acc_features dt, fieldset#fieldset-acc_features dd {
     display: inline;
+}
+
+div.form-invalid {
+    margin-top: 10px;
+    text-align: center;
+    line-height: 50px;
+    background-color: red;
+    border: 1px solid black;
+    color: white;
+    font-size: 14px;
+    font-weight: bold;
 }
 
 label.required {

@@ -96,24 +96,11 @@
             <div id="content" class="container_8">
 
                 <div id="" class="grid_6">
-<?php if ($this->getHelper('flashMessenger')->hasMassages()): ?>
-                        <div id="dialog-message" title="Message">
+            <?php if ($this->getHelper('flashMessenger')->hasMassages()): ?>
+                        <div  id="flashmessage">
                             <p style="font-size: 14px;"> <?php echo $this->flashMessenger(); ?></p>   
-                        </div>
-
-                        <script>
-                            $( "#dialog-message" ).dialog({
-                                modal: true,
-                                draggable: false,
-                                buttons: {
-                                    Ok: function() {
-                                        $( this ).dialog( "close" );
-                                    }
-                                }
-                            });
-                        </script>
-
-<?php endif; ?>    
+                        </div>                        
+            <?php  endif; ?>    
 
 
                     <!-- show breadcrumbs if avaliable -->
