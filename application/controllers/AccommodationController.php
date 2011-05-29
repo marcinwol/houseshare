@@ -708,6 +708,11 @@ class AccommodationController extends Zend_Controller_Action {
                         throw new Exception("Information about \"{$photoData['filename']}\" was not saved in the database");
                     }
                 }
+                
+                 $cache = Zend_Registry::get('genericCache');
+                 $cacheId = 'photos' . $acc->acc_id;
+                 $cache->remove($cacheId);
+
 
                 return $this->_redirect('accommodation/photochange/id/' . $acc_id);
             }
@@ -874,9 +879,8 @@ class AccommodationController extends Zend_Controller_Action {
 
                 $user_id = $newUser->save();
             }
-
-
-
+            
+           
             // create marker
             $markerModel = new My_Model_Table_Marker();
             $marker_id = $markerModel->insertMarker(array(
@@ -949,6 +953,15 @@ class AccommodationController extends Zend_Controller_Action {
             $newAcc->setPreferencesId($pref_id);
 
             $acc_id = $newAcc->save();
+            
+            // create and save tinyUrl for this acc
+            $tinyUrl = $newAcc->createTinyUrl();
+            $accModel = new My_Model_Table_Accommodation();
+            $accRow = $accModel->find($acc_id)->current();
+            $accRow->tinyurl = $tinyUrl;
+            if ($acc_id != $accRow->save()) {
+                throw new Exception("Cannot save tinyUrl for acc $acc_id");
+            }
 
 
 
@@ -1130,6 +1143,10 @@ class AccommodationController extends Zend_Controller_Action {
                     // if cancel button was clicked
                     return $this->_redirect('user/');
                 }
+                
+                 $cache = Zend_Registry::get('genericCache');
+                 $cacheId = 'photos' . $acc->acc_id;
+                 $cache->remove($cacheId);
 
                 $imagesToChange = $form->getValue('images');
 

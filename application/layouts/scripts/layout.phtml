@@ -49,7 +49,7 @@
 
             $headers = (string) $this->headTitle('ShareHouse: Its not complicated');
             $headers .= (string) $this->headMeta()->appendName('keywords', $this->keywords);
-            $headers = (string) $this->headLink();
+            $headers .= (string) $this->headLink();
             $headers .= (string) $this->headScript();
 
             $cache->save($headers, 'headers');

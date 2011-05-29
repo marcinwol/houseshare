@@ -537,7 +537,7 @@ class My_Houseshare_Accommodation extends My_Houseshare_Abstract_PropertyAccesso
      * 
      * @return $url string 
      */
-    public function getUrl() {
+   public function getUrl() {
         $baseUrl = Zend_Controller_Front::getInstance()->getBaseUrl(); 
         $host = $_SERVER['SERVER_NAME'];
         $url = "http://$host"."$baseUrl/accommodation/show/id/{$this->acc_id}";
@@ -550,7 +550,7 @@ class My_Houseshare_Accommodation extends My_Houseshare_Abstract_PropertyAccesso
      * 
      * @return $url string 
      */
-    public function getTinyUrl() {        
+    public function createTinyUrl() {        
         $fullUrl = $this->getUrl();
         
         $tinyurl = new Zend_Service_ShortUrl_TinyUrlCom();
@@ -690,6 +690,8 @@ class My_Houseshare_Accommodation extends My_Houseshare_Abstract_PropertyAccesso
             $acc_id = $this->_acc->_model->setAccommodation(
                             $this->getProperties(), $this->acc_id);
         }
+        
+        $this->_properties['tinyurl'] = $this->createTinyUrl();
 
         if (true === $rePopulate) {
             // before repopulating properties delete all old ones .
