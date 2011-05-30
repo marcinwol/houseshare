@@ -634,9 +634,12 @@ class My_Houseshare_Accommodation extends My_Houseshare_Abstract_PropertyAccesso
         $typeAsString = $type;
         
         if ('Bed' == $type) {
-            $typeAsString = 'A pace in a room';
+            $typeAsString = 'A place in a room';
         }
-        return $typeAsString;
+        
+        $t = Zend_Registry::get('Zend_Translate');
+        
+        return $t->translate($typeAsString);
     }
     
         /**

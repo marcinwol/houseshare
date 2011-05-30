@@ -38,12 +38,12 @@ class My_View_Helper_TimeSince  extends Zend_View_Helper_Abstract {
     );
 
     $translations = array(
-      'year' => array($tr->_('year'), $tr->_('years')),
-      'week' => array($tr->_('week'), $tr->_('weeks')),
-      'day' => array($tr->_('day'), $tr->_('days')),
-      'h' => array($tr->_('hour'), $tr->_('hours')),
-      'min' => array($tr->_('minute'), $tr->_('minutes')),
-      's' => array($tr->_('second'), $tr->_('seconds'))
+      'year' => array($tr->translate('year'), $tr->translate('years')),
+      'week' => array($tr->translate('week'), $tr->translate('weeks')),
+      'day' => array($tr->translate('day'), $tr->translate('days')),
+      'h' => array($tr->translate('hour'), $tr->translate('hours')),
+      'min' => array($tr->translate('minute'), $tr->translate('minutes')),
+      's' => array($tr->translate('second'), $tr->translate('seconds'))
     );
 
     $measure = array();

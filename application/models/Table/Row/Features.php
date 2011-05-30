@@ -30,7 +30,14 @@ class My_Model_Table_Row_Features extends Zend_Db_Table_Row_Abstract {
         $labels = $this->getLabels();
         
         $value = $this->$feature;
-        return $labels[$feature]['value'][$value];
+        
+        $t = $this->_getTranslator();
+        
+        return $t->translate($labels[$feature]['value'][$value]);
+    }
+    
+    protected function _getTranslator() {
+        return Zend_Registry::get('Zend_Translate');
     }
 
 }

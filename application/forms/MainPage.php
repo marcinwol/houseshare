@@ -25,16 +25,15 @@ class My_Form_MainPage extends Zend_Form {
 
         $this->setAttrib('id', 'main-search-form');
 
-        $acctype =  new Zend_Form_Element_Select('acctype');
-        $acctype->addMultiOptions(array(
-            '1' => 'place in a room',
-            '2' => 'room',
-            '3' => 'appartment'
-        ));
-        $acctype->setLabel('I need');
-        $acctype->setValue('2');
-       // $cities->setRequired(true);
-        $this->addElement($acctype);
+//        $acctype =  new Zend_Form_Element_Select('acctype');
+//        $acctype->addMultiOptions(array(
+//            '1' => 'place in a room',
+//            '2' => 'room',
+//            '3' => 'appartment'
+//        ));
+//     //   $acctype->setLabel('I need');
+//        //$acctype->setValue('2');      
+//       // $this->addElement($acctype);
 
         $cities = My_Model_Table_Accommodation::getDistinctCities();
 
@@ -47,7 +46,7 @@ class My_Form_MainPage extends Zend_Form {
 
         $cities = new Zend_Form_Element_Select('i_city');
         $cities->addMultiOptions($citiesOption);
-        $cities->setLabel(' in');
+        $cities->setLabel('I need accommodation in');
         $cities->setValue('156'); //156 is and id of Wroclaw
        // $cities->setRequired(true);
         $this->addElement($cities);

@@ -96,13 +96,13 @@ abstract class My_Form_Abstract_AccommodationAbstract extends Zend_Form {
         $priceInput = $this->createElement('text', 'price');
         $priceInput->setAttribs(array('tooltip' => 'E.g. 500, 600, 800'));
         $priceInput->setRequired(true);
-        $priceInput->setLabel('Price per month [PLN]');
+        $priceInput->setLabel('Price per month [$]');
         $priceInput->setFilters(array('stripTags', 'stringTrim'));
         $priceInput->addValidator('int');
 
         // create new element
         $priceInfo = $this->createElement('textarea', 'price_info');
-        $priceInfo->setRequired(false)->setLabel('Any addition expenses');
+        $priceInfo->setRequired(false)->setLabel('Any addition expenses/price information');
         $priceInfo->setAttribs(array('tooltip' => 'Such as gas, electricity, internet, etc.'));
 
         $priceInfo->setAttribs(

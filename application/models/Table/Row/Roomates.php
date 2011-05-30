@@ -18,7 +18,7 @@ class My_Model_Table_Row_Roomates extends Zend_Db_Table_Row_Abstract {
      * @return array 
      */
     public function getLabels() {
-       
+
         $class = $this->_tableClass;
 
         $tableClass = new $class();

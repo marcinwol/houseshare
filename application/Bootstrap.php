@@ -95,7 +95,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
 
     protected function _initLocale() {
         // define locale
-        $locale = new Zend_Locale('en');
+        $locale = new Zend_Locale('pl');
 
         $cache = Zend_Cache::factory(
                         'Core', 'File', array('automatic_serialization' => true), array('cache_dir' => APPLICATION_PATH . '/../tmp')

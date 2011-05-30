@@ -3,10 +3,10 @@
         <!-- Previous page link -->
         <?php if (isset($this->previous)): ?>
             <a href="<?php echo $this->url(array('page' => $this->previous)); ?>">
-                Previous
+                <?php echo $this->translate('Previous');?>
             </a> <span class="bar"> | </span>
         <?php else: ?>
-            <span class="disabled"> Previous</span> <span class="bar"> | </span>
+            <span class="disabled"> <?php echo $this->translate('Previous');?></span> <span class="bar"> | </span>
         <?php endif; ?>
         <!-- Numbered page links -->
         <?php foreach ($this->pagesInRange as $page): ?>
@@ -27,10 +27,10 @@
         <!-- Next page link -->
         <?php if (isset($this->next)): ?>
             <a href="<?php echo $this->url(array('page' => $this->next)); ?>">
-                Next
+               <?php echo $this->translate('Next');?>
             </a>
         <?php else: ?>
-            <span class="disabled">Next </span>
+            <span class="disabled"><?php echo $this->translate('Next');?> </span>
         <?php endif; ?>
     </div>
 <?php endif; ?>
