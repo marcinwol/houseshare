@@ -21,7 +21,7 @@
         </a>
     </div>
     <div class="listing-preview-detials" style="float:left">
-        <h1 class="advert-title">
+        <h1 class="listing-title">
             <?php $city = $this->acc->city; ?>
             <a class="city" href="<?php echo $this->baseUrl('/accommodation/list/city/' . $this->acc->address->city_id); ?>"><?php echo $city . ':'; ?></a>
             <a href="<?php echo $this->accUrl($this->acc); ?>">
@@ -34,10 +34,6 @@
         <div class="advert-info" >
 
             <div> 
-
-
-
-
 
                 <span class="listing-preview-description" >
                     <?php echo $this->truncate($this->acc->description, 0, 155); ?>

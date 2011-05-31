@@ -579,21 +579,21 @@ img.thumb {
     float: left;   
 }
 
-h1.advert-title  {
+h1.listing-title  {
     padding-top: 0px;
     padding-left: 5px;
     font-size:16px;
 }
-h1.advert-title a {  
+h1.listing-title a {  
 
     text-decoration: none;
     color: #fd5416;
 }
-h1.advert-title a.city {
+h1.listing-title a.city {
 
     color: #2e2e2e;
 }
-h1.advert-title a:hover {  
+h1.listing-title a:hover {  
 
     color: #767676;
 }
@@ -654,7 +654,7 @@ p.value {
 
 div.advert-info div  {
     font-size: 12px;
-
+    line-height: 1.4em;
 }
 
 div.advert-info dt, div.advert-info dd  {
