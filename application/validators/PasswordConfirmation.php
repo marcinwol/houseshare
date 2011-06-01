@@ -21,10 +21,10 @@ class My_Validate_PasswordConfirmation extends Zend_Validate_Abstract {
     {
         $value = (string) $value;
         $this->_setValue($value);
-
+        
         if (is_array($context)) {
-            if (isset($context['password2'])
-                && ($value == $context['password2']))
+            if (isset($context['password1'])
+                && ($value == $context['password1']))
             {
                 return true;
             }

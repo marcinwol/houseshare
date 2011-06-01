@@ -200,14 +200,23 @@ fieldset#fieldset-acc_features dt, fieldset#fieldset-acc_features dd {
 }
 
 div.form-invalid {
+    padding: 5px 5px;
     margin-top: 10px;
     text-align: center;
-    line-height: 50px;
+    /*line-height: 50px;*/
     background-color: red;
     border: 1px solid black;
     color: white;
     font-size: 14px;
     font-weight: bold;
+}
+div.form-invalid ul {
+    padding-top:10px;
+}
+
+div.form-invalid ul li {
+    height: 15px;
+    font-size: 12px;
 }
 
 label.required {

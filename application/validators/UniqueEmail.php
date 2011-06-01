@@ -14,7 +14,7 @@ class My_Validate_UniqueEmail extends Zend_Validate_Identical {
    const UNIQUE_EMAIL = 'notUniqueEmail';
     
     protected $_messageTemplates = array(
-        self::UNIQUE_EMAIL => "Given email already exist in our system."
+        self::UNIQUE_EMAIL => "Given email already exist in our system"
     );
     
     public function isValid($value, $context = null) {    

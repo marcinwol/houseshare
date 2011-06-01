@@ -245,12 +245,12 @@ abstract class My_Form_Abstract_AccommodationAbstract extends Zend_Form {
 
     protected function _makeRoomatesSubForm() {
         $aroomatesForm = new Zend_Form_SubForm();
-        $aroomatesForm->setLegend('Roomates');
+        $aroomatesForm->setLegend('Current tenats');
 
         // create new element
         $noOfRoomatesInput = new Zend_Form_Element_Select('no_roomates');
         $noOfRoomatesInput->setLabel(
-                'No of roomates already leaving in the property'
+                'No of tenants already leaving in the property'
         );
         $noOfRoomatesInput->addMultiOptions(
                 array(
@@ -272,12 +272,12 @@ abstract class My_Form_Abstract_AccommodationAbstract extends Zend_Form {
 
         // create new element
         $minAgeInput = new Zend_Form_Element_Select('min_age');
-        $minAgeInput->setLabel('Approximate min. age of roomates');
+        $minAgeInput->setLabel('Approximate min. age of the tenants');
         $minAgeInput->addMultiOptions($ageOptions);
         // $minAgeInput->setRequired(true);
         // create new element
         $maxAgeInput = new Zend_Form_Element_Select('max_age');
-        $maxAgeInput->setLabel('Approximate max. age of roomates');
+        $maxAgeInput->setLabel('Approximate max. age of the tenants');
         $maxAgeInput->addMultiOptions($ageOptions);
         //$maxAgeInput->setRequired(true);
         $maxAgeInput->setValue('35');
@@ -298,11 +298,9 @@ abstract class My_Form_Abstract_AccommodationAbstract extends Zend_Form {
         }
 
 
-
-
         $descriptionInput = $this->createElement('textarea', 'description');
         $descriptionInput->setFilters(array('stripTags', 'stringTrim'));
-        $descriptionInput->setRequired(false)->setLabel('Few words about roomates');
+        $descriptionInput->setRequired(false)->setLabel('Few words about tenants');
         $descriptionInput->setAttribs(array('cols' => 20, 'rows' => 5));
 
         $aroomatesForm->addElements(array($descriptionInput));

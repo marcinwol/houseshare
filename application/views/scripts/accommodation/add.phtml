@@ -21,13 +21,31 @@ echo $this->partial('_partials/acc-add-steps-desc.phtml', null, array('active' =
 ?>
 
 <div class="grid_6">  
-    <h1> Step 1: Basic information </h1>
+    <h1> <?php $this->translate('Step 1: Basic information');?> </h1>
 </div>
 <?php if (true == $this->formInValid):?>
 
 <div class="grid_6">  
     <div class="form-invalid">
-        Form validation of the  faild. Please see below.
+        <p>
+        <?php echo $this->translate('Validation of the following fields failed');?>:
+        </p>
+        <ul>
+            <?php 
+                foreach($this->formMessages as $subFormName => $msg) {
+                    $subForm = $this->form->getSubForm($subFormName);
+                    foreach($msg as $k => $v) {
+                         echo "<li>";
+                         echo $subForm->getElement($k)->getLabel();
+                         echo "</li>";
+                        //var_dump($k, $v);
+                    }                                       
+                }
+            ?>
+        </ul>
+        <p><br/>
+        <?php echo $this->translate('Specific errors messages are located below');?>.
+            </p>
     </div>
 </div>
 

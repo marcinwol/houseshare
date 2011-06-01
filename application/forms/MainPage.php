@@ -51,9 +51,7 @@ class My_Form_MainPage extends Zend_Form {
             if ('pl' == $lang) {
                $cityName = (empty($city['alt_name']) ? $cityName : $city['alt_name']);
             }
-            
-            
-            var_dump($city['alt_name']);
+                                  
             $citiesOption[$city['city_id']] = $cityName;
         }
 

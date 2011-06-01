@@ -298,6 +298,7 @@ class AccommodationController extends Zend_Controller_Action {
         }
         
         $this->view->formInValid = false;
+        $this->view->formMessages = array();
 
         if ($this->getRequest()->isPost()) {
             if ($addAccForm->isValid($_POST)) {
@@ -311,6 +312,7 @@ class AccommodationController extends Zend_Controller_Action {
                 return $this->_redirect('accommodation/map');
             } else {
                 $this->view->formInValid = true;
+                $this->view->formMessages = $addAccForm->getMessages(null,true);
             }
         } else {
             if (isset($addAccInfoNamespace->step[1])) {
