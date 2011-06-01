@@ -38,7 +38,7 @@ class My_Form_Login extends Zend_Form {
 
         //create new element
         $upass = $this->createElement('password', 'password');
-        $upass->setRequired(true)->setLabel('Password');
+        $upass->setRequired(true)->setLabel('Your password');
         $upass->setFilters(array('stripTags', 'stringTrim'));
          $upass->removeDecorator('DtDdWrapper');
                 $upass->removeDecorator('HtmlTag');
@@ -47,7 +47,7 @@ class My_Form_Login extends Zend_Form {
         
        
 
-        $submit = $this->addElement('submit', 'submit', array('label' => 'Sign-in'));
+        $submit = $this->addElement('submit', 'submit', array('label' => 'Login'));
     }
 
 }

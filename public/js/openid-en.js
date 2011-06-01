@@ -21,7 +21,7 @@ var providers_large = {
 //    },
     myopenid : {
         name : 'MyOpenID',
-        label : 'Enter your MyOpenID username.',
+        label : 'MyOpenID username',
         url : 'http://{username}.myopenid.com/'
     },
     openid : {

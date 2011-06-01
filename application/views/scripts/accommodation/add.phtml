@@ -1,18 +1,7 @@
 <?php
 if (!$this->isLogged()):
-    $sideBarContent = '
-            We encourage to <a href="' . $this->baseUrl('/login') . '">login</a> before 
-                filling this form or to register if you are first time here. 
-
-
-            <p> Otherwise, the account will be created during the first submission. </p>
-           <p> The account will allow you to modify your advertisment or disable it at a
-           a later date.
-                   </p>
-
-           ';
+    $sideBarContent = 'partialfile:better-to-login';
     $this->sideBarElement('Better to login?', $sideBarContent, array('class' => 'side-bar-info', 'break' => true));
-
 endif;
 ?>
 

@@ -1,6 +1,18 @@
 <?php
 $sideBarContent = <<<END
-If you don't have an account, you can register for free OpenID using
+  You can create an ShareHase acconout using our 
+  simple registration <a href="{$this->baseUrl('/user/create')}">form</a>      
+      <p>Alternatively, account can be created for you when you add your first
+      advertisment.
+      </p>
+END;
+
+$this->sideBarElement('I don\'t want OpenID',$sideBarContent, array('class' => 'side-bar-info'));  
+?>
+
+<?php
+$sideBarContent = <<<END
+If you don't have an account, you can get free OpenID using
       <a href="https://www.myopenid.com/signup"> myOpenID </a>. 
 <p>
   Alternatively, you can register into houseshare using our 
@@ -9,16 +21,11 @@ If you don't have an account, you can register for free OpenID using
        
 END;
 
-$this->sideBarElement('How to register?',$sideBarContent, array('class' => 'side-bar-info'));  
+$this->sideBarElement('I don\'t have OpenID',$sideBarContent, array('class' => 'side-bar-info',  'break'=>true));  
 ?>
 
 <?php
-   $sideBarContent = 'OpenID allows you to use an existing account to sign in to multiple websites, without needing to create new passwords.
-                    <p style="text-align: right;">
-                <a  href="http://openid.net/what/">Learn more</a>
-                </p>
-       
-       ';
+   $sideBarContent = 'partialfile:why-openid';
    $this->sideBarElement('Why OpenID?',$sideBarContent, array('class' => 'side-bar-info', 'break'=>true));  
 ?>
 
@@ -37,7 +44,7 @@ $this->sideBarElement('How to register?',$sideBarContent, array('class' => 'side
 <div class="grid_6 ">&nbsp;</div>
 <div class="grid_6 ">&nbsp;</div>
 <div id="login-form" class="grid_3 alpha">
-     <h2>Log in using OpenID</h2>
+     <h2><?php echo $this->translate('Login using OpenID');?></h2>
     <!-- Simple OpenID Selector -->
     <form action="<?php echo $this->baseUrl('/user/login');?>" method="get" id="openid_form">
         <input type="hidden" name="action" value="verify" />
@@ -52,7 +59,8 @@ $this->sideBarElement('How to register?',$sideBarContent, array('class' => 'side
             </div>
             <noscript>
                 <p>OpenID is service that allows you to log-on to many different websites using a single indentity.
-				Find out <a href="http://openid.net/what/">more about OpenID</a> and <a href="http://openid.net/get/">how to get an OpenID enabled account</a>.</p>
+				Find out <a href="http://openid.net/what/">more about OpenID</a> and <a href="http://openid.net/get/">how to get an OpenID enabled account</a>.
+                </p>
             </noscript>
         </fieldset>
     </form>
@@ -62,13 +70,13 @@ $this->sideBarElement('How to register?',$sideBarContent, array('class' => 'side
 <div class="grid_3 omega">
 
 
-    <h2>Login using sharehouse auth system</h2>
+    <h2><?php echo $this->translate('Login using our own system');?></h2>
 
     <div>
          <?php if (true == $this->failedLoginAttempt): ?>
-        <h2>
-            Incorrect email or password.
-        </h2>
+         <div class="form-invalid">
+            <?php echo $this->translate('Incorrect email or password');?>.
+         </div>
          <?php endif;?>
         <?php echo $this->form; ?>
     </div>
@@ -76,8 +84,12 @@ $this->sideBarElement('How to register?',$sideBarContent, array('class' => 'side
 </div>
 <div class="grid_6 ">&nbsp;</div>
 <div class="grid_6 " style="text-align: center">
-    <h2>If you’ve forgotten or lost your login information</h2>
-    <h2><a class="acc-recovery" href="<?php echo $this->baseUrl('/user/account-recovery');?>">click here to recover your login information</a></h2>
+    <h2><?php echo $this->translate('If you’ve forgotten or lost your login information');?></h2>
+    <h2>
+        <a class="acc-recovery" href="<?php echo $this->baseUrl('/user/account-recovery');?>">
+            <?php echo $this->translate('click here to recover your login information');?>
+        </a>
+    </h2>
 </div>
 
 <script language="javascript">

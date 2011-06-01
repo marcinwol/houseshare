@@ -130,6 +130,19 @@ return array(
     'Password confirmation does not match' => 'Potwierdzone haslo jest rozne od orginalnego',
     'Given email already exist in our system' => 'Podany email juz istnieje',
     '\'%value%\' does not appear to be an integer' => '\'%value%\' nie wyglada na liczbe calkowita',
-    '\'%value%\' was not found in the haystack' => '\'%value%\' nie zostal znaleziony w naszym systemie'
+    '\'%value%\' was not found in the haystack' => '\'%value%\' nie zostal znaleziony w naszym systemie',
+    'Incorrect email format' => 'Format adresu email nieprawidlowy',
+    'Better to login?' => 'Zalogowac sie?',
+    'Login using our own system' => 'Zaloguj sie uzywajac naszego systemu',
+    'Login using OpenID' => 'Zaloguj sie uzywajac OpenID',
+    'Login' => 'Zaloguj sie',
+    'Your email' => 'Twoj email',
+    'Your password' => 'Twoje haslo',
+    'Incorrect email or password' => 'Nieprawidlowy email albo haslo',
+    'If you’ve forgotten or lost your login information' => 'Jesli zapomniales jak sie zalogowac',
+    'click here to recover your login information' => 'nacisnij tutaj',
+    'Why OpenID?' => 'Dlaczego OpenID?',
+    'I don\'t have OpenID' => 'Nie mam OpenID',
+    'I don\'t want OpenID' => 'Nie chce OpenID'
     );
 ?>

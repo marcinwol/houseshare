@@ -160,11 +160,20 @@ form#accommodation-form input, form#accommodation-form textarea, form#accommodat
 form#register-form input, form#register-form textarea,
 form#form-sendemail input, form#form-sendemail textarea, form#limit-form button,
 form#photos-form input, form.login-form input, form#acc-recovery input,
-form#address input{
+form#address input, #openid_input_area input {
     width:98%;
     border: 1px solid #b5b5b5;
     height: 28px;
     font-size: 18px;
+}
+
+#openid_input_area input[type=text] {
+    width: 60%;
+}
+
+#openid_input_area input[type=submit] {
+    margin-left: 10px;
+    width: 30%;
 }
 
 #limit-form {
