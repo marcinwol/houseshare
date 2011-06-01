@@ -120,7 +120,7 @@ class My_Model_Table_Accommodation extends Zend_Db_Table_Abstract {
 
         $select = $db->select()->from('ACCOMMODATION', '')
                 ->joinInner('ADDRESS', 'ACCOMMODATION.addr_id = ADDRESS.addr_id', '')
-                ->joinInner('CITY', 'ADDRESS.city_id = CITY.city_id', array('CITY.city_id', 'CITY.name'))
+                ->joinInner('CITY', 'ADDRESS.city_id = CITY.city_id', array('CITY.city_id', 'CITY.name', 'CITY.alt_name'))
                 ->where('ACCOMMODATION.is_enabled = ?', 1)
                 ->order('CITY.name ASC')
                 ->distinct();

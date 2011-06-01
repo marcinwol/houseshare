@@ -28,7 +28,11 @@ class IndexController extends Zend_Controller_Action {
        $dispacher = Zend_Controller_Front::getInstance()->getDispatcher();
         // var_dump($dispacher->getParams());
        
-      // var_dump($router->getParams());
+              $upload = new Zend_Http_Client();
+        $upload->setUri('http://zendguru.files.wordpress.com/2009/04/ajax-form1.jpg');
+        $n = $upload->request('GET');        
+        $img = imagecreatefromstring($n->getBody());
+        imagejpeg($img,'../cache/test.jpg');
        
        $this->view->layout()->some_val = 100;
 

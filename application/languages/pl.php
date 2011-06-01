@@ -38,7 +38,7 @@ return array(
     'for max' => 'za max',
     'Add accommodation' => 'Dodaj ogloszenie',
     'Recent advertisements' => 'Ostatnio dodane ogloszenia',
-    'I need accommodation in' => 'Poszukuje zakwaterowania w',
+    'I need accommodation in' => 'Szukam zakwaterowania w(e)',
     'Type' => 'Typ',
     'Title' => 'Tytul ogloszenia',
     'Description' => 'Krotki opis',

@@ -34,6 +34,9 @@ class My_Form_MainPage extends Zend_Form {
 //     //   $acctype->setLabel('I need');
 //        //$acctype->setValue('2');      
 //       // $this->addElement($acctype);
+        
+           
+        $lang = Zend_Registry::get('Zend_Locale')->getLanguage();
 
         $cities = My_Model_Table_Accommodation::getDistinctCities();
 
@@ -41,7 +44,17 @@ class My_Form_MainPage extends Zend_Form {
         
         /* @var $addrRow My_Model_Table_Row_Address */
         foreach ($cities as $city) {
-            $citiesOption[$city['city_id']] = $city['name'];
+            
+            $cityName  = $city['name'];
+            // use alternate name for the city to make
+            // it look gramatically correct in polish language.
+            if ('pl' == $lang) {
+               $cityName = (empty($city['alt_name']) ? $cityName : $city['alt_name']);
+            }
+            
+            
+            var_dump($city['alt_name']);
+            $citiesOption[$city['city_id']] = $cityName;
         }
 
         $cities = new Zend_Form_Element_Select('i_city');
