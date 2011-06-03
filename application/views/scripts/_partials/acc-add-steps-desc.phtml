@@ -6,40 +6,28 @@ $steps = array();
 // step 1
 $steps['step1'] = array(
         'title' => 'Step 1: Basic information',
-        'content'=> 'In this step basic information about your accommodation is provided.   
-            <p></p>
-
-       ');
+        'content'=> 'partialfile:acc-add-step1'
+);
 
 
 // step 2
 $steps['step2'] = array(
         'title' => 'Step 2: Map localization',
-        'content'=> 'Based on the address provided at step 1, localization on the map will be 
-            specified autmatically. 
-            <p>
-            However, at this step you will be able to verify the localization and, if needed,
-            to correct it.
-            </p>
-              <p></p>
-       
-       ');
+        'content'=> 'partialfile:acc-add-step2'
+);
 
 
 // step 3
 $steps['step3'] = array(
         'title' => 'Step 3: Photos',
-        'content'=> 'Up to <strong>five</strong> photos can be accompany your addvertisment.               
-            <p></p>
-       ');
+        'content'=> 'partialfile:acc-add-step3'
+);
 
 // step 4
 $steps['step4'] = array(
         'title' => 'Step 4: Preview',
-        'content'=> 'The last thing to do is to check your your advertisment and, if you
-            are satisfied about it, activate it.
-            <p></p>
-       ');
+        'content'=> 'partialfile:acc-add-step4'
+);
 
 foreach ($steps as $key=>$value) {
     $class = ' inactive-step';

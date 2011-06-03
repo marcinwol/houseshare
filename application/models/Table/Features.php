@@ -59,9 +59,9 @@ class My_Model_Table_Features extends Zend_Db_Table_Abstract {
         'furniture' => array(
             'label' => 'Furniture',
             'value' => array(
-                '0' => 'Unfurnished',
-                '1' => 'Partially furnished',
-                '3' => 'Fully furnished'
+                '0' => 'No',
+                '1' => 'Yes',
+                '3' => 'Partial'
             ),
             'default' => '0'
         ),

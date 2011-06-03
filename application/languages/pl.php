@@ -101,7 +101,7 @@ return array(
     'Female' => 'Zeska',
     'Few words about tenants' => 'Dodatkowe informacje o lokatorach',
     'Preferences' => 'Preferencje',
-    'Smokers accepted' => 'Palacy akceptowane',
+    'Smokers accepted' => 'Palacy akceptowani',
     'Couples accepted' => 'Pary akceptowane',
     'Kids accepted' => 'Dzieci akceptowane',
     'Pets accepted' => 'Zwierzeta akceptowane',    
@@ -119,7 +119,7 @@ return array(
     'Repeat password' => 'Potwierdz haslo',
     'Go to step 2' => 'Idz do kroku 2',
     'Appartment details' => 'Informacje o mieszkaniu',
-    'Number of bedrooms' => 'Ilosc sypialni',
+    'Number of bedrooms' => 'Ilosc pokoi',
     'Number of bathrooms' => 'Ilosc lazienek',
     'Number of parking spots' => 'Ilosc miejsc parkinkowych',
     'Any other details' => 'Dodatkowe informacje',
@@ -167,6 +167,14 @@ return array(
     'Your query' => 'Twoje zapytanie',
     'Other' => 'Inne',
     'Created' => 'Stworzono',
-    'Updated' => 'Edotowano'
+    'Updated' => 'Edotowano',
+    'Appartement details' => 'O mieszkaniu',
+    'Number of tenants' => 'Liczba lokatorow',
+    'No. of bedrooms' => 'Liczba pokoi',
+    'No. of bathrooms' => 'Liczba lazienek',
+    'No. of parking spots' => 'Liczba miejsc parkingowych',
+    'Approx. min. age' => 'Przyb. min. wiek',
+    'Approx. max. age' => 'Przyb. max. wiek',
+    'Partial' => 'Czesciowe'
     );
 ?>

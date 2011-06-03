@@ -22,7 +22,7 @@ class My_Model_Table_Roomates extends Zend_Db_Table_Abstract {
      */
     static public $labels = array(
         'no_roomates' => array(
-            'label' => 'Number of sharemates',            
+            'label' => 'Number of tenants',            
         ),
         'min_age' => array(
             'label' => 'Approx. min. age',

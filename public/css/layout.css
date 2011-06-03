@@ -39,9 +39,16 @@ html, body {
     padding-bottom: 100px;
 }  /* must be same height as the footer */
 
-#breadcrumbs {
-    padding-top: 15px;
+#breadcrumbs {   
+    padding-top: 15px;    
 }
+
+#breadcrumbs a {
+    font-weight: bold;
+    color: #DD7601;
+    text-decoration: none;
+}
+
 
 div#flashmessage {
     text-align: center;

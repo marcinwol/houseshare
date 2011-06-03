@@ -47,12 +47,12 @@
                 <dt><?php echo  $this->translate('Views');?>  </dt><dd><?php echo $this->acc->views_count; ?></dd>                                                                       
             </dl>
 
-            <!-- ICONS REPRESENTIG BASIC FEATURES -->
+            <!-- ICONS REPRESENTING BASIC FEATURES -->
             <span class="listing-preview-type" title="<?php echo $this->acc->getTypeAsString(); ?>" >
                 <?php echo $this->acc->getTypeAsString(); ?>
             </span>
             <span class="listing-preview-type" style="margin-left:2px" title="<?php echo $this->acc->features->getAsString('furniture'); ?>">
-                <?php echo $this->acc->features->getAsString('furniture'); ?>
+                <?php echo $this->translate('Furniture'),': ',$this->acc->features->getAsString('furniture'); ?>
             </span>
             <?php if ($this->acc->features->internet > 0): ?>
                 <span class="listing-preview-type"  style="margin-left:2px">
@@ -73,17 +73,17 @@
                     <?php echo 'Parking: ' . $this->acc->features->getAsString('parking'); ?>
                 </span>
             <?php endif; ?>
-
+            <!--
             <?php if ($this->acc->features->tv > 0): ?>
                 <span class="listing-preview-type "  style="margin-left:2px">
-                    <?php echo 'TV: ' . $this->acc->features->getAsString('tv'); ?>
+                    <?php //echo 'TV: ' . $this->acc->features->getAsString('tv'); ?>
                 </span>
             <?php else: ?>
                 <span class="listing-preview-type no-feature"  style="margin-left:2px">
-                    <?php echo 'TV: ' . $this->acc->features->getAsString('tv'); ?>
+                    <?php //echo 'TV: ' . $this->acc->features->getAsString('tv'); ?>
                 </span>
             <?php endif; ?>
-
+            -->
 
 
         </div>
