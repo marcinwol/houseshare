@@ -20,12 +20,7 @@ $this->sideBarElement('Limit the list', $this->limitForm);
 <script type="text/javascript" src="<?php echo $this->baseUrl('/js/mapmainpage.js'); ?>"></script>
 
 <script type="text/javascript">
-    $(function() {
-        
-        //
-      //   $('#limit-form').button();
-        // $('#limit-form').buttonset();
-        
+    $(function() {        
         // center map in the city
         var city_lat = <?php echo $this->cityRow->getMarker()->lat; ?>;
         var city_lng = <?php echo $this->cityRow->getMarker()->lng; ?>;
@@ -33,7 +28,10 @@ $this->sideBarElement('Limit the list', $this->limitForm);
     });
 </script>
 
-  <h1>Accommodation in <?php echo $this->city;?></h1>
+  <h1>
+     <?php echo $this->translate('Accommodation in');?>
+     <?php echo $this->city;?>
+  </h1>
 <div>
     <?php
     if (count($this->accs) > 0):

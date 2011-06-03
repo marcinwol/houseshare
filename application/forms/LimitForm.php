@@ -44,7 +44,7 @@ class My_Form_LimitForm extends Zend_Form {
 
         // accommodation type selection
         $accTypeBed = $this->createElement('checkbox', "bed");
-        $accTypeBed->setLabel('Place in a room')->setChecked(false);
+        $accTypeBed->setLabel('A place in a room')->setChecked(false);
         $accTypeBed->setCheckedValue('1');
         $this->addElement($accTypeBed);
 

@@ -1,30 +1,10 @@
 <?php
-$sideBarContent = <<<END
-  You can create an ShareHase acconout using our 
-  simple registration <a href="{$this->baseUrl('/user/create')}">form</a>      
-      <p>Alternatively, account can be created for you when you add your first
-      advertisment.
-      </p>
-END;
+    $sideBarContent = 'partialfile:dont-want-openid';
+    $this->sideBarElement('I don\'t want OpenID',$sideBarContent, array('class' => 'side-bar-info'));  
 
-$this->sideBarElement('I don\'t want OpenID',$sideBarContent, array('class' => 'side-bar-info'));  
-?>
-
-<?php
-$sideBarContent = <<<END
-If you don't have an account, you can get free OpenID using
-      <a href="https://www.myopenid.com/signup"> myOpenID </a>. 
-<p>
-  Alternatively, you can register into houseshare using our 
-  simple registration <a href="{$this->baseUrl('/user/create')}">form</a>
-</p>      
-       
-END;
-
-$this->sideBarElement('I don\'t have OpenID',$sideBarContent, array('class' => 'side-bar-info',  'break'=>true));  
-?>
-
-<?php
+    $sideBarContent = 'partialfile:dont-have-openid';
+    $this->sideBarElement('I don\'t have OpenID',$sideBarContent, array('class' => 'side-bar-info',  'break'=>true));  
+    
    $sideBarContent = 'partialfile:why-openid';
    $this->sideBarElement('Why OpenID?',$sideBarContent, array('class' => 'side-bar-info', 'break'=>true));  
 ?>

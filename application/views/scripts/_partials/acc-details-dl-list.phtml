@@ -28,14 +28,14 @@
 
             echo "<tr>";
            // echo "<td class=\"name\">$img</td>";
-            echo "<td class=\"name\">$nameLabel</td>";
-            echo "<td class=\"value\">$valueLabel</td>";
+            echo "<td class=\"name\">{$this->translate($nameLabel)}</td>";
+            echo "<td class=\"value\">{$this->translate($valueLabel)}</td>";
             echo "</tr>";
         }
 
         $description = $data['description'];
         if (strlen($description) > 0) {                                 
-            echo "<tr><td class=\"other\" colspan=\"2\">Other: $description</td></tr>";            
+            echo "<tr><td class=\"other\" colspan=\"2\">{$this->translate('Other')}: $description</td></tr>";            
         }
         ?>
     </tbody>

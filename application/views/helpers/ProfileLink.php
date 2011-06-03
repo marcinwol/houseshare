@@ -27,7 +27,7 @@ class My_View_Helper_ProfileLink extends Zend_View_Helper_Abstract {
         
         $auth = Zend_Auth::getInstance();
 
-        $html = '<a href="'.$baseUrl.'/login"> Login </a>';
+        $html = '<a href="'.$baseUrl.'/login">'. $this->view->translate('Login') .'</a>';
 
         if ($auth->hasIdentity()) { 
             $identity = $auth->getIdentity();        
@@ -35,8 +35,8 @@ class My_View_Helper_ProfileLink extends Zend_View_Helper_Abstract {
             $fname = $identity->property->nickname; 
             $url = $this->view->baseUrl('/user');
             $fnameLink = "<a href=\"$url\"/>$fname</a>";
-            $html = $fnameLink . ' <span>|</span> <a href="'.$baseUrl.'/logout"> Logout </a>'
-            ;
+            $html = $fnameLink . ' <span>|</span> <a href="'.$baseUrl.'/logout">'
+                . $this->view->translate('Logout') . '</a>' ;
         }   
         
         return $html;

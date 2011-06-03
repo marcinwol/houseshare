@@ -12,12 +12,8 @@ $this->sideBarElement('Spread the word', $sideBarHtml);
 <?php
 if (strlen($this->acc->tinyurl) > 1) {
     $sideBarHtml = '<ul>';
-
     $sideBarHtml .= '<li>' . $this->acc->tinyurl . '</li>';
-
     $sideBarHtml .= '</ul>';
-
-
     $this->sideBarElement('Tiny url ', $sideBarHtml);
 }
 ?>    
@@ -41,10 +37,10 @@ if ($this->acc->user->contactDetailsAvaliable() == true) {
     $sideBarHtml = '<ul>';
 
     if ($this->acc->user->phone_public == true && strlen($this->acc->user->phone) > 4) {
-        $sideBarHtml .= '<li><strong>Phone:</strong> ' . $this->acc->user->phone . '</li>';
+        $sideBarHtml .= '<li><strong>'.$this->translate('Phone').':</strong> ' . $this->acc->user->phone . '</li>';
     }
     if ($this->acc->user->email_public == true) {
-        $sideBarHtml .= '<li><strong>Email:</strong> ' . $this->mailHide($this->acc->user->email) . '</li>';
+        $sideBarHtml .= '<li><strong>'.$this->translate('Email').':</strong> ' . $this->mailHide($this->acc->user->email) . '</li>';
     }
     $sideBarHtml .= '</ul>';
 
@@ -136,7 +132,7 @@ if ($this->preview == true) {
 
 <?php if ($this->preview == true): ?>
     <div class="grid_6">  
-        <h2>Step 4/4: Preview</h2>
+        <h2><?php echo $this->translate('Step 4/4: Preview');?></h2>
     </div>
     
 <?php endif; ?>
@@ -156,34 +152,35 @@ if (!($this->viewCache()->start('acc' . (string) $this->acc->acc_id))):
     <div id="acc-details" class="grid_6 alpha">    
 
         <div class="section grid_4 alpha">
-            <h1 class="title">Description</h1>
+            <h1 class="title"><?php echo $this->translate('Description');?></h1>
             <p>
                 <?php echo $this->acc->description; ?>
             </p>
         </div>
         <div class="section grid_2 omega" >
             <dl class="basic-info">
-                <dt>Price </dt>
+                <dt><?php echo $this->translate('Price');?> </dt>
                 <dd>
-                    <span class="price">Rent: <?php echo $this->acc->price; ?> PLN/month</span>
+                    <span class="price"><?php echo $this->translate('Rent');?>: 
+                    <?php echo $this->acc->price; ?> PLN/<?php echo $this->translate('month');?></span>
                     <?php if (strlen($this->acc->price_info) > 0): ?>            
-                        <br /> Additional expenses: <?php echo $this->acc->price_info; ?>
+                        <br /> <?php echo $this->translate('Additional expenses');?>: <?php echo $this->acc->price_info; ?>
                     <?php endif; ?>
                     <?php if (strlen($this->acc->bond) > 0): ?>            
-                        <br /> Bond: <?php echo $this->acc->bond; ?> PLN
+                        <br /> <?php echo $this->translate('Bond');?>: <?php echo $this->acc->bond; ?> PLN
                     <?php endif; ?>
                 </dd>            
 
-                <dt>Avaliable <?php echo $this->avaliable($this->acc)->inOrFrom(); ?>:</dt>
+                <dt><?php echo $this->translate('Avaliable');?> <?php echo $this->avaliable($this->acc)->inOrFrom(); ?>:</dt>
                 <dd><?php echo $this->avaliable($this->acc)->time(); ?></dd>
-                <dt>Address</dt>
+                <dt><?php echo $this->translate('Address');?></dt>
                 <dd><?php echo $this->address($this->acc); ?></dd>        
             </dl>
 
         </div>
 
         <div class="section grid_6 alpha">
-            <h1>Map view</h1> 
+            <h1><?php echo $this->translate('Map view');?></h1> 
 
         </div>
 
@@ -204,7 +201,7 @@ if (!($this->viewCache()->start('acc' . (string) $this->acc->acc_id))):
 
         <?php if ($this->acc instanceof My_Houseshare_Shared): ?>
             <div class="section grid_2 alpha">
-                <h1>Current tenants</h1> 
+                <h1><?php echo $this->translate('Current tenants');?></h1> 
 
                 <?php
                 echo $this->partial(
@@ -215,7 +212,7 @@ if (!($this->viewCache()->start('acc' . (string) $this->acc->acc_id))):
             </div>
         <?php elseif ($this->acc instanceof My_Houseshare_Appartment): ?>
             <div class="section grid_2 alpha">
-                <h1>Appartement details</h1>             
+                <h1><?php echo $this->translate('Appartement details');?></h1>             
                 <?php
                 echo $this->partial(
                         '_partials/acc-details-dl-list.phtml', array('data' => $this->acc->details)
@@ -225,7 +222,7 @@ if (!($this->viewCache()->start('acc' . (string) $this->acc->acc_id))):
         <?php endif; ?>
 
         <div class="section grid_2 alpha  ">
-            <h1>Preferences</h1> 
+            <h1><?php echo $this->translate('Preferences');?></h1> 
 
             <?php
             echo $this->partial(
@@ -235,7 +232,7 @@ if (!($this->viewCache()->start('acc' . (string) $this->acc->acc_id))):
         </div>
 
         <div class="section grid_2 omega ">
-            <h1>Features</h1> 
+            <h1><?php echo $this->translate('Features');?></h1> 
             <?php
             echo $this->partial(
                     '_partials/acc-details-dl-list.phtml', array('data' => $this->acc->features)
@@ -246,10 +243,10 @@ if (!($this->viewCache()->start('acc' . (string) $this->acc->acc_id))):
         <div class="grid_6 alpha advert-stats">
 
             <?php if ($this->acc->updatetimestamp > $this->acc->creationtimestamp): ?>
-                Updated:  <?php echo $this->timeSince($this->acc->updatetimestamp); ?> ago |
+                <?php echo $this->translate('Updated'), ': ',  $this->timeSince($this->acc->updatetimestamp), ' ', $this->translate('ago'); ?>|
             <?php endif; ?>
-            Created: <?php echo $this->timeSince($this->acc->creationtimestamp); ?> ago |
-            Views: <?php echo $this->acc->views_count; ?> 
+            <?php echo $this->translate('Created'), ': ',$this->timeSince($this->acc->creationtimestamp), ' ', $this->translate('ago'); ?> |
+            <?php echo $this->translate('Views'), ': ', $this->acc->views_count; ?> 
 
 
         </div>
