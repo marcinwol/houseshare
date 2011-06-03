@@ -560,6 +560,12 @@ class UserController extends Zend_Controller_Action {
         $emailForm = new My_Form_Email();
 
         if ($this->getRequest()->isPost()) {
+            
+            
+            if (true == isset($_POST['cancel'])) {
+                return $this->_redirect('/login');
+            }
+            
             if ($emailForm->isValid($_POST)) {
 
                 $email = $emailForm->getValue('email');
@@ -569,7 +575,7 @@ class UserController extends Zend_Controller_Action {
                 $user = $userModel->findByEmail($email);
 
                 if (null === $user) {
-                    $emailForm->setErrorMessages(array('No email in database'));
+                    $emailForm->setErrorMessages(array('Unfortunately, there is no such email in our database'));
                 } else {
 
                     $emailObj = new My_Mail_AccRecovery();

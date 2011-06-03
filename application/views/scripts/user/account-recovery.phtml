@@ -1,21 +1,15 @@
 <?php
-$sideBarContent = <<<END
- If you provided us with a correct email address, enter an email address 
-     and we will email your account information to you.      
-     
-<p>The information will allow you to log back into the system.</p>
-       
-END;
-
-$this->sideBarElement('Account Recovery?',$sideBarContent, array('class' => 'side-bar-info'));  
+$sideBarContent = 'partialfile:account-recovery';
+$this->sideBarElement('Account Recovery', $sideBarContent, array('class' => 'side-bar-info'));  
 ?>
 
-<h1>Account Recovery</h1>
+<h1><?php echo $this->translate('Account Recovery');?></h1>
 <?php 
     if (count($this->form->getErrorMessages()) > 0 ) {
         $errors = $this->form->getErrorMessages();
-        echo $errors[0];
-    }
-    
+        echo '<div class="form-invalid">';
+        echo $this->translate($errors[0]);
+        echo '</div>';
+    }    
     echo $this->form;
 ?>

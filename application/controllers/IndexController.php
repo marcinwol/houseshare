@@ -23,18 +23,11 @@ class IndexController extends Zend_Controller_Action {
      */
     public function testAction() {
 
-       $request = $this->getRequest();
-       $router = Zend_Controller_Front::getInstance()->getRouter();
-       $dispacher = Zend_Controller_Front::getInstance()->getDispatcher();
-        // var_dump($dispacher->getParams());
+      $model = new My_Model_Table_City();
+      
+     // var_dump($model->fetchAll());
        
-              $upload = new Zend_Http_Client();
-        $upload->setUri('http://zendguru.files.wordpress.com/2009/04/ajax-form1.jpg');
-        $n = $upload->request('GET');        
-        $img = imagecreatefromstring($n->getBody());
-        imagejpeg($img,'../cache/test.jpg');
-       
-       $this->view->layout()->some_val = 100;
+      $this->view->layout()->some_val = 100;
 
         var_dump($request->getUserParams());
     }

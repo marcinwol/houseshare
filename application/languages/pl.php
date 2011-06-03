@@ -175,6 +175,10 @@ return array(
     'No. of parking spots' => 'Liczba miejsc parkingowych',
     'Approx. min. age' => 'Przyb. min. wiek',
     'Approx. max. age' => 'Przyb. max. wiek',
-    'Partial' => 'Czesciowe'
+    'Partial' => 'Czesciowe',
+    'Account Recovery' => 'Odzyskanie konta',
+    'Cancel' => 'Wycofaj sie',
+    'Send an account recovery email' => 'Wysli email z informacjami odnosnie konta',
+    'Unfortunately, there is no such email in our database' => 'Niestety, nie ma takiego email w naszym systemie'
     );
 ?>
