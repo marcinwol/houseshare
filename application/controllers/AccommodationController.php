@@ -619,7 +619,7 @@ class AccommodationController extends Zend_Controller_Action {
 
         $accForm->populateForm($acc);
 
-        $accForm->getElement('Submit')->setLabel('Update');
+        $accForm->getElement('Submit')->setLabel('Update');       
         $this->view->form = $accForm;
     }
 
