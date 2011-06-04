@@ -125,7 +125,7 @@ abstract class My_Form_Abstract_AccommodationAbstract extends Zend_Form {
 
         $accInfoSubForm->addElements(array(
             $accTypeChoice, /* $liveChoice */ $titleInput, $descriptionInput,
-            $dateAvaliableInput, $shortTermChb, $priceInput, $priceInfo,
+            $dateAvaliableInput, /*  $shortTermChb  */ $priceInput, $priceInfo,
             $bondInput)
         );
 

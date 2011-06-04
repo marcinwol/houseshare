@@ -66,7 +66,6 @@ class My_Form_Accommodation extends My_Form_Abstract_AccommodationAbstract {
                 'title' => $acc->title,
                 'description' => $acc->description,
                 'date_avaliable' => $date->toString('dd/MM/yyyy'),
-                'short_term' => $acc->short_term_ok,
                 'price' => $acc->price,
                 'price_info' => $acc->price_info,
                 'bond' => $acc->bond,

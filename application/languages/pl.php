@@ -7,6 +7,7 @@
 return array(
     'ShareHouse' => 'StrefaStancji',
     'Its not complicated' => 'To jest proste',
+    'ShareHouse: database of rooms and appartments for rent' => 'StrefaStancji: oferty stancji (pokoi i mieszkan) na wynajem',
     'Powered by the Zend Framework'=>'Zasilany przez Zend Framework',
     'An error occurred' => 'Blad w aplikacji',
     'Our header' => 'Nasz naglowek',
@@ -17,6 +18,7 @@ return array(
     "Search" => "Szukaj",
     " * A record matching '123' was found" => 'sdfsdaf',
     'Per month' => 'Na miesiac',
+    'per month' => 'na miesiac',
     'Spread the word' => 'Podziel sie',
     'Avaliable' => 'Dostepne',
     'from' => 'od',
@@ -100,10 +102,10 @@ return array(
     'No of tenants already leaving in the property' => 'Ilosc lokatorow obecnie mieszkajacych w danym lokum',
     'Approximate min. age of the tenants' => 'Przyblizony minimalny wiek lokatorow',
     'Approximate max. age of the tenants' => 'Przyblizony maksymalny wiek lokatorow',
-    'Gender' => 'Plec lokatorow',
+    'Gender' => 'Plec',
     'Mixed' => 'Mieszana',
     'Male'  => 'Meska',
-    'Female' => 'Zeska',
+    'Female' => 'Zenska',
     'Few words about tenants' => 'Dodatkowe informacje o lokatorach',
     'Preferences' => 'Preferencje',
     'Smokers accepted' => 'Palacy akceptowani',
@@ -219,6 +221,7 @@ return array(
     'Accommodation advert preview' => 'Podglad oferty',
     'Read more' => 'Zobacz wiecej',
     'Close' => 'Zamknij',
+    'Minimum tenancy [month]' => 'Minimalny pobyt [miesiace]',
     
     );
 ?>

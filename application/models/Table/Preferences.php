@@ -63,6 +63,19 @@ class My_Model_Table_Preferences extends Zend_Db_Table_Abstract {
             ),
             'default' => '3'
         ),
+        'min_tenancy' => array(
+            'label' => 'Minimum tenancy [month]',
+            'value' => array(
+                '0' => 'No opinion',
+                '1' => '1',
+                '2' => '2',
+                '3' => '3',
+                '4' => '6',
+                '5' => '9',
+                '6' => '12'                
+            ),
+            'default' => '0'
+        ),
         'description' => array(
             'label' => 'Other',
         )

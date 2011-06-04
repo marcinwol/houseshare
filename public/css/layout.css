@@ -669,7 +669,8 @@ div.advert-info {
 .listing-preview-price {
     margin-top: 10px;
     float: right;
-    padding-top: 18px;
+    padding-top: 10px;
+    padding-bottom: 10px;
     width: 60px;
     height: 60px;
     background-color: #e6e6e6;

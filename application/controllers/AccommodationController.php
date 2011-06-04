@@ -448,7 +448,7 @@ class AccommodationController extends Zend_Controller_Action {
             'title' => $acc->title,
             'description' => $acc->description,
             'date_avaliable' => $date->toString('dd/MM/yyyy'),
-            'short_term' => $acc->short_term_ok,
+           /* 'short_term' => $acc->short_term_ok,*/
             'price' => $acc->price,
             'price_info' => $acc->price_info,
             'bond' => $acc->bond
@@ -675,7 +675,7 @@ class AccommodationController extends Zend_Controller_Action {
                     $acc->price_info = $formData['basic_info']['price_info'];
                     $acc->bond = $formData['basic_info']['bond'];
                     $acc->street_address_public = $formData['address']['address_public'];
-                    $acc->short_term_ok = $formData['basic_info']['short_term'];
+                   /* $acc->short_term_ok = $formData['basic_info']['short_term']; */
                     $acc->setAddrId($addr_id);
                     // $acc->setTypeId($formData['basic_info']['acc_type']);
 
@@ -1037,7 +1037,7 @@ class AccommodationController extends Zend_Controller_Action {
             $newAcc->price_info = $step1Data['basic_info']['price_info'];
             $newAcc->bond = $step1Data['basic_info']['bond'];
             $newAcc->street_address_public = $step1Data['address']['address_public'];
-            $newAcc->short_term_ok = $step1Data['basic_info']['short_term'];
+           /* $newAcc->short_term_ok = $step1Data['basic_info']['short_term']; */
             $newAcc->setAddrId($addr_id);
             $newAcc->setUserId($user_id);
             $newAcc->setTypeId($step1Data['basic_info']['acc_type']);
