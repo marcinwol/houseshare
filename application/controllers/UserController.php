@@ -333,9 +333,12 @@ class UserController extends Zend_Controller_Action {
                     $emailValidator = new Zend_Validate_EmailAddress();
 
                     if (!$emailValidator->isValid($email)) {
-                        Zend_Session::namespaceUnset('toStore');
-                        $this->_helper->FlashMessenger('Incorret email format was returned form OpenID provider');
-                        return $this->_redirect('/');
+                        //Zend_Session::namespaceUnset('toStore');
+                        $this->_helper->FlashMessenger(
+                                'Incorret email (or no email) was returned form OpenID provider'
+                        );
+                        return $this->_redirect('/user/complete');
+                        //return $this->_redirect('/');
                     }
 
                     // email is OK, so try to create a user
@@ -536,17 +539,23 @@ class UserController extends Zend_Controller_Action {
         $createForm = new My_Form_UserCreate();
         $createForm->removePasswordFields();
         $createForm->makeDisplayGroups()->removeLegend();
-        $createForm->removeElement('cancel');
-
-
+        //$createForm->removeElement('cancel');
+        //$createForm->cancel->setLabel('Cancel');
         // pupulate with email grabbed from the provieder
         if (isset($authData->property->email)) {
             $createForm->populate(
                     array('email' => $authData->property->email)
             );
-        }
+        } 
 
         if ($this->getRequest()->isPost()) {
+
+            if (true == isset($_POST['cancel'])) {
+                // don't need this session namespace anymore
+                Zend_Session::namespaceUnset('toStore');
+                return $this->_redirect('/login');
+            }
+
             if ($createForm->isValid($_POST)) {
 
                 $formData = $createForm->getValues();
@@ -598,7 +607,7 @@ class UserController extends Zend_Controller_Action {
                 return $this->_redirect('index');
             }
         }
-        $createForm->getElement('Submit')->setLabel('Complete registration');
+        $createForm->getElement('Submit')->setLabel('Save');
         $this->view->form = $createForm;
     }
 

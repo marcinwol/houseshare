@@ -153,6 +153,7 @@ return array(
     'Incorrect email or password' => 'Nieprawidlowy email albo haslo',
     'If you’ve forgotten or lost your login information' => 'Jesli zapomniales jak sie zalogowac',
     'If you don’t have an OpenID account, you can get one for free at' => 'Jesli nie masz konta OpenID, mozesz dostac darmowe na',
+    'Incorret email (or no email) was returned form OpenID provider' => 'Niepoprawny email (albo jego brak) zostawl zwrocony przez twojego dostawce OpenID',
     'click here to recover your login information' => 'nacisnij tutaj',
     'Why OpenID?' => 'Dlaczego OpenID?',
     'I don\'t have OpenID' => 'Nie mam OpenID',
@@ -190,7 +191,7 @@ return array(
     'Approx. max. age' => 'Przyb. max. wiek',
     'Partial' => 'Czesciowe',
     'Account Recovery' => 'Odzyskanie konta',
-    'Cancel' => 'Wroc',
+    'Cancel' => 'Anuluj',
     'Send an account recovery email' => 'Wysli email z informacjami odnosnie konta',
     'Unfortunately, there is no such email in our database' => 'Niestety, nie ma takiego email w naszym systemie',
     'Your data' => 'Twoje dane',
@@ -217,7 +218,7 @@ return array(
     'Edit your information' => 'Edutuj swoje dane',
     'Your data was changed' => 'Twoje informacje zostaly zmienione',
     'Required fields' => 'Pola wymagane',
-    'Required fields' => 'Pola opcjonalne',
+    'Optional fields' => 'Pola opcjonalne',
     'Submit' => 'Zachowaj',
     'What is this?' => 'Co to jest?',
     'Is short term OK (less than 2 months)' => 'Pobyt na krutko (krotszy niz 2 miesiace) jest akceptowany',
@@ -225,6 +226,6 @@ return array(
     'Read more' => 'Zobacz wiecej',
     'Close' => 'Zamknij',
     'Minimum tenancy [month]' => 'Minimalny pobyt [miesiace]',
-    
+    'Save' => 'Zapisz',
     );
 ?>
