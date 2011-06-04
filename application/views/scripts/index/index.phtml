@@ -29,27 +29,10 @@ if (!$accs) {
 
 $this->sideBarElement('Recently viewed', $accs, array('place' => 'prepend'));
 ?>
+
 <?php
-// permanent placeholder for top cities
-
-$cache = Zend_Registry::get('frontsidebarCache');
-$cities = $cache->load('topCities');
-
-if (!$cities) {
-
-    $cities = '<ul class="top-cities">';
-
-    $results = My_Model_Table_Accommodation::getTopCities();
-
-    foreach ($results as $city) {
-        $cities .= '<li><a href="' . $this->baseUrl('/accommodation/list/city/' . $city['city_id']) . '">' . $city['name'] . ' <span>(' . $city['count'] . ')</span></a></li>';
-    }
-
-    $cities .= '<ul class="top-cities">';
-    $cache->save($cities, 'topCities');
-}
-
-$this->sideBarElement('Top cities', $cities, array('place' => 'prepend'));
+$sideBarHtml = 'partialfile:top-cities';
+$this->sideBarElement('Top cities', $sideBarHtml, array('place' => 'prepend'));
 ?>
 
 

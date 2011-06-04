@@ -3,6 +3,10 @@ $sideBarHtml = $this->partial('_partials/add-this.phtml', array('title' => false
 $this->sideBarElement('Spread the word', $sideBarHtml);
 ?>   
 
+<?php
+$sideBarHtml = 'partialfile:top-cities';
+$this->sideBarElement('Top cities', $sideBarHtml, array('place' => 'prepend'));
+?>
 
 <?php
 // permanent placeholder for map view
@@ -59,6 +63,9 @@ $this->sideBarElement('Limit the list', $this->limitForm);
         $('button#limit').click(function(){           
             $('#limit-form').submit();  
         });
+        
+        var previouseTxt = "<?php echo $this->translate('Previous');?>";
+        var nextTxt = "<?php echo $this->translate('Next');?>";
          
         $('.paginationControl a').click(function (event) {
          
@@ -75,9 +82,9 @@ $this->sideBarElement('Limit the list', $this->limitForm);
            
             // correct in case previouse or next button clicked
             if (isNaN(newPage)) {
-                if (html == 'Previous') {                   
+                if (html == previouseTxt) {                   
                     newPage = currentPage - 1;
-                }else if (html == 'Next') {                   
+                }else if (html == nextTxt) {                   
                     newPage = currentPage + 1;               
                 }                                             
             }           

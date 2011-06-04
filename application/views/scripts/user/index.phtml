@@ -1,8 +1,14 @@
 
 <?php
+$sideBarHtml = 'partialfile:top-cities';
+$this->sideBarElement('Top cities', $sideBarHtml, array('place' => 'prepend'));
+?>
+
+
+<?php
   $sideBarContent = '<br/>
        <a class="acc-add" href="' . $this->baseUrl("/add").'" alt="Add accommodation">'.$this->translate('Add accommodation').'</a>
-           <br/><br/><br/>';
+           <br/><br/>';
 $this->sideBarElement('', $sideBarContent);
 ?>
 
