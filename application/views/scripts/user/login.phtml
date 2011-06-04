@@ -1,10 +1,7 @@
 <?php
     $sideBarContent = 'partialfile:dont-want-openid';
     $this->sideBarElement('I don\'t want OpenID',$sideBarContent, array('class' => 'side-bar-info'));  
-
-    $sideBarContent = 'partialfile:dont-have-openid';
-    $this->sideBarElement('I don\'t have OpenID',$sideBarContent, array('class' => 'side-bar-info',  'break'=>true));  
-    
+  
    $sideBarContent = 'partialfile:why-openid';
    $this->sideBarElement('Why OpenID?',$sideBarContent, array('class' => 'side-bar-info', 'break'=>true));  
 ?>
@@ -61,6 +58,15 @@
         <?php echo $this->form; ?>
     </div>
 
+</div>
+<div class="grid_6 ">&nbsp;</div>
+<div class="grid_6 " style="text-align: center">
+    <h2><?php echo $this->translate('If you don’t have an OpenID account, you can get one for free at');?></h2>
+    <h2>
+        <a class="acc-recovery" href="https://www.myopenid.com/signup">
+            www.MyOpenID.com
+        </a>
+    </h2>
 </div>
 <div class="grid_6 ">&nbsp;</div>
 <div class="grid_6 " style="text-align: center">

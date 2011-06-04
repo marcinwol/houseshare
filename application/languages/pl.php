@@ -152,6 +152,7 @@ return array(
     'Your password' => 'Twoje haslo',
     'Incorrect email or password' => 'Nieprawidlowy email albo haslo',
     'If you’ve forgotten or lost your login information' => 'Jesli zapomniales jak sie zalogowac',
+    'If you don’t have an OpenID account, you can get one for free at' => 'Jesli nie masz konta OpenID, mozesz dostac darmowe na',
     'click here to recover your login information' => 'nacisnij tutaj',
     'Why OpenID?' => 'Dlaczego OpenID?',
     'I don\'t have OpenID' => 'Nie mam OpenID',

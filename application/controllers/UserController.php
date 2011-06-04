@@ -303,10 +303,18 @@ class UserController extends Zend_Controller_Action {
                 $row = My_Model_Table_AuthProvider::fetchUsingKey($toStore->identity);
 
                 if (null === $row) {
-                    // no user key found in db, so it is a new user.
+                    // no user key found in db, so it is a new user.                    
                     // For this reason go to registration completion page.
                     // But first check the email.
+                    // 
+                    // UPDATE 04 Jun 2011: 
+                    // There is no reason to go to completion page.
+                    // just create an account at this stage
+                    // with just an email                    
 
+
+                    $tmpSession = new Zend_Session_Namespace('toStore');
+                    $tmpSession->toStore = $toStore;
 
                     if (isset($toStore->property->email)) {
                         // check if we already have such an email in a database
@@ -320,10 +328,64 @@ class UserController extends Zend_Controller_Action {
                         }
                     }
 
-                    $tmpSession = new Zend_Session_Namespace('toStore');
-                    $tmpSession->toStore = $toStore;
+                    //verify that we have email of a correct formagt!
+                    $email = $toStore->property->email;
+                    $emailValidator = new Zend_Validate_EmailAddress();
 
-                    return $this->_redirect('/user/complete');
+                    if (!$emailValidator->isValid($email)) {
+                        Zend_Session::namespaceUnset('toStore');
+                        $this->_helper->FlashMessenger('Incorret email format was returned form OpenID provider');
+                        return $this->_redirect('/');
+                    }
+
+                    // email is OK, so try to create a user
+                    $newUser = My_Houseshare_Factory::user();
+
+                    $newUser->nickname = '';
+                    $newUser->email = $email;
+                    $newUser->phone = '';
+                    $newUser->phone_public = 0;
+                    $newUser->email_public = 0;
+                    $newUser->description = '';
+                    $newUser->type = 'USER';
+
+                    $user_id = $newUser->save();
+
+                    if (is_numeric($user_id)) {
+
+                        // if user was saved than save his providers info                    
+                        $authProvModel = new My_Model_Table_AuthProvider();
+                        $newRow = $authProvModel->createRow(
+                                        array(
+                                            'key' => $toStore->identity,
+                                            'provider_type' => $toStore->provider,
+                                            'user_id' => $user_id
+                                        )
+                        );
+
+                        $newId = $newRow->save();
+
+
+                        // immidiately authenticate the new user,
+                        // so that he is logged in to the system.                                           
+                        $this->_writeAuthData($newUser, true);
+
+                        // don't need this session namespace anymore
+                        Zend_Session::namespaceUnset('toStore');
+
+                        $this->_helper->FlashMessenger('Welcom to ShareHouse');
+                        return $this->_redirect('user/');
+                    }
+
+                    // normally, if everything went OK, user should be already 
+                    // redirected tu sussess.
+                    $this->_helper->FlashMessenger(
+                            'There was a problem during account creating and or authentication'
+                    );
+                    return $this->_redirect('index');
+
+
+                    #return $this->_redirect('/user/complete');
                 } else {
                     // key was found in database so read a user record
                     // and authenticate this user
@@ -339,7 +401,7 @@ class UserController extends Zend_Controller_Action {
 
                 return $this->_redirect('/user/index');
             } else {
-                $this->_helper->FlashMessenger('Failed authentication');
+                //$this->_helper->FlashMessenger('Failed authentication');
                 $this->_helper->FlashMessenger($result->getMessages());
                 return $this->_redirect('/');
             }
