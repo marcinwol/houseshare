@@ -45,10 +45,10 @@ $application = new Zend_Application(
 // Bootstrap everything
 $bootstrap = $application->bootstrap();
 
-function getDataFromCSV($file) {
+function getDataFromCSV($file, $sep = ';') {
     $out = array();
     if (($handle = fopen($file, "r")) !== FALSE) {
-        while (($data = fgetcsv($handle, 0, ";")) !== FALSE) {
+        while (($data = fgetcsv($handle, 0, $sep)) !== FALSE) {
             $out [] = $data;
         }
         fclose($handle);
@@ -67,7 +67,7 @@ if ($getopt->getOption('d')) {
 
     // read data
     $states = getDataFromCSV('_data/provinces.csv');
-    $cities = getDataFromCSV('_data/places.csv');
+    $cities = getDataFromCSV('_data/places.csv',',');
 
     // write states into db
     $stateModel = new My_Model_Table_State();
@@ -90,7 +90,9 @@ if ($getopt->getOption('d')) {
                 array(
                     'city_id' => $city[0],
                     'state_id' => $city[1],
-                    'name' => $city[2]
+                    'name' => $city[2],
+                    'alt_name' => (isset($city[3])?$city[3]:''),
+                    'main' => (isset($city[4])?$city[4]:0)
                 )
         );
         

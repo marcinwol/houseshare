@@ -159,7 +159,7 @@ class AccommodationController extends Zend_Controller_Action {
         $accType = $this->_request->getParam('acctype', null);
         $page = $this->_getParam('page', 1);
 
-        if (is_null($city_id)) {
+        if (empty($city_id)) {
             $this->_helper->FlashMessenger('City must be specified');
             return $this->_redirect('/');
         }

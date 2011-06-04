@@ -7,6 +7,7 @@
 return array(
     'ShareHouse' => 'StrefaStancji',
     'Its not complicated' => 'To jest proste',
+    'Welcom to ShareHouse' => 'Witamy w StrefieStancji',
     'ShareHouse: database of rooms and appartments for rent' => 'StrefaStancji: oferty stancji (pokoi i mieszkan) na wynajem',
     'Powered by the Zend Framework'=>'Zasilany przez Zend Framework',
     'An error occurred' => 'Blad w aplikacji',
@@ -20,6 +21,7 @@ return array(
     'Per month' => 'Na miesiac',
     'per month' => 'na miesiac',
     'Spread the word' => 'Podziel sie',
+    'City must be specified' => 'Miasto musi byc podane',
     'Avaliable' => 'Dostepne',
     'from' => 'od',
     'in _time'   => 'za',

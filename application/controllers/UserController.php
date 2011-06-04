@@ -26,10 +26,10 @@ class UserController extends Zend_Controller_Action {
         $user_id = $authData->property->user_id;
         $userType = $authData->property->type;
 
-        /*@var $user  My_Houseshare_User  */
+        /* @var $user  My_Houseshare_User  */
         $user = My_Houseshare_Factory::user($user_id, $userType);
-        
-        
+
+
         /* set page for navigatoin */
         /* @var $navigation Zend_Navigation */
         $navigation = $this->view->navigation()->getContainer();
@@ -307,9 +307,6 @@ class UserController extends Zend_Controller_Action {
                     // For this reason go to registration completion page.
                     // But first check the email.
 
-                    $tmpSession = new Zend_Session_Namespace('toStore');
-                    $tmpSession->toStore = $toStore;
-
 
                     if (isset($toStore->property->email)) {
                         // check if we already have such an email in a database
@@ -323,6 +320,8 @@ class UserController extends Zend_Controller_Action {
                         }
                     }
 
+                    $tmpSession = new Zend_Session_Namespace('toStore');
+                    $tmpSession->toStore = $toStore;
 
                     return $this->_redirect('/user/complete');
                 } else {
@@ -404,9 +403,9 @@ class UserController extends Zend_Controller_Action {
         $userType = $authData->property->type;
 
         $user = My_Houseshare_Factory::user($user_id, $userType);
-        
-        
-         /* set page for navigatoin */
+
+
+        /* set page for navigatoin */
         /* @var $navigation Zend_Navigation */
         $navigation = $this->view->navigation()->getContainer();
         /* @var $accshowPage My_Navigation_Page_AccShow */
@@ -525,7 +524,7 @@ class UserController extends Zend_Controller_Action {
                     // don't need this session namespace anymore
                     Zend_Session::namespaceUnset('toStore');
 
-                    $this->_helper->FlashMessenger('Welcom to sharehouse');
+                    $this->_helper->FlashMessenger('Welcom to ShareHouse');
                     return $this->_redirect('user/');
                 }
 
@@ -576,12 +575,12 @@ class UserController extends Zend_Controller_Action {
         $emailForm = new My_Form_Email();
 
         if ($this->getRequest()->isPost()) {
-            
-            
+
+
             if (true == isset($_POST['cancel'])) {
                 return $this->_redirect('/login');
             }
-            
+
             if ($emailForm->isValid($_POST)) {
 
                 $email = $emailForm->getValue('email');
