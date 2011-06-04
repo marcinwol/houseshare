@@ -17,7 +17,11 @@ class My_Model_Table_Row_User extends Zend_Db_Table_Row_Abstract {
      * @return Zend_Db_Table_Rowset
      */
     public function getAccommodations() {
-        return $this->findDependentRowset('My_Model_Table_Accommodation');
+        
+        $accModel = new My_Model_Table_Accommodation();
+        $select = $accModel->select()->order('created DESC');
+        
+        return $this->findDependentRowset('My_Model_Table_Accommodation', null, $select);
     }
     
     /**
