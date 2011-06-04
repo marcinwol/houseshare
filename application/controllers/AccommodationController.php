@@ -348,6 +348,7 @@ class AccommodationController extends Zend_Controller_Action {
 
             // it seems that user is loged and this accommodation belongs to him            
             $mapForm->populateFromAcc($acc);
+            $mapForm->addCancelButton();
             $showSteps = false;
             $mapEdit = true;
             $title = "Map localization";
@@ -359,7 +360,7 @@ class AccommodationController extends Zend_Controller_Action {
             $mapForm->populateFromAccArray($addAccInfoNamespace->step[1]['address']);
             $mapEdit = false;
             $showSteps = true;
-            $title = "Step 2/3: Map localization";
+            $title = "Step 2: Map localization";
             $submitButtonText = "Go to step 3";
         }
 
@@ -369,6 +370,11 @@ class AccommodationController extends Zend_Controller_Action {
 
 
         if ($this->getRequest()->isPost()) {
+            
+            if (true == isset($_POST['cancel'])) {
+                return $this->_redirect('/user');
+            }
+            
             if ($mapForm->isValid($_POST)) {
 
                 $formData = $mapForm->getValues();
@@ -398,8 +404,8 @@ class AccommodationController extends Zend_Controller_Action {
                     }
                 }
 
-
-                return $this->_redirect('accommodation/show/id/' . $acc_id);
+                 $this->_helper->FlashMessenger('Lokalization on the map was changed');
+                return $this->_redirect('user/');
             }
         } else {
             if (isset($addAccInfoNamespace->step[2])) {
@@ -715,7 +721,7 @@ class AccommodationController extends Zend_Controller_Action {
 
             $photoEdit = true;
             $showSteps = false;
-            $title = "Photos upload";
+            $title = "Photos";
         } else {
             // mark if this photos adding is for logged user 
             // (i.e. he/she updates his photos),
@@ -723,7 +729,7 @@ class AccommodationController extends Zend_Controller_Action {
             $noOfPhotosToAdd = PHOTOS_NUMBER;
             $photoEdit = false;
             $showSteps = true;
-            $title = "Step 3/4: Photos upload";
+            $title = "Step 3: Photos";
         }
 
 
@@ -1287,7 +1293,7 @@ class AccommodationController extends Zend_Controller_Action {
         }
 
         // don't need this session namespace anymore
-        Zend_Session::namespaceUnset('addAccInfo');
+      //  Zend_Session::namespaceUnset('addAccInfo');
         $this->view->acc = $acc;
         $this->view->preview = true;
         $this->_helper->viewRenderer('show');

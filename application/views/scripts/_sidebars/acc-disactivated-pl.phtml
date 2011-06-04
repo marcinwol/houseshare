@@ -1,0 +1,10 @@
+Twoja oferta jest <strong>nie aktywna</strong>.
+
+<?php if ($this->isLogged()): ?>
+    <p> 
+        <a class="acc-add" href="<?php echo $this->baseUrl('/accommodation/enable/id/' . $this->options['acc_id']); ?>"     alt=\"Activate\">
+            Aktywuj teraz
+        </a>        
+    </p>   
+<?php endif; ?>
+<p></p>

@@ -43,7 +43,7 @@ class My_View_Helper_SideBarElement extends Zend_View_Helper_Abstract {
                 $filePath = self::SIDEBAR_DIR . "/$bname.phtml";
             }            
             
-            $content = $this->view->partial($filePath);
+            $content = $this->view->partial($filePath, null, array('options' => $options));
         }
 
         // call partial to render side bar box/element

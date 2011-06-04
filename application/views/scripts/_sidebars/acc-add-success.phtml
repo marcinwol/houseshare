@@ -1,0 +1,19 @@
+Your advertisement has just been added to our system. 
+However it has <strong>not been yet activated</strong>.
+
+<?php if ($this->isLogged()): ?>
+    <p> If you happy with it then <br /><br />
+        <a class="acc-add" href="<?php echo $this->baseUrl('/accommodation/enable/id/' . $this->options['acc_id']); ?>" alt="Activate">
+            Activate it now
+        </a>
+        <br /><br /> 
+        If you want to <strong>change</strong> something go 
+        <a href="<?php echo $this->baseUrl('user'); ?>">here</a>.
+    </p>
+<?php else: ?>
+    <p>
+        To activate it or make changes, 
+        please <a href="<?php echo $this->baseUrl('login'); ?>">login</a>. 
+        <br/>
+    </p> 
+<?php endif; ?>

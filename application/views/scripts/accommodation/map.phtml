@@ -12,7 +12,7 @@ if ($this->showSteps) {
 
 
 <div class="grid_6">  
-    <h2><?php echo $this->title;?></h2>
+    <h1><?php echo $this->translate($this->title);?></h1>
 </div>
 
  <div id="map" class="grid_6 " style="height: 600px">  </div>
@@ -21,7 +21,9 @@ if ($this->showSteps) {
   <img src="<?php echo $this->baseUrl('/icons/red-dot.gif');?>" 
        style="vertical-align:middle"
        alt="map marker icon"/>  
-  <span style="font-size:14px">Drag the marker on the map if its at incorrect place. </span>
+  <span style="font-size:14px">
+      <?php echo $this->translate('Drag the marker on the map if its at incorrect place');?>.
+  </span>
  </div>
     
  <script type="text/javascript" src="<?php echo $this->baseUrl('/js/mapedit.js');?>"></script>

@@ -50,7 +50,7 @@ class My_Form_Photos extends Zend_Form {
 
     protected function _makeElements() {
         $photos = new Zend_Form_Element_File('photo');
-        $photos->setLabel('Upload image: ');
+        $photos->setLabel('Upload images:');
 
         $photos->setDestination(PHOTOS_PATH);
         //$element->addValidator('Count', false, 1);

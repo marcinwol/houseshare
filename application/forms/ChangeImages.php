@@ -32,14 +32,14 @@ class My_Form_ChangeImages extends Zend_Form {
         
         if (count($checkBoxes) > 0) {
             $this->addElements(array($images));
-            $delete = new Zend_Form_Element_Submit('delete', 'Delete');
+            $delete = new Zend_Form_Element_Submit('delete', 'Delete selected photos');
             $this->addElement($delete);
 //            $change = new Zend_Form_Element_Submit('change', 'Change');
 //            $this->addElement($change);
         }               
                 
         if (count($checkBoxes) < PHOTOS_NUMBER) {
-            $add = new Zend_Form_Element_Submit('add', 'Add');
+            $add = new Zend_Form_Element_Submit('add', 'Add new photos');
             $this->addElement($add);
         } 
         

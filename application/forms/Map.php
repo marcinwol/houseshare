@@ -166,6 +166,11 @@ class My_Form_Map extends Zend_Form {
                 )
         );
     }
+    
+    public function addCancelButton() {
+          $cancel = new Zend_Form_Element_Submit('cancel', 'Return');
+          $this->addElement($cancel);
+    }
 
 }
 

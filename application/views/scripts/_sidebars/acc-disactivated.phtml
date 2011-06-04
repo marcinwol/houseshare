@@ -1,0 +1,14 @@
+Your advertisement is <strong>disactivated</strong>.
+
+<?php if ($this->isLogged()): ?>
+    <p> 
+        <a class="acc-add" href="<?php echo $this->baseUrl('/accommodation/enable/id/' . $this->options['acc_id']); ?>"     alt=\"Activate\">
+            Activate it now
+        </a>
+        <br /><br /> 
+        If you want to <strong>change</strong> something go 
+        <a href="<?php echo $this->baseUrl('/user/'); ?>">
+            here
+        </a>
+    </p>
+<?php endif; ?>
