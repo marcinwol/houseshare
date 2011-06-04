@@ -48,6 +48,14 @@ html, body {
     color: #DD7601;
     text-decoration: none;
 }
+.user-options a {
+    color: #ACACAC; 
+    text-decoration: none;
+}
+
+.user-options a:hover {
+     text-decoration: underline;
+}
 
 
 div#flashmessage {

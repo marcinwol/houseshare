@@ -1,14 +1,14 @@
 
 <?php
   $sideBarContent = '<br/>
-       <a class="acc-add" href="' . $this->baseUrl("/add").'" alt="Add accommodation">Add accommodation</a>
+       <a class="acc-add" href="' . $this->baseUrl("/add").'" alt="Add accommodation">'.$this->translate('Add accommodation').'</a>
            <br/><br/><br/>';
 $this->sideBarElement('', $sideBarContent);
 ?>
 
 <div class="grid_6">&nbsp;</div>
 <div class="grid_3 alpha">  
-    <h2>Registered data</h2>
+    <h2><?php echo $this->translate('Your data');?></h2>
     <div class="grid_1 alpha">
         <?php echo $this->gravatar($this->user['email'], array('imgSize' => 100, 'defaultImg' => 'identicon')); ?>
     </div>
@@ -16,28 +16,28 @@ $this->sideBarElement('', $sideBarContent);
         <table class="user-info">
             <tbody>
                 <tr>
-                    <td>Nickname:</td>
+                    <td><?php echo $this->translate('Nickname');?>:</td>
                     <td><strong><?php echo $this->user['nickname']; ?></strong></td>
                 </tr>
                 <tr>
-                    <td>Phone:</td>
-                    <td><?php echo $this->user['phone']; ?></td>
+                    <td><?php echo $this->translate('Phone');?>:</td>
+                    <td><?php echo $this->user['phone'];?></td>
                 </tr>  
                 <tr>
-                    <td>Email:</td>
+                    <td><?php echo $this->translate('Email');?>:</td>
                     <td><?php echo $this->user['email']; ?></td>
                 </tr>  
                 
             </tbody>
         </table>
-        <div>       
+        <div class="user-options">       
             <br/>
-            <a href="<?php echo $this->baseUrl('/user/edit'); ?>">Edit your data</a>
+            <a href="<?php echo $this->baseUrl('/user/edit'); ?>"><?php echo $this->translate('Edit your data');?></a>
         </div>
     </div>
 </div>
 <div class="grid_3 omega">
-    <h2>About you</h2>
+    <h2><?php echo $this->translate('About you');?></h2>
     <p>
         <?php
         if (!empty($this->user['description'])) {
@@ -54,7 +54,7 @@ $this->sideBarElement('', $sideBarContent);
 <div class="grid_6">&nbsp;</div>
 <div class="grid_6 alpha">
     <?php if ($this->accs): ?>
-        <h2>Your accommodations</h2>       
+        <h2><?php echo $this->translate('Your accommodations');?></h2>       
 
 
         <div>

@@ -15,7 +15,7 @@
                     <route>acclist</route>
                     <name>acclist</name>
                     <controller>accommodation</controller>
-                    <action>list</action>                                              
+                    <action>list</action>                    
                     <pages>
                         <show>
                             <type>My_Navigation_Page_AccShow</type>

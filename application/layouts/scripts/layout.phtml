@@ -78,8 +78,9 @@
                     </div>
                     <div>
                         <h1><a href="<?php echo $this->baseUrl(); ?>">
-<?php echo $this->translate('ShareHouse'); ?>
-                            </a></h1> 
+                            <?php echo $this->translate('ShareHouse'); ?>
+                            </a>
+                        </h1> 
 
 
                         <h2><?php echo $this->translate('Its not complicated'); ?></h2> 
@@ -91,6 +92,8 @@
                     <div id="login"><?php echo $this->profileLink(); ?> </div>
                 </div>
 
+                <?php //echo $this->navigation()->menu();?>
+                
             </div>
 
             <div id="content" class="container_8">

@@ -179,6 +179,19 @@ return array(
     'Account Recovery' => 'Odzyskanie konta',
     'Cancel' => 'Wycofaj sie',
     'Send an account recovery email' => 'Wysli email z informacjami odnosnie konta',
-    'Unfortunately, there is no such email in our database' => 'Niestety, nie ma takiego email w naszym systemie'
+    'Unfortunately, there is no such email in our database' => 'Niestety, nie ma takiego email w naszym systemie',
+    'Your data' => 'Twoje dane',
+    'Nickname' => 'Ime/Przydomek',
+    'No infomration avaliable' => 'Brak opisu',
+    'Your accommodations' => 'Twoje ogloszenia',
+    'Edit your data' => 'Edytuj swoje dane',
+    'Edit' => 'Edutyuj',
+    'Update' => 'Zachowaj',
+    'Change photos' => 'Zmien zdjecia',
+    'Change localization on map' => 'Zmien lokalizacje na mapie',
+    'Activate' => 'Aktywuj',
+    'Deactivate' => 'Deaktywuj',
+    'Cannot change accommodation type?' => 'Nie moge zmienic typu?'
+    
     );
 ?>
