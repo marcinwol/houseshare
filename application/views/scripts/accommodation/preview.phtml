@@ -1,7 +1,7 @@
 <div class="preview">
 <h1><?php echo "{$this->acc->title}"; ?></h1>
-<h2><?php echo "Address: {$this->address($this->acc)} " ; ?></h2>
-<h3><?php echo "Cena: {$this->acc->price} PLN/month"; ?></h3>
+<h2><?php echo $this->translate('Address'),': ', $this->address($this->acc); ?></h2>
+<h3><?php echo $this->translate('Cena'), ": {$this->acc->price} PLN/", $this->translate('month'); ?></h3>
 <p><br/></p>
 <p>
     <?php echo $this->acc->description; ?>
@@ -29,7 +29,7 @@ if (count($this->acc->photosurls) > 0) {
 
     <?php if ($this->acc instanceof My_Houseshare_Shared): ?>
         <div class="section preview">
-            <h1>Current tenants</h1> 
+            <h1><?php echo $this->translate('Current tenants'); ?></h1> 
 
             <?php
             echo $this->partial(
@@ -40,7 +40,7 @@ if (count($this->acc->photosurls) > 0) {
         </div>
     <?php elseif ($this->acc instanceof My_Houseshare_Appartment): ?>
         <div class="section ">
-            <h1>Appartement details</h1>             
+            <h1><?php echo $this->translate('Appartement details'); ?></h1>             
             <?php
             echo $this->partial(
                     '_partials/acc-details-dl-list.phtml', array('data' => $this->acc->details)
@@ -51,7 +51,7 @@ if (count($this->acc->photosurls) > 0) {
    
 
     <div class="section  ">
-        <h1>Preferences</h1> 
+        <h1><?php echo $this->translate('Preferences'); ?></h1> 
 
         <?php
         echo $this->partial(
@@ -61,7 +61,7 @@ if (count($this->acc->photosurls) > 0) {
     </div>
 
     <div class="section ">
-        <h1>Features</h1> 
+        <h1><?php echo $this->translate('Features'); ?></h1> 
         <?php
         echo $this->partial(
                 '_partials/acc-details-dl-list.phtml', array('data' => $this->acc->features)

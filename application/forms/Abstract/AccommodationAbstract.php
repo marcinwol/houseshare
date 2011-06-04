@@ -89,7 +89,7 @@ abstract class My_Form_Abstract_AccommodationAbstract extends Zend_Form {
         // create new element
         $shortTermChb = $this->createElement('checkbox', 'short_term');
         //$shortTermChb->setRequired(true);
-        $shortTermChb->setLabel('Is short term OK');
+        $shortTermChb->setLabel('Is short term OK (less than 2 months)');
         $shortTermChb->setChecked(true);
 
         // create new element

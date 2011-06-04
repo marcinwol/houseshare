@@ -56,7 +56,11 @@
         ?>    
     </div>
 
-    <script type="text/javascript">
+    <input type="hidden" id="previewDialogTitle" value="<?php echo $this->translate('Accommodation advert preview');?>" />
+    <input type="hidden" id="readMoreButtonLabel" value="<?php echo $this->translate('Read more');?>" />
+    <input type="hidden" id="closeButtonLabel" value="<?php echo $this->translate('Close');?>" />
+
+    <script type="text/javascript">        
         $(document).ready(function () {
             $('.paginationControl').find('a').live('click', function(e) {
                 var link = $(this);

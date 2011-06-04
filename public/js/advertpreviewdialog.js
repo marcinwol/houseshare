@@ -4,10 +4,14 @@
 $(function() {
 
 
+    var previewDialogTitle = $('input#previewDialogTitle').val();
+    var readMoreButtonLabel = $('input#readMoreButtonLabel').val();
+    var closeButtonLabel = $('input#closeButtonLabel').val();
+
     var previewDialog = function(aID, divID, baseUrl, previewUrl, fullUrl){
         //define config object
         var dialogOpts = {
-            title: "Accommodation advert preview",
+            title: previewDialogTitle,
             modal: false,
             autoOpen: false,
             height: 500,
@@ -17,17 +21,23 @@ $(function() {
                 $(divID).empty().html('<div style="width:100%"> <img class="loadingimg" src="'+baseUrl+'images/loading2.gif" /></div>');
                 $(divID).load(previewUrl);               
             },
-            buttons: {
-                "Read more": function() {
+            buttons: [
+                {
+                text: readMoreButtonLabel,
+                click: function() {
                     $(divID).dialog( "close" );
                     window.location = fullUrl;
+                }
                 },
-                "Close": function() {
+                {
+                text: closeButtonLabel,                
+                click: function() {
                     $(divID).dialog( "close" );
                     return false;
                 }
+                }
                 
-            }
+            ]
         };
         $(divID).dialog(dialogOpts);    //end dialog
     

@@ -44,7 +44,7 @@ return array(
     'Description' => 'Krotki opis',
     'Avaliable from' => 'Dostepne od',
     'Price per month [$]' => 'Cena na miesiac [PLN]',
-    'Any addition expenses/price information' => 'Dodatkowy koszt/dodatkowe informacje o cenie',
+    'Any addition expenses/price information' => 'Dodatkowy koszt/informacje o cenie',
     'Bond' => 'Kaucja',
     'Entire room' => 'Caly pokój',
     'Room' => 'Pokój',
@@ -209,5 +209,16 @@ return array(
     'Delete selected photos' => 'Usun wybrane zdjecia',
     'Lokalization on the map was changed' => 'Lokalizacja na mapie zostala zmieniona',
     'offer' => 'oferte',
+    'Edit your information' => 'Edutuj swoje dane',
+    'Your data was changed' => 'Twoje informacje zostaly zmienione',
+    'Required fields' => 'Pola wymagane',
+    'Required fields' => 'Pola opcjonalne',
+    'Submit' => 'Zachowaj',
+    'What is this?' => 'Co to jest?',
+    'Is short term OK (less than 2 months)' => 'Pobyt na krutko (krotszy niz 2 miesiace) jest akceptowany',
+    'Accommodation advert preview' => 'Podglad oferty',
+    'Read more' => 'Zobacz wiecej',
+    'Close' => 'Zamknij',
+    
     );
 ?>
