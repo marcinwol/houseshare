@@ -120,6 +120,7 @@ body:before {
 
 .side-bar-box h3 {
     padding-left: 15px;
+    padding-rigth: 15px;
     padding-top: 10px;
     font-size: 20px;   
 }
@@ -386,7 +387,7 @@ div#welcome form {
 }
 
 #main-search-form dd, #main-search-form dt {
-    font-size: 20px;
+    font-size: 18px;
     width: 120px;
     display: inline;
 }
@@ -395,7 +396,7 @@ div#welcome form {
 #i_city, #maxprice, #acctype  {    
     font-size: 20px;
     border: 0px;
-    width: 160px; 
+    width: 180px; 
     border-right-style: solid;
     border-left-style: solid;
     border-bottom-style: solid;
