@@ -191,7 +191,8 @@ return array(
     'Change localization on map' => 'Zmien lokalizacje na mapie',
     'Activate' => 'Aktywuj',
     'Deactivate' => 'Deaktywuj',
-    'Cannot change accommodation type?' => 'Nie moge zmienic typu?'
-    
+    'Cannot change accommodation type?' => 'Nie moge zmienic typu?',
+    'You were logged out' => 'Zostales wylogowany',
+    'Accommodation data was changed' => 'Dane oferty zostaly zmienione'
     );
 ?>

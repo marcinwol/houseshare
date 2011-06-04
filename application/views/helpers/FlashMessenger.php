@@ -80,6 +80,9 @@ class My_View_Helper_FlashMessenger extends Zend_View_Helper_Abstract
 
         //initialise return string
         $output ='';
+        
+        $tr = Zend_Registry::get('Zend_Translate');
+        
 
         //process messages
         foreach ($messages as $message)
@@ -87,7 +90,7 @@ class My_View_Helper_FlashMessenger extends Zend_View_Helper_Abstract
             if (is_array($message)) {
                 list($key,$message) = each($message);
             }
-            $output .= sprintf($template,$key,$message);
+            $output .= sprintf($template,$key,$tr->translate($message));
         }
 
         return $output;
