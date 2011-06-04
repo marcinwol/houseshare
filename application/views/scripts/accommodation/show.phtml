@@ -99,6 +99,7 @@ if (count($this->acc->photosurls) > 0) {
 
 
 <?php
+
 if ($this->preview == true) { 
     $title = 'Success!';
     $sideBarContent = "partialfile:acc-add-success";       
@@ -107,12 +108,14 @@ if ($this->preview == true) {
     $sideBarContent = "partialfile:acc-disactivated";      
 }
 
- $this->sideBarElement($title, $sideBarContent, array(
-        'class' => 'side-bar-info',
-        'break' => true,
-        'acc_id' => $this->acc->acc_id,       
-        'is_enabled' => $this->acc->is_enabled
- ));
+if (isset($title)) {
+     $this->sideBarElement($title, $sideBarContent, array(
+            'class' => 'side-bar-info',
+            'break' => true,
+            'acc_id' => $this->acc->acc_id,       
+            'is_enabled' => $this->acc->is_enabled
+     ));
+}
 ?>
 
 

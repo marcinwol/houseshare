@@ -9,6 +9,47 @@
             <route>default</route>  
             <defaultPageType>My_Navigation_Page_Mvc</defaultPageType>
             <pages>
+                <user>
+                    <type>My_Navigation_Page_User</type>
+                    <label>User</label>                       
+                    <name>userindex</name>
+                    <controller>user</controller>
+                    <action>index</action>   
+                    
+                    <pages>
+                        <edit>
+                            <type>My_Navigation_Page_UserEdit</type>
+                            <label>Edit</label>
+                            <name>useredit</name>                                    
+                            <controller>user</controller>
+                            <action>edit</action>                            
+                        </edit>
+                        <accedit>
+                            <type>My_Navigation_Page_AccEdit</type>
+                            <label>Edit</label>
+                            <name>accedit</name>                                    
+                            <controller>accommodation</controller>
+                            <action>edit</action>                            
+                        </accedit>
+                        <accmapedit>
+                            <type>My_Navigation_Page_AccEdit</type>
+                            <label>Edit</label>
+                            <name>accmapedit</name>                                    
+                            <controller>accommodation</controller>
+                            <action>map</action>                            
+                        </accmapedit>
+                         <accphotoedit>
+                            <type>My_Navigation_Page_AccEdit</type>
+                            <label>Edit</label>
+                            <name>accphotoedit</name>                                    
+                            <controller>accommodation</controller>
+                            <action>photochange</action>                            
+                        </accphotoedit>
+                    </pages>
+                    
+                    
+                </user>
+                
                 <list>
                     <type>My_Navigation_Page_AccList</type>
                     <label>List</label>   

@@ -26,9 +26,16 @@ class UserController extends Zend_Controller_Action {
         $user_id = $authData->property->user_id;
         $userType = $authData->property->type;
 
-
+        /*@var $user  My_Houseshare_User  */
         $user = My_Houseshare_Factory::user($user_id, $userType);
-        /* @var My_Houseshare_User $user */
+        
+        
+        /* set page for navigatoin */
+        /* @var $navigation Zend_Navigation */
+        $navigation = $this->view->navigation()->getContainer();
+        /* @var $accshowPage My_Navigation_Page_AccShow */
+        $userindexPage = $navigation->findBy('Name', 'userindex');
+        $userindexPage->setUser($user);
 
         $accsRowset = $user->getAccommodations();
 
@@ -397,6 +404,15 @@ class UserController extends Zend_Controller_Action {
         $userType = $authData->property->type;
 
         $user = My_Houseshare_Factory::user($user_id, $userType);
+        
+        
+         /* set page for navigatoin */
+        /* @var $navigation Zend_Navigation */
+        $navigation = $this->view->navigation()->getContainer();
+        /* @var $accshowPage My_Navigation_Page_AccShow */
+        $userindexPage = $navigation->findBy('Name', 'useredit');
+        $userindexPage->setUser($user);
+
 
         $userForm = new My_Form_UserCreate();
         $userForm->removePasswordFields();

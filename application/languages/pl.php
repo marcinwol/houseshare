@@ -207,6 +207,7 @@ return array(
     'Add new photos' => 'Dodaj nowe zdjecia',
     'Return' =>  'Wroc',
     'Delete selected photos' => 'Usun wybrane zdjecia',
-    'Lokalization on the map was changed' => 'Lokalizacja na mapie zostala zmieniona'
+    'Lokalization on the map was changed' => 'Lokalizacja na mapie zostala zmieniona',
+    'offer' => 'oferte',
     );
 ?>

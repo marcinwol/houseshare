@@ -346,6 +346,13 @@ class AccommodationController extends Zend_Controller_Action {
                 return $this->_redirect('index');
             }
 
+            /* set page for navigatoin */
+            /* @var $navigation Zend_Navigation */
+            $navigation = $this->view->navigation()->getContainer();
+            /* @var $accshowPage My_Navigation_Page_AccShow */
+            $accmapeditPage = $navigation->findBy('Name', 'accmapedit');
+            $accmapeditPage->setAcc($acc);
+
             // it seems that user is loged and this accommodation belongs to him            
             $mapForm->populateFromAcc($acc);
             $mapForm->addCancelButton();
@@ -370,11 +377,11 @@ class AccommodationController extends Zend_Controller_Action {
 
 
         if ($this->getRequest()->isPost()) {
-            
+
             if (true == isset($_POST['cancel'])) {
                 return $this->_redirect('/user');
             }
-            
+
             if ($mapForm->isValid($_POST)) {
 
                 $formData = $mapForm->getValues();
@@ -404,7 +411,7 @@ class AccommodationController extends Zend_Controller_Action {
                     }
                 }
 
-                 $this->_helper->FlashMessenger('Lokalization on the map was changed');
+                $this->_helper->FlashMessenger('Lokalization on the map was changed');
                 return $this->_redirect('user/');
             }
         } else {
@@ -500,6 +507,15 @@ class AccommodationController extends Zend_Controller_Action {
         if (false === ($acc = $this->_ifAccBelongsToLoggedUser($acc_id))) {
             return $this->_redirect('/');
         }
+
+
+        /* set page for navigatoin */
+        /* @var $navigation Zend_Navigation */
+        $navigation = $this->view->navigation()->getContainer();
+        /* @var $accshowPage My_Navigation_Page_AccShow */
+        $userindexPage = $navigation->findBy('Name', 'accedit');
+        $userindexPage->setAcc($acc);
+
 
         $accForm = new My_Form_Accommodation();
         $accForm->removeSubForm('about_you');
@@ -1223,6 +1239,13 @@ class AccommodationController extends Zend_Controller_Action {
             return $this->_redirect('/');
         }
 
+        /* set page for navigatoin */
+        /* @var $navigation Zend_Navigation */
+        $navigation = $this->view->navigation()->getContainer();
+        /* @var $accshowPage My_Navigation_Page_AccShow */
+        $accphotoeditPage = $navigation->findBy('Name', 'accphotoedit');
+        $accphotoeditPage->setAcc($acc);
+
         $form = new My_Form_ChangeImages();
 
         // show checkboxes for each image
@@ -1293,7 +1316,7 @@ class AccommodationController extends Zend_Controller_Action {
         }
 
         // don't need this session namespace anymore
-      //  Zend_Session::namespaceUnset('addAccInfo');
+        //  Zend_Session::namespaceUnset('addAccInfo');
         $this->view->acc = $acc;
         $this->view->preview = true;
         $this->_helper->viewRenderer('show');
