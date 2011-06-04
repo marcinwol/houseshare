@@ -44,6 +44,18 @@ class My_Form_SendEmail extends Zend_Form {
 
         $this->addElements(array($email, $body, $send));
     }
+    
+    public function prefillMessage(My_Houseshare_Accommodation $acc) {
+        
+        $msg = 'Is your offer titled "%value%" still avaliable?';
+                        
+        $msg = $this->getTranslator()->translate($msg);
+                
+        $msg = str_replace('%value%', $acc->title, $msg);
+        
+        $this->message->setValue($msg);
+        
+    }
 
     /**
      * Create a ReCaptcha element

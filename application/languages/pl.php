@@ -193,6 +193,8 @@ return array(
     'Deactivate' => 'Deaktywuj',
     'Cannot change accommodation type?' => 'Nie moge zmienic typu?',
     'You were logged out' => 'Zostales wylogowany',
-    'Accommodation data was changed' => 'Dane oferty zostaly zmienione'
+    'Accommodation data was changed' => 'Dane oferty zostaly zmienione',
+    'Is your offer titled "%value%" still avaliable?' => 'Czy oferta "%value%" wciaz jest aktualna?',
+    
     );
 ?>

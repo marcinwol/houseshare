@@ -121,6 +121,7 @@ class AccommodationController extends Zend_Controller_Action {
 
         // email sending form to send a question to the author of the advertisment
         $form = new My_Form_SendEmail();
+        $form->prefillMessage($acc);
         $form->acc_id->setValue($acc_id);
 
         $this->view->acc = $acc;
