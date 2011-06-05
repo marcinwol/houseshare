@@ -173,6 +173,26 @@ class My_Model_Table_Accommodation extends Zend_Db_Table_Abstract {
     }
 
     /**
+     *
+     * @return Zend_Db_Rowset 
+     */
+    public function getListofAccommodationsWithMarkers() {
+        $select = $this->select(Zend_Db_Table::SELECT_WITH_FROM_PART)
+                ->setIntegrityCheck(false)
+                ->where('ACCOMMODATION.is_enabled = ?', 1);
+        
+        $select->joinInner(
+                'ADDRESS', 'ACCOMMODATION.addr_id = ADDRESS.addr_id', array()                
+        );
+        
+        $select->joinInner(
+                'MARKER', 'ADDRESS.marker_id = MARKER.marker_id', array('lat','lng')
+        );
+        
+        return $this->fetchAll($select);
+    }
+
+    /**
      * Create initial JOIN that will be used in application/list
      * to search and limit the list of avaliable accommodations 
      * for display
@@ -186,7 +206,7 @@ class My_Model_Table_Accommodation extends Zend_Db_Table_Abstract {
                 ->setIntegrityCheck(false)
                 ->where('ACCOMMODATION.is_enabled = ?', 1);
 
-        $select->joinInner(
+ $select->joinInner(
                 'ADDRESS', 'ACCOMMODATION.addr_id = ADDRESS.addr_id', array()
         );
 
@@ -201,23 +221,23 @@ class My_Model_Table_Accommodation extends Zend_Db_Table_Abstract {
         if (isset($conditions['city_id'])) {
             $select->where("ADDRESS.city_id = ?", $conditions['city_id']);
         }
-        
+
         if (isset($conditions['internet'])) {
             $select->where("FEATURES.internet > 0");
         }
-        
-         if (isset($conditions['price'])) {
+
+        if (isset($conditions['price'])) {
             $select->where("ACCOMMODATION.price < ?", $conditions['price']);
-         }
-         
-         if (isset($conditions['type_id'])) {
+        }
+
+        if (isset($conditions['type_id'])) {
             $select->where("ACCOMMODATION.type_id IN " . $conditions['type_id']);
-         }        
-         
-         $select->order("ACCOMMODATION.created DESC");
-        
-         $select->distinct();
-        
+        }
+
+        $select->order("ACCOMMODATION.created DESC");
+
+        $select->distinct();
+
         return $select;
     }
 

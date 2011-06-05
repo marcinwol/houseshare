@@ -21,7 +21,7 @@ button.jqTransformButton {
 	font-family: Arial;
 }
 
-*:first-child+html button.jqTransformButton[type]{width: 1;} /* IE7 */
+*:first-child+html button.jqTransformButton[type] {width: 1;} /* IE7 */
 
 button.jqTransformButton span {
 	background: transparent url(../jqtimg/btn_right.gif) no-repeat right top;

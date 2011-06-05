@@ -424,6 +424,15 @@ class AccommodationController extends Zend_Controller_Action {
         $this->view->title = $title;
         $this->view->form = $mapForm;
     }
+    
+    public function fullMapViewAction() {
+        $accModel = new My_Model_Table_Accommodation();        
+        $rowset = $accModel->getListofAccommodationsWithMarkers();
+               
+        
+        $this->view->accData = $rowset->toArray();
+        
+    }
 
     public function migrateAction() {
 

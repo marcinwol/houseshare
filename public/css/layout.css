@@ -291,7 +291,7 @@ form#limit-form input#maxprice {
     padding-right:2px;
     border: 1px solid #D1D1D1;
     white-space: nowrap;
-    min-width:50px;
+    min-width:80px;
 }
 
 

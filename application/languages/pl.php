@@ -228,6 +228,8 @@ return array(
     'Read more' => 'Zobacz wiecej',
     'Close' => 'Zamknij',
     'Minimum tenancy [month]' => 'Minimalny pobyt [miesiace]',
-    'Save' => 'Zapisz'   
+    'Save' => 'Zapisz',
+    'No accommodetion were found with the selected criteria' => 'Nie znaleziono ofert o podanych kryteriach',
+    'Home' => 'Strona główna',
     );
 ?>
