@@ -257,7 +257,7 @@ a.jqTransformChecked { background-position: center bottom;}
 
 .jqTransformSelectWrapper div span {
 	
-	font-size: 12px;
+	font-size: 17px;
 	float: none;
 	position: absolute;
 	white-space: nowrap;
@@ -311,7 +311,7 @@ a.jqTransformChecked { background-position: center bottom;}
 }
 
 .jqTransformSelectWrapper ul a:hover, .jqTransformSelectWrapper ul a.selected:hover {
-	background:#3582c4;
+	background:#FD5416;
 	color: #fff;
 }
 

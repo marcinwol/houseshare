@@ -66,31 +66,32 @@ class My_Form_MainPage extends Zend_Form {
         // add element
         $maxPrice = new Zend_Form_Element_Select('maxprice');
         $maxPrice->setLabel(' for max ');
+        $maxPrice->getDecorator('Label')->setOption('escape',false);
         // $maxPrice->setAttrib('id', 'paxprice-select');
 
         $priceOptions = array();
         //$priceOptions["0"] = "less than";
 
         for ($p = 200; $p <= 1000; $p+=100) {
-            $priceOptions[$p] = (string) $p;
+            $priceOptions[$p] = "$p PLN";
         }
         
          for ($p = 1200; $p <= 2000; $p+=200) {
-            $priceOptions[$p] = (string) $p;
+            $priceOptions[$p] = "$p PLN";
         }
         
           for ($p = 2500; $p <= 3000; $p+=500) {
-            $priceOptions[$p] = (string) $p;
+            $priceOptions[$p] = "$p PLN";
         }
 
         $maxPrice->addMultiOptions(array($priceOptions));
        // $maxPrice->setRequired(true);
         $maxPrice->setValue('1000');
-        $maxPrice->addDecorator('AnyMarkup', array(
-            'markup' => '<span>PLN</span>',
-            'placement' => 'append'
-                )
-        );
+//        $maxPrice->addDecorator('AnyMarkup', array(
+//            'markup' => '<span>PLN</span>',
+//            'placement' => 'append'
+//                )
+//        );
         $this->addElement($maxPrice);
 
         $submit = $this->createElement('submit', 'submit', array('label' => 'Go'));

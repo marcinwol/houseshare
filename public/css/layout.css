@@ -62,7 +62,7 @@ html, body {
 }
 
 
-div#flashmessage {
+.flashmessage, .browser-version-varing {
     text-align: center;
     line-height: 30px;
     background-color: #E0EAB9;
@@ -415,7 +415,7 @@ div#welcome form {
 #i_city, #maxprice, #acctype  {    
     font-size: 20px;
     border: 0px;
-    width: 180px; 
+    width: 120px; 
     border-right-style: solid;
     border-left-style: solid;
     border-bottom-style: solid;
@@ -437,8 +437,9 @@ div#welcome form {
 }
 
 #main-page-submit {
-    font-size: 16px;
+    /* font-size: 16px;
     padding: 5px 5px 5px 5px;
+    */
 }
 
 

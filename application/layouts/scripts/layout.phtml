@@ -17,7 +17,7 @@
             $this->headLink()->appendStylesheet($this->baseUrl('/css/layout.css'));
             $this->headLink()->appendStylesheet($this->baseUrl('/css/ui-lightness/jquery-ui-1.8.12.custom.css'));
             $this->headLink()->appendStylesheet($this->baseUrl('/css/shadowbox.css'));
-            //$this->headLink()->appendStylesheet($this->baseUrl('/css/jqtransform.css'));
+            $this->headLink()->appendStylesheet($this->baseUrl('/css/jqtransform.css'));
             //  $this->headLink()->appendStylesheet($this->baseUrl('/css/right-without.css'));
             // jQuery  
             $this->headScript()->prependFile($this->baseUrl('/js/jquery-ui-1.8.7.custom.min.js'));
@@ -31,6 +31,7 @@
             $this->headScript()->appendFile('http://maps.google.com/maps/api/js?sensor=false&region=PL');
             $this->headScript()->appendFile($this->baseUrl('/js/markerwithlabel.js'));
             $this->headScript()->appendFile($this->baseUrl('/js/advertpreviewdialog.js'));
+            $this->headScript()->appendFile($this->baseUrl('/js/jquery.jqtransform.js'));
 
 
             // the application specific 
@@ -101,14 +102,26 @@
                 <div id="" class="grid_6">
             <?php if ($this->getHelper('flashMessenger')->hasMassages()): ?>
                     
-                        <div  id="flashmessage">                           
+                        <div  class="flashmessage" >                           
                             <p style="font-size: 14px;"> <?php echo $this->flashMessenger(); ?></p>   
                         </div>                        
-            <?php  endif; ?>    
+            <?php  endif; ?>
+                    
+                    <div  class="browser-version-varing" style="display:none">    
+                        <?php echo $this->translate('The website is not compatible with Internet Explorer 6 or less!');?>
+                    </div>
+                    
+                    <script type="text/javascript">
+                        (function() {
+                            if($.browser.msie && $.browser.version.substr(0,1)<7) {
+                                $('.browser-version-varing').show();                                
+                            }
+                        })();
+                    </script>
 
 
                     <!-- show breadcrumbs if avaliable -->
-<?php $breadcrumbs = $this->navigation()->breadcrumbs(); ?>
+                    <?php $breadcrumbs = $this->navigation()->breadcrumbs(); ?>
                     <?php if (strlen($breadcrumbs) > 1): ?>
                         <div id="breadcrumbs">
                         <?php echo $breadcrumbs; ?>
@@ -118,7 +131,7 @@
 
                     <!-- show main content of the page -->
                     <div>    
-<?php echo $this->layout()->content; ?>    
+                        <?php echo $this->layout()->content; ?>    
                     </div>
                 </div>            
 
