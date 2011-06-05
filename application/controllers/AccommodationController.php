@@ -427,43 +427,60 @@ class AccommodationController extends Zend_Controller_Action {
     }
 
     public function fullMapViewAction() {
-        
+
         $city_id = $cityName = $this->_request->getParam('city', null);
-        
+
         $conditions = array();
-        
+
         //if city_id is given, than center map in this city and show 
         // accomodations only from this city
         if (!empty($city_id) && is_numeric($city_id)) {
             $cityModel = new My_Model_Table_City();
             $cityRow = $cityModel->find($city_id)->current();
             $conditions['city_id'] = $city_id;
-            
+
             // set city coordinates that are needed to
             // cetner google map at
             $this->view->cityLat = $cityRow->getMarker()->lat;
             $this->view->cityLng = $cityRow->getMarker()->lng;
+
             
+            // set the navigation such that it shows city in the breadcrumbs
+            // for this purpose navigation_map.xml is used.
+            /* @var $navigation Zend_Navigation */          
+            $container = new Zend_Navigation(
+                            new Zend_Config_Xml(APPLICATION_PATH . '/configs/navigation_map.xml', 'nav')
+            );
+            
+            // set the city for AccList page
+            $acclistPage = $container->findBy('Name', 'acclist');            
+            $acclistPage->setCity($cityRow);
+            $acclistPage->setParams();
+            
+            // use this new container instead of the default one
+            // from Bootstrap.php
+            $this->view->navigation()->setContainer($container);             
+
         } else {
-            
+
             $this->view->cityLat = '';
             $this->view->cityLng = '';
         }
-        
+
         // fetch accommodations form database
-        $accModel = new My_Model_Table_Accommodation();        
+        $accModel = new My_Model_Table_Accommodation();
         $select = $accModel->getListofAccommodations($conditions);
         $models = $accModel->fetchAll($select)->toModels();
 
         // prepare JSON accData for use in javascript
         $accData = array();
-        
+
         $noPicUrl = $this->view->baseUrl('/images/thumbs/no_pic.jpg');
-        
+
         foreach ($models as $acc) {
 
             $firstThumbPath = $noPicUrl;
-            
+
             if (count($acc->photos) > 0) {
                 $urls = $acc->thumbsurls;
                 $firstThumbPath = array_shift($urls);
@@ -476,7 +493,7 @@ class AccommodationController extends Zend_Controller_Action {
             $legendReadMore = $this->view->translate('Read more');
 
             $accData [] = array(
-                'title' => $this->view->truncate(ucfirst(strtolower($acc->title)),0, 35),
+                'title' => $this->view->truncate(ucfirst(strtolower($acc->title)), 0, 35),
                 'type' => "$legendType: {$acc->getTypeAsString()}",
                 'created' => "$legendCreated: {$this->view->timeSince($acc->creationtimestamp)}",
                 'lat' => $acc->address->lat,

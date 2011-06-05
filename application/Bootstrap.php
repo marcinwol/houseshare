@@ -87,9 +87,6 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
                         new Zend_Config_Xml(APPLICATION_PATH . '/configs/navigation.xml', 'nav')
         );
 
-
-
-
         $view->navigation()->setContainer($container);
     }
 

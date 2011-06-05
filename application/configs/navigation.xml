@@ -38,7 +38,7 @@
                             <controller>accommodation</controller>
                             <action>map</action>                            
                         </accmapedit>
-                         <accphotoedit>
+                        <accphotoedit>
                             <type>My_Navigation_Page_AccEdit</type>
                             <label>Edit</label>
                             <name>accphotoedit</name>                                    
@@ -65,14 +65,15 @@
                             <route>showacc</route>                            
                             <controller>accommodation</controller>
                             <action>show</action>                            
-                        </show>
+                        </show>                        
+                        
                     </pages>
                           
                 </list>
                 
-                <map>
-                     <label>Map</label>                       
-                    <controller>accommodation</controller>
+                <map>                           
+                    <label>Map</label>                                
+                    <controller>accommodation</controller>                        
                     <action>full-map-view</action>           
                 </map>
  
