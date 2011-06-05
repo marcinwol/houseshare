@@ -44,19 +44,19 @@ $(function() {
         marker = makeMarker(acc);
         markers.push(marker);
     }
-    
+
+  
     var style = [{
-        url: '/../images/map/m1.png',
-        height: 34,
-        width: 33,
-        anchor: [9,0],
+        url: '../images/m2.png',
+        height: 53,
+        width: 53,        
         textColor: '#000000',
         textSize: 12
     }];
-    
+
     var mcOptions = {       
         maxZoom: 15,
-        style: style
+        styles: style
     };    
   
     

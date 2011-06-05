@@ -462,7 +462,8 @@ class AccommodationController extends Zend_Controller_Action {
             $this->view->navigation()->setContainer($container);             
 
         } else {
-
+            // if no city is specified, map will be set tu detault values
+            // i.e. to the center of a country
             $this->view->cityLat = '';
             $this->view->cityLng = '';
         }
