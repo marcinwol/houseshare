@@ -532,7 +532,7 @@ abstract class My_Form_Abstract_AccommodationAbstract extends Zend_Form {
         $emailInput->setRequired(true)->setLabel('Email');
         $emailInput->setFilters(array('stripTags', 'stringTrim'));
         $emailValidator = new Zend_Validate_EmailAddress(
-                        array('domain' => false)
+                        array('domain' => true)
         );
         $emailValidator->setMessages(array(
             Zend_Validate_EmailAddress::INVALID_FORMAT => 'Incorrect email format'

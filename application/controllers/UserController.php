@@ -57,7 +57,7 @@ class UserController extends Zend_Controller_Action {
         }
 
         $createForm = new My_Form_UserCreate();
-        $createForm->makeDisplayGroups()->removeLegend();
+        //$createForm->makeDisplayGroups()->removeLegend();
 
 
         if ($this->getRequest()->isPost()) {

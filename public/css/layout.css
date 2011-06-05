@@ -28,6 +28,10 @@ body {
     font-family: Trebuchet MS,Liberation Sans,DejaVu Sans,sans-serif
 }
 
+h1 {
+    font-size: 24px;
+}
+
 html, body {    
     height: 100%; 
 }
@@ -120,7 +124,7 @@ body:before {
 
 .side-bar-box h3 {
     padding-left: 15px;
-    padding-rigth: 15px;
+    padding-right: 10px;
     padding-top: 10px;
     font-size: 20px;   
 }
@@ -176,7 +180,7 @@ form#accommodation-form input, form#accommodation-form textarea, form#accommodat
 form#register-form input, form#register-form textarea,
 form#form-sendemail input, form#form-sendemail textarea, form#limit-form button,
 form#photos-form input, form.login-form input, form#acc-recovery input,
-form#address input, #openid_input_area input {
+form#address input, #openid_input_area input, form#form-changeimages input[type=submit] {
     width:98%;
     border: 1px solid #b5b5b5;
     height: 28px;
@@ -200,8 +204,11 @@ form#address input, #openid_input_area input {
     color: #1C94C4;
 }
 
-input[type=submit]:hover, button:hover  {
+#limit-form button#limit {
+    margin-top: 10px;
+}
 
+input[type=submit]:hover, button:hover  {
 
     cursor: pointer;
 }
@@ -222,6 +229,17 @@ form#accommodation-form input[type=checkbox], form#register-form input[type=chec
 
 fieldset#fieldset-acc_features dt, fieldset#fieldset-acc_features dd {
     display: inline;
+}
+
+/*** FORM CHANGE PHOTOS ****/
+
+form#form-changeimages label {
+   /* line-height: 3em; */
+   margin-left: 20px;
+}
+
+form#form-changeimages img {
+    width:100px;
 }
 
 div.form-invalid {
@@ -273,6 +291,7 @@ form#limit-form input#maxprice {
     padding-right:2px;
     border: 1px solid #D1D1D1;
     white-space: nowrap;
+    min-width:50px;
 }
 
 

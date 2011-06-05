@@ -58,6 +58,7 @@ class My_Form_UserCreate extends My_Form_Abstract_AccommodationAbstract {
      public function removeLegend() {
            $subForm = $this->getSubForm(self::ABOUT_YOU_SUBFORM_NAME);
            $subForm->setLegend('');
+          // var_dump($subForm->removeDecorator('HtmlTag'));
            return $this;
      }
 

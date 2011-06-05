@@ -13,12 +13,12 @@ $this->sideBarElement('', $sideBarContent);
 ?>
 
 <div class="grid_6">&nbsp;</div>
-<div class="grid_3 alpha">  
+<div class="grid_4 alpha">  
     <h2><?php echo $this->translate('Your data');?></h2>
     <div class="grid_1 alpha">
         <?php echo $this->gravatar($this->user['email'], array('imgSize' => 100, 'defaultImg' => 'identicon')); ?>
     </div>
-    <div class="grid_2 alpha">
+    <div class="grid_3 alpha">
         <table class="user-info">
             <tbody>
                 <tr>
@@ -29,9 +29,19 @@ $this->sideBarElement('', $sideBarContent);
                     <td><?php echo $this->translate('Phone');?>:</td>
                     <td><?php echo $this->user['phone'];?></td>
                 </tr>  
+                <?php if(strlen($this->user['phone'])>2):?>
+                    <tr>
+                        <td><?php echo $this->translate('Phone visible to all');?>:</td>
+                        <td><?php echo $this->translate($this->user['phone_public']?'Yes':'No');?></td>
+                    </tr>  
+                <?php endif;?>
                 <tr>
                     <td><?php echo $this->translate('Email');?>:</td>
                     <td><?php echo $this->user['email']; ?></td>
+                </tr>  
+                <tr>
+                    <td><?php echo $this->translate('Email visible to all');?>:</td>
+                    <td><?php echo $this->translate($this->user['email_public']?'Yes':'No'); ?></td>
                 </tr>  
                 
             </tbody>
@@ -42,7 +52,7 @@ $this->sideBarElement('', $sideBarContent);
         </div>
     </div>
 </div>
-<div class="grid_3 omega">
+<div class="grid_2 omega">
     <h2><?php echo $this->translate('About you');?></h2>
     <p>
         <?php

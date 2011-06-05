@@ -56,7 +56,7 @@ return array(
     'Appartment' => 'Mieszkanie',
     'Yes' => 'Tak',
     'No' => 'Nie',
-    'Can be connected' => 'Moze byc podlaczony',
+    'Can be connected' => 'Do podlaczenia',
     'Cable' => 'Kablowka',
     'Satelite' => 'Satelita',
     'Garage' => 'Garaz',
@@ -226,6 +226,6 @@ return array(
     'Read more' => 'Zobacz wiecej',
     'Close' => 'Zamknij',
     'Minimum tenancy [month]' => 'Minimalny pobyt [miesiace]',
-    'Save' => 'Zapisz',
+    'Save' => 'Zapisz'   
     );
 ?>

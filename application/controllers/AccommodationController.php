@@ -1311,12 +1311,12 @@ class AccommodationController extends Zend_Controller_Action {
         if (null !== $acc_id) {
             $acc = My_Houseshare_Factory::accommodation($acc_id);
         } else {
-            $this->_helper->FlashMessenger('Cannot retrive accommodation info from session');
-            return $this->_redirect('index');
+            $this->_helper->FlashMessenger('Please login to make further changes');
+            return $this->_redirect('/');
         }
 
         // don't need this session namespace anymore
-        //  Zend_Session::namespaceUnset('addAccInfo');
+        Zend_Session::namespaceUnset('addAccInfo');
         $this->view->acc = $acc;
         $this->view->preview = true;
         $this->_helper->viewRenderer('show');

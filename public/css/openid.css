@@ -11,7 +11,7 @@
 }
 
 #openid_choice {
-	display: none;
+	display: none;        
 }
 
 #openid_choice p {
@@ -27,13 +27,16 @@
 }
 
 #openid_btns, #openid_btns br {
-	clear: both;
+	clear: both;     
 }
 
 #openid_highlight {
-	padding: 0px;
-	background-color: #FFFCC9;
-	float: left;
+	/*padding: 0px;*/
+	background-color: #FFFCC9;	
+        border:0px;
+        padding:0px;
+        margin:0px;
+       /* float: left;*/
 }
 
 .openid_large_btn {
@@ -41,10 +44,9 @@
 	height: 60px;
 /* fix for IE 6 only: http://en.wikipedia.org/wiki/CSS_filter#Underscore_hack */
 	_width: 102px;
-	_height: 62px;
-
-	border: 1px solid #DDD;
-	margin: 2px;
+	_height: 62px;      
+	border: 1px solid #DDD;         
+	margin: 3px;   
 	float: left;
 }
 
@@ -69,5 +71,5 @@ a.openid_large_btn:focus {
 }
 
 .openid_selected {
-	border: 4px solid #DDD;
+	 border: 2px solid #DDD;
 }

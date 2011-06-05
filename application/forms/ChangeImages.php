@@ -26,6 +26,7 @@ class My_Form_ChangeImages extends Zend_Form {
                             'escape' => false
                         )
         );
+        $images->setSeparator('');
 
 
         $cancel = new Zend_Form_Element_Submit('cancel', 'Return');
@@ -55,7 +56,7 @@ class My_Form_ChangeImages extends Zend_Form {
         $opts = array();
 
         foreach ($this->_images as $photo_id => $url) {
-            $opts[$photo_id] = '<img src="' . $url . '" alt="photo" />';
+            $opts[$photo_id] = '<img src="' . $url . '" alt="photo"  />';
         }
 
         return $opts;

@@ -1,12 +1,16 @@
 <!--<div style="height:20px;">&nbsp;</div>-->
-<div class="side-bar-box <?php echo $this->class;?>">
-    <?php if ($this->title) {
-       echo '<h3>'.$this->translate($this->title).'</h3>';
+<div class="side-bar-box <?php echo $this->class; ?>">
+    <?php
+    if ($this->title) {
+        echo '<h3>' . $this->translate($this->title) . '</h3>';
     }
     ?>
-    <p>
-        <?php echo $this->content;?>
-    </p>
-    
-    
+    <?php if (is_string($this->content)): ?>
+        <p>
+        <?php echo $this->content; ?>
+        </p>
+    <?php else: ?>
+        <?php echo $this->content; ?>
+    <?php endif; ?>
+
 </div>
