@@ -24,7 +24,7 @@ $(function() {
     var  latlng = new google.maps.LatLng(52.385459, 19.131691);
 
     // create the map
-    map = new google.maps.Map(mapDiv, {
+    var map = new google.maps.Map(mapDiv, {
         center: latlng,
         zoom: 6,
         mapTypeId: google.maps.MapTypeId.ROADMAP
@@ -78,9 +78,22 @@ $(function() {
             map: map
         });
         
+        
+        var info = "<div class=\"accInfoWindow\"><h1>"+acc.title+"</h1>";
+        
+        if (acc.thumbLink) {
+            info += "<div class=\"infoImage\"><img src=\""+acc.thumbLink+"\" width=\"120px\"/></div>";  
+        }
+        info += "<div class=\"infoData\"><p>"+ acc.type+"</p><p>"+acc.price+"</p><p>"+acc.address+"</p>";      
+        info += "<p>"+acc.created+"</p>"
+        info += "<p style=\"text-align:right;\">"+acc.link+"</p>"
+        info += "</div>";
+        info +="</div>";
+        
+       
         // Creating an InfoWindow with address of accommodation
         var infowindow = new google.maps.InfoWindow({
-            content: acc.title
+            content: info
         });
     
     
@@ -88,14 +101,7 @@ $(function() {
         google.maps.event.addListener(marker, 'click', function() {
             infowindow.open(map, marker);
         });  
-        
-        // marker.txt=txt;
-    
-        //        google.maps.event.addListener(marker,"mouseover",function()   {
-        //            infowindow.setContent(marker.txt);
-        //            infowindow.open(map,marker);
-        //        });
-        
+
         return marker;
     }
 

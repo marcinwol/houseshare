@@ -69,6 +69,12 @@
                     </pages>
                           
                 </list>
+                
+                <map>
+                     <label>Map</label>                       
+                    <controller>accommodation</controller>
+                    <action>full-map-view</action>           
+                </map>
  
             </pages>
         </home> 

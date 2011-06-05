@@ -57,7 +57,13 @@ html, body {
     text-decoration: none;
 }
 
-.user-options a:hover {
+.side-bar-link a {
+    font-size:12px;
+    color: #595959;
+    text-decoration: none;
+}
+
+.user-options a:hover, .side-bar-link a:hover  {
      text-decoration: underline;
 }
 
@@ -114,6 +120,33 @@ body:before {
     width: 180px;
 }
 
+/***** FULL MAP VIEW *****/
+
+div.accInfoWindow {
+    width: 350px;
+    height:120px;
+}
+div.accInfoWindow h1 {
+    font-size: 14px;  
+    margin-bottom: 3px;
+   /* color: #FD5416; */
+}
+
+div.accInfoWindow p a {
+    color:#FD5416;  
+    text-decoration: none;
+}
+div.accInfoWindow p a:hover {
+    text-decoration: underline;
+}
+
+div.infoImage {
+    float:left;    
+}
+div.infoData {
+    margin-left: 5px;
+    float:left;   
+}
 
 /********* SIDE BAR ********/
 

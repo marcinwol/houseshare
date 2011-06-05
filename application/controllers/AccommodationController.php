@@ -424,14 +424,47 @@ class AccommodationController extends Zend_Controller_Action {
         $this->view->title = $title;
         $this->view->form = $mapForm;
     }
-    
+
     public function fullMapViewAction() {
-        $accModel = new My_Model_Table_Accommodation();        
-        $rowset = $accModel->getListofAccommodationsWithMarkers();
-               
+        $accModel = new My_Model_Table_Accommodation();
+        //$rowset = $accModel->getListofAccommodationsWithMarkers();
+        $models = $accModel->fetchAll('is_enabled = 1')->toModels();
+
+        // prepare JSON accData for use in javascript
+        $accData = array();
         
-        $this->view->accData = $rowset->toArray();
+        $noPicUrl = $this->view->baseUrl('/images/thumbs/no_pic.jpg');
         
+        foreach ($models as $acc) {
+
+            $firstThumbPath = $noPicUrl;
+            
+            if (count($acc->photos) > 0) {
+                $urls = $acc->thumbsurls;
+                $firstThumbPath = array_shift($urls);
+            }
+
+            $legendType = $this->view->translate('Type');
+            $legendCreated = $this->view->translate('Created');
+            $legendPrice = $this->view->translate('Price');
+            $legendAddress = $this->view->translate('Address');
+            $legendReadMore = $this->view->translate('Read more');
+
+            $accData [] = array(
+                'title' => $this->view->truncate(ucfirst(strtolower($acc->title)),0, 35),
+                'type' => "$legendType: {$acc->getTypeAsString()}",
+                'created' => "$legendCreated: {$this->view->timeSince($acc->creationtimestamp)}",
+                'lat' => $acc->address->lat,
+                'lng' => $acc->address->lng,
+                'price' => "$legendPrice: {$acc->price} PLN/miesiac",
+                'internet' => $acc->features->getAsString('internet'),
+                'address' => "$legendAddress: {$this->view->address($acc)}",
+                'link' => "<a href=\"{$this->view->accUrl($acc)}\">$legendReadMore</a>",
+                'thumbLink' => $firstThumbPath
+            );
+        }
+
+        $this->view->accData = $accData;
     }
 
     public function migrateAction() {
@@ -457,7 +490,7 @@ class AccommodationController extends Zend_Controller_Action {
             'title' => $acc->title,
             'description' => $acc->description,
             'date_avaliable' => $date->toString('dd/MM/yyyy'),
-           /* 'short_term' => $acc->short_term_ok,*/
+            /* 'short_term' => $acc->short_term_ok, */
             'price' => $acc->price,
             'price_info' => $acc->price_info,
             'bond' => $acc->bond
@@ -684,7 +717,7 @@ class AccommodationController extends Zend_Controller_Action {
                     $acc->price_info = $formData['basic_info']['price_info'];
                     $acc->bond = $formData['basic_info']['bond'];
                     $acc->street_address_public = $formData['address']['address_public'];
-                   /* $acc->short_term_ok = $formData['basic_info']['short_term']; */
+                    /* $acc->short_term_ok = $formData['basic_info']['short_term']; */
                     $acc->setAddrId($addr_id);
                     // $acc->setTypeId($formData['basic_info']['acc_type']);
 
@@ -1046,7 +1079,7 @@ class AccommodationController extends Zend_Controller_Action {
             $newAcc->price_info = $step1Data['basic_info']['price_info'];
             $newAcc->bond = $step1Data['basic_info']['bond'];
             $newAcc->street_address_public = $step1Data['address']['address_public'];
-           /* $newAcc->short_term_ok = $step1Data['basic_info']['short_term']; */
+            /* $newAcc->short_term_ok = $step1Data['basic_info']['short_term']; */
             $newAcc->setAddrId($addr_id);
             $newAcc->setUserId($user_id);
             $newAcc->setTypeId($step1Data['basic_info']['acc_type']);
