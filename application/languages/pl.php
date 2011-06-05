@@ -231,5 +231,7 @@ return array(
     'Save' => 'Zapisz',
     'No accommodetion were found with the selected criteria' => 'Nie znaleziono ofert o podanych kryteriach',
     'Home' => 'Strona główna',
+    'Full map view' => 'Pelny widok na mapie',
+    'Map' => 'Mapa'
     );
 ?>

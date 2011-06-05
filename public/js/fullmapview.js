@@ -7,26 +7,28 @@ $(function() {
     var mapDiv = document.getElementById("map");
     var marker, markersArray=[];
     
-    markersArray.push("51.144263,17.127253");
-    markersArray.push("51.144262,17.127243");
-    markersArray.push("51.144362,17.127143");
-    markersArray.push("51.146362,17.125143");
-    markersArray.push("51.144263,17.124253");
-    markersArray.push("51.144262,17.127243");
-    markersArray.push("51.145362,17.127143");
-    markersArray.push("51.144562,17.125143");
     
-    //get lat and lng of the address
-    //var addr_lat = $("#addr_lat").val();
-    //var addr_lng = $("#addr_lng").val();
-    //var label = $(this).find('input#label').val();
+    // default map center and zoom
+    var mapCenterLat = 52.385459;
+    var mapCenterLng = 19.131691;
+    var mapZoom = 6;
+    
+    var cityLat = $('#cityLat').val();
+    var cityLng = $('#cityLng').val();
+    
+    // if we look at city only, than cent its center and zoom
+    if (cityLat && cityLng) {
+        mapCenterLat = cityLat;
+        mapCenterLng = cityLng;
+        mapZoom = 12;
+    }
         
-    var  latlng = new google.maps.LatLng(52.385459, 19.131691);
+    var  latlng = new google.maps.LatLng(mapCenterLat, mapCenterLng);
 
     // create the map
     var map = new google.maps.Map(mapDiv, {
         center: latlng,
-        zoom: 6,
+        zoom: mapZoom,
         mapTypeId: google.maps.MapTypeId.ROADMAP
     });
     
@@ -78,7 +80,7 @@ $(function() {
             map: map
         });
         
-        
+        // prepare the contents of the InfoWindow
         var info = "<div class=\"accInfoWindow\"><h1>"+acc.title+"</h1>";
         
         if (acc.thumbLink) {
@@ -86,7 +88,7 @@ $(function() {
         }
         info += "<div class=\"infoData\"><p>"+ acc.type+"</p><p>"+acc.price+"</p><p>"+acc.address+"</p>";      
         info += "<p>"+acc.created+"</p>"
-        info += "<p style=\"text-align:right;\">"+acc.link+"</p>"
+        info += "<p class=\"read-more\">"+acc.link+"</p>"
         info += "</div>";
         info +="</div>";
         

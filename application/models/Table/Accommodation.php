@@ -172,25 +172,7 @@ class My_Model_Table_Accommodation extends Zend_Db_Table_Abstract {
         return $db->fetchAll($select);
     }
 
-    /**
-     *
-     * @return Zend_Db_Rowset 
-     */
-    public function getListofAccommodationsWithMarkers() {
-        $select = $this->select(Zend_Db_Table::SELECT_WITH_FROM_PART)
-                ->setIntegrityCheck(false)
-                ->where('ACCOMMODATION.is_enabled = ?', 1);
-        
-        $select->joinInner(
-                'ADDRESS', 'ACCOMMODATION.addr_id = ADDRESS.addr_id', array()                
-        );
-        
-        $select->joinInner(
-                'MARKER', 'ADDRESS.marker_id = MARKER.marker_id', array('lat','lng')
-        );
-        
-        return $this->fetchAll($select);
-    }
+   
 
     /**
      * Create initial JOIN that will be used in application/list
@@ -206,7 +188,7 @@ class My_Model_Table_Accommodation extends Zend_Db_Table_Abstract {
                 ->setIntegrityCheck(false)
                 ->where('ACCOMMODATION.is_enabled = ?', 1);
 
- $select->joinInner(
+        $select->joinInner(
                 'ADDRESS', 'ACCOMMODATION.addr_id = ADDRESS.addr_id', array()
         );
 

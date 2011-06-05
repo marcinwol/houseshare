@@ -7,11 +7,13 @@ $this->sideBarElement('Full map view', $sideBarContent, array('class' => 'side-b
 
 
 <div class="grid_6">  
-    <h1><?php echo $this->translate('All on the map'); ?></h1>
+    &nbsp;
 </div>
 
-<div id="map" class="grid_6 " style="height: 700px">  </div>
+<input type="hidden" id="cityLat" value="<?php echo $this->cityLat ;?>" />
+<input type="hidden" id="cityLng" value="<?php echo $this->cityLng ;?>" />
 
+<div id="map" class="grid_6 alpha " style="height: 700px">  </div>
 
 <script type="text/javascript">
     accData = <?php echo json_encode($this->accData); ?>;

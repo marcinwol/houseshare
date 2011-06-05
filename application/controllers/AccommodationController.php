@@ -274,6 +274,7 @@ class AccommodationController extends Zend_Controller_Action {
         // set variables to be used in a list.phtml
         $this->view->maxPrice = $maxPrice;
         $this->view->cityRow = $cityRow;
+        $this->view->city_id = $city_id;
         $this->view->limitForm = $limitForm;
         $this->view->city = $city;
         $this->view->listTitle = $city ? "Avaliable accommodation in $city" : 'Avaliable accommodation';
@@ -426,9 +427,33 @@ class AccommodationController extends Zend_Controller_Action {
     }
 
     public function fullMapViewAction() {
-        $accModel = new My_Model_Table_Accommodation();
-        //$rowset = $accModel->getListofAccommodationsWithMarkers();
-        $models = $accModel->fetchAll('is_enabled = 1')->toModels();
+        
+        $city_id = $cityName = $this->_request->getParam('city', null);
+        
+        $conditions = array();
+        
+        //if city_id is given, than center map in this city and show 
+        // accomodations only from this city
+        if (!empty($city_id) && is_numeric($city_id)) {
+            $cityModel = new My_Model_Table_City();
+            $cityRow = $cityModel->find($city_id)->current();
+            $conditions['city_id'] = $city_id;
+            
+            // set city coordinates that are needed to
+            // cetner google map at
+            $this->view->cityLat = $cityRow->getMarker()->lat;
+            $this->view->cityLng = $cityRow->getMarker()->lng;
+            
+        } else {
+            
+            $this->view->cityLat = '';
+            $this->view->cityLng = '';
+        }
+        
+        // fetch accommodations form database
+        $accModel = new My_Model_Table_Accommodation();        
+        $select = $accModel->getListofAccommodations($conditions);
+        $models = $accModel->fetchAll($select)->toModels();
 
         // prepare JSON accData for use in javascript
         $accData = array();

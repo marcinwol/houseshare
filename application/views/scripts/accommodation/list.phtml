@@ -10,7 +10,17 @@ $this->sideBarElement('Top cities', $sideBarHtml, array('place' => 'prepend'));
 
 <?php
 // permanent placeholder for map view
-$mapDiv = '<div id="map" style="height: 240px"></div>';
+
+$city = '';
+
+if (!empty($this->city_id)) {
+    $city = '/city/' . $this->city_id;
+}
+
+$mapDiv = '<div id="map" style="height: 240px"></div>
+          <p class="side-bar-link" style="text-align:right;">
+          <a href="'.$this->baseUrl('accommodation/full-map-view' . $city).'">'.$this->translate('Full map view').'</a>
+          </p>';
 $this->sideBarElement('Map view', $mapDiv, array('place' => 'prepend'));
 ?>
 
