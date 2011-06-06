@@ -145,9 +145,11 @@ class My_Houseshare_User extends My_Houseshare_Abstract_PropertyAccessor {
      * @return boolean
      */
     public function contactDetailsAvaliable() {
-        if ((empty($this->phone) || $this->phone_public == false) && ($this->email_public == false) ) {
+        
+        if ((strlen($this->phone) == 0 || $this->phone_public == false) && ($this->email_public == false) ) {
             return false;
         }
+        
         return true;
     }
 

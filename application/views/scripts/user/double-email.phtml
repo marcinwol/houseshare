@@ -1,8 +1,14 @@
-<h2>A user with the email <?php echo $this->user->email;?> 
-    already exists in our database.
-</h2>
-<div class="grid_6"> </div>
-<div class="grid_6">         
+<?php
+
+$str = "A user with the email %email% already exists in our database.";
+$str = str_replace('%email%', $this->user->email, $this->translate($str));
+
+echo "<h2>$str</h2>";
+
+?>
+
+<div class="grid_6">&nbsp</div>
+<div class="grid_6 alpha">         
 <?php if ($this->authProvider):?>
     
         This user used 

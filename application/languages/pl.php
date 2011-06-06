@@ -142,6 +142,7 @@ return array(
     'Value is required and can\'t be empty' => 'Pole nie moze byc puste',
     '\'%value%\' is less than %min% characters long' => '\'%value%\' jest krotsze niz %min% znakow',
     'Field value is more than %max% characters long' => 'Zawartosc pola jest dluzsza niz %max% znakow',
+    'A user with the email %email% already exists in our database.' => 'Uzytkownik o emailu %email% juz istnieje w naszym systemie.',
     'Password confirmation does not match' => 'Potwierdzone haslo jest rozne od orginalnego',
     'Given email already exist in our system' => 'Podany email juz istnieje',
     '\'%value%\' does not appear to be an integer' => '\'%value%\' nie wyglada na liczbe calkowita',
