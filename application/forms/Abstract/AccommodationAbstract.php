@@ -68,11 +68,13 @@ abstract class My_Form_Abstract_AccommodationAbstract extends Zend_Form {
         $titleInput->setRequired(true)->setLabel('Title');
         $titleInput->setFilters(array('stripTags', 'stringTrim'));
         $titleInput->setAttribs(array('tooltip' => 'The title of this advertisment'));
+        $titleInput->addValidator($this->_StringLength(255));
 
         // create new element
         $descriptionInput = $this->createElement('textarea', 'description');
         $descriptionInput->setRequired(true)->setLabel('Description');
         $descriptionInput->setFilters(array('stripTags', 'stringTrim'));
+        $descriptionInput->addValidator($this->_StringLength(1500));
         $descriptionInput->setAttribs(array('cols' => 20, 'rows' => 5));
         $descriptionInput->setAttribs(array('tooltip' => 'Short description to accompany the advertisment'));
 
@@ -300,6 +302,7 @@ abstract class My_Form_Abstract_AccommodationAbstract extends Zend_Form {
 
         $descriptionInput = $this->createElement('textarea', 'description');
         $descriptionInput->setFilters(array('stripTags', 'stringTrim'));
+        $descriptionInput->addValidator($this->_StringLength(500));
         $descriptionInput->setRequired(false)->setLabel('Few words about tenants');
         $descriptionInput->setAttribs(array('cols' => 20, 'rows' => 5));
 
@@ -324,6 +327,7 @@ abstract class My_Form_Abstract_AccommodationAbstract extends Zend_Form {
         $descriptionInput = $this->createElement('textarea', 'description');
         $descriptionInput->setFilters(array('stripTags', 'stringTrim'));
         $descriptionInput->setRequired(false)->setLabel('Any other preferences');
+        $descriptionInput->addValidator($this->_StringLength(500));
         $descriptionInput->setAttribs(array('cols' => 20, 'rows' => 5));
 
         $preferencesForm->addElement($descriptionInput);
@@ -347,6 +351,7 @@ abstract class My_Form_Abstract_AccommodationAbstract extends Zend_Form {
 
         $descriptionInput = $this->createElement('textarea', 'description');
         $descriptionInput->setFilters(array('stripTags', 'stringTrim'));
+        $descriptionInput->addValidator($this->_StringLength(500));
         $descriptionInput->setRequired(false)->setLabel('Any other features');
         $descriptionInput->setAttribs(array('cols' => 20, 'rows' => 5));
 
@@ -357,11 +362,11 @@ abstract class My_Form_Abstract_AccommodationAbstract extends Zend_Form {
 
     protected function _addSelectElem($name, $options, $label='', $default = 0) {
         $elem = new Zend_Form_Element_Select($name);
-        
+
         if (empty($label)) {
             $label = ucfirst($name);
-        } 
-        
+        }
+
         $elem->setLabel($label);
         $elem->addMultiOptions($options);
         $elem->setRequired(false)->setValue($default);
@@ -454,11 +459,10 @@ abstract class My_Form_Abstract_AccommodationAbstract extends Zend_Form {
 //        );
 //        $furniture->setRequired(false)->setValue('0');
 //        $appartmentDetailsForm->addElement($furniture);
-
-
         // create new element
         $descriptionInput = $this->createElement('textarea', 'description');
         $descriptionInput->setFilters(array('stripTags', 'stringTrim'));
+        $descriptionInput->addValidator($this->_StringLength(500));
         $descriptionInput->setRequired(false)->setLabel('Any other details');
         $descriptionInput->setAttribs(array('cols' => 20, 'rows' => 5));
         $appartmentDetailsForm->addElement($descriptionInput);
@@ -636,6 +640,21 @@ abstract class My_Form_Abstract_AccommodationAbstract extends Zend_Form {
                 ->getElement('state');
 
         $stateElement->setValue($state);
+    }
+
+    /**
+     * StringLengthValidator with some pre-set options.
+     * 
+     * @param type $max max length of string
+     * @return Zend_Validate_StringLength 
+     */
+    protected function _StringLength($max = 200) {
+        
+        $val = new Zend_Validate_StringLength(array('max' => $max));
+        $val->setMessage('Field value is more than %max% characters long', Zend_Validate_StringLength::TOO_LONG);
+        
+        return $val;
+        
     }
 
 }

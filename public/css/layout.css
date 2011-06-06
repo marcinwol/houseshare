@@ -881,7 +881,8 @@ dl.basic-info dd {
 
 dl.basic-info .price {
 
-    font-size: 18px;
+    font-size: 15px;
+    color: #000000;
     font-weight: bold;
 }
 

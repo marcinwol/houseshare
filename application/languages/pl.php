@@ -141,6 +141,7 @@ return array(
     'Specific errors messages are located below' => 'Detale sa ponizej',
     'Value is required and can\'t be empty' => 'Pole nie moze byc puste',
     '\'%value%\' is less than %min% characters long' => '\'%value%\' jest krotsze niz %min% znakow',
+    'Field value is more than %max% characters long' => 'Zawartosc pola jest dluzsza niz %max% znakow',
     'Password confirmation does not match' => 'Potwierdzone haslo jest rozne od orginalnego',
     'Given email already exist in our system' => 'Podany email juz istnieje',
     '\'%value%\' does not appear to be an integer' => '\'%value%\' nie wyglada na liczbe calkowita',
