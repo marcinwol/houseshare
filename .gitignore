@@ -3,7 +3,7 @@ nbproject
 library/Zend
 library/ZendX
 application/resources
-application/sql
+/application/sql
 /application/scripts/_data
 /application/configs/appkeys.ini
 /application/configs/mailsmtp.ini

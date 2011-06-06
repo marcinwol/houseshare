@@ -41,6 +41,8 @@ DROP TABLE IF EXISTS `CITY` ;
 CREATE  TABLE IF NOT EXISTS `CITY` (
   `city_id` INT UNSIGNED NOT NULL AUTO_INCREMENT ,
   `name` VARCHAR(100) NOT NULL ,
+  `alt_name` VARCHAR(100) NULL ,
+  `main` TINYINT NULL ,
   `state_id` INT UNSIGNED NOT NULL ,
   `marker_id` INT NULL ,
   `description` TEXT NULL ,
@@ -215,6 +217,7 @@ CREATE  TABLE IF NOT EXISTS `PREFERENCES` (
   `kids` TINYINT NULL ,
   `pets` TINYINT NULL ,
   `gender` TINYINT NULL ,
+  `min_tenancy` TINYINT NULL ,
   `description` TEXT NULL ,
   PRIMARY KEY (`preferences_id`) )
 ENGINE = InnoDB
@@ -235,7 +238,7 @@ CREATE  TABLE IF NOT EXISTS `ACCOMMODATION` (
   `user_id` INT UNSIGNED NOT NULL ,
   `date_avaliable` DATE NOT NULL ,
   `price` INT UNSIGNED NOT NULL ,
-  `created` TIMESTAMP NOT NULL ,
+  `created` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ,
   `bond` INT UNSIGNED NOT NULL ,
   `street_address_public` TINYINT(1) NOT NULL DEFAULT 0 ,
   `short_term_ok` TINYINT(1) NOT NULL DEFAULT 1 ,
@@ -246,6 +249,7 @@ CREATE  TABLE IF NOT EXISTS `ACCOMMODATION` (
   `features_id` INT NOT NULL ,
   `preferences_id` INT NOT NULL ,
   `updated` TIMESTAMP NULL ,
+  `tinyurl` VARCHAR(45) NOT NULL ,
   PRIMARY KEY (`acc_id`) ,
   CONSTRAINT `fk_ACCOMODATION_ADDRESS1`
     FOREIGN KEY (`addr_id` )
@@ -623,7 +627,7 @@ DROP TABLE IF EXISTS `AUTH_PROVIDER` ;
 
 CREATE  TABLE IF NOT EXISTS `AUTH_PROVIDER` (
   `key` VARCHAR(255) NOT NULL ,
-  `provider_type` ENUM('google','myopenid','yahoo','facebook','twitter','openid') NOT NULL ,
+  `provider_type` ENUM('google','myopenid','yahoo','facebook','twitter','openid', 'unknown') NOT NULL ,
   `user_id` INT UNSIGNED NOT NULL ,
   PRIMARY KEY (`key`, `user_id`) ,
   CONSTRAINT `fk_AUTH_PROVIDER_USER1`
@@ -833,17 +837,6 @@ INSERT INTO MARKER (`marker_id`, `lat`, `lng`) VALUES (4, 50.074769, 19.947739);
 COMMIT;
 
 -- -----------------------------------------------------
--- Data for table `CITY`
--- -----------------------------------------------------
-SET AUTOCOMMIT=0;
-INSERT INTO CITY (`city_id`, `name`, `state_id`, `marker_id`, `description`) VALUES (1, 'Wrocław', 2, 3, NULL);
-INSERT INTO CITY (`city_id`, `name`, `state_id`, `marker_id`, `description`) VALUES (2, 'Kraków', 1, 4, NULL);
-INSERT INTO CITY (`city_id`, `name`, `state_id`, `marker_id`, `description`) VALUES (3, 'Nowy Targ', 1, 2, NULL);
-INSERT INTO CITY (`city_id`, `name`, `state_id`, `marker_id`, `description`) VALUES (4, 'Nowa Sól', 2, 1, NULL);
-
-COMMIT;
-
--- -----------------------------------------------------
 -- Data for table `STREET`
 -- -----------------------------------------------------
 SET AUTOCOMMIT=0;
@@ -880,10 +873,10 @@ COMMIT;
 -- Data for table `PREFERENCES`
 -- -----------------------------------------------------
 SET AUTOCOMMIT=0;
-INSERT INTO PREFERENCES (`preferences_id`, `smokers`, `couples`, `kids`, `pets`, `gender`, `description`) VALUES (NULL, NULL, NULL, NULL, NULL, NULL, NULL);
-INSERT INTO PREFERENCES (`preferences_id`, `smokers`, `couples`, `kids`, `pets`, `gender`, `description`) VALUES (NULL, NULL, NULL, NULL, NULL, NULL, NULL);
-INSERT INTO PREFERENCES (`preferences_id`, `smokers`, `couples`, `kids`, `pets`, `gender`, `description`) VALUES (NULL, NULL, NULL, NULL, NULL, NULL, NULL);
-INSERT INTO PREFERENCES (`preferences_id`, `smokers`, `couples`, `kids`, `pets`, `gender`, `description`) VALUES (NULL, NULL, NULL, NULL, NULL, NULL, NULL);
-INSERT INTO PREFERENCES (`preferences_id`, `smokers`, `couples`, `kids`, `pets`, `gender`, `description`) VALUES (NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO PREFERENCES (`preferences_id`, `smokers`, `couples`, `kids`, `pets`, `gender`, `min_tenancy`, `description`) VALUES (NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO PREFERENCES (`preferences_id`, `smokers`, `couples`, `kids`, `pets`, `gender`, `min_tenancy`, `description`) VALUES (NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO PREFERENCES (`preferences_id`, `smokers`, `couples`, `kids`, `pets`, `gender`, `min_tenancy`, `description`) VALUES (NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO PREFERENCES (`preferences_id`, `smokers`, `couples`, `kids`, `pets`, `gender`, `min_tenancy`, `description`) VALUES (NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO PREFERENCES (`preferences_id`, `smokers`, `couples`, `kids`, `pets`, `gender`, `min_tenancy`, `description`) VALUES (NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 
 COMMIT;
