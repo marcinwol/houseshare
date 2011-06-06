@@ -429,43 +429,106 @@ class AccommodationController extends Zend_Controller_Action {
     public function fullMapViewAction() {
 
         $city_id = $cityName = $this->_request->getParam('city', null);
+        $maxPrice = $this->_request->getParam('maxprice', null);
 
         $conditions = array();
 
         //if city_id is given, than center map in this city and show 
         // accomodations only from this city
         if (!empty($city_id) && is_numeric($city_id)) {
+
             $cityModel = new My_Model_Table_City();
             $cityRow = $cityModel->find($city_id)->current();
-            $conditions['city_id'] = $city_id;
 
             // set city coordinates that are needed to
             // cetner google map at
             $this->view->cityLat = $cityRow->getMarker()->lat;
             $this->view->cityLng = $cityRow->getMarker()->lng;
 
-            
+
+            //create instance of LimitForm
+            $limitForm = new My_Form_LimitForm();
+            $limitForm->city->setValue($city_id);
+            $limitForm->setAction($this->view->baseUrl('/accommodation/full-map-view'));
+            $this->view->limitForm = $limitForm;
+
+            if (null === $maxPrice) {
+                $maxPrice = $limitForm->getElement('maxpricedefault')->getValue();
+            } else {
+                $limitForm->getElement('maxpricedefault')->setValue($maxPrice);
+            }
+
+            $bed = $room = $appartment = 0;
+
+
+            $bed = $limitForm->getElement('bed')->setChecked(true)->getCheckedValue();
+            $room = $limitForm->getElement('room')->setChecked(true)->getCheckedValue();
+            $appartment = $limitForm->getElement('appartment')->setChecked(true)->getCheckedValue();
+
+
+            $internet = $limitForm->getElement('internet')->getCheckedValue();
+
+
+            if ($this->getRequest()->isPost()) {
+                if ($limitForm->isValid($_POST)) {
+                    $formData = $limitForm->getValues();
+
+                    $maxPrice = $formData['maxprice'];
+                    $bed = $formData['bed'];
+                    $room = $formData['room'];
+                    $appartment = $formData['appartment'];
+                    $internet = $formData['internet'];
+
+                    $limitForm->getElement('maxpricedefault')->setValue($maxPrice);
+                    $limitForm->getElement('bed')->setValue($bed);
+                    $limitForm->getElement('room')->setValue($room);
+                    $limitForm->getElement('internet')->setValue($internet);
+                }
+            }
+
+
+            // make a list of accommodation that meets the limit criteria
+            $conditions = array();
+
+            if ($city_id) {
+                $conditions['city_id'] = $city_id;
+            }
+
+            if ($limitForm->internet->isChecked()) {
+                // whatever value is good here, not only true
+                $conditions['internet'] = true;
+            }
+
+            if ($maxPrice) {
+                $conditions['price'] = $maxPrice;
+            }
+
+            $conditions['type_id'] = "($bed, $room, $appartment)";
+
+
+
+
             // set the navigation such that it shows city in the breadcrumbs
             // for this purpose navigation_map.xml is used.
-            /* @var $navigation Zend_Navigation */          
+            /* @var $navigation Zend_Navigation */
             $container = new Zend_Navigation(
                             new Zend_Config_Xml(APPLICATION_PATH . '/configs/navigation_map.xml', 'nav')
             );
-            
+
             // set the city for AccList page
-            $acclistPage = $container->findBy('Name', 'acclist');            
+            $acclistPage = $container->findBy('Name', 'acclist');
             $acclistPage->setCity($cityRow);
             $acclistPage->setParams();
-            
+
             // use this new container instead of the default one
             // from Bootstrap.php
-            $this->view->navigation()->setContainer($container);             
-
+            $this->view->navigation()->setContainer($container);
         } else {
             // if no city is specified, map will be set tu detault values
             // i.e. to the center of a country
             $this->view->cityLat = '';
             $this->view->cityLng = '';
+            $this->view->limitForm = '';
         }
 
         // fetch accommodations form database

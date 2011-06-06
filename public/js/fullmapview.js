@@ -55,8 +55,7 @@ $(function() {
     }];
 
     var mcOptions = {       
-        maxZoom: 15,
-        styles: style
+        maxZoom: 15
     };    
   
     

@@ -232,6 +232,7 @@ return array(
     'No accommodetion were found with the selected criteria' => 'Nie znaleziono ofert o podanych kryteriach',
     'Home' => 'Strona główna',
     'Full map view' => 'Pelny widok na mapie',
-    'Map' => 'Mapa'
+    'Map' => 'Mapa',
+    'City must be specified' => 'Miasto musi by okreslone'
     );
 ?>

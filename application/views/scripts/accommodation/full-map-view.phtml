@@ -1,4 +1,9 @@
 <?php
+// setup content for the side bar placeholder   
+$this->sideBarElement('Limit the list', $this->limitForm);
+?>
+
+<?php
 $sideBarContent = 'partialfile:full-map-view';
 $this->sideBarElement('Full map view', $sideBarContent, array('class' => 'side-bar-info'));
 ?>  
@@ -15,6 +20,17 @@ $this->sideBarElement('Full map view', $sideBarContent, array('class' => 'side-b
 
 <div id="map" class="grid_6 alpha " style="height: 700px">  </div>
 
+
+<script type="text/javascript">
+    
+    $(function(){
+         
+        $('button#limit').click(function(){           
+            $('#limit-form').submit();  
+        });
+    });
+</script>
+
 <script type="text/javascript">
     accData = <?php echo json_encode($this->accData); ?>;
 </script>
@@ -24,5 +40,5 @@ $this->sideBarElement('Full map view', $sideBarContent, array('class' => 'side-b
 
 
 <div class="grid_6">
-    <?php echo $this->form; ?>
+    <?php //echo $this->form; ?>
 </div>
