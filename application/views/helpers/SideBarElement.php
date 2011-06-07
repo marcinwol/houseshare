@@ -48,7 +48,7 @@ class My_View_Helper_SideBarElement extends Zend_View_Helper_Abstract {
 
         // call partial to render side bar box/element
         $html = $this->view->partial(
-                        '_partials/side-bar-box.phtml', null, array('title' => $title, 'content' => $content, 'class' => $class)
+                '_partials/side-bar-box.phtml', null, array('title' => $title, 'content' => $content, 'class' => $class)
         );
 
         // put it into placeholder

@@ -1,6 +1,6 @@
-Twoja oferta wlasnie zostala dodana do naszej bazy.
+<p>Twoja oferta wlasnie zostala dodana do naszej bazy.
 Jednak jeszcze <strong>nie zostala aktywowana</strong>.
-
+</p>
 <?php if ($this->isLogged()): ?>
     <p> Jesli chcesz <br /><br />
         <a class="acc-add" href="<?php echo $this->baseUrl('/accommodation/enable/id/' . $this->options['acc_id']); ?>" alt="Activate">
@@ -17,4 +17,3 @@ Jednak jeszcze <strong>nie zostala aktywowana</strong>.
         <br/>
     </p> 
 <?php endif; ?>
-<p></p>
