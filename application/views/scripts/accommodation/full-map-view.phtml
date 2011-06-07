@@ -1,6 +1,8 @@
 <?php
-// setup content for the side bar placeholder   
-$this->sideBarElement('Limit the list', $this->limitForm);
+if (!is_null($this->limitForm)) {
+    // setup content for the side bar placeholder   
+    $this->sideBarElement('Limit the list', $this->limitForm);
+}
 ?>
 
 <?php

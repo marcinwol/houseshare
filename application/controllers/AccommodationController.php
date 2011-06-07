@@ -528,7 +528,7 @@ class AccommodationController extends Zend_Controller_Action {
             // i.e. to the center of a country
             $this->view->cityLat = '';
             $this->view->cityLng = '';
-            $this->view->limitForm = '';
+            $this->view->limitForm = null;
         }
 
         // fetch accommodations form database
