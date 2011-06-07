@@ -620,7 +620,7 @@ class UserController extends Zend_Controller_Action {
 
 
         if (null === $user) {
-            $this->_helper->FlashMessenger('Cannot retrive user data');
+            //$this->_helper->FlashMessenger('Cannot retrive user data');
             return $this->_redirect('/');
         }
 

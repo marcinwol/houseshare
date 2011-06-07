@@ -5,7 +5,8 @@
  * and open the template in the editor.
  */
 return array(
-    'in _time' => 'in'
+    'in _time' => 'in',
+    'login _verb' => 'login',
 );
 ?>
 

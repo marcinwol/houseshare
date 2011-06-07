@@ -152,6 +152,7 @@ return array(
     'Login using our own system' => 'Zaloguj sie uzywajac naszego systemu',
     'Login using OpenID' => 'Zaloguj sie uzywajac OpenID',
     'Login' => 'Zaloguj sie',
+    'login _verb' => 'zalogowac',
     'Your email' => 'Twoj email',
     'Your password' => 'Twoje haslo',
     'Incorrect email or password' => 'Nieprawidlowy email albo haslo',
@@ -165,8 +166,7 @@ return array(
     'Accommodation in' => 'Oferty z miasta',
     'Max price per month:' => 'Max. cena na miesiac:',
     'Internet must be present' => 'Internet musi byc',
-    'Limit' => 'Przeszukaj',
-    'Login' => 'Zaloguj sie',    
+    'Limit' => 'Przeszukaj',   
     'Logout' => 'Wyloguj sie',
     'Photos' => 'Zdjecia',
     'Contact details' => 'Kontakt',
@@ -235,6 +235,10 @@ return array(
     'Home' => 'Strona główna',
     'Full map view' => 'Pelny widok na mapie',
     'Map' => 'Mapa',
-    'City must be specified' => 'Miasto musi by okreslone'
+    'City must be specified' => 'Miasto musi by okreslone',
+    'This user used %accont% to register. If you are this user please try to %login% using your %accont%.' 
+        => 'Ten uzytkowik uzyl konto  %accont%. Jesli to ty, sproboj sie %login% uzywajc twoje konto %accont%.',
+    "This user registered directly in our system.  If you are this user please try to %login% using your email and password." => 
+      "Ten uzytkownik zarejstrowal sie bezposrednio w naszym system. Jestli to ty, sproboj sie %login% uzywajac swoj adres email i haslo."
     );
 ?>
