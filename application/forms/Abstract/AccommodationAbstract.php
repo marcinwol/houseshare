@@ -22,6 +22,22 @@ abstract class My_Form_Abstract_AccommodationAbstract extends Zend_Form {
     const PHOTOS_SUBFORM_NAME = 'photos';
     const NEW_CITY_SUBFORM_NAME = 'new_city';
     const APPARTMENT_DETAILS = 'appartment_details';
+    
+    
+    protected $_tooltipMessages = array(
+        'title' => 'The title of this advertisment',
+        'acc_desc' => 'Description of your offer',
+        'price' => 'Example values: 400, 800',
+        'price_info' => 'Such as electricity, gas, Internet',
+        'autocompleter' => 'AUTOCOMPLETER should kick in after two leters',
+        'building_no' => 'Building number in which your advertised accommodation is located',
+        'app_no' => 'Appartment number in which your advertised accommodation is located'
+    );
+    
+    protected function _tooltip($key) {
+        $tr = $this->getTranslator();
+        return $tr->translate($this->_tooltipMessages[$key]);
+    }
 
     public function init() {
         $this->setMethod('post');
@@ -67,7 +83,7 @@ abstract class My_Form_Abstract_AccommodationAbstract extends Zend_Form {
         $titleInput = $this->createElement('text', 'title');
         $titleInput->setRequired(true)->setLabel('Title');
         $titleInput->setFilters(array('stripTags', 'stringTrim'));
-        $titleInput->setAttribs(array('tooltip' => 'The title of this advertisment'));
+        $titleInput->setAttribs(array('tooltip' => $this->_tooltip('title')));
         $titleInput->addValidator($this->_StringLength(255));
 
         // create new element
@@ -76,7 +92,7 @@ abstract class My_Form_Abstract_AccommodationAbstract extends Zend_Form {
         $descriptionInput->setFilters(array('stripTags', 'stringTrim'));
         $descriptionInput->addValidator($this->_StringLength(1500));
         $descriptionInput->setAttribs(array('cols' => 20, 'rows' => 5));
-        $descriptionInput->setAttribs(array('tooltip' => 'Short description to accompany the advertisment'));
+        $descriptionInput->setAttribs(array('tooltip' => $this->_tooltip('acc_desc')));
 
         // create new element
         $dateAvaliableInput = $this->createElement('text', 'date_avaliable');
@@ -96,7 +112,7 @@ abstract class My_Form_Abstract_AccommodationAbstract extends Zend_Form {
 
         // create new element
         $priceInput = $this->createElement('text', 'price');
-        $priceInput->setAttribs(array('tooltip' => 'E.g. 500, 600, 800'));
+        $priceInput->setAttribs(array('tooltip' => $this->_tooltip('price')));
         $priceInput->setRequired(true);
         $priceInput->setLabel('Price per month [$]');
         $priceInput->setFilters(array('stripTags', 'stringTrim'));
@@ -105,7 +121,7 @@ abstract class My_Form_Abstract_AccommodationAbstract extends Zend_Form {
         // create new element
         $priceInfo = $this->createElement('textarea', 'price_info');
         $priceInfo->setRequired(false)->setLabel('Any addition expenses/price information');
-        $priceInfo->setAttribs(array('tooltip' => 'Such as gas, electricity, internet, etc.'));
+        $priceInfo->setAttribs(array('tooltip' => $this->_tooltip('price_info')));
 
         $priceInfo->setAttribs(
                 array(
@@ -153,7 +169,7 @@ abstract class My_Form_Abstract_AccommodationAbstract extends Zend_Form {
         $cityInput = $this->createElement('text', 'city');
         $cityInput->setRequired(true)->setLabel('City');
         $cityInput->setFilters(array('stripTags', 'stringTrim'));
-        $cityInput->setAttribs(array('tooltip' => 'AUTOCOMPLETER should kick in after two leters'));
+        $cityInput->setAttribs(array('tooltip' => $this->_tooltip('autocompleter')));
 
 
         $cities = My_Model_Table_City::getAllCitiesAsArray();
@@ -170,29 +186,25 @@ abstract class My_Form_Abstract_AccommodationAbstract extends Zend_Form {
         $unitNoInput = $this->createElement('text', 'unit_no');
         $unitNoInput->setRequired(false)->setLabel('Unit number');
         $unitNoInput->setFilters(array('stripTags', 'stringTrim'));
-        $unitNoInput->setAttribs(array('tooltip' => 'Appartment number in which
-            your advertised accommodation is located. '));
+        $unitNoInput->setAttribs(array('tooltip' => $this->_tooltip('building_no')));
 
         // create new element
         $streetNoInput = $this->createElement('text', 'street_no');
         $streetNoInput->setRequired(true)->setLabel('Street number');
         $streetNoInput->setFilters(array('stripTags', 'stringTrim'));
-        $streetNoInput->setAttribs(array('tooltip' => 'Building number in which
-            your advertised accommodation is located.
-            '));
+        $streetNoInput->setAttribs(array('tooltip' => $this->_tooltip('app_no')));
 
         $addressPublicChb = $this->createElement('checkbox', 'address_public');
         //$addressPublicChb->setRequired(true);
         $addressPublicChb->setLabel('Unit and street numbers visible to all');
         $addressPublicChb->setChecked(false);
-        $addressPublicChb->setAttribs(array('tooltip' => 'If yes, than both 
-            unit and street numbers are visible to all '));
+      
 
         // create new element
         $streetNameInput = $this->createElement('text', 'street_name');
         $streetNameInput->setRequired(true)->setLabel('Street name');
         $streetNameInput->setFilters(array('stripTags', 'stringTrim'));
-        $streetNameInput->setAttribs(array('tooltip' => 'AUTOCOMPLETER should kick in after two leters'));
+        $streetNameInput->setAttribs(array('tooltip' => $this->_tooltip('autocompleter')));
 
 
         // create new element
@@ -247,7 +259,7 @@ abstract class My_Form_Abstract_AccommodationAbstract extends Zend_Form {
 
     protected function _makeRoomatesSubForm() {
         $aroomatesForm = new Zend_Form_SubForm();
-        $aroomatesForm->setLegend('Current tenats in a room or appartment');
+        $aroomatesForm->setLegend('Current tenats');
 
         // create new element
         $noOfRoomatesInput = new Zend_Form_Element_Select('no_roomates');

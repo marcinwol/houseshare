@@ -240,6 +240,15 @@ return array(
     "This user registered directly in our system.  If you are this user please try to %login% using your email and password." => 
       "Ten uzytkownik zarejstrowal sie bezposrednio w naszym system. Jestli to ty, sproboj sie %login% uzywajac swoj adres email i haslo.",
     'You cannot edit this accommodation' => 'Nie mozesz edytowac tej oferty',
-    'Please login to make further changes' => 'Proszę się zalogować'
+    'Please login to make further changes' => 'Proszę się zalogować',
+    'The title of this advertisment' => 'Tytuł ogłoszenia',
+    'Description of your offer' => 'Opis twojej oferty',
+    'Example values: 400, 800' => 'Przykładowe wartości: 400, 800',
+    'Such as electricity, gas, Internet' => 'Jak na przykład elektryczność albo ogrzewanie',
+    'AUTOCOMPLETER should kick in after two leters' => 'AUTOUZUPELNIANIE powinno się włączyć po pierwszych dwóch literach',
+    'Building number in which your advertised accommodation is located'  
+        => 'Number bundynku w który dana akomodacja się znajduje',
+    'Appartment number in which your advertised accommodation is located' 
+        => 'Numer mieszkania w który dana akomodacja się znajduje'
     );
 ?>

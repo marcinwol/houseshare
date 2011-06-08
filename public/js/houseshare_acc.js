@@ -7,6 +7,7 @@
 $(document).ready(function () {
     
      $("form#main-search-form").jqTransform();
+    // $("form").jqTransform();
     
     $('.description').click(function() {
         var descrID = $(this).attr('for')            
