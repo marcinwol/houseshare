@@ -30,6 +30,8 @@ $(document).ready(function () {
     $( "#limit-form #maxprice" ).val(  $( "#slider" ).slider( "value" ) );
 
 
+    // set language for the datepicker and form
+    $("#basic_info-date_avaliable").datepicker($.datepicker.regional[lang]);
     $( "#basic_info-date_avaliable" ).datepicker({ 
         dateFormat: 'dd/mm/yy' 
     });

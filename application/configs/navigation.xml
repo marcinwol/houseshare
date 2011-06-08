@@ -9,6 +9,11 @@
             <route>default</route>  
             <defaultPageType>My_Navigation_Page_Mvc</defaultPageType>
             <pages>
+                <login>                  
+                    <label>Login</label>                                           
+                    <controller>user</controller>
+                    <action>login</action>   
+                </login>
                 <user>
                     <type>My_Navigation_Page_User</type>
                     <label>User</label>                       
@@ -16,7 +21,7 @@
                     <controller>user</controller>
                     <action>index</action>   
                     
-                    <pages>
+                    <pages>                      
                         <edit>
                             <type>My_Navigation_Page_UserEdit</type>
                             <label>Edit</label>

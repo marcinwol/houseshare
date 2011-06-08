@@ -247,7 +247,7 @@ abstract class My_Form_Abstract_AccommodationAbstract extends Zend_Form {
 
     protected function _makeRoomatesSubForm() {
         $aroomatesForm = new Zend_Form_SubForm();
-        $aroomatesForm->setLegend('Current tenats');
+        $aroomatesForm->setLegend('Current tenats in a room or appartment');
 
         // create new element
         $noOfRoomatesInput = new Zend_Form_Element_Select('no_roomates');

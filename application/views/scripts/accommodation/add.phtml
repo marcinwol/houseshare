@@ -8,6 +8,12 @@ endif;
 <?php
 echo $this->partial('_partials/acc-add-steps-desc.phtml', null, array('active' => 'step1'));
 ?>
+<script type="text/javascript">
+    var lang = '<?php echo Zend_Registry::get('Zend_Locale')->getLanguage();?>';
+    if ('en' == lang) {
+        lang = ''
+    }
+</script>
 
 <div class="grid_6">  
     <h1> <?php echo $this->translate('Step 1: Basic information');?> </h1>
