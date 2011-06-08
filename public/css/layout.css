@@ -899,6 +899,21 @@ div.section h1 {
     border-bottom-width: 1px;
     border-bottom-color: #bd3d00;
 }
+div.static {
+    font-size: 15px;
+    padding-bottom:  15px;
+}
+
+div.static h1 {    
+    font-size: 20px;
+    color: #D45D15;
+   
+}
+
+div.static h2 {
+    font-size:16px;
+    margin-top:15px;    
+}
 
 /* ---------->>> jtip <<<---------------------------------------------------------------*/
 

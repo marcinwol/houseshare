@@ -104,6 +104,21 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
         Zend_Registry::set('Zend_Locale', $locale);
     }
 
+    protected function _initSiteNameConstant() {
+        $this->bootstrap('locale');
+
+        $lang = Zend_Registry::get('Zend_Locale')->getLanguage();
+        
+        $siteName = 'ShareHouse';
+        
+        if ('pl' == $lang) {
+            $siteName = 'StrefaStancji';
+        }
+
+        defined('SITE_NAME')
+                || define('SITE_NAME', $siteName);
+    }
+
     protected function _initMyRoutes() {
         $this->bootstrap('frontcontroller');
         $front = Zend_Controller_Front::getInstance();
@@ -128,11 +143,11 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
     }
 
     protected function _initTranslate() {
-// get Locale
+        // get Locale
         $locale = Zend_Registry::get('Zend_Locale');
 
 
-// Set up and load the translations
+        // Set up and load the translations
         $translate = new Zend_Translate(
                         array(
                             'adapter' => 'array',

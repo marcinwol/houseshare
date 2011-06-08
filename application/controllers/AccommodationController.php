@@ -1459,6 +1459,13 @@ class AccommodationController extends Zend_Controller_Action {
         if (null !== $acc_id) {
             $acc = My_Houseshare_Factory::accommodation($acc_id);
         } else {
+            
+            // if user is logged go to user/index.
+            if (Zend_Auth::getInstance()->hasIdentity()) {                
+                return $this->_redirect('user/');
+            }
+            
+            // otherwise go to home page. 
             $this->_helper->FlashMessenger('Please login to make further changes');
             return $this->_redirect('/');
         }

@@ -8,12 +8,12 @@ return array(
     'ShareHouse' => 'StrefaStancji',
     'Its not complicated' => 'To jest proste',
     'Welcom to ShareHouse' => 'Witamy w StrefieStancji',
-    'ShareHouse: database of rooms and appartments for rent' => 'StrefaStancji: oferty stancji (pokoi i mieszkan) na wynajem',
+    'ShareHouse: database of rooms and appartments for rent' => SITE_NAME . ': oferty stancji (pokoi i mieszkan) na wynajem',
     'Powered by the Zend Framework'=>'Zasilany przez Zend Framework',
-    'An error occurred' => 'Blad w aplikacji',
+    'An error occurred' => 'Bład w aplikacji',
     'The website is not compatible with Internet Explorer 6 or less!' => 'Strone nie bedzie dzialac poprawnie z Internet Explorer 6 albo starszym!',
-    'Our header' => 'Nasz naglowek',
-    'Welcom in houseshare project'=>'Witam w projekcje stancje (house share)',
+    'Our header' => 'Nasz nagłowek',
+    'Welcom in houseshare project'=>'Witam w projekcje stancje ()',
     'Hello world!'=>'Witaj swiecie',
     "I need a room in ..." => "Potrzebuje pokoju w ...",
     "I have a room in ..." => "Mam pokoj do wynajecia w ...",
@@ -31,11 +31,11 @@ return array(
     'about' => 'o nas',
     'faq'   => 'czesto zadawane pytania',
     'contact' => 'kontakt',
-    'feedback' => 'twoje opinia',
+    'feedback always welcome' => 'twoja opinia zawsze mile widziana',
     'Map view' => 'Widok na mapie',
     'Top cities' => 'Glowne miasta',
     'Recently viewed' => 'Nidawno ogladane',
-    'Why ShareHouse?' => 'Dlaczego StrefaStancji',
+    'Why ShareHouse?' => "Dlaczego ". SITE_NAME . "?",
     'I need'  => 'Potrzebuje',
     'room'  => 'pokoj',
     'appartment' => 'mieszkanie',
@@ -239,6 +239,7 @@ return array(
     'This user used %accont% to register. If you are this user please try to %login% using your %accont%.' 
         => 'Ten uzytkowik uzyl konto  %accont%. Jesli to ty, sproboj sie %login% uzywajc twoje konto %accont%.',
     "This user registered directly in our system.  If you are this user please try to %login% using your email and password." => 
-      "Ten uzytkownik zarejstrowal sie bezposrednio w naszym system. Jestli to ty, sproboj sie %login% uzywajac swoj adres email i haslo."
+      "Ten uzytkownik zarejstrowal sie bezposrednio w naszym system. Jestli to ty, sproboj sie %login% uzywajac swoj adres email i haslo.",
+    'You cannot edit this accommodation' => 'Nie mozesz edytowac tej oferty'
     );
 ?>
