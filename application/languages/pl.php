@@ -27,7 +27,7 @@ return array(
     'in _time'   => 'za',
     'Added' => 'Dodane',
     'Views' => 'Odsłon',
-    'about' => 'o nas',
+    'about' => 'o portalu ' . SITE_NAME,
     'faq'   => 'często zadawane pytania',
     'contact' => 'kontakt',
     'feedback always welcome' => 'twoja opinia mile widziana',
