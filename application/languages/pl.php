@@ -184,6 +184,7 @@ return array(
     'Your query' => 'Twoje zapytanie',
     'Other' => 'Inne',
     'Created' => 'Stworzono',
+    'Create an account' => 'Stwóż konto',
     'Updated' => 'Edotowano',
     'Appartement details' => 'O mieszkaniu',
     'Number of tenants' => 'Liczba lokatorow',
@@ -249,6 +250,8 @@ return array(
     'Building number in which your advertised accommodation is located'  
         => 'Number bundynku w który dana akomodacja się znajduje',
     'Appartment number in which your advertised accommodation is located' 
-        => 'Numer mieszkania w który dana akomodacja się znajduje'
+        => 'Numer mieszkania w który dana akomodacja się znajduje',
+    'legal' => 'regulamin',
+    'privacy policy' => 'polityka prywatnosci'
     );
 ?>

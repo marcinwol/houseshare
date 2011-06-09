@@ -26,6 +26,14 @@ class PageController extends Zend_Controller_Action {
         $this->_helper->renderStatic();
     }
     
+    public function legalAction() {
+        $this->_helper->renderStatic();
+    }
+    
+    public function privacyAction() {
+        $this->_helper->renderStatic();
+    }    
+    
 }
 
 ?>
