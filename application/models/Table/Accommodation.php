@@ -152,14 +152,18 @@ class My_Model_Table_Accommodation extends Zend_Db_Table_Abstract {
     /**
      * Get recently viewd advertisments
      * 
-     * @return array  
+     * @return Zend_Db_Table_Rowset_Accommodation
      */
-    static public function getRecentlyViewed($limit = 5) {
+    public function getRecentlyViewed($limit = 5) {
 
-        $db = Zend_Db_Table::getDefaultAdapter();
+      //  $db = Zend_Db_Table::getDefaultAdapter();
 
-        $select = $db->select()->from('ACCOMMODATION', array('ACCOMMODATION.acc_id', 'ACCOMMODATION.title'))
-                ->joinInner(new Zend_Db_Expr(
+        $select = $this->select(Zend_Db_Table::SELECT_WITH_FROM_PART)
+                ->setIntegrityCheck(false)
+                ->where('ACCOMMODATION.is_enabled = ?', 1);
+
+
+        $select->joinInner(new Zend_Db_Expr(
                                 '(SELECT acc_id as acco_id, MAX(created) as last_time FROM VIEWS_COUNTER 
                          GROUP BY acc_id)'
                         ), 'ACCOMMODATION.acc_id = acco_id', 'last_time')
@@ -169,10 +173,8 @@ class My_Model_Table_Accommodation extends Zend_Db_Table_Abstract {
                 ->order('last_time DESC')
                 ->limit($limit);
 
-        return $db->fetchAll($select);
+        return $this->fetchAll($select);
     }
-
-   
 
     /**
      * Create initial JOIN that will be used in application/list

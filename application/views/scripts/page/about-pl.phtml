@@ -1,25 +1,25 @@
 <?php
-$sideBarHtml = $this->partial('_partials/add-this.phtml', array('title' => false));
-$this->sideBarElement('Spread the word', $sideBarHtml);
+    echo $this->partial('_partials/sidebar-for-pages.phtml',array('skip' => array('about')))
 ?>   
 
-<div class="grid_6">
+<div class="grid_6 alpha">
     <h1>O nas</h1>    
 </div>
-   
 
-<div class=" grid_6 static">    
+
+<div class=" grid_6 static alpha">    
+    <p>&nbsp;</p>
     <p>
-        <strong><?php echo SITE_NAME;?></strong> jest nowoczesnym, darmowym
+        <strong><?php echo SITE_NAME; ?></strong> jest nowoczesnym, darmowym
         portalem stworzonym dla osób poszukujących lokatorów jak i dla
         osób szukających zakwaterowania. 
     </p>
 </div>    
 
-<div class=" grid_6 static">
+<div class=" grid_6 static alpha">
     <h1>No i co z tego? Co wyróżnia ten portal od dziesiatki innych tego typu?</h1>   
     Ano jest pare rzeczy. Oto niektóre z nich.         
-    
+
     <h2>Używamy OpenID</h2>
     <p> 
         Jeśteśmy pierwszym portalem w Polsce zwiazanym ze stancjami, który zaadoptował OpenID!
@@ -28,8 +28,8 @@ $this->sideBarElement('Spread the word', $sideBarHtml);
         używając swojego konta z np. <strong>Google, Yahoo czy Facebook</strong>. 
         Nie ma potrzeby tworzyć nowej nazwy użytkownika, emaila albo hasła. 
     </p>
-    
-    
+
+
     <h2>Jesteśmy darmowi</h2>    
     <p>
         Wszystko jest darmowe. Można za darmo dodawać ogłoszenia, czytać,
@@ -37,13 +37,13 @@ $this->sideBarElement('Spread the word', $sideBarHtml);
         miejscu nie ma pop-up'ów ani innych niespodzianek
         proszących od zapłate za dostęp do danej oferty. 
     </p>
-    
+
     <h2>Brak limitacji</h2>    
     <p>
         Nie ma limitacji na ilość ofert jakiem można posiadać. Po zalogowaniu się, 
         można dodać ile ogłoszeń się chce. 
     </p>
-    
+
     <h2>Nie usuwamy ogłoszeń</h2>    
     <p>
         Nieaktualne ogłoszenia nie są usuwane. Zamiast tego są one
@@ -52,14 +52,14 @@ $this->sideBarElement('Spread the word', $sideBarHtml);
         lokatorów. Wystarczy sie zalogowac, edytowac jeśli jest taka potrzeba, 
         i aktywować. 
     </p>
-    
+
     <h2>Ty kontrolujesz swoje dane kontaktowe</h2>    
     <p>
         Standardowo twoj adres email i telefon (jeśli podany) sa oznaczone jako ukryte. 
         Nie udostępniamy ich na stronie. Jednak jeśli chcesz, możesz oznaczyc je
         jako publiczne. Wybór należy do Ciebie.
     </p>
-    
+
     <h2>Twoj email jest chroniny przed automatycznymi spamerami</h2>    
     <p>
         Jeśli zdecudujesz sie na upublicznienie swojego adresu email nie 
@@ -67,7 +67,7 @@ $this->sideBarElement('Spread the word', $sideBarHtml);
         doskonałe usługi <strong>reCAPTCHA Mailhide</strong>. Ktoś kto chce odczytać
         twoj adres email musi wpier poprawnie odczytać text z obrazka. 
     </p>
-    
+
     <h2>Twoja opinia jest dla nas ważna</h2>    
     <p> 
         Dzięki usłudze <strong>UserVoice</strong>, możesz w bardzo prosty sposób
@@ -75,16 +75,16 @@ $this->sideBarElement('Spread the word', $sideBarHtml);
         Dodatkowo, możesz przeczytać co inni użytkownicy napisali o nas, głosować
         na pomysły innych i komentować je.        
     </p>
-    
-            
+
+
     <h2>Duży wybor miejscowości i ulic</h2>    
     <p> 
         Nasza baza zawiera ponad 2 tysiące miejscowości i ponad 60 tysięcy 
         ulic. Wieć praktycznie można dodać oferte dotyczącą każdego miejsca w Polsce,
         a nie tylko paru dużych miast.
     </p>
-            
-       
+
+
     <h2>Portal jest ciągle rozwijany</h2>    
     <p>
         Cały czas pracujemy nad usprawniemiami i nowymy funkcjami. Codziennie
@@ -92,7 +92,7 @@ $this->sideBarElement('Spread the word', $sideBarHtml);
         można dodać aby nasz portal był lepszy. Poto też liczymy na 
         opinie i pomysly użytkowników.
     </p>
-    
+
     <h2>To jest proste</h2>    
     <p>
         Nasz główny prioryt podczas pracy nad portalem jest prostota w obsłudze
@@ -100,10 +100,10 @@ $this->sideBarElement('Spread the word', $sideBarHtml);
         tła i inne niepotrzebne bajery, poto aby nasz portal był jak najbardziej 
         przejżysty.         
     </p>   
-    
-    
+
+
 </div>
-        
-    
-    
-    
+
+
+
+

@@ -1,0 +1,32 @@
+<?php
+
+$sideBarHtml = $this->partial('_partials/add-this.phtml', array('title' => false));
+$this->sideBarElement('Spread the word', $sideBarHtml);
+
+
+
+$sideBarHtml = $this->recentlyViewed();
+$this->sideBarElement('Recently viewed', $sideBarHtml, array('place' => 'prepend'));
+
+
+
+$sideBarHtml = 'partialfile:top-cities';
+$this->sideBarElement('Top cities', $sideBarHtml, array('place' => 'prepend'));
+
+
+
+// what links to skip 
+$skip = array();
+if (isset($this->skip)) {
+    $skip = $this->skip;
+}
+
+$sideBarHtml = 'partialfile:more-info';
+$this->sideBarElement('Read more', $sideBarHtml, array(
+    'place' => 'prepend',
+    'class' => 'side-bar-info',
+    'options' => array('skip' => $skip)
+        )
+);
+
+?>

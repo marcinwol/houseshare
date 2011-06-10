@@ -15,10 +15,11 @@ if (!$cities) {
         $cities .= '<li><a href="' . $this->baseUrl('/accommodation/list/city/' . $city['city_id']) . '">' . $city['name'] . ' <span>(' . $city['count'] . ')</span></a></li>';
     }
 
-    $cities .= '<ul class="top-cities">';
+    $cities .= '</ul>';
     $cache->save($cities, 'topCities');
 }
 
 echo $cities;
 ?>
+
 

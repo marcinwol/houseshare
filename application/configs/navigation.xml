@@ -14,6 +14,11 @@
                     <controller>user</controller>
                     <action>login</action>   
                 </login>
+                <about>
+                    <label>about</label>                                           
+                    <controller>page</controller>
+                    <action>about</action>   
+                </about>
                 <user>
                     <type>My_Navigation_Page_User</type>
                     <label>User</label>                       
