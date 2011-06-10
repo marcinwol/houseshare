@@ -13,8 +13,8 @@
                 <list>
                     <type>My_Navigation_Page_AccList</type>
                     <label>List</label>   
-                    <route>acclist</route>
-                    <name>acclist</name>
+                    <route>listacc</route>
+                    <name>listacc</name>
                     <controller>accommodation</controller>
                     <action>list</action>                    
                     <pages>

@@ -22,8 +22,11 @@
     </div>
     <div class="listing-preview-detials" style="float:left">
         <h1 class="listing-title">
-            <?php $city = $this->acc->city; ?>
-            <a class="city" href="<?php echo $this->baseUrl('/accommodation/list/city/' . $this->acc->address->city_id); ?>"><?php echo $city . ':'; ?></a>
+            <?php 
+                $city = $this->acc->city; 
+                $city_id = $this->acc->address->city_id;  
+            ?>
+            <a class="city" href="<?php echo $this->url(array('city' => $city_id, 'cityname' => $city),'listacc'); ?>"><?php echo $city . ':'; ?></a>
             <a href="<?php echo $this->accUrl($this->acc); ?>">
                 <?php echo $this->truncate(ucfirst(strtolower($this->acc->title)), 0, 45); ?>
             </a>

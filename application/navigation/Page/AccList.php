@@ -35,7 +35,8 @@ class My_Navigation_Page_AccList extends My_Navigation_Page_Mvc {
     public function setParams(array $params = null)  {                
         
         $cityParams = array(
-            'city' => $this->_city->city_id
+            'city' => $this->_city->city_id,
+            'cityname' => $this->_city->name
         );
         return parent::setParams($cityParams);
     }

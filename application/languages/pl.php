@@ -23,6 +23,8 @@ return array(
     'Spread the word' => 'Podziel się',
     'City must be specified' => 'Miasto musi być podane',
     'Avaliable' => 'Dostępne',
+    'show' => 'pokaz', 
+    'add'  => 'dodaj',
     'from' => 'od',
     'in _time'   => 'za',
     'Added' => 'Dodane',
@@ -252,6 +254,8 @@ return array(
     'Appartment number in which your advertised accommodation is located' 
         => 'Numer mieszkania w który dana akomodacja się znajduje',
     'legal' => 'regulamin',
-    'privacy policy' => 'polityka prywatnosci'
+    'privacy' => 'prywatnosc', 
+    'privacy policy' => 'polityka prywatnosci',
+    'list' => 'listuj'
     );
 ?>

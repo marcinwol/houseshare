@@ -177,7 +177,7 @@ class AccommodationController extends Zend_Controller_Action {
         /* @var $navigation Zend_Navigation */
         $navigation = $this->view->navigation()->getContainer();
         /* @var $accshowPage My_Navigation_Page_AccShow */
-        $acclistPage = $navigation->findBy('Name', 'acclist');
+        $acclistPage = $navigation->findBy('Name', 'listacc');
         $acclistPage->setCity($cityRow);
 
 
@@ -516,7 +516,7 @@ class AccommodationController extends Zend_Controller_Action {
             );
 
             // set the city for AccList page
-            $acclistPage = $container->findBy('Name', 'acclist');
+            $acclistPage = $container->findBy('Name', 'listacc');
             $acclistPage->setCity($cityRow);
             $acclistPage->setParams();
 
