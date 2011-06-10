@@ -20,14 +20,14 @@ $pages = array(
         $skip = $this->options['options']['skip'];
     }
     
-    foreach ($pages as $label => $route):
+    foreach ($pages as $label => $route):               
         
-        if (in_array($label, $skip)) {
-            continue;
-        }
+//        if (in_array($label, $skip)) {            
+//            continue;
+//        }
         
         $url = $this->url(array(), $route);
-        $label = $this->translate($label);
+        $label = $this->translate($label);                
         
         echo "<li><a href=\"$url\">$label</a></li>";
         
