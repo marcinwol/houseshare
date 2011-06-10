@@ -288,6 +288,8 @@ abstract class My_Form_Abstract_AccommodationAbstract extends Zend_Form {
         $minAgeInput = new Zend_Form_Element_Select('min_age');
         $minAgeInput->setLabel('Approximate min. age of the tenants');
         $minAgeInput->addMultiOptions($ageOptions);
+        $minAgeInput->setValue('20');
+        
         // $minAgeInput->setRequired(true);
         // create new element
         $maxAgeInput = new Zend_Form_Element_Select('max_age');

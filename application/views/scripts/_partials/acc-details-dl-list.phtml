@@ -3,11 +3,19 @@
         <?php
         $data = $this->data;
         $labels = $this->data->getLabels();
-
-        foreach ($data as $name => $value) {
-
+        
+        $fieldsToSkip = array();
+        
+        if (isset($this->skip)) {
+            $fieldsToSkip = $this->skip;
+        }
+        
+        
+        foreach ($data as $name => $value) {                        
+            
             if (strpos($name, '_id') > 3 || is_null($value)
-                    || strlen($value) == 0 || $name == 'description') {
+                    || strlen($value) == 0 || $name == 'description'
+                    || in_array($name, $fieldsToSkip)) {
                 continue;
             }
 
@@ -23,9 +31,6 @@
                     $valueLabel = $labels[$name]['value'][$value];
                 }
             }
-            
-          //  $img = "<img style=\"vertical-align:middle;\" src=\"{$this->baseUrl('/icons/bedrooms.gif')}\" alt=\'$nameLabel\'/>";
-
             echo "<tr>";
            // echo "<td class=\"name\">$img</td>";
             echo "<td class=\"name\">{$this->translate($nameLabel)}</td>";

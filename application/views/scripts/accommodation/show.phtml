@@ -99,22 +99,21 @@ if (count($this->acc->photosurls) > 0) {
 
 
 <?php
-
-if ($this->preview == true) { 
+if ($this->preview == true) {
     $title = 'Success!';
-    $sideBarContent = "partialfile:acc-add-success";       
+    $sideBarContent = "partialfile:acc-add-success";
 } elseif (false == $this->acc->is_enabled) {
     $title = 'Disactivated';
-    $sideBarContent = "partialfile:acc-disactivated";      
+    $sideBarContent = "partialfile:acc-disactivated";
 }
 
 if (isset($title)) {
-     $this->sideBarElement($title, $sideBarContent, array(
-            'class' => 'side-bar-info',
-            'break' => true,
-            'acc_id' => $this->acc->acc_id,       
-            'is_enabled' => $this->acc->is_enabled
-     ));
+    $this->sideBarElement($title, $sideBarContent, array(
+        'class' => 'side-bar-info',
+        'break' => true,
+        'acc_id' => $this->acc->acc_id,
+        'is_enabled' => $this->acc->is_enabled
+    ));
 }
 ?>
 
@@ -194,47 +193,58 @@ if (!($this->viewCache()->start('acc' . (string) $this->acc->acc_id))):
                 <h1><?php echo $this->translate('Current tenants'); ?></h1> 
 
                 <?php
+                $fieldsToSkip = array();
+
+                // if no roomtaes, than do not show fields
+                // such as min_age or max_age. 
+                if ($this->acc->roomates->no_roomates == 0) {
+                    $fieldsToSkip = array('min_age', 'max_age', 'gender', 'description');
+                }
+
                 echo $this->partial(
-                        '_partials/acc-details-dl-list.phtml', array('data' => $this->acc->roomates)
+                        '_partials/acc-details-dl-list.phtml', array(
+                            'data' => $this->acc->roomates,
+                            'skip' => $fieldsToSkip
+                             )
                 );
                 ?>
 
             </div>
-        <?php elseif ($this->acc instanceof My_Houseshare_Appartment): ?>
+            <?php elseif ($this->acc instanceof My_Houseshare_Appartment): ?>
             <div class="section grid_2 alpha">
                 <h1><?php echo $this->translate('Appartement details'); ?></h1>             
-                <?php
-                echo $this->partial(
-                        '_partials/acc-details-dl-list.phtml', array('data' => $this->acc->details)
-                );
-                ?>
+            <?php
+            echo $this->partial(
+                    '_partials/acc-details-dl-list.phtml', array('data' => $this->acc->details)
+            );
+            ?>
             </div>    
-        <?php endif; ?>
+            <?php endif; ?>
 
         <div class="section grid_2 alpha  ">
             <h1><?php echo $this->translate('Preferences'); ?></h1> 
 
-            <?php
-            echo $this->partial(
-                    '_partials/acc-details-dl-list.phtml', array('data' => $this->acc->preferences)
-            );
-            ?>
+    <?php
+    echo $this->partial(
+            '_partials/acc-details-dl-list.phtml', array('data' => $this->acc->preferences)
+    );
+    ?>
         </div>
 
         <div class="section grid_2 omega ">
             <h1><?php echo $this->translate('Features'); ?></h1> 
-            <?php
-            echo $this->partial(
-                    '_partials/acc-details-dl-list.phtml', array('data' => $this->acc->features)
-            );
-            ?>
+    <?php
+    echo $this->partial(
+            '_partials/acc-details-dl-list.phtml', array('data' => $this->acc->features)
+    );
+    ?>
         </div>
 
         <div class="grid_6 alpha advert-stats">
 
-            <?php if ($this->acc->updatetimestamp > $this->acc->creationtimestamp): ?>
-                <?php echo $this->translate('Updated'), ': ', $this->timeSince($this->acc->updatetimestamp), ' ', $this->translate('ago'); ?>|
-            <?php endif; ?>
+    <?php if ($this->acc->updatetimestamp > $this->acc->creationtimestamp): ?>
+        <?php echo $this->translate('Updated'), ': ', $this->timeSince($this->acc->updatetimestamp), ' ', $this->translate('ago'); ?>|
+    <?php endif; ?>
             <?php echo $this->translate('Created'), ': ', $this->timeSince($this->acc->creationtimestamp), ' ', $this->translate('ago'); ?> |
             <?php echo $this->translate('Views'), ': ', $this->acc->views_count; ?> 
 

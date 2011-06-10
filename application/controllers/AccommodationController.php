@@ -870,8 +870,8 @@ class AccommodationController extends Zend_Controller_Action {
             $acc = $this->_getAccForEdit($acc_id);
 
             if (null === $acc) {
-                $this->_helper->FlashMessenger("Cannot edit accommodation $acc_id");
-                return $this->_redirect('index');
+                $this->_helper->FlashMessenger("Cannot edit accommodation");
+                return $this->_redirect('/');
             }
 
             // it seems that user is loged and this accommodation belongs to him            

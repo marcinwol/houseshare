@@ -254,8 +254,9 @@ return array(
     'Appartment number in which your advertised accommodation is located' 
         => 'Numer mieszkania w który dana akomodacja się znajduje',
     'legal' => 'regulamin',
-    'privacy' => 'prywatnosc', 
-    'privacy policy' => 'polityka prywatnosci',
-    'list' => 'listuj'
+    'privacy' => 'prywatność', 
+    'privacy policy' => 'polityka prywatności',
+    'list' => 'listuj',
+    'Cannot edit accommodation' => 'Nie mozna edytowac tej oferty'
     );
 ?>
