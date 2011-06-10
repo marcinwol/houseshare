@@ -1,3 +1,8 @@
+<?php
+$sideBarHtml = $this->partial('_partials/add-this.phtml', array('title' => false));
+$this->sideBarElement('Spread the word', $sideBarHtml);
+?>   
+
 <div class="grid_6">
     <h1>O nas</h1>    
 </div>
@@ -6,42 +11,43 @@
 <div class=" grid_6 static">    
     <p>
         <strong><?php echo SITE_NAME;?></strong> jest nowoczesnym, darmowym
-        portalem stworzonym dla osób poszukujących lokatorów jak i 
+        portalem stworzonym dla osób poszukujących lokatorów jak i dla
         osób szukających zakwaterowania. 
     </p>
 </div>    
 
 <div class=" grid_6 static">
-    <h1>No i co z tego? Co jest takiego innego od dziesiatki innych takich stron?</h1>   
-    Ano jest pare rzeczy. Oto niektóre z nich:         
+    <h1>No i co z tego? Co wyróżnia ten portal od dziesiatki innych tego typu?</h1>   
+    Ano jest pare rzeczy. Oto niektóre z nich.         
     
     <h2>Używamy OpenID</h2>
     <p> 
-        Jeśteśmy pierwszym tego typu portalem w Polsce, który zaadoptował OpenID!
+        Jeśteśmy pierwszym portalem w Polsce zwiazanym ze stancjami, który zaadoptował OpenID!
         Dzięki temu, logowanie do naszego systemu jest bardzo proste i szybkie. 
-        A to dlatego że możesz się zalogować do  
-        używając swojego konta np. z Google, Yahoo czy Facebook. 
+        Dzięki OpenID, możesz się zalogować do naszego systemu 
+        używając swojego konta z np. <strong>Google, Yahoo czy Facebook</strong>. 
         Nie ma potrzeby tworzyć nowej nazwy użytkownika, emaila albo hasła. 
     </p>
     
     
     <h2>Jesteśmy darmowi</h2>    
     <p>
-        Wszystko jest darmowe. Można za darmo  dodawać ogłoszenia, czytanać je,
-        edytować je, kontaktowanie się z osobą ogłaszająca daną oferte. W żadnym 
-        miejscu nie ma pop-up'ów proszących od zapłate za dostęp do danej oferty. 
+        Wszystko jest darmowe. Można za darmo dodawać ogłoszenia, czytać,
+        edytować, kontaktować się z osobą ogłaszająca daną oferte. W żadnym 
+        miejscu nie ma pop-up'ów ani innych niespodzianek
+        proszących od zapłate za dostęp do danej oferty. 
     </p>
     
     <h2>Brak limitacji</h2>    
     <p>
-        Nie ma limitacji na ilość ogloszeń. Po zalogowaniu się, 
+        Nie ma limitacji na ilość ofert jakiem można posiadać. Po zalogowaniu się, 
         można dodać ile ogłoszeń się chce. 
     </p>
     
     <h2>Nie usuwamy ogłoszeń</h2>    
     <p>
-        Nieaktualne ogłoszenia nie są usuwane, bo nie ma takiej potrzeby. Nieaktualne
-        ogłoszenia sa oznaczone jako nieaktywne tylko. Dzięki temu, nie trzeba 
+        Nieaktualne ogłoszenia nie są usuwane. Zamiast tego są one
+        oznaczona jako nieaktywne. Dzięki temu, nie trzeba 
         na nowo dodawać tego samego ogłoszenia gdy znowu przyjdzie czas na poszukiwanie
         lokatorów. Wystarczy sie zalogowac, edytowac jeśli jest taka potrzeba, 
         i aktywować. 
@@ -49,23 +55,25 @@
     
     <h2>Ty kontrolujesz swoje dane kontaktowe</h2>    
     <p>
-        Standardowo twoj email i telefon (jeśli podany) sa oznaczone jako ukryte. 
-        Nie udostępniamy ich na stronie. Jeśli chcesz, możesz oznaczyc twoj email 
-        albo/i telefon jako publiczne. 
+        Standardowo twoj adres email i telefon (jeśli podany) sa oznaczone jako ukryte. 
+        Nie udostępniamy ich na stronie. Jednak jeśli chcesz, możesz oznaczyc je
+        jako publiczne. Wybór należy do Ciebie.
     </p>
     
-    <h2>Twoj email jest chroniny przed spamerami</h2>    
+    <h2>Twoj email jest chroniny przed automatycznymi spamerami</h2>    
     <p>
         Jeśli zdecudujesz sie na upublicznienie swojego adresu email nie 
         jest on wyświetlany w jawnej postaci. Chronimy go używając 
-        doskonałe usługi  reCAPTCHA Mailhide. 
+        doskonałe usługi <strong>reCAPTCHA Mailhide</strong>. Ktoś kto chce odczytać
+        twoj adres email musi wpier poprawnie odczytać text z obrazka. 
     </p>
     
-    <h2>Twoja opinia się liczy</h2>    
+    <h2>Twoja opinia jest dla nas ważna</h2>    
     <p> 
-        Dzięki usłudze UserVoice, możesz w bardzo prosty sposób
+        Dzięki usłudze <strong>UserVoice</strong>, możesz w bardzo prosty sposób
         wyrazić swoja opinie, uwagi czy pomysły związane z naszym portalem. 
-        Dodatkowo, możesz przeczytać co inni użytkownicy napisali o nas. 
+        Dodatkowo, możesz przeczytać co inni użytkownicy napisali o nas, głosować
+        na pomysły innych i komentować je.        
     </p>
     
             
@@ -75,22 +83,23 @@
         ulic. Wieć praktycznie można dodać oferte dotyczącą każdego miejsca w Polsce,
         a nie tylko paru dużych miast.
     </p>
+            
+       
+    <h2>Portal jest ciągle rozwijany</h2>    
+    <p>
+        Cały czas pracujemy nad usprawniemiami i nowymy funkcjami. Codziennie
+        się zastanawiamy co by można poprawić i ułatwić. Jakie nowe funkcje 
+        można dodać aby nasz portal był lepszy. Poto też liczymy na 
+        opinie i pomysly użytkowników.
+    </p>
     
     <h2>To jest proste</h2>    
     <p>
-        Nasz główny prioryte podczas pracy nad portalem byla prostota w obsłudze
-        i jego przejrzystoś.         
-    </p>
-    
-       
-    <h2>Ciągle go rozwijamy</h2>    
-    <p>
-        Cały czas pracujemy nad usprawniemiami i nowymy funkcjami. Codziennie
-        się zastanawiamy co by można poprawić, ułatwić. Jakie nowe funkcje 
-        można dodać aby nasz portal był lepszy. 
-    </p>
-    
-   
+        Nasz główny prioryt podczas pracy nad portalem jest prostota w obsłudze
+        i jego przejrzystoś. Usnueliśmy niepotrzebne banery, nagłowki,
+        tła i inne niepotrzebne bajery, poto aby nasz portal był jak najbardziej 
+        przejżysty.         
+    </p>   
     
     
 </div>
