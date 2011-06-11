@@ -1,0 +1,32 @@
+<?php
+
+    echo '<script type="text/javascript">  Shadowbox.init();</script>';
+
+    $cache = Zend_Registry::get('genericCache');
+    $cacheId = 'photos' . $this->acc->acc_id;
+
+    $imgsHtml = $cache->load($cacheId);
+
+    if (!$imgsHtml) {
+
+
+        $thumbs = $this->acc->thumbsurls;
+
+        $imgsHtml = '';
+        $imgsHtml .= '<ul class="photos">';
+        foreach ($this->acc->photosurls as $photo_id => $url) {
+            $thumb = '<img src="' . $thumbs[$photo_id] . '" alt="thumbs" width="160px" heigth="118px" />';
+            $imgsHtml .= '<li>';
+            $imgsHtml .= '<a href="' . $url . '" rel="shadowbox[accommodation]"/>' . $thumb . '</a>';
+            $imgsHtml .= '</li>';
+        }
+        $imgsHtml .= '</ul>';
+        //  echo '<script type="text/javascript">  $("#pikame").PikaChoose(); </script>';
+
+        $cache->save($imgsHtml, $cacheId);
+    }
+    
+    echo $imgsHtml;
+
+
+?>

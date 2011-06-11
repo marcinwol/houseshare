@@ -4,6 +4,13 @@ if ($this->showSteps) {
 }
 ?>
 
+<?php
+if (isset($this->acc) && count($this->acc->photosurls) > 0) {
+    $imgsHtml = $this->partial('_partials/acc-photos.phtml',array('acc' => $this->acc));
+    $this->sideBarElement('Current photos', $imgsHtml);
+}
+?> 
+
 <div class="grid_6">  
     <h1><?php echo $this->translate($this->title); ?></h1>
 </div>
@@ -18,7 +25,7 @@ if ($this->showSteps) {
 </div>
 <script type="text/javascript">
     $(document).ready(function (e) {
-        $('#Upload').live('submit', function(e) {   
+        $('#Upload').live('click', function(e) {   
            
             $('#photos-form').submit();
             $('#photos-upload-form').empty();

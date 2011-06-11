@@ -957,6 +957,11 @@ class AccommodationController extends Zend_Controller_Action {
                 return $this->_redirect('accommodation/photochange/id/' . $acc_id);
             }
         }
+        
+        if (false == $showSteps) {
+            $photosForm->skip->setLabel('Cancel');
+            $this->view->acc = $acc;
+        }
 
         $this->view->showSteps = $showSteps;
         $this->view->title = $title;
@@ -1443,10 +1448,11 @@ class AccommodationController extends Zend_Controller_Action {
                 }
 
 
-                var_dump($imagesToChange);
+                //var_dump($imagesToChange);
             }
         }
-
+        
+        $this->view->acc = $acc;
         $this->view->form = $form;
     }
 

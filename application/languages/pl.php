@@ -91,6 +91,7 @@ return array(
     'Map localization' => 'Lokalizacja na mapie',
     'Drag the marker on the map if its at incorrect place' => 'Przeciągnij marker jesli jest w niewłasciwej lokalizacji',
     'Step 3: Photos' => 'Krok 3: Zdjęcia',
+    'Current photos' => 'Obecne zdjęcia',
     'Upload images:' => 'Wybierz zdjęcia:',
     'Step 4: Preview' => 'Krok 4: Podgląd',
     'Success!' => 'Sukces!',
