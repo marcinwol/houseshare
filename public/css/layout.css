@@ -224,6 +224,7 @@ form#address input, #openid_input_area input, form#form-changeimages input[type=
     font-size: 18px;
 }
 
+
 #openid_input_area input[type=text] {
     width: 60%;
 }
@@ -255,8 +256,19 @@ form#form-sendemail input, form#form-sendemail textarea {
     font-size: 12px;
 }
 
+form#form-sendemail label.error {
+    font-size: 12px ; 
+}
+
 form#accommodation-form textarea,  form#register-form textarea, form#form-sendemail textarea {
     height: 100px;
+}
+
+
+textarea#basic_info-price_info, textarea#features-description,
+textarea#roomates-description, textarea#preferences-description, 
+textarea#about_you-description, textarea#appartment_details-description  {
+    height: 40px !important;
 }
 
 form#accommodation-form input[type=checkbox], form#register-form input[type=checkbox] {

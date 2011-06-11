@@ -23,14 +23,19 @@ if (isset($this->acc) && count($this->acc->photosurls) > 0) {
     </div>
 
 </div>
+
+
 <script type="text/javascript">
     $(document).ready(function (e) {
+        
+        var text = "<?php echo $this->translate('Please wait.<br />It may take a while, depending on your Internet speed and size of the photos uploaded.');?>";
+        
         $('#Upload').live('click', function(e) {   
            
             $('#photos-form').submit();
             $('#photos-upload-form').empty();
             $('#progress').show();
-            $('#progress').html('<img class="loadingimg" src="/sharehouse/public/images/loading2.gif" /><p style="text-align:center;">Please wait.<br />It may take a while, depending on your Internet speed and size of the photos uploaded.</p>');
+            $('#progress').html('<img class="loadingimg" src="/sharehouse/public/images/loading2.gif" /><p style="text-align:center;">'+text+'</p>');
             
             return true;
            

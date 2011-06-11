@@ -38,7 +38,12 @@
                     <label>contact</label>                                           
                     <controller>page</controller>
                     <action>faq</action>   
-                </faq>                   
+                </faq> 
+                 <double-email>
+                    <label>Email already exists</label>                                           
+                    <controller>user</controller>
+                    <action>double-email</action>   
+                </double-email> 
                 <user>
                     <type>My_Navigation_Page_User</type>
                     <label>User</label>                       

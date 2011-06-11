@@ -23,11 +23,11 @@ class IndexController extends Zend_Controller_Action {
      */
     public function testAction() {
 
-      $model = new My_Model_Table_City();
-      
-     // var_dump($model->fetchAll());
-       
-      $this->view->layout()->some_val = 100;
+        $model = new My_Model_Table_City();
+
+        // var_dump($model->fetchAll());
+
+        $this->view->layout()->some_val = 100;
 
         var_dump($request->getUserParams());
     }
@@ -44,16 +44,18 @@ class IndexController extends Zend_Controller_Action {
 
                 // $whatToDo = $mainForm->getValue('rd_what_to_do');
                 $whatToDo = '0';
-                $cityName = $mainForm->getValue('i_city');
+                $cityID = $mainForm->getValue('i_city');
                 $maxPrice = $mainForm->getValue('maxprice');
                 $accType = $mainForm->getValue('acctype');
 
-                if ('1' === $whatToDo) {
-                    return $this->_redirect('/add/city/' . $cityName);
-                } elseif ('0' === $whatToDo) {
-                   // $url = $this->view->url(array('city' => $cityName, 'cityname'),'acclist');
-                    return $this->_redirect("/list/city/$cityName/maxprice/$maxPrice");
-                }
+                // get the name of a city for a given cityID
+                $cityModel = new My_Model_Table_City();
+                $cityRow = $cityModel->find($cityID)->current();
+
+                // construct url parameters for the route
+                $urlParams = array('city' => $cityID, 'cityname' => $cityRow->name, 'maxprice' => $maxPrice);
+
+                return $this->_helper->redirector->gotoRoute($urlParams, 'listacc');
             }
         }
 
@@ -73,7 +75,7 @@ class IndexController extends Zend_Controller_Action {
 
             $term = $this->getRequest()->getParam('term');
             $nostate = $this->getRequest()->getParam('nostate', 0);
-           
+
             $cacheId = 'cities_' . md5($term);
             $matches = $autocompleterCache->load($cacheId);
 
@@ -143,7 +145,7 @@ class IndexController extends Zend_Controller_Action {
 
             $term = $this->getRequest()->getParam('term');
 
-          //  $t1 = microtime(true);
+            //  $t1 = microtime(true);
             $cacheId = 'streets_' . md5($term);
             $matches = $autocompleterCache->load($cacheId);
 
@@ -161,9 +163,8 @@ class IndexController extends Zend_Controller_Action {
 
                 $autocompleterCache->save($matches, $cacheId);
             }
-  
+
             $this->_helper->json($matches);
-            
         } else {
             throw new Exception('Not an ajax requrests');
         }
