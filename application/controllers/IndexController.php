@@ -51,7 +51,8 @@ class IndexController extends Zend_Controller_Action {
                 if ('1' === $whatToDo) {
                     return $this->_redirect('/add/city/' . $cityName);
                 } elseif ('0' === $whatToDo) {
-                    return $this->_redirect("/list/city/$cityName/maxprice/$maxPrice/acctype/$accType");
+                   // $url = $this->view->url(array('city' => $cityName, 'cityname'),'acclist');
+                    return $this->_redirect("/list/city/$cityName/maxprice/$maxPrice");
                 }
             }
         }

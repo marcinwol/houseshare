@@ -55,14 +55,15 @@ $(function() {
     $('table#resent-adverts td').each(function(index) {
         //var addr_lat = $(this).find('input#addr_lat').val();
         var acc_id = $(this).find('input#acc_id').val();
-        var baseUrl = $(this).find('input#baseUrl').val();       
+        var baseUrl = $(this).find('input#baseUrl').val();    
+        var accUrl = $(this).find('input#accUrl').val();    
             
         var aID = "#aID"+acc_id;
         var dialogDiv = "#dialogDiv"+acc_id;
         var previewUrl = baseUrl+'accommodation/preview/id/'+acc_id;
-        var fullUrl = baseUrl+'accommodation/show/id/'+acc_id;
+      //  var fullUrl = baseUrl+'accommodation/show/id/'+acc_id;
                           
-        previewDialog(aID,dialogDiv, baseUrl, previewUrl, fullUrl);
+        previewDialog(aID,dialogDiv, baseUrl, previewUrl, accUrl);
 
     });
            

@@ -128,6 +128,7 @@
     echo '<input type="hidden" id="acc_id" value="' . $this->acc->acc_id . '" />';
     echo '<input type="hidden" id="type_id" value="' . $this->acc->type_id . '" />';
     echo '<input type="hidden" id="baseUrl" value="' . $this->baseUrl('/') . '" />';
+    echo '<input type="hidden" id="accUrl" value="' . $this->accUrl($this->acc) . '" />';
 
     if (!empty($lat) && !empty($lng)) {
         echo '<input type="hidden" id="addr_lat" value="' . $lat . '" />';

@@ -899,6 +899,9 @@ div.section h1 {
     border-bottom-width: 1px;
     border-bottom-color: #bd3d00;
 }
+
+/** for static pages ***/
+
 div.static {
     font-size: 15px;
     padding-bottom:  15px;
@@ -913,6 +916,20 @@ div.static h1 {
 div.static h2 {
     font-size:16px;
     margin-top:15px;    
+}
+
+div.static a {
+    text-decoration: none;
+    color: #DD7601;
+    font-weight: bold;
+}
+
+div.static a:hover {
+    text-decoration: underline;
+}
+
+div.static ul {
+    padding: 10px 0px 10px 40px;
 }
 
 /* ---------->>> jtip <<<---------------------------------------------------------------*/
