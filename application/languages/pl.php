@@ -258,11 +258,18 @@ return array(
     'legal' => 'regulamin',
     'privacy' => 'prywatność', 
     'privacy policy' => 'polityka prywatności',
+    'privacy policy _adverb' => 'politykę prywatności',
     'list' => 'listuj',
     'Cannot edit accommodation' => 'Nie można edytowac tej oferty',
     'Please wait.<br />It may take a while, depending on your Internet speed and size of the photos uploaded.'
         => 'Proszę czekać. <br /> Czas uploadu będzie zależy od prędkości twojego połączenia Internetwego oraz ilości i więlkości zdjęć',
     'Please enter a valid email address' => 'Proszę podać prawidłowy email',
     'You query cannot be empty' => 'Twoje zapytanie nie może być puste',
+    'read here' => 'czytaj tutaj',
+    'Do you accept our regulations (%link1%) and privacy policy (%link2%)?' => 
+        'Czy akceptujesz nasz regulamin (%link1%) i politykę prywatności (%link2%)?',
+    "You cannot proceed if you don't agree with out regulations or privacy policy"
+        => "Nie możesz kontynować jeśli się nie akcpetujesz naszego regulaminu albo polityki prywatności",
+    
     );
 ?>

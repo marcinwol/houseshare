@@ -18,12 +18,13 @@ abstract class My_Form_Abstract_AccommodationAbstract extends Zend_Form {
     const ACC_FEATURES_SUBFORM_NAME = 'features';
     const ROOM_FEATURES_SUBFORM_NAME = 'room_features';
     const BED_FEATURES_SUBFORM_NAME = 'bed_features';
+    const LEGAL_SUBFORM_NAME = 'legal';
     const ABOUT_YOU_SUBFORM_NAME = 'about_you';
     const PHOTOS_SUBFORM_NAME = 'photos';
     const NEW_CITY_SUBFORM_NAME = 'new_city';
     const APPARTMENT_DETAILS = 'appartment_details';
-    
-    
+
+
     protected $_tooltipMessages = array(
         'title' => 'The title of this advertisment',
         'acc_desc' => 'Description of your offer',
@@ -33,7 +34,7 @@ abstract class My_Form_Abstract_AccommodationAbstract extends Zend_Form {
         'building_no' => 'Building number in which your advertised accommodation is located',
         'app_no' => 'Appartment number in which your advertised accommodation is located'
     );
-    
+
     protected function _tooltip($key) {
         $tr = $this->getTranslator();
         return $tr->translate($this->_tooltipMessages[$key]);
@@ -65,20 +66,18 @@ abstract class My_Form_Abstract_AccommodationAbstract extends Zend_Form {
         $accTypeChoice->setValue('2');
 
         // add element
-        $liveChoice = new Zend_Form_Element_Select('live_in_acc');
-        $liveChoice->setLabel('Do you live in the property?');
-        $liveChoice->addMultiOptions(
-                array(
-                    '0' => "Yes and I rent it",
-                    '1' => "Yes and I own it",
-                    '2' => "No but I own it",
-                    '3' => "No and I am a Real Estate Agent",
-                )
-        );
-        $liveChoice->setRequired(true);
-        $liveChoice->setValue('0');
-
-
+//        $liveChoice = new Zend_Form_Element_Select('live_in_acc');
+//        $liveChoice->setLabel('Do you live in the property?');
+//        $liveChoice->addMultiOptions(
+//                array(
+//                    '0' => "Yes and I rent it",
+//                    '1' => "Yes and I own it",
+//                    '2' => "No but I own it",
+//                    '3' => "No and I am a Real Estate Agent",
+//                )
+//        );
+//        $liveChoice->setRequired(true);
+//        $liveChoice->setValue('0');
         // create new element
         $titleInput = $this->createElement('text', 'title');
         $titleInput->setRequired(true)->setLabel('Title');
@@ -198,7 +197,7 @@ abstract class My_Form_Abstract_AccommodationAbstract extends Zend_Form {
         //$addressPublicChb->setRequired(true);
         $addressPublicChb->setLabel('Unit and street numbers visible to all');
         $addressPublicChb->setChecked(false);
-      
+
 
         // create new element
         $streetNameInput = $this->createElement('text', 'street_name');
@@ -289,7 +288,7 @@ abstract class My_Form_Abstract_AccommodationAbstract extends Zend_Form {
         $minAgeInput->setLabel('Approximate min. age of the tenants');
         $minAgeInput->addMultiOptions($ageOptions);
         $minAgeInput->setValue('20');
-        
+
         // $minAgeInput->setRequired(true);
         // create new element
         $maxAgeInput = new Zend_Form_Element_Select('max_age');
@@ -461,18 +460,7 @@ abstract class My_Form_Abstract_AccommodationAbstract extends Zend_Form {
         $noOfParkingSpots->setRequired(false)->setValue('0');
         $appartmentDetailsForm->addElement($noOfParkingSpots);
 
-//        // create element for furnishead as it is not binary.
-//        $furniture = new Zend_Form_Element_Select('furnished');
-//        $furniture->setLabel('Furniture');
-//        $furniture->addMultiOptions(
-//                array(
-//                    '0' => "Unfurnished",
-//                    '1' => "Partially furnished",
-//                    '2' => "Fully furnished"
-//                )
-//        );
-//        $furniture->setRequired(false)->setValue('0');
-//        $appartmentDetailsForm->addElement($furniture);
+
         // create new element
         $descriptionInput = $this->createElement('textarea', 'description');
         $descriptionInput->setFilters(array('stripTags', 'stringTrim'));
@@ -483,6 +471,56 @@ abstract class My_Form_Abstract_AccommodationAbstract extends Zend_Form {
 
 
         return $appartmentDetailsForm;
+    }
+
+    protected function _makeLegalSubForm() {
+        $subForm = new Zend_Form_SubForm();
+        $subForm->setLegend('Regulations and privacy policy');
+
+        $legalUrl = $this->getView()->url(array(), 'legalpage');
+        $privacyUrl = $this->getView()->url(array(), 'privacypage');
+
+        
+        $tr = $this->getTranslator();
+        
+        $label = 'Do you accept our regulations (%link1%) and privacy policy (%link2%)?';
+        $label = $tr->_($label);
+        $label = str_replace(
+                array('%link1%', '%link2%'), 
+                array(
+                    "<a href=\"$legalUrl\" target=\"_blank\">{$tr->_('read here')}</a>",
+                    "<a href=\"$privacyUrl\" target=\"_blank\">{$tr->_('read here')}</a>"
+                    ), 
+                $label
+        );
+
+
+
+        $legalChoice = new Zend_Form_Element_Select('accept');
+        $legalChoice->setLabel($label);
+        $legalChoice->getDecorator('Label')->setOption('escape', false);
+        $legalChoice->addMultiOptions(
+                array(
+                    '0' => "No",
+                    '1' => "Yes"
+                )
+        );
+        $legalChoice->setRequired(true);
+        $legalChoice->setValue('0');
+
+
+        // make sure legal is accepted.
+        $validator = new Zend_Validate_Identical("1");
+        $validator->setMessage(
+                "You cannot proceed if you don't agree with out regulations or privacy policy", Zend_Validate_Identical::NOT_SAME
+        );
+        $legalChoice->addValidator($validator);
+
+
+        $subForm->addElement($legalChoice);
+
+
+        return $subForm;
     }
 
 //    protected function _makeBedFeaturesSubForm() {
@@ -663,12 +701,11 @@ abstract class My_Form_Abstract_AccommodationAbstract extends Zend_Form {
      * @return Zend_Validate_StringLength 
      */
     protected function _StringLength($max = 200) {
-        
+
         $val = new Zend_Validate_StringLength(array('max' => $max));
         $val->setMessage('Field value is more than %max% characters long', Zend_Validate_StringLength::TOO_LONG);
-        
+
         return $val;
-        
     }
 
 }

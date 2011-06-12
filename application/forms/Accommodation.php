@@ -25,6 +25,7 @@ class My_Form_Accommodation extends My_Form_Abstract_AccommodationAbstract {
         $appartmentDetailsForm = $this->_makeAppartmentDetailsSubForm();
         $aboutYouSubForm = $this->_makeAboutYouSubForm();
         $newCitySubForm = $this->_makeNewCitySubForm();
+        $newLegalSubForm = $this->_makeLegalSubForm();
 
         $this->addSubForm($accInfoSubForm, self::BASIC_INFO_SUBFORM_NAME);
         $this->addSubForm($addressSubForm, self::ADDRESS_SUBFORM_NAME);
@@ -34,9 +35,11 @@ class My_Form_Accommodation extends My_Form_Abstract_AccommodationAbstract {
         $this->addSubForm($roomatesSubForm, self::ROOMATES_SUBFORM_NAME);
         $this->addSubForm($preferencesSubForm, self::PREFERENCES_SUBFORM_NAME);        
         $this->addSubForm($aboutYouSubForm, self::ABOUT_YOU_SUBFORM_NAME);
+        
+        $this->addSubForm($newLegalSubForm, self::LEGAL_SUBFORM_NAME);
 
         
-         $this->setAttrib('id', 'accommodation-form');
+       $this->setAttrib('id', 'accommodation-form');
 
         
         // Create a submit button.

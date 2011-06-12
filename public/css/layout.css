@@ -225,6 +225,15 @@ form#address input, #openid_input_area input, form#form-changeimages input[type=
 }
 
 
+label a {
+    text-decoration: none;
+    color: #DD7601;    
+}
+
+label a:hover {
+    text-decoration: underline;
+}
+
 #openid_input_area input[type=text] {
     width: 60%;
 }
@@ -589,6 +598,10 @@ ul.errors, label.error {
     color: #ff0000;
 }
 
+ul.errors li {
+    list-style-type: none;
+}
+
 
 /** FEATURES and PREFERENCES display ***/
 ul.feats-prefs {
@@ -943,6 +956,7 @@ div.static a:hover {
 div.static ul {
     padding: 10px 0px 10px 40px;
 }
+
 
 /* ---------->>> jtip <<<---------------------------------------------------------------*/
 
