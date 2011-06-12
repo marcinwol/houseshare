@@ -23,11 +23,10 @@ class IndexController extends Zend_Controller_Action {
      */
     public function testAction() {
 
-        $model = new My_Model_Table_City();
-
-        // var_dump($model->fetchAll());
-
-        $this->view->layout()->some_val = 100;
+        $form = new My_Form_TestForm();
+        
+        echo $form;
+        exit;
 
         var_dump($request->getUserParams());
     }

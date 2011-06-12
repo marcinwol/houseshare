@@ -7,26 +7,38 @@
 
 class My_Form_TestForm extends Zend_Form {
 
+    public function __construct($options = null) {
+
+        parent::__construct($options);
+
+        // Set the method for the display form to POST
+        $this->setMethod('post');
+
+        $elements = array();
+        
+        $options['columns'] = array('test','test1','test2');
+        
+
+        // Get user input to create elements
+        $fields = $options['columns'];
+
+        // Create form elements
+        for ($i = 0; $i < count($columns); $i++) {
+            $element = $this->CreateElement('text', 'field' . $i);
+            $element->setLabel($fields[$i]['name']);
+            $elements[] = $element;
+        }
+
+        $this->addElements($elements);
+        $this->setElementDecorators(array('ViewHelper'));
+        $this->setDecorators(array(array('ViewScript', array('viewScript' => 'myform-form.phtml'))));
+    }
+
+// end class
+
     public function init() {
 
-        $file = new Zend_Form_Element_File('file');
-        $file->setDestination(PHOTO_DIR_NAME);
-        $file->addValidator('Size', false, 10000000);
-        $file->setMaxFileSize(10000000);
-        $this->addElement($file);
-
-//        $hash = new Zend_Form_Element_Hash('hash');
-//        $hash->setIgnore(true)
-//                ->setSalt('mysalt');
-//        $this->addElement($hash);
-
-        $submit = new Zend_Form_Element_Submit('submit');
-        $submit->setLabel('Test')
-                ->setIgnore(true);
-        $this->addElement($submit);
-
-        $this->setAttrib('enctype', 'multipart/form-data');
-        $this->setMethod('post');
+        
     }
 
 }

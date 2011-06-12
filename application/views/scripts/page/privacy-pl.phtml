@@ -26,112 +26,140 @@ echo $this->partial('_partials/sidebar-for-pages.phtml', array('skip' => array('
     </p>
     <ul>
         <li>
-            Dane kontaktowe: adres e-mail (obowiazkowy) i telefon (opcjonalny)
-        </li>        
+            Personalne dane kontaktowe: adres e-mail (obowiazkowy), 
+            telefon (opcjonalny) oraz imię/przydomek (opconalny). 
+        </li>                
         <li>
-            Informacje związane z ofertami (jak na przykład tytuł, opis, adres, itp)
+            Inne dane personalne: krótki opis osoby zalogowanej do portalu
+            (opcjonalny) 
+            oraz
+            hasło, jeśli OpenID jest nie używany do logowania, lub
+            identyficator OpenID w przeciwnym wypadku. W przyladku gdy krótki
+            opis jest podany, będzię on jawny i wyświetlony 
+            (w raz z imieniem/przydomkiem) przy danej ofercie.
         </li>
         <li>
-            Inne danne, w tym adresy IP użytkownika. Adresy IP są 
+            Informacje związane z ofertami jak na przykład 
+            tytuł, opis, zdjęcia, adres, preferencje, co jest dostępne w danej
+            akomodacji, ogolne informacje o
+            obecnych lokatorach lub mieszkaniu.            
+        </li>
+        <li>
+           Adresy IP. Adresy IP są 
             używane tylko w celu zliczania 
             ilości odsłon poszczególnych ofert.
         </li>
+        
     </ul>
 
     <h2>Statystki odwiedzin</h2>    
     <p>
         Statistyki odwiedzin portalu
             <?php echo SITE_NAME; ?> sa monitorwane i przechowane
-            przez usługę Google Analytics.
+            przez usługę 
+            <a href="http://www.google.com/intl/pl/analytics/">Google Analytics</a>. 
+            Google Analytics zbiera 
+          informacje takie jak na przykład: nazwę dostawcy 
+        Internetu, przeglądarkę, z której korzysta 
+        użytkownik, czas jaki spędza na 
+        stronie oraz linki otwieranych stron w Serwisie. 
     </p>
         
         
     <h2>Jawne informacje</h2>
     <p> 
-        Formularze dodawania nowej oferty w portalu posiada pola,       
-        w których mogą znaleźć się ważne informacje.
-        Większość z pól jest opcjonalna (ich wypełnienie nie jest obowiązkowe).
+        Dodawanie nowej oferty na portalu <?php echo SITE_NAME; ?>
+        albo założenie konta na nim
+        wymaga wypełnienia odpowiedinch formluarzy, w których mogą znajdować
+        się ważne dane. Większość pól w tych formlularzach jest opcjonalna.
         Jawne pola obowiązkowe to:
     </p>
-    <ul>        
-        <li>adres e-mail (może być oznaczony przez ogłoszeniodawcy jako 
-            jako prywatny albo publiczny</li>
-        <li>hasło (jeśli OpenID jest nie używany do logowania)</li>
-        <li>cena</li>
-        <li>Miasto, ulica, numer budynku (numer pudynku może być 
-            przez ogłoszeniodawcy jako 
-            jako prywatny albo publiczny)
+    <ul>  
+        
+        <li>
+            Adres e-mail (może być oznaczony  
+            jako prywatny albo publiczny)</li>        
+        <li>
+            Tytuł i opis oferty.
         </li>
+        <li>Cena wynajmu i data kiedy dane zakwaterowanie będzie dostępne</li>
+        <li>Adres danego zakwaterowania, tj. miasto, ulica, numer budynku i
+            mieszkania. Numer budynku  może być 
+            oznaczony jako prywatny albo publiczny. Numer mieszkania jest 
+            nie obowiązkowy i jeśli podany razem z numerem budynku może być
+            prytwanty albo publiczny. 
+        </li>
+        <li>
+            Lokalizacja na mapie.
+        </li>
+        
     </ul>
-
     <p>
-        Proszę pamiętać iż nie istnieje możliwość zabezpieczenia 
-        użytkowników przed osobami prywatnymi lub firmami, 
-        które publicznie dostępne dane wykorzystają do 
-        przesłania nieokreślonych treści. 
+        Reszta jawnych informacji jest nieobowiązkowa i nie trzeba jej podawać.
+        Proszę pamiętać iż nie możemy zabezpieczyć
+        użytkowników przed dostępem osobób prywatnych lub firm do
+        publicznie dostępnych informacji (tj. jawne informacje) oraz w jaki
+        sposób są te informacje wykorzystywane.        
     </p>
 
-
-    <h2>Logi</h2>
-    <p> 
-        Tak jak większość innych witryn 
-        internetowych zbieramy i wykorzystujemy 
-        dane zawarte w plikach logów. Informacje
-        z plików logów zawierają numer IP, nazwę 
-        sieciową komputera (host),nazwę dostawcy 
-        Internetu, przeglądarkę, z której korzysta 
-        Użytkownik, czas jaki spędza na 
-        stronie oraz linki otwieranych stron w Serwisie. 
-    </p>
 
 
 
     <h2>Ujawnianie danych</h2>
     <p> 
         Nie przekazujemy w sposób odpłatny lub bezpłatny 
-        danych Użytkowników innym firmom dla celów
-        marketingowych bez uzyskania jednoznacznej 
-        zgody Użytkownika. Ujawnienie danych może odbyć
+        prywatnych danych o użytkowników osobą trzecim albo firmą.
+        Jednak, jak powyżej napisane, nie możemy kontrolować dostępu do
+        danych jawnych na stroni ani też jak te dane są wykorzystywane.        
+    </p>
+    <p>&nbsp;</p>
+    <p>    
+        Ujawnienie danych pyrwatnch może odbyć
         się ze względu na wymagania prawne, obowiązek 
         odpowiedzi w sprawach, gdy oferta lub inne treści
         naruszają prawa innych osób oraz aby chronić praw,
-        własności lub bezpieczeństwa innych osób (np. w
-        przypadku podszywania się pod konkretną osobę, 
-        bądź podawania fałszywych danych  możemy przekazać
-        te dane poszkodowanej stronie, jej przedstawicielowi 
-        lub organom wymiaru sprawiedliwości).
-        Dane możemy również udostępnić:
-        - innym firmom bądź podmiotom będących współorganizatorami Serwisu instancje.pl;
-        - usługodawcom, którzy pomagają nam prowadzić działalność gospodarczą.  
+        własności lub bezpieczeństwa innych osób.        
     </p>
 
 
+    
+    <h2>Logi</h2>
+    <p> 
+       Logi portalu <?php echo SITE_NAME; ?> 
+       są związane tylko z działąniem strony 
+       (np.: logowanie wyjątków albo
+       błedów). Portal nie zbiera informacji związanych z tym co dany
+       użytkownik robi na stronie. 
+    </p>
+
 
     <h2>Ciasteczka (cookies)</h2>
+    <p>        
+        Ciasteczka (cookies) to krótka informacja tekstowa która jest
+        przechowywana na komputerze użytkowika. Informacja ta
+        jest przesyłana przez
+        przeglądarke 
+        spowrotem do danego portalu, często za każdym razem gdy użytkowik 
+        kożysta z danego portalu.
+    </p>
+        <p>&nbsp;</p>
     <p>
-        Niektóre obszary instancje.pl mogą wykorzystywać 
-        cookies czyli niewielkie informacje tekstowe,
-        wysyłane przez serwer WWW i zapisywane po stronie 
-        Użytkownika. Domyślne parametry plików cookie (ciasteczek)
-        pozwalają na odczytanie informacji w nich zawartych jedynie 
-        serwerowi, który je utworzył.
-        Używamy plików cookie do przechowywania informacji
-        takich, jak osobiste ustawienia Użytkownika 
-        odwiedzającego Serwis. Może to obejmować możliwość 
-        zalogowania do niektórych funkcji Serwisu, jak forum, 
-        czat, czy pola formularzy.
+        Portal <?php echo SITE_NAME; ?> używa
+        ciasteczek głównie do przechowywanie informacji odnośnie tego czy dany
+        użytkowik jest zalogwany czy nie. Każdy użytkownik może wyłaczyć 
+        obsługa ciasteczek w swojej
+        przeglądarce. Jednak bez nich, niektóre funkcje naszego portalu 
+        mogą nie działać poprawnie.        
     </p>
 
 
 
     <h2>Bezpieczeństwo danych</h2>
     <p>         
-        Wykorzystujemy wiele sposobów i narzędzi mających
-        na celu zapewnienie bezpieczeństwa 
-        (szyfrowanie, hasła, zabezpieczenia fizyczne)
-        danych użytkowników przez nieautoryzowanym dostępem 
-        i ujawnieniem, ale nie możemy udzielić 
-        żadnych gwarancji dotyczących bezpieczeństwa.  
+       Dokładamy starań aby zapewnić bezpieczeństwo
+       przechowywanych informacji przez nieautoryzwoanym dostępem
+       albo ujawnieniem. Jednak nie możemy udzielić 
+       żadnych gwarancji dotyczących bezpieczeństwa danych.  
     </p>
 
 
