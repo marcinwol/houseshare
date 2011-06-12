@@ -9,6 +9,9 @@ return array(
     'Its not complicated' => 'To jest proste',
     'Welcom to ShareHouse' => 'Witamy w StrefieStancji',
     'ShareHouse: database of rooms and appartments for rent' => SITE_NAME . ': oferty stancji (pokoi i mieszkan) na wynajem',
+    'keywords _list' 
+        => 'strefastancji, stancje, mieszkania studenckie, darmowe ogloszenia, mieszkanie, mieszakania, pokoje, miejsce w pokoju, wynajem, pokój, do wynajęcia',
+    '_description' => 'StrefaStancji.pl: Darmowy, nowoczesny portal z ogłoszeniami i ofertami wolnych pokoi i mieszkań dla ludzi poszukujących zakwaterowania.',
     'Powered by the Zend Framework'=>'Zasilany przez Zend Framework',
     'An error occurred' => 'Bład w aplikacji',
     'The website is not compatible with Internet Explorer 6 or less!' => 'Strone nie będzie działac poprawnie z Internet Explorer 6 albo starszym!',
@@ -126,7 +129,7 @@ return array(
     'Phone' => 'Telefon',
     'Phone visible to all' => 'Telefon widoczny dla wszystkich',
     'Email' => 'Email',
-    'Email visible to all' => 'Email widzony dla wszystkich',
+    'Email visible to all' => 'Email widoczny dla wszystkich',
     'Email already exists' => 'Adres email już istnieje', 
     'Few words about you' => 'Pare słów o Tobie',
     'Password (minum 6 characters)' => 'Hasło (minimum 6 znaków)',
@@ -266,6 +269,7 @@ return array(
     'Please enter a valid email address' => 'Proszę podać prawidłowy email',
     'You query cannot be empty' => 'Twoje zapytanie nie może być puste',
     'read here' => 'czytaj tutaj',
+    'Regulations and privacy policy' => 'Regulamin i polityka prywatności',
     'Do you accept our regulations (%link1%) and privacy policy (%link2%)?' => 
         'Czy akceptujesz nasz regulamin (%link1%) i politykę prywatności (%link2%)?',
     "You cannot proceed if you don't agree with out regulations or privacy policy"

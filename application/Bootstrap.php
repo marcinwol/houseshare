@@ -7,8 +7,8 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
         $view = $this->getResource('view');
         $view->doctype('HTML4_STRICT');
         $view->setHelperPath(APPLICATION_PATH . '/helpers', '');
-        $view->headMeta()->appendHttpEquiv('Content-type', 'text/html;charset=utf-8')
-                ->appendName('description', 'Zend Framework');
+        $view->headMeta()->appendHttpEquiv('Content-type', 'text/html;charset=utf-8');
+                
         $view->headTitle()->setSeparator(' - ');
         $view->setScriptPath(APPLICATION_PATH . '/themes/admin');
 
@@ -92,7 +92,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
 
     protected function _initLocale() {
         // define locale
-        $locale = new Zend_Locale('pl');
+        $locale = new Zend_Locale('en');
 
         $cache = Zend_Cache::factory(
                         'Core', 'File', array('automatic_serialization' => true), array('cache_dir' => APPLICATION_PATH . '/../tmp')
@@ -237,8 +237,13 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
     }
 
     protected function _initSetDefaultKeywords() {
+        $this->bootstrap('translate');
         $view = $this->bootstrap('view')->getResource('view');
-        $view->keywords = 'sharehouse, rooms for rent, appartments, students';
+                       
+        $view->keywords = $view->translate('keywords _list');
+        
+        $view->headMeta()
+             ->appendName('description', $view->translate('_description'));
     }
 
     protected function _initSetZendMail() {
