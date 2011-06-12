@@ -185,7 +185,10 @@ echo $this->placeholder('side-bar');
                     |
                     <a href="<?php echo $this->url(array(),'contactpage'); ?>" ><?php echo $this->translate('contact'); ?></a>                     
                     | 
-                    <a href="javascript:UserVoice.showPopupWidget();" title="Open feedback & support dialog (powered by UserVoice)"><?php echo $this->translate('feedback always welcome'); ?></a>
+                    <a href="javascript:UserVoice.showPopupWidget();" 
+                       title="Open feedback & support dialog (powered by UserVoice)">
+                    <?php echo $this->translate('feedback always welcome'); ?>
+                    </a>
                 </p>     
             </div>
 

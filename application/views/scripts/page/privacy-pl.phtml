@@ -26,56 +26,56 @@ echo $this->partial('_partials/sidebar-for-pages.phtml', array('skip' => array('
     </p>
     <ul>
         <li>
-            Personalne dane kontaktowe: adres e-mail (obowiazkowy), 
-            telefon (opcjonalny) oraz imię/przydomek (opconalny). 
+            Personalne dane kontaktowe: adres e-mail (obowiązkowy), 
+            telefon (opcjonalny) oraz imię/przydomek (opcjonalny). 
         </li>                
         <li>
             Inne dane personalne: krótki opis osoby zalogowanej do portalu
             (opcjonalny) 
             oraz
             hasło, jeśli OpenID jest nie używany do logowania, lub
-            identyficator OpenID w przeciwnym wypadku. W przyladku gdy krótki
-            opis jest podany, będzię on jawny i wyświetlony 
-            (w raz z imieniem/przydomkiem) przy danej ofercie.
+            identyfikator OpenID w przeciwnym wypadku. W przyladku gdy ten
+            opis jest podany, będzie on wyświetlony 
+            (wraz z imieniem/przydomkiem) przy danej ofercie.
         </li>
         <li>
             Informacje związane z ofertami jak na przykład 
             tytuł, opis, zdjęcia, adres, preferencje, co jest dostępne w danej
-            akomodacji, ogolne informacje o
+            akomodacji, ogólne informacje o
             obecnych lokatorach lub mieszkaniu.            
         </li>
         <li>
-           Adresy IP. Adresy IP są 
+            Adresy IP. Adresy IP są 
             używane tylko w celu zliczania 
             ilości odsłon poszczególnych ofert.
         </li>
-        
+
     </ul>
 
     <h2>Statystki odwiedzin</h2>    
     <p>
-        Statistyki odwiedzin portalu
-            <?php echo SITE_NAME; ?> sa monitorwane i przechowane
-            przez usługę 
-            <a href="http://www.google.com/intl/pl/analytics/">Google Analytics</a>. 
-            Google Analytics zbiera 
-          informacje takie jak na przykład: nazwę dostawcy 
+        Statystyki odwiedzin portalu
+        <?php echo SITE_NAME; ?> są monitorowane i przechowane
+        przez usługę 
+        <a href="http://www.google.com/intl/pl/analytics/">Google Analytics</a>. 
+        Google Analytics zbiera 
+        informacje takie jak na przykład: nazwę dostawcy 
         Internetu, przeglądarkę, z której korzysta 
         użytkownik, czas jaki spędza na 
         stronie oraz linki otwieranych stron w Serwisie. 
     </p>
-        
-        
+
+
     <h2>Jawne informacje</h2>
     <p> 
         Dodawanie nowej oferty na portalu <?php echo SITE_NAME; ?>
         albo założenie konta na nim
-        wymaga wypełnienia odpowiedinch formluarzy, w których mogą znajdować
-        się ważne dane. Większość pól w tych formlularzach jest opcjonalna.
+        wymaga wypełnienia odpowiednich formularzy, w których mogą znajdować
+        się ważne dane. Większość pól w tych formularzach jest opcjonalna.
         Jawne pola obowiązkowe to:
     </p>
     <ul>  
-        
+
         <li>
             Adres e-mail (może być oznaczony  
             jako prywatny albo publiczny)</li>        
@@ -86,18 +86,18 @@ echo $this->partial('_partials/sidebar-for-pages.phtml', array('skip' => array('
         <li>Adres danego zakwaterowania, tj. miasto, ulica, numer budynku i
             mieszkania. Numer budynku  może być 
             oznaczony jako prywatny albo publiczny. Numer mieszkania jest 
-            nie obowiązkowy i jeśli podany razem z numerem budynku może być
-            prytwanty albo publiczny. 
+            nieobowiązkowy i jeśli podany razem z numerem budynku może być
+            prywatny albo publiczny. 
         </li>
         <li>
             Lokalizacja na mapie.
         </li>
-        
+
     </ul>
     <p>
         Reszta jawnych informacji jest nieobowiązkowa i nie trzeba jej podawać.
-        Proszę pamiętać iż nie możemy zabezpieczyć
-        użytkowników przed dostępem osobób prywatnych lub firm do
+        Proszę pamiętać, iż nie możemy zabezpieczyć
+        użytkowników przed dostępem osób prywatnych lub firm do
         publicznie dostępnych informacji (tj. jawne informacje) oraz w jaki
         sposób są te informacje wykorzystywane.        
     </p>
@@ -108,9 +108,9 @@ echo $this->partial('_partials/sidebar-for-pages.phtml', array('skip' => array('
     <h2>Ujawnianie danych</h2>
     <p> 
         Nie przekazujemy w sposób odpłatny lub bezpłatny 
-        prywatnych danych o użytkowników osobą trzecim albo firmą.
+        prywatnych danych o użytkowników osobom trzecim albo firmą.
         Jednak, jak powyżej napisane, nie możemy kontrolować dostępu do
-        danych jawnych na stroni ani też jak te dane są wykorzystywane.        
+        danych jawnych na stronie, ani też jak te dane są wykorzystywane.        
     </p>
     <p>&nbsp;</p>
     <p>    
@@ -122,49 +122,49 @@ echo $this->partial('_partials/sidebar-for-pages.phtml', array('skip' => array('
     </p>
 
 
-    
+
     <h2>Logi</h2>
     <p> 
-       Logi portalu <?php echo SITE_NAME; ?> 
-       są związane tylko z działąniem strony 
-       (np.: logowanie wyjątków albo
-       błedów). Portal nie zbiera informacji związanych z tym co dany
-       użytkownik robi na stronie. 
+        Logi portalu <?php echo SITE_NAME; ?> 
+        są związane tylko z działaniem strony 
+        (np.: logowanie wyjątków albo
+        błędów). Portal nie zbiera informacji związanych z tym co dany
+        użytkownik robi na stronie. 
     </p>
 
 
     <h2>Ciasteczka (cookies)</h2>
     <p>        
-        Ciasteczka (cookies) to krótka informacja tekstowa która jest
-        przechowywana na komputerze użytkowika. Informacja ta
-        jest przesyłana przez
-        przeglądarke 
-        spowrotem do danego portalu, często za każdym razem gdy użytkowik 
-        kożysta z danego portalu.
+        Ciasteczka (cookies) to krótka informacja tekstowa, 
+        która jest przechowywana na komputerze użytkownika. 
+        Informacja ta jest przesyłana przez przeglądarkę z 
+        powrotem do danego portalu,
+        często za każdym razem, gdy użytkowi korzysta
+        z danego portalu.
     </p>
-        <p>&nbsp;</p>
+    <p>&nbsp;</p>
     <p>
-        Portal <?php echo SITE_NAME; ?> używa
-        ciasteczek głównie do przechowywanie informacji odnośnie tego czy dany
-        użytkowik jest zalogwany czy nie. Każdy użytkownik może wyłaczyć 
-        obsługa ciasteczek w swojej
-        przeglądarce. Jednak bez nich, niektóre funkcje naszego portalu 
-        mogą nie działać poprawnie.        
+        Portal <?php echo SITE_NAME; ?> używa ciasteczek głównie 
+        do przechowywania informacji odnośnie do 
+        tego czy dany użytkowi jest zalogowany, czy nie.
+        Każdy użytkownik może wyłączyć obsługę ciasteczek 
+        w swojej przeglądarce. Jednak bez nich, niektóre funkcje
+        naszego portalu mogą nie działać poprawnie.        
     </p>
 
 
 
     <h2>Bezpieczeństwo danych</h2>
     <p>         
-       Dokładamy starań aby zapewnić bezpieczeństwo
-       przechowywanych informacji przez nieautoryzwoanym dostępem
-       albo ujawnieniem. Jednak nie możemy udzielić 
-       żadnych gwarancji dotyczących bezpieczeństwa danych.  
+        Dokładamy starań, aby zapewnić bezpieczeństwo
+        przechowywanych informacji przez nieautoryzowanym dostępem
+        albo ujawnieniem. Jednak nie możemy udzielić 
+        żadnych gwarancji dotyczących bezpieczeństwa danych.  
     </p>
 
 
 
-    <h2>Zmiany w Polityce Prywatności</h2>
+    <h2>Zmiany w polityce prywatności</h2>
     <p> 
         Zastrzegamy sobie prawo do wprowadzania zmian w Polityce Prywatności. 
     </p>
