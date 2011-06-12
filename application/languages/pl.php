@@ -14,7 +14,8 @@ return array(
     '_description' => 'StrefaStancji.pl: Darmowy, nowoczesny portal z ogłoszeniami i ofertami wolnych pokoi i mieszkań dla ludzi poszukujących zakwaterowania.',
     'Powered by the Zend Framework'=>'Zasilany przez Zend Framework',
     'An error occurred' => 'Bład w aplikacji',
-    'The website is not compatible with Internet Explorer 6 or less!' => 'Strone nie będzie działac poprawnie z Internet Explorer 6 albo starszym!',
+    'The website may not work well with Internet Explorer 6 or less' 
+        => 'Portal może działac niepoprawnie z Internet Explorer 6 albo starszym',
     'Our header' => 'Nasz nagłowek',
     'Welcom in houseshare project'=>'Witam w projekcje '.SITE_NAME ,
     'Hello world!'=>'Witaj świecie',
@@ -210,7 +211,8 @@ return array(
     'No infomration avaliable' => 'Brak opisu',
     'Your accommodations' => 'Twoje ogłoszenia',
     'Edit your data' => 'Edytuj swoje dane',
-    'Edit' => 'Edutyuj',
+    'Edit' => 'Edutuj',
+    'About _user' => '',
     'Update' => 'Zachowaj',
     'Change photos' => 'Zmien zdjęcia',
     'Change localization on map' => 'Zmien lokalizacje na mapie',
@@ -274,6 +276,7 @@ return array(
         'Czy akceptujesz nasz regulamin (%link1%) i politykę prywatności (%link2%)?',
     "You cannot proceed if you don't agree with out regulations or privacy policy"
         => "Nie możesz kontynować jeśli się nie akcpetujesz naszego regulaminu albo polityki prywatności",
-    
+    "You have" => 'Pozostało jeszcze',
+    "characters left." => 'znaków.'
     );
 ?>

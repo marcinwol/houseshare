@@ -6,7 +6,7 @@
 
 $(document).ready(function () {
     
-     $("form#main-search-form").jqTransform();
+    $("form#main-search-form").jqTransform();
     // $("form").jqTransform();
     
     $('.description').click(function() {
@@ -32,7 +32,7 @@ $(document).ready(function () {
 
 
     // set language for the datepicker and form
-    $("#basic_info-date_avaliable").datepicker($.datepicker.regional[lang]);
+    $("#basic_info-date_avaliable").datepicker($.datepicker.regional[myGlobals['lang']]);
     $( "#basic_info-date_avaliable" ).datepicker({ 
         dateFormat: 'dd/mm/yy' 
     });
@@ -93,89 +93,89 @@ $(document).ready(function () {
     monkeyPatchAutocomplete();
     
     
-        $("#address-city").autocomplete({
-            source: "/sharehouse/public/index/getcities/nostate/1",
-            delay: 0,
-            minLength: 2,
-            select: function(event, ui){
-                $("#address-city").val(ui.item.city_name);
-                $('#address-state').val(ui.item.state_name);
-            }
-        });
-//    
-//    $.get('/houseshare/public/index/getcities/nostate/1', function(cities) {
-//        //console.log(streets.length);
-//        //    console.log(streets[0]);
-//
-//        
-//        $("#address-city").autocomplete( {            
-//            delay: 0,
-//            minLength: 1,
-//            source: function(request, response){
-//                var matches = new Array();
-//                var needle = request.term.toLowerCase();
-//                var len = cities.length;
-//                for(i = 0; i < len; ++i)   {
-//                    var haystack = cities[i].label.toLowerCase();
-//                    if(haystack.indexOf(needle) == 0 || haystack.indexOf(" " + needle) != -1)   {
-//                        matches.push(cities[i]);
-//                        if (matches.length > 10 ) {                           
-//                            break;
-//                        }
-//                    }
-//                }
-//                response(matches);
-//            },
-//            select: function(event, ui){
-//                $("#address-city").val(ui.item.city_name);
-//                $('#address-state').val(ui.item.state_name);
-//            }
-//            
-//        });
-//   
-//    }, 'json');
-//    
+    $("#address-city").autocomplete({
+        source: "/sharehouse/public/index/getcities/nostate/1",
+        delay: 0,
+        minLength: 2,
+        select: function(event, ui){
+            $("#address-city").val(ui.item.city_name);
+            $('#address-state').val(ui.item.state_name);
+        }
+    });
+    //    
+    //    $.get('/houseshare/public/index/getcities/nostate/1', function(cities) {
+    //        //console.log(streets.length);
+    //        //    console.log(streets[0]);
+    //
+    //        
+    //        $("#address-city").autocomplete( {            
+    //            delay: 0,
+    //            minLength: 1,
+    //            source: function(request, response){
+    //                var matches = new Array();
+    //                var needle = request.term.toLowerCase();
+    //                var len = cities.length;
+    //                for(i = 0; i < len; ++i)   {
+    //                    var haystack = cities[i].label.toLowerCase();
+    //                    if(haystack.indexOf(needle) == 0 || haystack.indexOf(" " + needle) != -1)   {
+    //                        matches.push(cities[i]);
+    //                        if (matches.length > 10 ) {                           
+    //                            break;
+    //                        }
+    //                    }
+    //                }
+    //                response(matches);
+    //            },
+    //            select: function(event, ui){
+    //                $("#address-city").val(ui.item.city_name);
+    //                $('#address-state').val(ui.item.state_name);
+    //            }
+    //            
+    //        });
+    //   
+    //    }, 'json');
+    //    
 
     
-        $("#address-street_name").autocomplete({
-            source: "/sharehouse/public/index/getstreets",
-            delay: 0,
-            minLength: 2
-        });
+    $("#address-street_name").autocomplete({
+        source: "/sharehouse/public/index/getstreets",
+        delay: 0,
+        minLength: 2
+    });
 
 
 
-//    $("#address-state").autocomplete({
-//        source: "/houseshare/public/index/getstates",
-//        delay: 0,
-//        minLength: 2
-//    });
+    //    $("#address-state").autocomplete({
+    //        source: "/houseshare/public/index/getstates",
+    //        delay: 0,
+    //        minLength: 2
+    //    });
     
     
-//    $.get('/houseshare/public/index/getstreets', function(streets) {
-//
-//        
-//        $("#address-street_name").autocomplete( {            
-//            delay: 0,
-//            minLength: 1,
-//            source: function(request, response){
-//                var matches = new Array();
-//                var needle = request.term.toLowerCase();
-//                var len = streets.length;
-//                for(i = 0; i < len; ++i)   {
-//                    var haystack = streets[i].label.toLowerCase();
-//                    if(haystack.indexOf(needle) == 0 || haystack.indexOf(" " + needle) != -1)   {
-//                        matches.push(streets[i]);
-//                        if (matches.length > 10 ) {                           
-//                            break;
-//                        }
-//                    }
-//                }
-//                response(matches);
-//            }
-//        });
-//   
-//    }, 'json');
+    //    $.get('/houseshare/public/index/getstreets', function(streets) {
+    //
+    //        
+    //        $("#address-street_name").autocomplete( {            
+    //            delay: 0,
+    //            minLength: 1,
+    //            source: function(request, response){
+    //                var matches = new Array();
+    //                var needle = request.term.toLowerCase();
+    //                var len = streets.length;
+    //                for(i = 0; i < len; ++i)   {
+    //                    var haystack = streets[i].label.toLowerCase();
+    //                    if(haystack.indexOf(needle) == 0 || haystack.indexOf(" " + needle) != -1)   {
+    //                        matches.push(streets[i]);
+    //                        if (matches.length > 10 ) {                           
+    //                            break;
+    //                        }
+    //                    }
+    //                }
+    //                response(matches);
+    //            }
+    //        });
+    //   
+    //    }, 'json');
     
     
     // JQTIP 
@@ -244,6 +244,24 @@ $(document).ready(function () {
         });
     });
     
+    
+    //make shortcut function for charsLeft jquery plugion
+   
+    myCharsLeft = function(textAreaId, length) { 
+        
+        var length = typeof(length) != 'undefined' ? length : 150;
+        var id = textAreaId + '-charsLeft';
+        
+        var html = '<p class="charsLeft">'
+                    +myGlobals['charPrefix']
+                    +' <span id="'
+                    +id+'"></span>&nbsp;'
+                    +myGlobals['charSuffix']+'</p>';
+                
+        $('#' + textAreaId).after(html);
+        $('#' + textAreaId).limit(length.toString(),'#'+id);
+        
+    };
     
     
 });

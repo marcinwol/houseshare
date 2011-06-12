@@ -9,6 +9,7 @@ return array(
     '_description' => 'ShareHouse: Free, modern service with offers of shared ' 
                       . 'accommodation in rooms and appartments.',
     'in _time' => 'in',
+    'About _user' => 'About',
     'login _verb' => 'login',
 );
 ?>

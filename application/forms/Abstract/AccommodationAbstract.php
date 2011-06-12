@@ -83,13 +83,13 @@ abstract class My_Form_Abstract_AccommodationAbstract extends Zend_Form {
         $titleInput->setRequired(true)->setLabel('Title');
         $titleInput->setFilters(array('stripTags', 'stringTrim'));
         $titleInput->setAttribs(array('tooltip' => $this->_tooltip('title')));
-        $titleInput->addValidator($this->_StringLength(255));
+        $titleInput->addValidator($this->_StringLength(81));       
 
         // create new element
         $descriptionInput = $this->createElement('textarea', 'description');
         $descriptionInput->setRequired(true)->setLabel('Description');
         $descriptionInput->setFilters(array('stripTags', 'stringTrim'));
-        $descriptionInput->addValidator($this->_StringLength(1500));
+        $descriptionInput->addValidator($this->_StringLength(501));
         $descriptionInput->setAttribs(array('cols' => 20, 'rows' => 5));
         $descriptionInput->setAttribs(array('tooltip' => $this->_tooltip('acc_desc')));
 
@@ -130,6 +130,7 @@ abstract class My_Form_Abstract_AccommodationAbstract extends Zend_Form {
                 )
         );
         $priceInfo->setFilters(array('stripTags', 'stringTrim'));
+        $priceInfo->addValidator($this->_StringLength(61));
 
         // create new element
         $bondInput = $this->createElement('text', 'bond');
@@ -315,7 +316,7 @@ abstract class My_Form_Abstract_AccommodationAbstract extends Zend_Form {
 
         $descriptionInput = $this->createElement('textarea', 'description');
         $descriptionInput->setFilters(array('stripTags', 'stringTrim'));
-        $descriptionInput->addValidator($this->_StringLength(500));
+        $descriptionInput->addValidator($this->_StringLength(101));
         $descriptionInput->setRequired(false)->setLabel('Few words about tenants');
         $descriptionInput->setAttribs(array('cols' => 20, 'rows' => 5));
 
@@ -340,7 +341,7 @@ abstract class My_Form_Abstract_AccommodationAbstract extends Zend_Form {
         $descriptionInput = $this->createElement('textarea', 'description');
         $descriptionInput->setFilters(array('stripTags', 'stringTrim'));
         $descriptionInput->setRequired(false)->setLabel('Any other preferences');
-        $descriptionInput->addValidator($this->_StringLength(500));
+        $descriptionInput->addValidator($this->_StringLength(101));
         $descriptionInput->setAttribs(array('cols' => 20, 'rows' => 5));
 
         $preferencesForm->addElement($descriptionInput);
@@ -364,7 +365,7 @@ abstract class My_Form_Abstract_AccommodationAbstract extends Zend_Form {
 
         $descriptionInput = $this->createElement('textarea', 'description');
         $descriptionInput->setFilters(array('stripTags', 'stringTrim'));
-        $descriptionInput->addValidator($this->_StringLength(500));
+        $descriptionInput->addValidator($this->_StringLength(101));
         $descriptionInput->setRequired(false)->setLabel('Any other features');
         $descriptionInput->setAttribs(array('cols' => 20, 'rows' => 5));
 
@@ -464,7 +465,7 @@ abstract class My_Form_Abstract_AccommodationAbstract extends Zend_Form {
         // create new element
         $descriptionInput = $this->createElement('textarea', 'description');
         $descriptionInput->setFilters(array('stripTags', 'stringTrim'));
-        $descriptionInput->addValidator($this->_StringLength(500));
+        $descriptionInput->addValidator($this->_StringLength(101));
         $descriptionInput->setRequired(false)->setLabel('Any other details');
         $descriptionInput->setAttribs(array('cols' => 20, 'rows' => 5));
         $appartmentDetailsForm->addElement($descriptionInput);
@@ -523,49 +524,11 @@ abstract class My_Form_Abstract_AccommodationAbstract extends Zend_Form {
         return $subForm;
     }
 
-//    protected function _makeBedFeaturesSubForm() {
-//        $featuresForm = new Zend_Form_SubForm();
-//        $featuresForm->setLegend('Bed features');
-//
-//        $bedTypeID = My_Model_Table_Type::getByName('Bed');
-//        $bedFeatures = My_Model_Table_Feature::getAllByType($bedTypeID->type_id)->toArray();
-//
-//        if (count($bedFeatures) == 0) {
-//            return null;
-//        }
-//
-//        foreach ($bedFeatures as $feature) {
-//            if ('0' === $feature['binary']) {
-//                continue;
-//            }
-//            $newElem = $this->createElement('checkbox', $feature['name']);
-//            $newElem->setRequired(false)->setLabel(ucfirst($feature['name']));
-//            $newElem->setChecked(false);
-//            $featuresForm->addElement($newElem);
-//        }
-//
-//        return $featuresForm;
-//    }
-
     protected function _makeAboutYouSubForm() {
         $aboutYouForm = new Zend_Form_SubForm();
         $aboutYouForm->setLegend('About you');
 
-//        // create new element
-//        $fnameInput = $this->createElement('text', 'first_name');
-//        $fnameInput->setRequired(false)->setLabel('First name');
-//        $fnameInput->setFilters(array('stripTags', 'stringTrim'));
-//
-//        // create new element
-//        $lnameInput = $this->createElement('text', 'last_name');
-//        $lnameInput->setRequired(false)->setLabel('Last name');
-//        $lnameInput->setFilters(array('stripTags', 'stringTrim'));
-//
-//        // create new element
-//        $lnamePublicChb = $this->createElement('checkbox', 'last_name_public');
-//        $lnamePublicChb->setRequired(false);
-//        $lnamePublicChb->setLabel('Last name visible to all');
-//        $lnamePublicChb->setChecked(false);
+
         // create new element
         $nickName = $this->createElement('text', 'nickname');
         $nickName->setRequired(false)->setLabel('Name or nickname');
@@ -625,7 +588,8 @@ abstract class My_Form_Abstract_AccommodationAbstract extends Zend_Form {
         $descriptionInput = $this->createElement('textarea', 'description');
         $descriptionInput->setFilters(array('stripTags', 'stringTrim'));
         $descriptionInput->setRequired(false)->setLabel('Few words about you');
-        $descriptionInput->setAttribs(array('cols' => 20, 'rows' => 5));
+        $descriptionInput->setAttribs(array('cols' => 20, 'rows' => 5));        
+        $descriptionInput->addValidator($this->_StringLength(101));
 
         $aboutYouForm->addElements(array(
             /* $fnameInput, $lnameInput, $lnamePublicChb */

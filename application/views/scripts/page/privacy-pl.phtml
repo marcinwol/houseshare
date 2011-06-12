@@ -30,12 +30,13 @@ echo $this->partial('_partials/sidebar-for-pages.phtml', array('skip' => array('
             telefon (opcjonalny) oraz imię/przydomek (opcjonalny). 
         </li>                
         <li>
-            Inne dane personalne: krótki opis osoby zalogowanej do portalu
-            (opcjonalny) 
-            oraz
-            hasło, jeśli OpenID jest nie używany do logowania, lub
-            identyfikator OpenID w przeciwnym wypadku. W przyladku gdy ten
-            opis jest podany, będzie on wyświetlony 
+            Inne dane personalne: krótki opis osoby posiadającejej 
+            (i.e. Pare słów o Tobie) konto w portalu             
+            oraz hasło (jeśli OpenID jest nie używany do logowania).
+            W przypadku logowania z użyciem OpenID,             
+            identyfikator OpenID jest zapisywany w naszej bazie danych.
+            Krótki opis
+            jest opcjonalny. Gdy opis jest jednak podany, jest on wyświetlany 
             (wraz z imieniem/przydomkiem) przy danej ofercie.
         </li>
         <li>
@@ -82,7 +83,7 @@ echo $this->partial('_partials/sidebar-for-pages.phtml', array('skip' => array('
         <li>
             Tytuł i opis oferty.
         </li>
-        <li>Cena wynajmu i data kiedy dane zakwaterowanie będzie dostępne</li>
+        <li>Cena wynajmu i data kiedy dane zakwaterowanie będzie dostępne.</li>
         <li>Adres danego zakwaterowania, tj. miasto, ulica, numer budynku i
             mieszkania. Numer budynku  może być 
             oznaczony jako prywatny albo publiczny. Numer mieszkania jest 

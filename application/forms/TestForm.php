@@ -23,15 +23,15 @@ class My_Form_TestForm extends Zend_Form {
         $fields = $options['columns'];
 
         // Create form elements
-        for ($i = 0; $i < count($columns); $i++) {
-            $element = $this->CreateElement('text', 'field' . $i);
+        for ($i = 0; $i < count($fields); $i++) {
+            $element = $this->createElement('text', 'field' . $i);
             $element->setLabel($fields[$i]['name']);
             $elements[] = $element;
         }
 
         $this->addElements($elements);
         $this->setElementDecorators(array('ViewHelper'));
-        $this->setDecorators(array(array('ViewScript', array('viewScript' => 'myform-form.phtml'))));
+       // $this->setDecorators(array(array('ViewScript', array('viewScript' => 'myform-form.phtml'))));
     }
 
 // end class

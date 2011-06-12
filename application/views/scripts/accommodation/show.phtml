@@ -57,7 +57,7 @@ if (strlen($this->acc->user->description) > 0) {
     $sideBarHtml .= '<li>' . $this->acc->user->description . '</li>';
     $sideBarHtml .= '</ul>';
 
-    $this->sideBarElement('About ' . $this->acc->user->nickname, $sideBarHtml);
+    $this->sideBarElement($this->translate('About _user') .' '. $this->acc->user->nickname, $sideBarHtml);
 }
 ?>
 

@@ -25,10 +25,9 @@ class IndexController extends Zend_Controller_Action {
 
         $form = new My_Form_TestForm();
         
-        echo $form;
+        echo $form->render();
         exit;
 
-        var_dump($request->getUserParams());
     }
 
     public function indexAction() {

@@ -667,6 +667,8 @@ class AccommodationController extends Zend_Controller_Action {
 
         $accForm = new My_Form_Accommodation();
         $accForm->removeSubForm('about_you');
+        $accForm->removeSubForm('about_you');
+        $accForm->removeSubForm('legal');
         $accForm->addCancel();
 
         // don't allow for changing accommodation type

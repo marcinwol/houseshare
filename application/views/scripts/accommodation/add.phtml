@@ -11,35 +11,49 @@ echo $this->partial('_partials/acc-add-steps-desc.phtml', null, array('active' =
 
 
 <div class="grid_6">  
-    <h1> <?php echo $this->translate('Step 1: Basic information');?> </h1>
+    <h1> <?php echo $this->translate('Step 1: Basic information'); ?> </h1>
 </div>
-<?php if (true == $this->formInValid):?>
+<?php if (true == $this->formInValid): ?>
 
-<div class="grid_6">  
-    <div class="form-invalid">
-        <p>
-        <?php echo $this->translate('Validation of the following fields failed');?>:
-        </p>
-        <ul>
-            <?php 
-                foreach($this->formMessages as $subFormName => $msg) {
-                    $subForm = $this->form->getSubForm($subFormName);
-                    foreach($msg as $k => $v) {
-                         echo "<li>";
-                         echo $subForm->getElement($k)->getLabel();
-                         echo "</li>";
-                        //var_dump($k, $v);
-                    }                                       
-                }
-            ?>
-        </ul>
-        <p><br/>
-        <?php echo $this->translate('Specific errors messages are located below');?>.
+    <div class="grid_6">  
+        <div class="form-invalid">
+            <p>
+                <?php echo $this->translate('Validation of the following fields failed'); ?>:
             </p>
+            <ul>
+                <?php
+                foreach ($this->formMessages as $subFormName => $msg) {
+                    $subForm = $this->form->getSubForm($subFormName);
+                    foreach ($msg as $k => $v) {
+                        echo "<li>";
+                        echo $subForm->getElement($k)->getLabel();
+                        echo "</li>";
+                        //var_dump($k, $v);
+                    }
+                }
+                ?>
+            </ul>
+            <p><br/>
+                <?php echo $this->translate('Specific errors messages are located below'); ?>.
+            </p>
+        </div>
     </div>
+
+<? endif; ?>
+<div class="grid_6">
+    <?php echo $this->form; ?>
 </div>
 
-<?endif;?>
-<div class="grid_6">
-    <?php echo $this->form;  ?>
-</div>
+<script type="text/javascript">
+    jQuery(function($){        
+        // add info of how many characters left 
+        myCharsLeft('basic_info-title', 80);   
+        myCharsLeft('basic_info-description', 500);        
+        myCharsLeft('basic_info-price_info', 60);        
+        myCharsLeft('features-description', 100); 
+        myCharsLeft('roomates-description', 100); 
+        myCharsLeft('preferences-description', 100); 
+        myCharsLeft('appartment_details-description', 100); 
+        myCharsLeft('about_you-description', 100); 
+    });
+</script>

@@ -33,6 +33,9 @@
             $this->headScript()->appendFile($this->baseUrl('/js/markerwithlabel.js'));
             $this->headScript()->appendFile($this->baseUrl('/js/advertpreviewdialog.js'));
             $this->headScript()->appendFile($this->baseUrl('/js/jquery.jqtransform.js'));
+            //$this->headScript()->appendFile($this->baseUrl('/js/jquery.charsleft-0.1.js'));
+            $this->headScript()->appendFile($this->baseUrl('/js/jquery.limit-1.2.source.js'));
+            
 
 
             // the application specific 
@@ -58,6 +61,11 @@
         echo $headers;
         ?>
         
+        <!--[if IE 6]>
+             <link rel="stylesheet" type="text/css" href="<?php echo $this->baseUrl('/css/grid960_myie6.css') ;?>" />
+        <![endif]-->
+        
+        
         <link rel="shortcut icon" 
               href="<?php echo $this->baseUrl('/images/flavicon.gif');?>" 
               type="image/x-icon" 
@@ -65,11 +73,21 @@
 
 
         <script type="text/javascript">
-            // set global lang veriable to indicate what language to use.
-            var lang = '<?php echo Zend_Registry::get('Zend_Locale')->getLanguage(); ?>';
-            if ('en' == lang) {
-                lang = '';
+
+            // set some JS global values to be used in the app.            
+            var myGlobals = {};
+            
+            // set language, i.e. locale
+            myGlobals.lang = '<?php echo Zend_Registry::get('Zend_Locale')->getLanguage(); ?>';                       
+            if ('en' == myGlobals.lang) {
+                myGlobals.lang = '';
             }
+            
+            //some translations for JS:
+            myGlobals.charPrefix = '<?php echo $this->translate('You have') ;?>';
+            myGlobals.charSuffix = '<?php echo $this->translate('characters left.') ;?>';
+            
+            
         </script>
 
     </head>
@@ -84,7 +102,7 @@
                 <div id="" class="grid_3 ">
                     <div>
                         <a href="<?php echo $this->baseUrl(); ?>"> 
-                            <img src="<?php echo $this->baseUrl('/images/house.png'); ?>" 
+                            <img src="<?php echo $this->baseUrl('/images/house_with_bg.png'); ?>" 
                                  alt="ShareHouse.com" style="float:left"/> 
                         </a>
                     </div>
@@ -119,7 +137,10 @@
                     <?php endif; ?>
 
                     <div  class="browser-version-varing" style="display:none">    
-<?php echo $this->translate('The website is not compatible with Internet Explorer 6 or less!'); ?>
+                            <?php echo $this->translate(
+                                    'The website may not work well with Internet Explorer 6 or less'
+                                   );
+                            ?>
                     </div>
 
                     <script type="text/javascript">

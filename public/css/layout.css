@@ -598,6 +598,20 @@ ul.errors, label.error {
     color: #ff0000;
 }
 
+.charsLeft {
+    width: 98%;
+    text-align: right;
+    color:#A1A1A1;
+}
+
+.charsLeft span {
+    font-weight: 700;
+}
+
+.charError {
+    background: #FF6F6F;
+}
+
 ul.errors li {
     list-style-type: none;
 }
