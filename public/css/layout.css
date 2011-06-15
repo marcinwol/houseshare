@@ -470,7 +470,7 @@ div#welcome form {
 }
 
 
-#i_city, #maxprice, #acctype  {    
+#i_city,  #acctype  {    
     font-size: 20px;
     border: 0px;
     width: 120px; 
@@ -491,7 +491,7 @@ div#welcome form {
 
 }
 #maxprice {
-    width:80px;
+   
 }
 
 #main-page-submit {
