@@ -70,8 +70,13 @@ class My_Model_Table_City extends Zend_Db_Table_Abstract {
     public function findByNameAndState($name, $state_id) {
 
         $name = trim($name);
+        
+        
+        $select = $this->select()
+                       ->where('name = ?', $name)
+                       ->where('state_id = ?', $state_id);
 
-        return $this->fetchRow("name = '$name' AND state_id = $state_id");
+        return $this->fetchRow($select);
     }
 
     /**

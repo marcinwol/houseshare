@@ -1,5 +1,6 @@
 SetEnv APPLICATION_ENV development
 
+AddDefaultCharset Off
 
 RewriteEngine On
 

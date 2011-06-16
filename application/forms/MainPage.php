@@ -46,6 +46,7 @@ class My_Form_MainPage extends Zend_Form {
         foreach ($cities as $city) {
             
             $cityName  = $city['name'];
+            //var_dump($cityName, mb_detect_encoding($cityName));
             // use alternate name for the city to make
             // it look gramatically correct in polish language.
             if ('pl' == $lang) {
