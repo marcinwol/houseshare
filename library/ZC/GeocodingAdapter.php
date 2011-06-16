@@ -5,6 +5,7 @@
  * @author jon
  */
 class ZC_GeocodingAdapter {
+    
     protected $apiKey;
     
     private function getGeocodeUri()    {
@@ -28,8 +29,12 @@ class ZC_GeocodingAdapter {
        //             ->setParameterGet('key',$this->apiKey);
 
         $result = $client->request('GET');
+        
+        
 
         $response = Zend_Json_Decoder::decode($result->getBody(),Zend_Json::TYPE_OBJECT);
+        
+       
         
         if ($response->status === 'OK')  {
             return $response->results[0]->geometry->location;

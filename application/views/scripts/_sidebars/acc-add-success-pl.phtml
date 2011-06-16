@@ -1,19 +1,23 @@
-<p>Twoja oferta wlasnie zostala dodana do naszej bazy.
-Jednak jeszcze <strong>nie zostala aktywowana</strong>.
+<p>Twoja oferta własnie zostala dodana do naszej bazy danych.
+Jednak jeszcze <strong>nie została aktywowana</strong>.
 </p>
 <?php if ($this->isLogged()): ?>
-    <p> Jesli chcesz <br /><br />
+    <p> Jeśli chcesz <br /><br />
         <a class="acc-add" href="<?php echo $this->baseUrl('/accommodation/enable/id/' . $this->options['acc_id']); ?>" alt="Activate">
-            aktywuj ja teraz
+            aktywuj ją teraz
         </a>
         <br /><br /> 
-        Jesli chcesz <strong>cos zmienic</strong> nacisnij
-        <a href="<?php echo $this->baseUrl('/accommodation/edit/id/' . $this->options['acc_id']); ?>">tutaj</a>.
+        Jeśli chcesz <strong>coś zmienić</strong> naciśnij
+        <a class="acc-add" href="<?php echo $this->baseUrl('/accommodation/edit/id/' . $this->options['acc_id']); ?>" alt="Edit">
+            edytuj teraz
+        </a>
+        
+        
     </p>
 <?php else: ?>
     <p>
-        Aby ja aktywowac albo zmienic prosze sie
-         <a href="<?php echo $this->baseUrl('login'); ?>">zalogowac</a>. 
+        Aby ją aktywować albo zmienić proszę się
+         <a href="<?php echo $this->baseUrl('login'); ?>">zalogować</a>. 
         <br/>
     </p> 
 <?php endif; ?>
