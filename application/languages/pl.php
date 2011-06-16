@@ -277,6 +277,8 @@ return array(
     "You cannot proceed if you don't agree with out regulations or privacy policy"
         => "Nie możesz kontynować jeśli się nie akcpetujesz naszego regulaminu albo polityki prywatności",
     "You have" => 'Pozostało jeszcze',
-    "characters left." => 'znaków.'
+    "characters left." => 'znaków.',
+    'File \'%value%\' has a false extension' 
+        => 'Pilik \'%value%\' nie jest obrazkiem' 
     );
 ?>
