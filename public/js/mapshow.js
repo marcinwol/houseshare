@@ -31,6 +31,16 @@ $(function() {
     //        position: latlng
     //    });
     //    
+    //    
+    //    
+    
+   // console.log(label.length);
+    
+    var width = (new String(label.length*7)) + "px";
+    
+    var labelStyle =  {                       
+        minWidth: width      
+    };
     
      marker = new MarkerWithLabel({
                 position: latlng,
@@ -38,6 +48,7 @@ $(function() {
                 map: map,
                 labelContent: label,
                 labelAnchor: new google.maps.Point(0,42),
+                labelStyle: labelStyle,
                 labelClass: "maplabel" // the CSS class for the label
             });
     

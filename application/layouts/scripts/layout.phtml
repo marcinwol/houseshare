@@ -35,7 +35,7 @@
             $this->headScript()->appendFile($this->baseUrl('/js/jquery.jqtransform.js'));
             //$this->headScript()->appendFile($this->baseUrl('/js/jquery.charsleft-0.1.js'));
             $this->headScript()->appendFile($this->baseUrl('/js/jquery.limit-1.2.source.js'));
-            
+
 
 
             // the application specific 
@@ -60,16 +60,16 @@
 
         echo $headers;
         ?>
-        
+
         <!--[if IE 6]>
-             <link rel="stylesheet" type="text/css" href="<?php echo $this->baseUrl('/css/grid960_myie6.css') ;?>" />
+             <link rel="stylesheet" type="text/css" href="<?php echo $this->baseUrl('/css/grid960_myie6.css'); ?>" />
         <![endif]-->
-        
-        
+
+
         <link rel="shortcut icon" 
-              href="<?php echo $this->baseUrl('/images/flavicon.gif');?>" 
+              href="<?php echo $this->baseUrl('/images/flavicon.gif'); ?>" 
               type="image/x-icon" 
-        />
+              />
 
 
         <script type="text/javascript">
@@ -84,8 +84,8 @@
             }
             
             //some translations for JS:
-            myGlobals.charPrefix = '<?php echo $this->translate('You have') ;?>';
-            myGlobals.charSuffix = '<?php echo $this->translate('characters left.') ;?>';
+            myGlobals.charPrefix = '<?php echo $this->translate('You have'); ?>';
+            myGlobals.charSuffix = '<?php echo $this->translate('characters left.'); ?>';
             
             //center of Poland
             myGlobals.lat = 52.385459
@@ -111,7 +111,7 @@
                     </div>
                     <div>
                         <h1><a href="<?php echo $this->baseUrl(); ?>">
-<?php echo $this->translate('ShareHouse'); ?>
+                                <?php echo $this->translate('ShareHouse'); ?>
                             </a>
                         </h1> 
 
@@ -125,14 +125,14 @@
                     <div id="login"><?php echo $this->profileLink(); ?> </div>
                 </div>
 
-<?php //echo $this->navigation()->menu(); ?>
+                <?php //echo $this->navigation()->menu(); ?>
 
             </div>
 
             <div id="content" class="container_8">
 
                 <div id="" class="grid_6">
-<?php if ($this->getHelper('flashMessenger')->hasMassages()): ?>
+                    <?php if ($this->getHelper('flashMessenger')->hasMassages()): ?>
 
                         <div  class="flashmessage" >                           
                             <p style="font-size: 14px;"> <?php echo $this->flashMessenger(); ?></p>   
@@ -140,10 +140,11 @@
                     <?php endif; ?>
 
                     <div  class="browser-version-varing" style="display:none">    
-                            <?php echo $this->translate(
-                                    'The website may not work well with Internet Explorer 6 or less'
-                                   );
-                            ?>
+                        <?php
+                        echo $this->translate(
+                                'The website may not work well with Internet Explorer 6 or less'
+                        );
+                        ?>
                     </div>
 
                     <script type="text/javascript">
@@ -156,17 +157,17 @@
 
 
                     <!-- show breadcrumbs if avaliable -->
-<?php $breadcrumbs = $this->navigation()->breadcrumbs(); ?>
-<?php if (strlen($breadcrumbs) > 1): ?>
+                    <?php $breadcrumbs = $this->navigation()->breadcrumbs(); ?>
+                    <?php if (strlen($breadcrumbs) > 1): ?>
                         <div id="breadcrumbs">
-    <?php echo $breadcrumbs; ?>
+                            <?php echo $breadcrumbs; ?>
                         </div>                    
                     <?php endif; ?>
 
 
                     <!-- show main content of the page -->
                     <div>    
-                    <?php echo $this->layout()->content; ?>    
+                        <?php echo $this->layout()->content; ?>    
                     </div>
                 </div>            
 
@@ -178,10 +179,10 @@
 
 
 
-<?php
+                    <?php
 // display all side-bar boxes
-echo $this->placeholder('side-bar');
-?>
+                    echo $this->placeholder('side-bar');
+                    ?>
 
 
 
@@ -201,17 +202,17 @@ echo $this->placeholder('side-bar');
             <div class="footerWrapper">
 
                 <p>
-                    <a href="<?php echo $this->url(array(),'aboutpage'); ?>" ><?php echo $this->translate('about'); ?></a>
+                    <a href="<?php echo $this->url(array(), 'aboutpage'); ?>" ><?php echo $this->translate('about'); ?></a>
                     |                   
-                    <a href="<?php echo $this->url(array(),'legalpage'); ?>" ><?php echo $this->translate('legal'); ?></a>
+                    <a href="<?php echo $this->url(array(), 'legalpage'); ?>" ><?php echo $this->translate('legal'); ?></a>
                     |
-                    <a href="<?php echo $this->url(array(),'privacypage'); ?>" ><?php echo $this->translate('privacy policy'); ?></a>
+                    <a href="<?php echo $this->url(array(), 'privacypage'); ?>" ><?php echo $this->translate('privacy policy'); ?></a>
                     |
-                    <a href="<?php echo $this->url(array(),'contactpage'); ?>" ><?php echo $this->translate('contact'); ?></a>                     
+                    <a href="<?php echo $this->url(array(), 'contactpage'); ?>" ><?php echo $this->translate('contact'); ?></a>                     
                     | 
                     <a href="javascript:UserVoice.showPopupWidget();" 
                        title="Open feedback & support dialog (powered by UserVoice)">
-                    <?php echo $this->translate('feedback always welcome'); ?>
+                           <?php echo $this->translate('feedback always welcome'); ?>
                     </a>
                 </p>     
             </div>
@@ -221,7 +222,7 @@ echo $this->placeholder('side-bar');
             var uvOptions = {};
             (function() {
                 var uv = document.createElement('script'); uv.type = 'text/javascript'; uv.async = true;
-                uv.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'widget.uservoice.com/INXEyHuHxPT70Brhsgm0Ww.js';
+                uv.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'widget.uservoice.com/LoXsEoLVDTwwze3tLreIGg.js';
                 var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(uv, s);
             })();
         </script>
