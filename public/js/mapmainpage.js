@@ -55,6 +55,13 @@ $(function() {
                 icon = baseUrl + '/icons/map-marker-app.png'
             }
             icon = null;
+            
+            var width = (new String(label.length*7)) + "px";
+    
+            var labelStyle =  {                       
+                minWidth: width      
+            };
+    
 
             marker = new MarkerWithLabel({
                 position: latlng,
@@ -63,7 +70,8 @@ $(function() {
                 icon: icon,
                 labelContent: label,
                 labelAnchor: new google.maps.Point(0,40),
-                labelClass: "maplabel" // the CSS class for the label
+                labelClass: "maplabel", // the CSS class for the label
+                labelStyle: labelStyle
             });
             
             // scroll the map to position of the marker
