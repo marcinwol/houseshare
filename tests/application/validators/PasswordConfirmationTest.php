@@ -19,13 +19,13 @@ class PasswordConfirmationValidatorTest extends ValidatorTestCase {
     }
 
     public function testCorrectPasswords() {
-        $context = array('password2' => 'some_password');
+        $context = array('password1' => 'some_password');
         $output = $this->_validator->isValid('some_password',$context);
         $this->assertTrue($output);
     }
 
      public function testInCorrectPasswords() {
-        $context = array('password2' => 'some_passworD');
+        $context = array('password1' => 'some_passworD');
         $output = $this->_validator->isValid('some_password',$context);
         $this->assertFalse($output);
     }

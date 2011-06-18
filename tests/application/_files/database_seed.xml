@@ -74,20 +74,30 @@
     <TYPE type_id="4" name="House" is_shared="0" />
 
 
-    <FEATURE feat_id="1" name="internet" binary="1" />
-    <FEATURE feat_id="2" name="parking" binary="1" />
-    <FEATURE feat_id="3" name="tv" binary="1" />
-    <FEATURE feat_id="4" name="furnished" binary="0" />
-    <FEATURE feat_id="5" name="air conditioning" binary="1" />
-    <FEATURE feat_id="6" name="private bath"     binary="1" type_id="2"/>
-    <FEATURE feat_id="7" name="private balcony"  binary="1" type_id="2"/>
+    <FEATURES features_id="1" internet="1" tv="0" 
+                air_con="1" furniture="0" parking="0" description=""/>    
+    <FEATURES features_id="2" internet="3" tv="1" 
+                air_con="0" furniture="1" parking="1" description=""/>
+    <FEATURES features_id="3" internet="2" tv="0" 
+                air_con="1" furniture="2" parking="1" description="Some Description"/>                
+    <FEATURES features_id="4" internet="0" tv="1" 
+                air_con="0" furniture="2" parking="0" description=""/>
+    <FEATURES features_id="5" internet="1" tv="1" 
+                air_con="1" furniture="2" parking="2" description="Some Description"/>                
+                    
 
+    <PREFERENCES preferences_id="1" smokers="0" couples="1" kids="0" 
+                pets="0" gender="0" min_tenancy="2" description="Some description"/>
+    <PREFERENCES preferences_id="2" smokers="1" couples="1" kids="0" 
+                pets="1" gender="0" min_tenancy="6" description="Some description"/>
+    <PREFERENCES preferences_id="3" smokers="0" couples="1" kids="1" 
+                pets="0" gender="1" min_tenancy="12" description="Some description"/>                
+    <PREFERENCES preferences_id="4" smokers="0" couples="0" kids="1" 
+                pets="1" gender="0" min_tenancy="6" description="Some description"/>
+    <PREFERENCES preferences_id="5" smokers="1" couples="0" kids="1" 
+                pets="1" gender="1" min_tenancy="2" description="Some description"/>                    
+                
 
-    <PREFERENCE pref_id="1" name="smokers"  binary="1" />
-    <PREFERENCE pref_id="2" name="kids"     binary="1" />
-    <PREFERENCE pref_id="3" name="couples"  binary="1" />
-    <PREFERENCE pref_id="4" name="pets"     binary="1" />
-    <PREFERENCE pref_id="5" name="gender"   binary="0" />
 
 
     <ACCOMMODATION acc_id="1" title="Great room for rent"
@@ -95,6 +105,7 @@
             date_avaliable="2011-01-04" price="300" bond="1200" is_enabled="1"
             street_address_public="0" short_term_ok="1" type_id="2" 
             price_info = "Price include everything" queries_counter = "0"
+            features_id="1" preferences_id="1"
             />
 
     <ACCOMMODATION acc_id="2" title="Great room for rent 2"
@@ -102,6 +113,7 @@
             date_avaliable="2011-02-12" price="400" bond="1600" is_enabled="1"
             street_address_public="1" short_term_ok="0" type_id="2" 
              price_info = "No additional cost" queries_counter = "12"
+             features_id="2" preferences_id="2"
             />
 
     <ACCOMMODATION acc_id="3" title="One bed in a room of students"
@@ -109,6 +121,7 @@
             date_avaliable="2011-12-12" price="420" bond="0"   is_enabled="1"          
             street_address_public="0" short_term_ok="1" type_id="1" 
             price_info = "" queries_counter = "1"
+            features_id="3" preferences_id="3"
             />
             
             
@@ -117,6 +130,7 @@
             date_avaliable="2011-12-12" price="420" bond="0"   is_enabled="1"          
             street_address_public="0" short_term_ok="1" type_id="3" 
             price_info = "" queries_counter = "1"
+            features_id="4" preferences_id="4"
             />    
             
             
@@ -125,6 +139,7 @@
             date_avaliable="2011-02-12" price="400" bond="1600" is_enabled="1"
             street_address_public="1" short_term_ok="0" type_id="3" 
              price_info = "No additional cost" queries_counter = "12"
+             features_id="5" preferences_id="5"
             />
 
     <ROOMATES roomates_id="1" no_roomates="2" 
@@ -164,22 +179,6 @@
     <PHOTO photo_id="7" acc_id="3" filename="photo11.jpg" path_id="2"/>
     <PHOTO photo_id="8" acc_id="3" filename="photo12.jpg" path_id="1"/>
 
-    <ACCOMODATION_has_PREFERENCE acc_id="1" pref_id="1" value="0" />
-    <ACCOMODATION_has_PREFERENCE acc_id="1" pref_id="2" value="0" />
-    <ACCOMODATION_has_PREFERENCE acc_id="1" pref_id="3" value="1" />
-    <ACCOMODATION_has_PREFERENCE acc_id="1" pref_id="4" value="0" />
-    <ACCOMODATION_has_PREFERENCE acc_id="2" pref_id="3" value="0" />
-    <ACCOMODATION_has_PREFERENCE acc_id="2" pref_id="5" value="2" />
-
-
-    <ACCOMODATION_has_FEATURE acc_id="1" feat_id="1" value="0" />
-    <ACCOMODATION_has_FEATURE acc_id="1" feat_id="2" value="0" />
-    <ACCOMODATION_has_FEATURE acc_id="2" feat_id="3" value="1" />
-    <ACCOMODATION_has_FEATURE acc_id="2" feat_id="6" value="1" />
-    <ACCOMODATION_has_FEATURE acc_id="2" feat_id="7" value="1" />
-    <ACCOMODATION_has_FEATURE acc_id="3" feat_id="2" value="0" />
-    <ACCOMODATION_has_FEATURE acc_id="3" feat_id="4" value="0" />
-    <ACCOMODATION_has_FEATURE acc_id="3" feat_id="5" value="1" />
 
     <VIEWS_COUNTER views_counter_id="1" remote_ip="3520061480" acc_id="1" />
     <VIEWS_COUNTER views_counter_id="2" remote_ip="2130706423" acc_id="1" />

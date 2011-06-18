@@ -31,6 +31,7 @@ class AccommodationModelTest extends ModelTestCase {
         unset($userData['queries_counter']);
         
         
+        
         $this->assertEquals($data, $userData);
     }
 
@@ -52,7 +53,9 @@ class AccommodationModelTest extends ModelTestCase {
                 'bond' => 1200,
                 'street_address_public' => 1,
                 'short_term_ok' => 1,
-                'type_id' => 2
+                'type_id' => 2,
+                'features_id' => 1,
+                'preferences_id' => 1
             ),
             null, // create new Accommodation
             6     // expected id of the new Accommodation
@@ -72,7 +75,9 @@ class AccommodationModelTest extends ModelTestCase {
                 'bond' => 1200,
                 'street_address_public' => 1,
                 'short_term_ok' => 1,
-                'type_id' => 1
+                'type_id' => 1,
+                'features_id' => 2,
+                'preferences_id' => 3
             ),
             2, // update new Accommodation with id = 2
             2   // expected id is 2 (just update, no new Accommodation)
