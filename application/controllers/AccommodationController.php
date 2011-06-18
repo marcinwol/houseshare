@@ -189,9 +189,8 @@ class AccommodationController extends Zend_Controller_Action {
         $limitForm->page->setValue($page);
         $limitForm->city->setValue($city_id);
         $limitForm->setAction($this->view->baseUrl('/accommodation/list'));
-
-
-        if (null === $maxPrice) {
+      
+        if (empty($maxPrice)) {         
             $maxPrice = $limitForm->getElement('maxpricedefault')->getValue();
         } else {
             $limitForm->getElement('maxpricedefault')->setValue($maxPrice);

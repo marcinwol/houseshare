@@ -227,7 +227,7 @@ return array(
     'Return' =>  'Wróć',
     'Delete selected photos' => 'Usuń wybrane zdjęcia',
     'Lokalization on the map was changed' => 'Lokalizacja na mapie została zmieniona',
-    'offer' => 'oferte',
+    'offer' => 'ofertę',
     'Edit your information' => 'Edutuj swoje dane',
     'Your data was changed' => 'Twoje informacje zostały zmienione',
     'Required fields' => 'Pola wymagane',
@@ -246,7 +246,7 @@ return array(
     'Map' => 'Mapa',
     'City must be specified' => 'Miasto musi by okreslone',
     'This user used %accont% to register. If you are this user please try to %login% using your %accont%.' 
-        => 'Ten użytkowik użyl konto  %accont%. Jesli to ty, sprobój się %login% używajc twojego konta %accont%.',
+        => 'Ten użytkowik użył konto  %accont%. Jesli to ty, sprobój się %login% używajc twojego konta %accont%.',
     "This user registered directly in our system.  If you are this user please try to %login% using your email and password." => 
       "Ten użytkownik zarejstrowal się bezposrednio w naszym system. Jestli to ty, sprobój się %login% używajac twój adres email i hasło.",
     'You cannot edit this accommodation' => 'Nie mozesz edytowac tej oferty',

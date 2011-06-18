@@ -1,3 +1,10 @@
+
+<?php
+$sideBarHtml = 'partialfile:top-cities';
+$this->sideBarElement('Top cities', $sideBarHtml, array('place' => 'prepend'));
+?>
+
+
 <?php
 if (!is_null($this->limitForm)) {
     // setup content for the side bar placeholder   
@@ -5,16 +12,11 @@ if (!is_null($this->limitForm)) {
 }
 ?>
 
-<?php
-$sideBarHtml = 'partialfile:top-cities';
-$this->sideBarElement('Top cities', $sideBarHtml, array('place' => 'prepend'));
-?>
 
 <?php
 $sideBarContent = 'partialfile:full-map-view';
 $this->sideBarElement('Full map view', $sideBarContent, array('class' => 'side-bar-info'));
 ?>  
-
 
 
 
