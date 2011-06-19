@@ -1,41 +1,53 @@
 <div class="preview">
-<h1><?php echo "{$this->acc->title}"; ?></h1>
-<h2><?php echo $this->translate('Address'),': ', $this->address($this->acc); ?></h2>
-<h3><?php echo $this->translate('Cena'), ": {$this->acc->price} PLN/", $this->translate('month'); ?></h3>
-<p><br/></p>
-<p>
-    <?php echo $this->acc->description; ?>
-</p>
-<p><br/></p>
-<?php
-if (count($this->acc->photosurls) > 0) {
-   
-    $thumbs = $this->acc->thumbsurls;
+    <h1><?php echo "{$this->acc->title}"; ?></h1>
+    <h2><?php echo $this->translate('Address'), ': ', $this->address($this->acc); ?></h2>
+    <h3><?php echo $this->translate('Cena'), ": {$this->acc->price} PLN/", $this->translate('month'); ?></h3>
+    <p><br/></p>
+    <p>
+        <?php echo $this->acc->description; ?>
+    </p>
+    <p><br/></p>
+    <?php
+    if (count($this->acc->photosurls) > 0) {
 
-    $imgsHtml = '';
-    $imgsHtml .= '<ul class="photospreview">';
-    foreach ($this->acc->photosurls as $photo_id => $url) {
-        $thumb = '<img src="' . $thumbs[$photo_id] . '" alt="thumbs" width="120px" heigth="98px" />';
-        $imgsHtml .= '<li>';
-        $imgsHtml .= $thumb;
-        $imgsHtml .= '</li>';
+        $thumbs = $this->acc->thumbsurls;
+
+        $imgsHtml = '';
+        $imgsHtml .= '<ul class="photospreview">';
+        foreach ($this->acc->photosurls as $photo_id => $url) {
+            $thumb = '<img src="' . $thumbs[$photo_id] . '" alt="thumbs" width="120px" heigth="98px" />';
+            $imgsHtml .= '<li>';
+            $imgsHtml .= $thumb;
+            $imgsHtml .= '</li>';
+        }
+        $imgsHtml .= '</ul>';
+
+        echo $imgsHtml;
     }
-    $imgsHtml .= '</ul>';
-    
-    echo $imgsHtml;
-} 
-?>   
+    ?>   
 
 
     <?php if ($this->acc instanceof My_Houseshare_Shared): ?>
         <div class="section preview">
             <h1><?php echo $this->translate('Current tenants'); ?></h1> 
 
+
             <?php
+            $fieldsToSkip = array();
+
+            // if no roomtaes, than do not show fields
+            // such as min_age or max_age. 
+            if ($this->acc->roomates->no_roomates == 0) {
+                $fieldsToSkip = array('min_age', 'max_age', 'gender', 'description');
+            }
+
             echo $this->partial(
-                    '_partials/acc-details-dl-list.phtml', array('data' => $this->acc->roomates)
+                    '_partials/acc-details-dl-list.phtml', array(
+                'data' => $this->acc->roomates,
+                'skip' => $fieldsToSkip
+                    )
             );
-            ?>
+            ?>                       
 
         </div>
     <?php elseif ($this->acc instanceof My_Houseshare_Appartment): ?>
@@ -48,7 +60,7 @@ if (count($this->acc->photosurls) > 0) {
             ?>
         </div>    
     <?php endif; ?>
-   
+
 
     <div class="section  ">
         <h1><?php echo $this->translate('Preferences'); ?></h1> 

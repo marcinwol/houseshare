@@ -12,11 +12,9 @@ class AccommodationControllerTest extends ControllerTestCase {
     }
 
     public function testIndexAction() {
-        $this->dispatch('/accommodation');         
+        $this->dispatch('/accommodation');
         $this->assertController('accommodation');
         $this->assertAction('list');
-
-       
     }
 
     /**
@@ -26,74 +24,19 @@ class AccommodationControllerTest extends ControllerTestCase {
      */
     public function testAddAccommodationSuccessfull($postData) {
         $this->request->setPost($postData)->setMethod('POST');
+
+        // add accommodation and a 
+        // session variable step1 should be created
         $this->dispatch('/accommodation/add');
 
+        // var_dump($this->getResponse()->getBody());
+        // check if this session exist        
+        $session = new Zend_Session_Namespace('addAccInfo');
+        $this->assertFalse(is_null($session));
 
-        // expected user id is 4
-        $user = My_Houseshare_Factory::roomate(4);
+        //check if session variable step1 is field
+        $this->assertTrue(isset($session->step[1]));
 
-        $this->assertEquals(
-                array(
-                    'marcin',
-                    'marcin@test.com'
-                ),
-                array(
-                    $user->nickname,
-                    $user->email
-                )
-        );
-
-        // expected address id is 6
-        $address = new My_Houseshare_Address(6);
-        $this->assertEquals(
-                array(
-                    '',
-                    'Aleja Zamonska',
-                    'Wroclaw'
-                ),
-                array(
-                    $address->unit_no,
-                    $address->street,
-                    $address->city
-                )
-        );
-
-        // expected roomates id is 4
-        $roomatesModel = new My_Model_Table_Roomates();
-        $roomates = $roomatesModel->find(4)->current();
-
-        $this->assertEquals(
-                array(
-                    4,
-                    2
-                ),
-                array(
-                    $roomates->no_roomates,
-                    $roomates->gender
-                )
-        );
-
-        // expected accommodation id is 4
-        $acc = My_Houseshare_Factory::shared(4);
-
-        $this->assertEquals(
-                array(
-                    4,
-                    'Great room for rent in quite place'
-                ),
-                array(
-                    $acc->roomates_id,
-                    $acc->title
-                )
-        );
-
-        // check expected number of preferences
-        $this->assertEquals(5, count($acc->features));
-        $this->assertEquals(3, count($acc->preferences));
-
-        // check if session variablec acc_id was created
-        $addAccInfoNamespace = new Zend_Session_Namespace('addAccInfo');
-        $this->assertEquals(4, $addAccInfoNamespace->acc_id);
 
         // finally check if user is redirected to google map
         $this->assertRedirectTo('/accommodation/map');
@@ -131,26 +74,116 @@ class AccommodationControllerTest extends ControllerTestCase {
                     ),
                     'preferences' => array(
                         'smokers' => 1,
-                        'kids' => -1,
-                        'couples' => 3,
-                        'pets' => -1,
+                        'kids' => 0,
+                        'couples' => 0,
+                        'pets' => 1,
                         'gender' => 1,
+                        'min_tenancy' => 3,
                         'description' => 'Everyone is welcome'
                     ),
                     'acc_features' => array(
                         'internet' => 1,
-                        'parking' => -1,
-                        'tv' => 3,
-                        'airconditioning' => 5,
-                        'furnished' => 2,
+                        'parking' => 1,
+                        'tv' => 0,
+                        'airconditioning' => 1,
+                        'furnished' => 1,
                         'description' => 'Next to pwr'
                     ),
-                    'room_features' => array(
-                        'privatebath' => -1,
-                        'privatebalcony' => 7
+                    'about_you' => array(
+                        'nickname' => 'marcin',
+                        'phone_no' => '+234 234 243',
+                        'phone_public' => 1,
+                        'email' => 'marcin@test.com',
+                        'password1' => 'haslo12',
+                        'password2' => 'haslo12',
+                        'description' => 'I\m the owner of this appartment'
+                    ),
+                    'legal' => array(
+                        'accept' => '1'
+                    )
+                )
+            )
+        );
+    }
+
+    /**
+     *
+     * @dataProvider editAccommodationProvider
+     * @param array $postData
+     */
+    public function testEditAccommodationSuccessfull($postData) {
+
+        // first authenticate correct user
+        $this->request->setMethod('POST')->setPost(
+                array('email' => 'test@test.com', 'password' => 'test12')
+        );
+        $this->dispatch('/user/login');
+
+        $this->resetRequest()->resetResponse();
+
+        //this is also needed for test to work.
+        $_SERVER['SERVER_NAME'] = 'test';
+
+        $this->request->setPost($postData)->setMethod('POST')->setParam('id', '2');
+        $this->dispatch('/accommodation/edit');
+
+
+
+        //var_dump($this->getResponse()->getBody());
+        //        var_dump($acc->preferences->asArray());
+        // at the very end check if successful redirection
+        $this->assertRedirectTo('/user/');
+    }
+
+    public function editAccommodationProvider() {
+        return array(
+            array(
+                array(// correct form data
+                    'basic_info' => array(
+                        'acc_type' => 2,
+                        'title' => 'Great room for rent in quite place',
+                        'description' => "Description of the accommodation",
+                        'date_avaliable' => "13/01/2011",
+                        'short_term' => 1,
+                        'price' => 323,
+                        'price_info' => '',
+                        'bond' => 1232
+                    ),
+                    'address' => array(
+                        'unit_no' => '',
+                        'street_no' => '34a',
+                        'address_public' => 0,
+                        'street_name' => 'Aleja Zamonska',
+                        'zip' => '34-234',
+                        'city' => 'Wroclaw',
+                        'state' => 'Dolnoslaskie'
+                    ),
+                    'roomates' => array(
+                        'no_roomates' => 4,
+                        'gender' => 2,
+                        'min_age' => 20,
+                        'max_age' => 35,
+                        'description' => 'We are studetets looking for another student'
+                    ),
+                    'preferences' => array(
+                        'smokers' => 1,
+                        'kids' => 0,
+                        'couples' => 0,
+                        'pets' => 1,
+                        'gender' => 1,
+                        'min_tenancy' => 3,
+                        'description' => 'Everyone is welcome'
+                    ),
+                    'acc_features' => array(
+                        'internet' => 1,
+                        'parking' => 1,
+                        'tv' => 0,
+                        'airconditioning' => 1,
+                        'furnished' => 1,
+                        'description' => 'Next to pwr'
                     ),
                     'about_you' => array(
-                        'nickname' => 'marcin',                       
+                        'nickname' => 'marcin',
                         'phone_no' => '+234 234 243',
                         'phone_public' => 1,
                         'email' => 'marcin@test.com',
@@ -162,37 +195,6 @@ class AccommodationControllerTest extends ControllerTestCase {
             )
         );
     }
-    
-    
-     /**
-     *
-     * @dataProvider addAccommodationProvider
-     * @param array $postData
-     */
-    public function testEditAccommodationSuccessfull($postData) {
-        
-        // first authenticate correct user
-        $this->request->setMethod('POST')->setPost(
-                array('email'=>'test@test.com', 'password'=>'test12')
-                );
-        $this->dispatch('/user/login');
-        $this->resetRequest()->resetResponse();
-        
-        $this->request->setPost($postData)->setMethod('POST')->setParam('id','1');
-        $this->dispatch('/accommodation/edit');
-              
-        
-     //   $acc = My_Houseshare_Factory::shared(1);
-        
-        var_dump($this->getResponse()->getBody());
- //        var_dump($acc->preferences->asArray());
-        
-        // at the very end check if successful redirection
-        $this->assertRedirectTo('/accommodation/show/id/1');
-        
-
-    }
-    
 
     /**
      * Using phpt file to test POSTS is a bet overkill.
@@ -214,12 +216,10 @@ class AccommodationControllerTest extends ControllerTestCase {
         // session is not set as in testSuccessfullUploadOfTwoPhotos()
 
         $this->dispatch('/accommodation/addphotos');
-        $this->assertRedirectTo('/index');
 
-        $this->resetRequest()->resetResponse();
-
-        $this->dispatch('/accommodation/success');
-        $this->assertRedirectTo('/index');
+        
+        $this->assertRedirectTo('/');
+        
     }
 
     public function testIfSessionDeletedInSuccessAction() {
@@ -253,8 +253,10 @@ class AccommodationControllerTest extends ControllerTestCase {
         ))->setMethod('POST');
 
         $this->dispatch('/accommodation/addphotos');
+        
+        //var_dump($this->getBody());
 
-        $this->assertRedirectTo('/accommodation/success');
+        $this->assertRedirectTo('/accommodation/create-acc');
     }
 
     /**
@@ -265,6 +267,7 @@ class AccommodationControllerTest extends ControllerTestCase {
     protected function _setAddAccInfoSession($acc_id) {
         Zend_Session_Namespace::unlockAll();
         $addAccInfoNamespace = new Zend_Session_Namespace('addAccInfo');
+        $addAccInfoNamespace->step[1] = array();
         $addAccInfoNamespace->acc_id = $acc_id;
         $addAccInfoNamespace->lock();
     }
@@ -298,21 +301,16 @@ class AccommodationControllerTest extends ControllerTestCase {
         //$files = My_Houseshare_Tools::getDirContent('vfs://images');
         //var_dump($files);
 
-        $this->assertRedirectTo('/accommodation/success');
+        $this->assertRedirectTo('/accommodation/create-acc');
 
-        $acc = My_Houseshare_Factory::accommodation($acc_id);
+        
+        //if OK, paths to photos should be in session variable
+        $session = new Zend_Session_Namespace('addAccInfo');                
+        $photos = $session->step[3];
 
         // acc 1 should have now 2 photos
-        $this->assertEquals(2, count($acc->photos));
+        $this->assertEquals(2, count($photos));
 
-        foreach ($acc->photos as $p) {
-            /* @var $p My_Houseshare_Photo */
-            $this->assertTrue(file_exists(PHOTOS_PATH . "/{$p->getFullPath()}"));
-            $this->assertTrue(file_exists(THUMBS_PATH . "/{$p->getThumbPath()}"));
-
-            // var_dump(PHOTOS_PATH . "/{$p->getFullPath()}");
-            // var_dump(THUMBS_PATH . "/{$p->getThumbPath()}");
-        }
     }
 
     protected function _mockFileUpload() {

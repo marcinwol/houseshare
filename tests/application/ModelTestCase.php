@@ -82,8 +82,11 @@ abstract class ModelTestCase extends Zend_Test_PHPUnit_DatabaseTestCase {
     }
 
     public function tearDown() {
-         if (!empty($this->_modelName)) {
-            $this->_model->getAdapter()->closeConnection();
+         if (!empty($this->_modelName)) {          
+            //var_dump($this->_modelName); 
+            $adapter = $this->_model->getAdapter();            
+            $adapter->closeConnection();
+            
          }
         $this->_model = null;
         $this->_connectionMock->close();

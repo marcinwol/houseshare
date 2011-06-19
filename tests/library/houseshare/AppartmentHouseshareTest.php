@@ -40,6 +40,8 @@ class AppartmentHouseshareTest extends ModelTestCase {
         $newAcc->short_term_ok = 0;
         $newAcc->setTypeId(3);
         $newAcc->setDetailsId(2);
+        $newAcc->setFeaturesId(2);
+        $newAcc->setPreferencesId(3);
         
 
         $acc_id = $newAcc->save();
@@ -76,7 +78,8 @@ class AppartmentHouseshareTest extends ModelTestCase {
         $newAcc->street_address_public = 1;
         $newAcc->short_term_ok = 0;
         $newAcc->setTypeId(3);
-
+        $newAcc->setFeaturesId(2);
+        $newAcc->setPreferencesId(3);
         // set details_id
         $newAcc->setDetailsId(2);
 

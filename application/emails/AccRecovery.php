@@ -10,17 +10,37 @@
  *
  * @author marcin
  */
-class My_Mail_AccRecovery extends Zend_Mail {
+class My_Mail_AccRecovery extends My_Mail_Abstract {
     
-      public function __construct($charset = null) {
-          parent::__construct($charset);
-          $this->_init();
-      }
+    const TEMPLATE = '_templates/AccRecovery.tpl';
+
+    protected function _init() {
+        $this->addTo($this->_emailTo);
+
+        $title = '[ShareHouse] Account recovery';
+
+        $this->setSubject($this->_tr->translate($title));       
+                
+        $username    = $this->_acc->user->nickname;
+        $advertTitle = $this->_acc->title;
+        $advertUrl   = $this->_acc->url;
+        
+        $fromMail    = $this->_emailFrom;
+        
+        $template = $this->getTemplatePath();
+        
+        
+        ob_start();
+
+        include APPLICATION_PATH . '/emails/' . $template;
       
-      protected function _init() {
-          $this->setSubject('Houseshare: account recovery');          
-          $this->setBodyText('This is the text of the mail.');
-      }
+        $content = ob_get_contents();
+        ob_end_clean();
+
+        $this->setBodyText($content);        
+        
+    }
+
 }
 
 ?>

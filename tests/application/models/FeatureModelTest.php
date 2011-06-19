@@ -12,29 +12,14 @@
  */
 class FeatureModelTest extends ModelTestCase {
 
-    protected $_modelName = 'My_Model_Table_Feature';
+    protected $_modelName = 'My_Model_Table_Features';
 
 
     public function testGetAll() {
         $rowset = $this->_model->fetchAll();
-        $this->assertEquals(count($rowset), 7);
+        $this->assertEquals(count($rowset), 5);
     }
-
-   /**
-    *
-    * @dataProvider getAllByTypeProvider
-    */
-   public function testGetAllByType($type_id, $expectedCount) {
-    $rowset = My_Model_Table_Feature::getAllByType($type_id);
-    $this->assertEquals($expectedCount, count($rowset));
-   }
-
-   public function getAllByTypeProvider() {
-       return array(
-           array(null, 5),
-           array(2, 2),
-       );
-   }
+  
 }
 
 ?>

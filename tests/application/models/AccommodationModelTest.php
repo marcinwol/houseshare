@@ -24,15 +24,33 @@ class AccommodationModelTest extends ModelTestCase {
         $this->assertEquals($expectedID, $acc_id);
 
         $userData = $this->_model->find($acc_id)->current()->toArray();
-        
-        unset($userData['acc_id']);
-        unset($userData['created']);
-        unset($userData['is_enabled']);
-        unset($userData['queries_counter']);
-        
-        
-        
-        $this->assertEquals($data, $userData);
+
+        $this->assertEquals(
+                array(
+                    $data['title'],
+                    $data['description'],
+                    $data['addr_id'],
+                    $data['features_id'],
+                    $data['preferences_id'],
+                    $data['price'],
+                    $data['user_id'],
+                    $data['date_avaliable'],
+                    $data['type_id'],
+                    $data['street_address_public'],                                        
+                    
+                ), array(
+                    $userData['title'],
+                    $userData['description'],
+                    $userData['addr_id'],
+                    $userData['features_id'],
+                    $userData['preferences_id'],
+                    $userData['price'],
+                    $userData['user_id'],
+                    $userData['date_avaliable'],
+                    $userData['type_id'],
+                    $userData['street_address_public'],  
+                )
+        );
     }
 
     public function setAccommodationDataProvider() {
@@ -51,7 +69,7 @@ class AccommodationModelTest extends ModelTestCase {
                 'preferences_info' => 'students most welcome',
                 'features_info' => 'very fast internet',
                 'bond' => 1200,
-                'street_address_public' => 1,
+                'street_address_public' => 1,               
                 'short_term_ok' => 1,
                 'type_id' => 2,
                 'features_id' => 1,
@@ -68,9 +86,7 @@ class AccommodationModelTest extends ModelTestCase {
                 'price_info' => 'includs everything',
                 'addr_id' => 2,
                 'user_id' => 2,
-                'date_avaliable' => '2011-12-12',
-                'preferences_info' => 'workers most welcome',
-                'features_info' => 'cable tv',
+                'date_avaliable' => '2011-12-12',                                
                 'price' => 300,
                 'bond' => 1200,
                 'street_address_public' => 1,
@@ -131,8 +147,8 @@ class AccommodationModelTest extends ModelTestCase {
             'date_avaliable' => '2011-12-12',
             'price' => 300,
             'price_info' => 'does not include gas and electricity',
-            'preferences_info' => 'students most welcome',
-            'features_info' => 'very fast internet',
+            'features_id' => 2,
+            'preferences_id' => 2,
             'bond' => 1200,
             'street_address_public' => 1,
             'short_term_ok' => 1,
@@ -151,18 +167,17 @@ class AccommodationModelTest extends ModelTestCase {
         $row = $this->_model->find($acc_id)->current();
         $this->assertEquals(
                 array(
-                    $expected['street_no'],
-                    $expected['street_name'],
-                    $expected['zip'],
-                    $expected['city_name'],
-                    $expected['state_name'],
-                ),
-                array(
-                    $row->getAddress()->street_no,
-                    $row->getAddress()->getStreet()->name,
-                    $row->getAddress()->getZip()->value,
-                    $row->getAddress()->getCity()->name,
-                    $row->getAddress()->getState()->name
+            $expected['street_no'],
+            $expected['street_name'],
+            $expected['zip'],
+            $expected['city_name'],
+            $expected['state_name'],
+                ), array(
+            $row->getAddress()->street_no,
+            $row->getAddress()->getStreet()->name,
+            $row->getAddress()->getZip()->value,
+            $row->getAddress()->getCity()->name,
+            $row->getAddress()->getState()->name
                 )
         );
     }
@@ -200,12 +215,11 @@ class AccommodationModelTest extends ModelTestCase {
         $row = $this->_model->find($acc_id)->current();
         $this->assertEquals(
                 array(
-                    $expected['first_name'],
-                    $expected['last_name']
-                ),
-                array(
-                    $row->getUser()->first_name,
-                    $row->getUser()->last_name
+            $expected['first_name'],
+            $expected['last_name']
+                ), array(
+            $row->getUser()->first_name,
+            $row->getUser()->last_name
                 )
         );
     }
@@ -262,24 +276,24 @@ class AccommodationModelTest extends ModelTestCase {
         );
     }
 
-    public function testCountFeatures() {
+    public function testGetFeatures() {
         $accRow = $this->_model->find(1)->current();
-        $rowset = $accRow->getFeatures();
-        $this->assertEquals(2, count($rowset));
+        $row = $accRow->getFeatures();
+        $this->assertEquals(1, $row->features_id);
 
         $accRow = $this->_model->find(3)->current();
-        $rowset = $accRow->getFeatures();
-        $this->assertEquals(3, count($rowset));
+        $row = $accRow->getFeatures();
+        $this->assertEquals(3, $row->features_id);
     }
 
-    public function testCountPreferences() {
+    public function testGetPreferences() {
         $accRow = $this->_model->find(1)->current();
-        $rowset = $accRow->getPreferences();
-        $this->assertEquals(4, count($rowset));
+        $row = $accRow->getPreferences();
+        $this->assertEquals(1, $row->preferences_id);
 
         $accRow = $this->_model->find(3)->current();
-        $rowset = $accRow->getPreferences();
-        $this->assertEquals(0, count($rowset));
+        $row = $accRow->getPreferences();
+        $this->assertEquals(3, $row->preferences_id);
     }
 
     /**
@@ -290,62 +304,53 @@ class AccommodationModelTest extends ModelTestCase {
         $result = $accRow->getShared();
 
         $this->assertEquals(
-                array($expected['acc_id'], $expected['roomates_id']),
-                array($result->acc_id    , $result->roomates_id)
-        );             
+                array($expected['acc_id'], $expected['roomates_id']), array($result->acc_id, $result->roomates_id)
+        );
     }
 
     public function getSharedAccProvider() {
         return array(
-            array(1,array('acc_id' => 1, 'roomates_id' => null)),
-            array(2,array('acc_id' => 2, 'roomates_id' => 1)),
-            array(3,array('acc_id' => 3, 'roomates_id' => null))
+            array(1, array('acc_id' => 1, 'roomates_id' => null)),
+            array(2, array('acc_id' => 2, 'roomates_id' => 1)),
+            array(3, array('acc_id' => 3, 'roomates_id' => null))
         );
     }
 
-
     /**
+     * We should be able to delete preferences or features
+     * 
+     * @expectedException Zend_Db_Statement_Exception
      * @dataProvider deletePreferencesProvider
      */
-    public function testDeletePreferences($acc_id, $expected_count) {
-          $accRow = $this->_model->find($acc_id)->current();
-          $result = $accRow->detelePreferences();
-
-          $this->assertEquals($expected_count, $result);
-          $this->assertEquals(0, $accRow->getPreferences()->count());
-
-
-          ;
+    public function testDeletePreferences($acc_id) {
+        $accRow = $this->_model->find($acc_id)->current();
+        $result = $accRow->detelePreferences();
+        
     }
 
     public function deletePreferencesProvider() {
         return array(
-            array(1, 4),
-            array(2, 2),
-            array(3, 0),
+            array(1)        
         );
     }
 
-
-     /**
+    /**
+     * We should be able to delete preferences or features
+     * 
+     * @expectedException Zend_Db_Statement_Exception
      * @dataProvider deleteFeaturesProvider
      */
-    public function testDeleteFeatures($acc_id, $expected_count) {
-          $accRow = $this->_model->find($acc_id)->current();
-          $result = $accRow->deteleFeatures();
+    public function testDeleteFeatures($acc_id) {
+        $accRow = $this->_model->find($acc_id)->current();
+        $result = $accRow->deteleFeatures();
+        
+    
 
-          $this->assertEquals($expected_count, $result);
-          $this->assertEquals(0, $accRow->getFeatures()->count());
-
-
-          ;
     }
 
     public function deleteFeaturesProvider() {
         return array(
-            array(1, 2),
-            array(2, 3),
-            array(3, 3),
+            array(1)
         );
     }
 

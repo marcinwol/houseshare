@@ -279,6 +279,10 @@ return array(
     "You have" => 'Pozostało jeszcze',
     "characters left." => 'znaków.',
     'File \'%value%\' has a false extension' 
-        => 'Pilik \'%value%\' nie jest obrazkiem' 
+        => 'Pilik \'%value%\' nie jest obrazkiem',
+    '[ShareHouse] A query about your advertisment' 
+        => '[StrefaStancji] Zapytanie w sprawie twojej oferty',
+    '[ShareHouse] Account recovery' 
+        => '[StrefaStancji] Odzyskanie konta'
     );
 ?>

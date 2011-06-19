@@ -111,7 +111,7 @@ class My_Houseshare_Photo extends My_Houseshare_Abstract_PropertyAccessor {
         // this will not fork for vfs mock file system.
         //$img->save($newImgPath, 'JPG');
         
-        // mnaually format to jpg since it also works for vfs mock file system.
+        // manualy format to jpg since it also works for vfs mock file system.
         $imgResource = imagecreatefromstring($img->getImageAsString());
         ob_start();
         imagejpeg($imgResource, null);
@@ -140,6 +140,7 @@ class My_Houseshare_Photo extends My_Houseshare_Abstract_PropertyAccessor {
         if (!file_exists($imgPath)) {
             throw new Zend_Exception("The following file does not exist: $imgPath");
         }
+       
 
         $pinfo = pathinfo($imgPath);
         $dirName = dirname($pinfo['dirname']);
@@ -149,21 +150,23 @@ class My_Houseshare_Photo extends My_Houseshare_Abstract_PropertyAccessor {
 
         $thumbDir = $dirName . DIRECTORY_SEPARATOR . self::$THUMBS_DIR_NAME .
                 $baseDirName;
-
-
+        
+        
         if (!file_exists($thumbDir)) {
             if (!mkdir($thumbDir, 0777, true)) {
                 throw new Exception("Failure creating $thumbDir folder");
             }
         }
+        
         $outImg = $thumbDir . "/$fileName.jpg";
-
+        
         try {
             $thumb = PhpThumbFactory::create($imgPath);
             $thumb->adaptiveResize(self::THUMB_WIDTH, self::THUMB_HEIGHT);
-
+          
             // mnaually format to jpg
             $imgResource = imagecreatefromstring($thumb->getImageAsString());
+            
             ob_start();
             imagejpeg($imgResource, null);
             $imgData = ob_get_contents();

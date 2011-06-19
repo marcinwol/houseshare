@@ -19,6 +19,8 @@ set_include_path(implode(PATH_SEPARATOR, array(
         )));
 
 
+$_SERVER['SERVER_NAME'] = 'test';
+
 require_once('application/ControllerTestCase.php');
 require_once('application/ModelTestCase.php');
 require_once('application/ValidatorTestCase.php');

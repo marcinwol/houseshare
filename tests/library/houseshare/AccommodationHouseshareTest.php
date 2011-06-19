@@ -66,79 +66,15 @@ class AccommodationHouseshareTest extends ModelTestCase {
             $feats = $acc->features;
 
 
-            $accsPrefsModel = new My_Model_Table_AccsPreferences();
-            $expectedPrefs = $accsPrefsModel->fetchAll("acc_id = $acc_id");
+            $accModel = new My_Model_Table_Accommodation();
+            $expectedPrefs = $accModel->find($acc_id)->current()->getPreferences();            
+            $expectedFeats = $accModel->find($acc_id)->current()->getFeatures();
             $this->assertEquals($expectedPrefs->toArray(), $prefs->toArray());
-
-            $accsFeatsModel = new My_Model_Table_AccsFeatures();
-            $expectedFeats = $accsFeatsModel->fetchAll("acc_id = $acc_id");
             $this->assertEquals($expectedFeats->toArray(), $feats->toArray());
         }
     }
 
-    /**
-     * @dataProvider accommodationClassProvider
-     */
-    public function testSetPreferencesAndFeatures($accClass) {
-
-        $acc_ids = array(1, 2);
-
-        if ('My_Houseshare_Appartment' == $accClass) {
-            $acc_ids = array(4, 5);
-        }
-
-        foreach ($acc_ids as $acc_id) {
-
-            $acc = new $accClass($acc_id);
-
-            $newPrefs = array(
-                array('pref_id' => 1, 'value' => 1),
-                array('pref_id' => 2, 'value' => 0)
-            );
-
-            $newFeats = array(
-                array('feat_id' => 1, 'value' => 1),
-                array('feat_id' => 2, 'value' => 0),
-                array('feat_id' => 4, 'value' => 1)
-            );
-
-
-            $acc->preferences = $newPrefs;
-            $acc->features = $newFeats;
-
-
-            $acc->save();
-
-
-            $accsPrefsModel = new My_Model_Table_AccsPreferences();
-            $expectedPrefs = $accsPrefsModel->fetchAll("acc_id = $acc_id");
-
-            $expectedPrefsArray = array();
-            foreach ($expectedPrefs as $pref) {
-                $expectedPrefsArray [] = array(
-                    'pref_id' => $pref->pref_id,
-                    'value' => $pref->value
-                );
-            }
-
-            $this->assertEquals($expectedPrefsArray, $newPrefs);
-
-
-            $accsFeatsModel = new My_Model_Table_AccsFeatures();
-            $expectedFeats = $accsFeatsModel->fetchAll("acc_id = $acc_id");
-
-            $expectedFeatsArray = array();
-            foreach ($expectedFeats as $feat) {
-                $expectedFeatsArray [] = array(
-                    'feat_id' => $feat->feat_id,
-                    'value' => $feat->value
-                );
-            }
-
-            $this->assertEquals($expectedFeatsArray, $newFeats);
-        }
-    }
-
+   
     /**
      * @dataProvider accommodationClassProvider
      */
@@ -246,6 +182,8 @@ class AccommodationHouseshareTest extends ModelTestCase {
         $newAcc->street_address_public = 1;
         $newAcc->short_term_ok = 0;
         $newAcc->setTypeId(1);
+        $newAcc->setFeaturesId(2);
+        $newAcc->setPreferencesId(3);        
 
         if ('My_Houseshare_Appartment' == $accClass) {
             $newAcc->setDetailsId(1);
@@ -355,6 +293,8 @@ class AccommodationHouseshareTest extends ModelTestCase {
         $newAcc->street_address_public = 1;
         $newAcc->short_term_ok = 0;
         $newAcc->setTypeId(1);
+        $newAcc->setFeaturesId(2);
+        $newAcc->setPreferencesId(3);        
 
         if ('My_Houseshare_Appartment' == $accClass) {
             $newAcc->setDetailsId(1);
@@ -366,20 +306,6 @@ class AccommodationHouseshareTest extends ModelTestCase {
         //add some features and preferences
 
         $this->assertEquals(6, $acc_id);
-
-        $newPrefs = array(
-            array('pref_id' => 1, 'value' => 1),
-            array('pref_id' => 2, 'value' => 0)
-        );
-
-        $newFeats = array(
-            array('feat_id' => 1, 'value' => 1),
-            array('feat_id' => 2, 'value' => 0),
-            array('feat_id' => 4, 'value' => 1)
-        );
-
-        $newAcc->features = $newFeats;
-        $newAcc->preferences = $newPrefs;
 
 
         $photo1 = new My_Houseshare_Photo();
@@ -400,36 +326,6 @@ class AccommodationHouseshareTest extends ModelTestCase {
         $newAcc->photos = array($photo1, $photo2, $photo3);
 
         $newAcc->save();
-
-
-
-        // now assert if preferences and features were saved correctly
-        $accsPrefsModel = new My_Model_Table_AccsPreferences();
-        $expectedPrefs = $accsPrefsModel->fetchAll("acc_id = $acc_id");
-
-        $expectedPrefsArray = array();
-        foreach ($expectedPrefs as $pref) {
-            $expectedPrefsArray [] = array(
-                'pref_id' => $pref->pref_id,
-                'value' => $pref->value
-            );
-        }
-
-        $this->assertEquals($expectedPrefsArray, $newPrefs);
-
-
-        $accsFeatsModel = new My_Model_Table_AccsFeatures();
-        $expectedFeats = $accsFeatsModel->fetchAll("acc_id = $acc_id");
-
-        $expectedFeatsArray = array();
-        foreach ($expectedFeats as $feat) {
-            $expectedFeatsArray [] = array(
-                'feat_id' => $feat->feat_id,
-                'value' => $feat->value
-            );
-        }
-
-        $this->assertEquals($expectedFeatsArray, $newFeats);
 
         // finally check if photos were inserted
         $photoModel = new My_Model_Table_Photo();

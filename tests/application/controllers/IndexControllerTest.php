@@ -13,7 +13,7 @@
 class IndexControllerTest extends ControllerTestCase {
 
     public function testIndexAction() {
-        $this->dispatch('/');
+        $this->dispatch('/');        
         $this->assertController('index');
         $this->assertAction('index');
     }
@@ -31,9 +31,15 @@ class IndexControllerTest extends ControllerTestCase {
         );
 
         $this->request->setMethod('POST')->setPost($search);
-        $this->dispatch('/index/index');                    
-      
-        $this->assertRedirectTo('/list/city/3/maxprice/1000');
+        $this->dispatch('/index/index');    
+        
+       
+        // construct url using route
+        $urlParams = array('city' => 3, 'cityname' => 'Wroclaw', 'maxprice' => 1000);
+        $router = $this->getFrontController()->getRouter();
+        $url    = $router->assemble($urlParams, 'listacc');
+                      
+        $this->assertRedirectTo($url);        
     }
 
    

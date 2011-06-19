@@ -2,22 +2,7 @@
 
 class IndexController extends Zend_Controller_Action {
 
-    /**
-     *
-     * @var Zend_Cache_Core 
-     */
-    private $_cache;
-
-    public function init() {
-
-        $this->_cache = Zend_Controller_Front::getInstance()
-                ->getParam('bootstrap')
-                ->getResource('cachemanager')
-                ->getCache('mycache');
-
-        //  $this->_helper->cache(array('preview'), array('previewaction'));
-    }
-
+   
     /**
      * This is for tests, experiments, etc.
      */

@@ -31,7 +31,8 @@ class UserControllerTest extends ControllerTestCase {
         $this->_authUser('test@test.com', 'test12');
 
         $this->dispatch('/user/login');
-        $this->assertRedirectTo('/index/index');
+        
+        $this->assertRedirectTo('/');
     }
 
     public function testIfNotLoggedUserGoestToLogin() {

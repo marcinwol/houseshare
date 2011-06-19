@@ -53,9 +53,10 @@ class AccommodationController extends Zend_Controller_Action {
                         $emailObj->send();
                     } catch (Zend_Mail_Exception $e) {
                         echo 'Problem with sending your message. Message not send!';
+                        exit;
                     }
 
-                    echo 'Your query was sent.';
+                    echo 'Your query was sent.';            
                 } else {
                     echo 'Form is not valid. Message not send';
                 }
@@ -675,11 +676,12 @@ class AccommodationController extends Zend_Controller_Action {
         $accForm->basic_info->acc_type->setRequired(false);
         // get acc_type from database
         $accTypeID = $acc->type_id;
-
+  
 
         if ($this->getRequest()->isPost()) {
             if ($accForm->isValid($_POST)) {
-
+                
+             
 
                 if ($accForm->cancel->isChecked()) {
                     // if cancel button was clicked                    
@@ -688,6 +690,13 @@ class AccommodationController extends Zend_Controller_Action {
 
                 // get form data
                 $formData = $accForm->getValues();
+                
+                
+                 //check if accommodatin type hasn't changed
+                if ($accTypeID != $formData['basic_info']['acc_type']) {
+                    throw new Zend_Exception('Cannot change accommodation type change');
+                }
+
 
                 // start transaction
                 $db = Zend_Db_Table::getDefaultAdapter();
@@ -829,6 +838,7 @@ class AccommodationController extends Zend_Controller_Action {
                     // $acc->setTypeId($formData['basic_info']['acc_type']);
 
 
+                    
                     if ($acc->save() != $acc_id) {
                         $db->rollBack();
                         throw new Zend_Db_Exception('Editted acc_id is different then updated');
@@ -845,8 +855,9 @@ class AccommodationController extends Zend_Controller_Action {
                     $db->rollBack();
                     throw $e;
                 }
+               
                 $this->_helper->FlashMessenger('Accommodation data was changed');
-                return $this->_redirect('user/index');
+                return $this->_redirect('/user/');
             }
         }
 
@@ -860,6 +871,7 @@ class AccommodationController extends Zend_Controller_Action {
 
         // retrive just creatend accommodation info from session.
         $addAccInfoNamespace = new Zend_Session_Namespace('addAccInfo');
+              
 
         if (!isset($addAccInfoNamespace->step)) {
             // no session, so just check if this is a requested from logged user
@@ -905,7 +917,7 @@ class AccommodationController extends Zend_Controller_Action {
         if ($this->getRequest()->isPost()) {
             if ($photosForm->isValid($_POST)) {
 
-
+            
 
                 if ($photosForm->skip->isChecked()) {
                     // if skip button was clicked
@@ -920,18 +932,22 @@ class AccommodationController extends Zend_Controller_Action {
                     return $this->_redirect('accommodation/create-acc');
                 }
 
-
+    
                 $savedPhotos = $this->_processUploads($photosForm);
+                
+            
 
                 if (false == $photoEdit) {
                     // if this addition of photos for a new acc
                     // than save photos data in a session and 
                     // go to next step.
                     $addAccInfoNamespace->step[3] = $savedPhotos;
-
+                 
                     // everything went fine, so just redirect.
-                    return $this->_redirect('accommodation/create-acc');
+                    return $this->_redirect('accommodation/create-acc');                    
                 }
+                
+            
 
                 // this is addition of photos for an existing acc
                 // so add the new photos now.
@@ -1021,6 +1037,9 @@ class AccommodationController extends Zend_Controller_Action {
 
         $savedPhotos = array();
         $i = 0;
+        
+         
+        
         foreach ($adapter->getFileInfo() as $filename => $info) {
             if (empty($info['tmp_name'])) {
                 continue;
@@ -1035,13 +1054,13 @@ class AccommodationController extends Zend_Controller_Action {
             $uploadSubDir = 'forrent';
 
 
-
             // manually receive the uploaded file, resize it and save it.
             // files will be saved in dir PHOTOS_PATH/$uploaddir/.
             $imgPath = My_Houseshare_Photo::resizeAndSave(
                             $info['tmp_name'], PHOTOS_PATH, $outBaseName, $uploadSubDir
             );
 
+           
 
 
             if (!file_exists($imgPath)) {
@@ -1070,6 +1089,8 @@ class AccommodationController extends Zend_Controller_Action {
                 'path' => My_Houseshare_Tools::addDirSeperator($uploadSubDir)
             );
         }
+        
+         
 
         return $savedPhotos;
     }

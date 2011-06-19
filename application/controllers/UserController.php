@@ -410,6 +410,8 @@ class UserController extends Zend_Controller_Action {
             }
         }
 
+     
+        
         // this is for normal authentication
 
         $loginForm = new My_Form_Login();
@@ -440,7 +442,8 @@ class UserController extends Zend_Controller_Action {
                     // immidiately authenticate the new user,
                     // so that he is logged in to the system.                                           
                     $this->_writeAuthData($user);
-                    #Zend_Session::rememberMe();
+                    #Zend_Session::rememberMe();                                     
+                    
                     return $this->_redirect('user/');
                 }
 

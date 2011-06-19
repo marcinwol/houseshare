@@ -24,6 +24,11 @@ abstract class ControllerTestCase extends Zend_Test_PHPUnit_ControllerTestCase {
     protected $_adapter;
     /**
      *
+     * @var Zend_Test_PHPUnit_Db_SimpleTester 
+     */
+    protected $_databaseTester;
+    /**
+     *
      * @var Zend_Application
      */
     public $application;
@@ -44,9 +49,9 @@ abstract class ControllerTestCase extends Zend_Test_PHPUnit_ControllerTestCase {
     }
 
     public function appBootstrap() {
-        
+
         $this->application->bootstrap();
-        
+
         // set bootstrap for the front controller.
         // without this, a call $this->getFrontController()->getParam('bootstrap')
         // will not work.
@@ -57,44 +62,50 @@ abstract class ControllerTestCase extends Zend_Test_PHPUnit_ControllerTestCase {
 
     public function tearDown() {
 
-        $db = Zend_Db_Table_Abstract::getDefaultAdapter();
 
-        foreach ($db->listTables() as $table) {
-            if (strpos($table, 'VIEW_') == 0) {
-                continue;
-            }
-            $db->query("TRUNCATE TABLE $table;");
-        }
-
-
-
-        Zend_Controller_Front::getInstance()->resetInstance();
-        $this->resetRequest();
-        $this->resetResponse();
-
-        $this->request->setPost(array());
-        $this->request->setQuery(array());
+//        $this->_databaseTester->setTearDownOperation(new PHPUnit_Extensions_Database_Operation_Composite(array(
+//            new Zend_Test_PHPUnit_Db_Operation_Truncate(),
+//            new Zend_Test_PHPUnit_Db_Operation_Insert(),
+//        )));
+//        
+        //    $this->_databaseTester->onTearDown();
+        // parent::tearDown();
     }
 
     public function setupDatabase() {
+
+
 
         $options = $this->application->getOption('resources');
 
         $db = Zend_Db::factory('Pdo_Mysql', $options['db']['params']);
 
         $connection = new Zend_Test_PHPUnit_Db_Connection(
-                        $db, 'houseshare_test'
+                        $db, 'sharehouse_test'
         );
 
-        $databaseTester = new Zend_Test_PHPUnit_Db_SimpleTester($connection);
+        $this->_databaseTester = new Zend_Test_PHPUnit_Db_SimpleTester($connection);
 
         $databaseFixture =
                 new PHPUnit_Extensions_Database_DataSet_FlatXmlDataSet(
                         dirname(__FILE__) . '/_files/database_seed.xml'
         );
+
         Zend_Db_Table_Abstract::setDefaultAdapter($db);
 
-        $databaseTester->setupDatabase($databaseFixture);
+        $this->_databaseTester->setSetUpOperation(new PHPUnit_Extensions_Database_Operation_Composite(array(
+            new Zend_Test_PHPUnit_Db_Operation_Truncate(),
+            new Zend_Test_PHPUnit_Db_Operation_DeleteAll(),
+            new Zend_Test_PHPUnit_Db_Operation_Insert(),
+        )));
+
+//        $this->_databaseTester->setSetUpOperation(new PHPUnit_Extensions_Database_Operation_Composite(array(
+//            new Zend_Test_PHPUnit_Db_Operation_Truncate(),
+//            new PHPUnit_Extensions_Database_Operation_DeleteAll(),
+//            new PHPUnit_Extensions_Database_Operation_Insert(),
+//        )));        
+
+        $this->_databaseTester->setupDatabase($databaseFixture);
     }
 
     protected function _setupAuthAdapter() {
@@ -138,7 +149,7 @@ abstract class ControllerTestCase extends Zend_Test_PHPUnit_ControllerTestCase {
 
         return $view;
     }
-    
+
     /**
      * Get besponse body.
      * 
