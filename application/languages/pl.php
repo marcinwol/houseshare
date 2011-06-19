@@ -178,6 +178,7 @@ return array(
     'Photos' => 'Zdjęcia',
     'Contact details' => 'Kontakt',
     'Send query' => 'Wyślij zapytanie',
+    'Your query was sent.' => 'Twoje zapytanie zostało wysłane.',
     'Description' => 'Opis',
     'Price' => 'Cena',
     'Rent' => 'Czynsz',
@@ -205,7 +206,8 @@ return array(
     'Account Recovery' => 'Odzyskanie konta',
     'Cancel' => 'Anuluj',
     'Send an account recovery email' => 'Wyśli email z informacjami odnośnie konta',
-    'Unfortunately, there is no such email in our database' => 'Niestety, nie ma takiego email w naszym systemie',
+    'Unfortunately, there is no such email in our database' 
+        => 'Niestety, nie ma takiego adresu email w naszym systemie',
     'Your data' => 'Twoje dane',
     'Nickname' => 'Imie/Przydomek',
     'No infomration avaliable' => 'Brak opisu',
@@ -283,6 +285,8 @@ return array(
     '[ShareHouse] A query about your advertisment' 
         => '[StrefaStancji] Zapytanie w sprawie twojej oferty',
     '[ShareHouse] Account recovery' 
-        => '[StrefaStancji] Odzyskanie konta'
+        => '[StrefaStancji] Odzyskanie konta',
+    'A account recovery email was sent'
+        => 'Email o koncie został wysłany'
     );
 ?>

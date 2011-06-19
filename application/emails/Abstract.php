@@ -10,38 +10,41 @@
  *
  * @author marcin
  */
-class My_Mail_Abstract extends Zend_Mail {        
+abstract class My_Mail_Abstract extends Zend_Mail {
 
     /**
-     *
-     * @var My_Houseshare_Accommodation 
+     * Relative path to template
+     * 
+     * @var string 
      */
-    private $_acc;
+    protected $_template;
+    
+    /**
+     * Mail character set
+     * @var string
+     */
+    protected $_charset = 'utf8';
+   
     /**
      *
      * @var string
      */
-    private $_emailTo;
-    private $_emailFrom;
-    private $_message;
-    private $_tr;
-    private $_options = array();
+    protected $_emailTo;
+    protected $_emailFrom;
+    protected $_message;
+    protected $_tr;
+    protected $_options = array();
 
-    public function __construct(My_Houseshare_Accommodation $acc, $emailFrom, 
-                    $message = "", $options = array()) {
-        parent::__construct();
-        $this->_acc = $acc;
-        $this->_emailTo = $acc->user->email;
-        $this->_emailFrom = $emailFrom;
-        $this->_message = $message;
-        $this->_options = $options;
-        
+    public function __construct() {
+
+        $this->setFrom('marcinwol@gmail.com', SITE_NAME);
+
         $this->_tr = Zend_Registry::get('Zend_Translate');
-        
+
         $this->_init();
     }
 
-    abstract protected function __init();
+    abstract protected function _init();
 
     /**
      * Get email template for current locale.
@@ -49,24 +52,49 @@ class My_Mail_Abstract extends Zend_Mail {
      * 
      * @return string path to email template file
      */
-    protected function getTemplatePath() {
+    protected function _getTemplatePath() {
 
-        $template = My_Mail_AccQuery::TEMPLATE;
+        $template = $this->_template;
+              
 
         $lang = Zend_Registry::get('Zend_Locale')->getLanguage();
 
         if ('en' != $lang) {
-            $template = str_replace('.tpl', "-$lang.tpl'", $template);
+            $template = str_replace('.tpl', "-$lang.tpl", $template);
         }
 
         $templatePath = APPLICATION_PATH . '/emails/' . $template;
 
         // if no template for a current lang, then return default one.
         if (!file_exists($templatePath)) {
-            $templatePath = APPLICATION_PATH . '/emails/' . My_Mail_AccQuery::TEMPLATE;
+            $templatePath = APPLICATION_PATH . '/emails/' . $this->_template;
         }
 
+
+
         return $templatePath;
+    }
+
+    /**
+     * Get an email body from template.
+     * 
+     * 
+     * @param string $template path to the template
+     * @return body of the email 
+     */
+    protected function _getEmailBody($template, $vars = array()) {
+
+        
+        extract($vars);
+        
+        ob_start();
+
+        include $template;
+
+        $content = ob_get_contents();
+        ob_end_clean();
+        
+        return $content;
     }
 
 }

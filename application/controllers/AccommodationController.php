@@ -52,11 +52,12 @@ class AccommodationController extends Zend_Controller_Action {
                     try {
                         $emailObj->send();
                     } catch (Zend_Mail_Exception $e) {
-                        echo 'Problem with sending your message. Message not send!';
+                        echo 'Problem with sending your message: '
+                              . $e->getMessage();
                         exit;
                     }
 
-                    echo 'Your query was sent.';            
+                    echo $this->view->translate('Your query was sent.');            
                 } else {
                     echo 'Form is not valid. Message not send';
                 }

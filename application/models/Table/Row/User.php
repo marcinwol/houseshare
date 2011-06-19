@@ -27,7 +27,7 @@ class My_Model_Table_Row_User extends Zend_Db_Table_Row_Abstract {
     /**
      * Get hashed password for a give user. If not exists than return null.
      * 
-     * @return Zend_Db_Table_Row|null  
+     * @return My_Model_Table_Row_Password|null  
      */
     public function getPassword() {
         return $this->findDependentRowset('My_Model_Table_Password')->current();

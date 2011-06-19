@@ -89,6 +89,23 @@ class My_Houseshare_Tools {
         return $clean;
     }
 
+    /**
+     * Create random password of given length.
+     * 
+     * @param int $length password length (default 6)
+     * @return string new random password
+     */
+    static public function createPassword($length = 6) {
+        $chars = "234567890abcdefghijkmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        $i = 0;
+        $password = "";
+        while ($i <= $length) {
+            $password .= $chars{mt_rand(0, strlen($chars))};
+            $i++;
+        }
+        return $password;
+    }
+
 }
 
 ?>

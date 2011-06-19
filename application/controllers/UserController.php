@@ -667,10 +667,8 @@ class UserController extends Zend_Controller_Action {
                     $emailForm->setErrorMessages(array('Unfortunately, there is no such email in our database'));
                 } else {
 
-                    $emailObj = new My_Mail_AccRecovery();
-                    $emailObj->setFrom('mwol@born2die.eu');
-                    $emailObj->addTo($email);
-                    $emailObj->setBodyText('Body of recovery email for ' . $email);
+                    $emailObj = new My_Mail_AccRecovery($user, $email);                   
+                                    
 
                     try {
                         $emailObj->send();
