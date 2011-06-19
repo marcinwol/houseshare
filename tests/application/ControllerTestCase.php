@@ -22,8 +22,6 @@ abstract class ControllerTestCase extends Zend_Test_PHPUnit_ControllerTestCase {
      * @var My_Auth_Adapter_DbTable
      */
     protected $_adapter;
-    
-
     /**
      *
      * @var Zend_Application
@@ -40,32 +38,42 @@ abstract class ControllerTestCase extends Zend_Test_PHPUnit_ControllerTestCase {
         $this->setupDatabase();
 
         $this->bootstrap = array($this, 'appBootstrap');
+
+
         parent::setUp();
     }
 
-    public function tearDown() {
+    public function appBootstrap() {
         
-       $db = Zend_Db_Table_Abstract::getDefaultAdapter();
-         
-       foreach ($db->listTables() as $table) {
-            if (strpos($table, 'VIEW_') == 0 ) {
+        $this->application->bootstrap();
+        
+        // set bootstrap for the front controller.
+        // without this, a call $this->getFrontController()->getParam('bootstrap')
+        // will not work.
+        $bootstrap = $this->application->getBootstrap();
+        $front = $bootstrap->getResource('FrontController');
+        $front->setParam('bootstrap', $bootstrap);
+    }
+
+    public function tearDown() {
+
+        $db = Zend_Db_Table_Abstract::getDefaultAdapter();
+
+        foreach ($db->listTables() as $table) {
+            if (strpos($table, 'VIEW_') == 0) {
                 continue;
             }
             $db->query("TRUNCATE TABLE $table;");
         }
-        
 
-        
+
+
         Zend_Controller_Front::getInstance()->resetInstance();
         $this->resetRequest();
         $this->resetResponse();
 
         $this->request->setPost(array());
         $this->request->setQuery(array());
-    }
-
-    public function appBootstrap() {
-        $this->application->bootstrap();
     }
 
     public function setupDatabase() {
@@ -85,8 +93,8 @@ abstract class ControllerTestCase extends Zend_Test_PHPUnit_ControllerTestCase {
                         dirname(__FILE__) . '/_files/database_seed.xml'
         );
         Zend_Db_Table_Abstract::setDefaultAdapter($db);
-        
-        $databaseTester->setupDatabase($databaseFixture);                        
+
+        $databaseTester->setupDatabase($databaseFixture);
     }
 
     protected function _setupAuthAdapter() {
@@ -94,7 +102,7 @@ abstract class ControllerTestCase extends Zend_Test_PHPUnit_ControllerTestCase {
     }
 
     protected function _clearAuth() {
-         Zend_Auth::getInstance()->clearIdentity();
+        Zend_Auth::getInstance()->clearIdentity();
     }
 
     /**
@@ -106,19 +114,39 @@ abstract class ControllerTestCase extends Zend_Test_PHPUnit_ControllerTestCase {
     protected function _authUser($identity, $credentials) {
 
         $auth = Zend_Auth::getInstance();
-        
-        $this->_adapter->setEmailAndPass($identity,$credentials);
-        $result = $auth->authenticate($this->_adapter);        
-        
+
+        $this->_adapter->setEmailAndPass($identity, $credentials);
+        $result = $auth->authenticate($this->_adapter);
+
         if ($result->isValid()) {
-            $userData = $this->_adapter->getResultRowObject(null, 'password');            
+            $userData = $this->_adapter->getResultRowObject(null, 'password');
             $toStore = (object) array('identity' => $auth->getIdentity());
-            $toStore->property = $userData;            
-            $auth->getStorage()->write($toStore);           
-        } 
+            $toStore->property = $userData;
+            $auth->getStorage()->write($toStore);
+        }
     }
 
+    /**
+     * Get view object.
+     * 
+     * @return Zend_View 
+     */
+    protected function getView() {
+        $view = $this->getFrontController()
+                ->getParam('bootstrap')
+                ->getResource('view');
 
+        return $view;
+    }
+    
+    /**
+     * Get besponse body.
+     * 
+     * @return string 
+     */
+    protected function getBody() {
+        return $this->getResponse()->getBody();
+    }
 
 }
 
