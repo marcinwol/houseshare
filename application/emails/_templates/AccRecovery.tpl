@@ -6,9 +6,9 @@ If this was not you, please disregard this email.
 
 
 
-
 As a registered user, you have the following credentials 
 associated with your <?php echo SITE_NAME;?> account: 
+
 
 <?php if (true == $passwordLogin):?>
 
@@ -30,6 +30,8 @@ if (!in_array($provider_type, array('facebook', 'twitter') )) {
 ?>
 
 <?php endif;?>
+
+
 
 Log in using these credentials on the login page:
 <?php echo $loginUrl; ?>

@@ -18,13 +18,11 @@ abstract class My_Mail_Abstract extends Zend_Mail {
      * @var string 
      */
     protected $_template;
-    
     /**
      * Mail character set
      * @var string
      */
     protected $_charset = 'utf8';
-   
     /**
      *
      * @var string
@@ -55,7 +53,7 @@ abstract class My_Mail_Abstract extends Zend_Mail {
     protected function _getTemplatePath() {
 
         $template = $this->_template;
-              
+
 
         $lang = Zend_Registry::get('Zend_Locale')->getLanguage();
 
@@ -84,17 +82,31 @@ abstract class My_Mail_Abstract extends Zend_Mail {
      */
     protected function _getEmailBody($template, $vars = array()) {
 
-        
+
         extract($vars);
-        
+
         ob_start();
 
         include $template;
 
         $content = ob_get_contents();
         ob_end_clean();
-        
+
         return $content;
+    }
+
+    /**
+     * Get link to a give link.
+     * 
+     * @param string url 
+     * @return string url to url
+     */
+    protected function getLinkTo($url) {
+        
+        $view = Zend_Controller_Front::getInstance()
+                ->getParam('bootstrap')->getResource('view');
+        
+        return $view->serverUrl() . $view->baseUrl($url);
     }
 
 }

@@ -15,7 +15,7 @@ class My_Mail_AccRecovery extends My_Mail_Abstract {
     protected $_template = '_templates/AccRecovery.tpl';
     
     
-     /**
+    /**
      *
      * @var My_Model_Table_Row_User 
      */
@@ -68,7 +68,8 @@ class My_Mail_AccRecovery extends My_Mail_Abstract {
         // prepare variables used in a template file
         $vars = array(         
             'username'    => $this->_user->nickname,
-            'loginUrl'    => 'link',
+            'emailTo'       => $this->_emailTo,
+            'loginUrl'    => $this->getLinkTo('/login'),
             'passwordLogin' => $passwordLogin,
             'newPassword' => $newPassword,
             'provider_type' => $provider_type,
@@ -83,6 +84,8 @@ class My_Mail_AccRecovery extends My_Mail_Abstract {
         $this->setBodyText($content);        
         
     }
+    
+    
 
 }
 

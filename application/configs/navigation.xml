@@ -19,31 +19,36 @@
                     <controller>page</controller>
                     <action>about</action>   
                 </about>
-                 <legal>
+                <legal>
                     <label>legal</label>                                           
                     <controller>page</controller>
                     <action>legal</action>   
                 </legal>
-                 <privacy>
+                <privacy>
                     <label>privacy policy</label>                                           
                     <controller>page</controller>
                     <action>privacy</action>   
                 </privacy>        
-                 <contact>
+                <contact>
                     <label>contact</label>                                           
                     <controller>page</controller>
                     <action>contact</action>   
                 </contact>  
-                 <faq>
+                <faq>
                     <label>contact</label>                                           
                     <controller>page</controller>
                     <action>faq</action>   
                 </faq> 
-                 <double-email>
+                <double-email>
                     <label>Email already exists</label>                                           
                     <controller>user</controller>
                     <action>double-email</action>   
                 </double-email> 
+                <reset-password>
+                    <label>Reset password</label>                                           
+                    <controller>user</controller>
+                    <action>reset-password</action>   
+                </reset-password> 
                 <user>
                     <type>My_Navigation_Page_User</type>
                     <label>User</label>                       

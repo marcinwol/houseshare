@@ -684,6 +684,11 @@ class UserController extends Zend_Controller_Action {
         }
         $this->view->form = $emailForm;
     }
+    
+    public function resetPasswordAction() {
+        
+    }
+    
 
     /**
      * Get My_Auth_Adapter_Facebook adapter

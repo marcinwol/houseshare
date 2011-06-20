@@ -59,6 +59,9 @@
     <PASSWORD user_id="2" password="60474c9c10d7142b7508ce7a50acf414"/>
     <PASSWORD user_id="3" password="60474c9c10d7142b7508ce7a50acf414"/>
 
+    <RESET_PASSWORD reset_p_id="1" uid="098f6bcd4621d373cade4e832627b4f6" user_id="1" />
+    <RESET_PASSWORD reset_p_id="2" uid="ad0234829205b9033196ba818f7a872b" user_id="3" />
+ 
 
     <ROOMATE user_id="1"  is_owner="1" />
     <ROOMATE user_id="2"  is_owner="0" />
@@ -185,6 +188,7 @@
     <VIEWS_COUNTER views_counter_id="3" remote_ip="2130706432" acc_id="1" />
     <VIEWS_COUNTER views_counter_id="4" remote_ip="2130706433" acc_id="2" />
     <VIEWS_COUNTER views_counter_id="5" remote_ip="2130706432" acc_id="2" />
- 
+    
+  
 
 </dataset>
