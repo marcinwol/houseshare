@@ -10,8 +10,11 @@ Jeśli to nie ty, proszę zgnorować ten email.
 <?php if (true == $passwordLogin):?>
 
 Masz konto bezpośrednio w naszym systemie. 
-Twoje hasło może byś zresetowane pod tym adresem:
-<?php echo $newPassword;?>
+Twoje hasło może być zresetowane pod tym adresem:
+<?php echo $resetPasswordLink;?>
+
+
+Ważność tego linku wygaśnie za <?php echo $resetExpire;?> godzin.
 
 <?php else:?>
 Użyłeś konto <?php echo $provider_type;?> to zalogowania się do 

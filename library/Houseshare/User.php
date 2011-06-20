@@ -12,7 +12,6 @@
  */
 class My_Houseshare_User extends My_Houseshare_Abstract_PropertyAccessor {
 
-
     /**
      *  Model for the USER
      *
@@ -39,16 +38,16 @@ class My_Houseshare_User extends My_Houseshare_Abstract_PropertyAccessor {
     protected $_newProperties = array();
 
     public function __construct($id = null) {
-        
+
         $this->_modelName = 'Table_User';
-        
+
         parent::__construct($id);
 
         $this->_user = $this;
     }
 
     public function __get($propertyName) {
- 
+
         if (array_key_exists($propertyName, $this->_properties)) {
             return parent::__get($propertyName);
         }
@@ -126,30 +125,45 @@ class My_Houseshare_User extends My_Houseshare_Abstract_PropertyAccessor {
     public function setPassword($property, $value) {
         $this->_newProperties['password'] = md5($value);
     }
-    
+
+    /**
+     * Set new password for a user
+     * 
+     * @param string $password 
+     */
+    public function setNewPassword($password) {
+        
+        $passRow = $this->_user->_row->getPassword();
+        $passRow->password = md5($password);
+        
+        if (!is_numeric($passRow->save())) {
+            throw new Zend_Db_Statement_Exception('Problem saving password');
+        }
+    }
+
     public function setNickname($property, $value) {
-         // make defualt nickname if needed
-        if (!empty($value) ) {
+        // make defualt nickname if needed
+        if (!empty($value)) {
             $nickname = $value;
         } else {
-            $nickname = 'User' .mt_rand(1000, 99999);                   
+            $nickname = 'User' . mt_rand(1000, 99999);
         }
-        
-        
-        return  $nickname;
+
+
+        return $nickname;
     }
-            
+
     /**
      * Check if phone is avaliable and if phone and email are public
      * 
      * @return boolean
      */
     public function contactDetailsAvaliable() {
-        
-        if ((strlen($this->phone) == 0 || $this->phone_public == false) && ($this->email_public == false) ) {
+
+        if ((strlen($this->phone) == 0 || $this->phone_public == false) && ($this->email_public == false)) {
             return false;
         }
-        
+
         return true;
     }
 
@@ -162,11 +176,11 @@ class My_Houseshare_User extends My_Houseshare_Abstract_PropertyAccessor {
         $passModel = new My_Model_Table_Password();
 
         $row = $passModel->find($userId)->current();
-        
-        if (empty($row)){            
+
+        if (empty($row)) {
             $row = $passModel->createRow();
-        }        
-        
+        }
+
         $row->user_id = $userId;
         $row->password = $this->_newProperties['password'];
 
@@ -176,28 +190,24 @@ class My_Houseshare_User extends My_Houseshare_Abstract_PropertyAccessor {
     public function getNewProperties() {
         return (array) $this->_newProperties;
     }
-    
+
     public function getName() {
         $firstName = $this->first_name;
         $name = $firstName ? $firstName : 'User' . $this->user_id;
         return $name;
     }
-    
-    
-
 
     public function save() {
 
         $id = $this->_user->_model->setUser($this->getProperties(), $this->user_id);
-      
+
 
 
         if (array_key_exists('password', $this->getNewProperties())) {
-            $new_row_id = $this->_savePassword($id);            
+            $new_row_id = $this->_savePassword($id);
             if ($new_row_id != $id) {
                 throw new Zend_Db_Exception("Password's id and user id don't metch");
             }
-            
         }
 
         // before repopulating properties delete all old ones.

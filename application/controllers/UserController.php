@@ -687,6 +687,39 @@ class UserController extends Zend_Controller_Action {
     
     public function resetPasswordAction() {
         
+        $uid = $this->_getParam('id', null);                 
+        
+        $form = new My_Form_ResetPassword();
+                
+        if ($this->getRequest()->isPost()) {
+            if ($form->isValid($_POST)) {
+                
+                $resetPassRow = My_Model_Table_ResetPassword::fetchUsingUID($uid, false);
+                
+                if (is_null($resetPassRow)) {
+                    $this->_helper->FlashMessenger('Cannot reset password');
+                    return $this->_redirect('/');
+                }
+                
+               
+                if ($resetPassRow->isExpired()) {
+                    $this->_helper->FlashMessenger('This link expired');
+                    return $this->_redirect('/');
+                }
+                
+                $user_id = $resetPassRow->user_id;
+                
+                //set new password for a give user
+                $user = new My_Houseshare_User($user_id);
+                $user->setNewPassword($form->getValue('password1'));                
+                
+                //seems everyhing went ok
+                $this->_helper->FlashMessenger('Password was changed');
+                return $this->_redirect('/');          
+            }
+        }        
+        
+        $this->view->form = $form;        
     }
     
 

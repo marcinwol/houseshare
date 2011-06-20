@@ -287,6 +287,11 @@ return array(
     '[ShareHouse] Account recovery' 
         => '[StrefaStancji] Odzyskanie konta',
     'A account recovery email was sent'
-        => 'Email o koncie został wysłany'
+        => 'Email o koncie został wysłany',
+    'Reset password' => 'Zresetuj hasło',
+    'Cannot reset password' => 'Operacja się nie powiodła',
+    'New password (minum 6 characters)' => 'Nowe hasło (minimum 6 znaków)', 
+    'This link expired' => 'Ten link już wygasł',
+    'Password was changed' => 'Hasło zostało zmienione'
     );
 ?>

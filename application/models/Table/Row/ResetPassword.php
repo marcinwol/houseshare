@@ -21,6 +21,20 @@ class My_Model_Table_Row_ResetPassword extends Zend_Db_Table_Row_Abstract {
         return $this->findParentRow('My_Model_Table_User');
     }
 
+    /**
+     * If the row is expired or not.
+     * 
+     * @return boolean 
+     */
+    public function isExpired() {
+        
+        if (time() - $this->created > My_Model_Table_ResetPassword::EXPIRE_IN) {
+            return true;
+        }
+        
+        return false;
+    }
+
 }
 
 ?>

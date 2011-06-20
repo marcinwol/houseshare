@@ -44,7 +44,8 @@ class My_Mail_AccRecovery extends My_Mail_Abstract {
         $this->setSubject($this->_tr->translate($title)); 
         
         $passwordLogin = false;
-        $newPassword = null;
+        $resetPasswordLink = null;
+        $resetExpire = My_Model_Table_ResetPassword::EXPIRE_IN/3600;
         $provider_type = null;
         $auth_key = null;
         
@@ -55,8 +56,14 @@ class My_Mail_AccRecovery extends My_Mail_Abstract {
         
         if ($passRow instanceof My_Model_Table_Row_Password) {
             $passwordLogin = true;
-            //need some logic to reset user password
-            $newPassword = $passRow->resetPassword();
+            
+            //create a RESET_PASSWORD row
+            $user_id = $authRow = $this->_user->user_id;
+            $uid = My_Model_Table_ResetPassword::newRow($user_id);
+            
+            $resetPasswordLink = $this->getLinkTo('/user/reset-password');
+            $resetPasswordLink .= "/id/$uid";
+            
             
         } else {
             //get info about auth provider
@@ -71,7 +78,8 @@ class My_Mail_AccRecovery extends My_Mail_Abstract {
             'emailTo'       => $this->_emailTo,
             'loginUrl'    => $this->getLinkTo('/login'),
             'passwordLogin' => $passwordLogin,
-            'newPassword' => $newPassword,
+            'resetPasswordLink' => $resetPasswordLink,
+            'resetExpire' => $resetExpire,
             'provider_type' => $provider_type,
             'auth_key' => $auth_key,            
         );

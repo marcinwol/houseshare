@@ -11,6 +11,12 @@
  * @author marcin
  */
 class My_Model_Table_ResetPassword extends Zend_Db_Table_Abstract {
+    
+    /**
+     * reset password is only valid in EXPIRE_IN seconds.
+     * Default 2 hours, 2 * 3600 = 7200
+     */
+    const EXPIRE_IN = 7200;
 
     protected $_name = "RESET_PASSWORD";
     protected $_rowClass = 'My_Model_Table_Row_ResetPassword';
@@ -29,12 +35,26 @@ class My_Model_Table_ResetPassword extends Zend_Db_Table_Abstract {
      * @param string $value unique id value
      * @return My_Model_Table_Row_ResetPassword|null
      */
-    public function findByUniqueID($value) {
+    public function findByUniqueID($value, $checkExpire = true) {
 
         $value = trim($value);
         $select = $this->select()->where("uid = ?", $value);
         
-        return $this->fetchRow($select);
+        $row = $this->fetchRow($select);
+        
+      
+        if (is_null($row)) {
+            return null;
+        }
+        
+        
+        // if row was created more than EXPIRE_IN second ago
+        // then the row expired.
+        if (true == $checkExpire && $row->isExpired()) {           
+                return null;
+        }
+        
+        return $row;
     }
 
     /**
@@ -43,9 +63,9 @@ class My_Model_Table_ResetPassword extends Zend_Db_Table_Abstract {
      * @param string $uid uid value
      * @return My_Model_Table_Row_ResetPassword|null
      */
-    static public function fetchUsingUID($uid) {
+    static public function fetchUsingUID($uid, $checkExpire = true) {
         $obj = new self();
-        return $obj->findByUniqueID($uid);
+        return $obj->findByUniqueID($uid, $checkExpire);
     }
     
     /**
@@ -67,10 +87,12 @@ class My_Model_Table_ResetPassword extends Zend_Db_Table_Abstract {
         while (!is_null($obj->findByUniqueID($uid))) {
             $uid = md5(uniqid($seed, true));
         }
+             
         
         $row = $obj->createRow();
         $row->uid = $uid;
-        $row->user_id = $user_id;        
+        $row->user_id = $user_id;  
+        $row->created = time();
         
         if (!is_numeric($row->save())) {
             throw new Zend_Db_Statement_Exception(

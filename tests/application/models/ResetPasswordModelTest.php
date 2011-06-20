@@ -17,20 +17,25 @@ class ResetPasswordModelTest extends ModelTestCase {
 
     public function testGetAll() {
         $rowset = $this->_model->fetchAll();
-        $this->assertEquals(count($rowset),2);
+        $this->assertEquals(count($rowset), 3);
     }
     
     public function testFindByKey() {
         //find correct id
-        $row = $this->_model->findByUniqueID('ad0234829205b9033196ba818f7a87');
+        $row = $this->_model->findByUniqueID('ad0234829205b9033196ba818f7a872b');
         $this->assertEquals(2, $row->reset_p_id);
         
         //check if we can get correct user row.
         $this->assertEquals(3, $row->getUser()->user_id);
         
         //find INcorrect id
-        $row = $this->_model->findByUniqueID('ad0234829205b9033196ba818f7a88');
-        $this->assertEquals(null, $row);        
+        $row = $this->_model->findByUniqueID('ad0234829205b9033196ba818f7a873b');
+        $this->assertEquals(null, $row);     
+        
+        //uid exist but is expired. return null;
+        $row = $this->_model->findByUniqueID('wd0234829205b9033196na818f7a872b');
+        $this->assertEquals(null, $row);     
+        
     }
     
     public function testNewRow() {
