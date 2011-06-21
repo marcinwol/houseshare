@@ -2,17 +2,29 @@
 
 class IndexController extends Zend_Controller_Action {
 
-   
     /**
      * This is for tests, experiments, etc.
      */
     public function testAction() {
 
-        $form = new My_Form_TestForm();
-        
-        echo $form->render();
-        exit;
+        $this->view->headLink()->setStylesheet('/style/style.css');
+        $this->view->headLink()->appendStylesheet('/style/style2.css');
+        $this->view->headLink()->appendStylesheet('/style/style3.css');
 
+
+        $headLinkContainer = $this->view->headLink()->getContainer();
+       
+        
+        unset($headLinkContainer[2]);
+        
+//        var_dump($container->getValue());
+//
+//        foreach ($container as $k => $v) {
+//            echo "<br/><br/>";
+//            var_dump($k, $v);
+//        }
+
+       // exit;
     }
 
     public function indexAction() {

@@ -218,7 +218,7 @@ return array(
     'Nickname' => 'Imie/Przydomek',
     'No infomration avaliable' => 'Brak opisu',
     'Your accommodations' => 'Twoje ogłoszenia',
-    'Edit your data' => 'Edytuj swoje dane',
+    'Edit data' => 'Edytuj dane',
     'Edit' => 'Edutuj',
     'About _user' => '',
     'Update' => 'Zachowaj',
@@ -304,6 +304,7 @@ return array(
     'This link expired' => 'Ten link już wygasł',
     'Password was changed' => 'Hasło zostało zmienione',
     'Current password' => 'Obecne hasło',
-    'Change password' => 'Zmień hasło'
+    'Change password' => 'Zmień hasło',
+    'Incorrect password' => 'Niepoprawne hasło',
     );
 ?>

@@ -747,12 +747,13 @@ class UserController extends Zend_Controller_Action {
         /* set page for navigatoin */
         /* @var $navigation Zend_Navigation */
         $navigation = $this->view->navigation()->getContainer();
-        /* @var $accshowPage My_Navigation_Page_AccShow */
+        /* @var $accshowPage My_Navigation_Page_UserEdit */
         $userindexPage = $navigation->findBy('Name', 'userchangepass');
         $userindexPage->setUser($user);
 
 
         $form = new My_Form_ChangePassword();
+        $form->addCorrectPassValidator($user->password);
 
         if ($this->getRequest()->isPost()) {
 
@@ -765,7 +766,7 @@ class UserController extends Zend_Controller_Action {
                 //set new password for a give user              
                 $user->setNewPassword($form->getValue('password1'));
 
-                //seems everyhing went ok
+                //seems everything went ok
                 $this->_helper->FlashMessenger('Password was changed');
                 return $this->_redirect('/');
             }

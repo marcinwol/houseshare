@@ -46,9 +46,15 @@ class My_Form_ChangePassword extends Zend_Form {
         
         $this->addElements(array($password0, $password1, $password2, $cancel, $submit));
         
-       // $this->addElement('hash', 'hihacker', array('salt' => 'unique value'));  
+       // $this->addElement('hash', 'hihacker', array('salt' => 'unique value'));          
         
     }
+    
+    public function addCorrectPassValidator($correctPass) {
+        $val = new My_Validate_CorrectPassword($correctPass);
+        $this->getElement('password0')->addValidator($val);        
+    }
+    
 
 }
 
