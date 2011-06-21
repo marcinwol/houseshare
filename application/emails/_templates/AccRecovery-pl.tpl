@@ -3,7 +3,7 @@ Drogi <?php echo $username; ?>,
 
 Ktoś zarządał informcje odnośnie konta na 
 <?php echo SITE_NAME;?> związane z tym emailem.
-Jeśli to nie ty, proszę zgnorować ten email.
+Jeśli to nie ty, proszę zignorować ten email.
 
 
 
@@ -14,10 +14,10 @@ Twoje hasło może być zresetowane pod tym adresem:
 <?php echo $resetPasswordLink;?>
 
 
-Ważność tego linku wygaśnie za <?php echo $resetExpire;?> godzin.
+Ważność tego linku wygaśnie za <?php echo $resetExpire;?> godziny.
 
 <?php else:?>
-Użyłeś konto <?php echo $provider_type;?> to zalogowania się do 
+Użyłeś konto <?php echo $provider_type;?> do zalogowania się do 
 naszego systemu.
 
 <?php 
@@ -34,7 +34,7 @@ if (!in_array($provider_type, array('facebook', 'twitter') )) {
 
 
 
-Link do strony z logowaniem portalu <?php echo SITE_NAME;?>:
+Link do strony z logowaniem:
 <?php echo $loginUrl; ?>
 
 

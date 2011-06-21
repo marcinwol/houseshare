@@ -41,6 +41,7 @@ class UserController extends Zend_Controller_Action {
 
         $this->view->user = $user->toArray();
         $this->view->accs = count($accsRowset) > 0 ? $accsRowset->toModels() : null;
+        $this->view->hasPassword = $user->hasPassword();
     }
 
     public function addAction() {
@@ -410,8 +411,8 @@ class UserController extends Zend_Controller_Action {
             }
         }
 
-     
-        
+
+
         // this is for normal authentication
 
         $loginForm = new My_Form_Login();
@@ -443,7 +444,7 @@ class UserController extends Zend_Controller_Action {
                     // so that he is logged in to the system.                                           
                     $this->_writeAuthData($user);
                     #Zend_Session::rememberMe();                                     
-                    
+
                     return $this->_redirect('user/');
                 }
 
@@ -549,7 +550,7 @@ class UserController extends Zend_Controller_Action {
             $createForm->populate(
                     array('email' => $authData->property->email)
             );
-        } 
+        }
 
         if ($this->getRequest()->isPost()) {
 
@@ -667,8 +668,8 @@ class UserController extends Zend_Controller_Action {
                     $emailForm->setErrorMessages(array('Unfortunately, there is no such email in our database'));
                 } else {
 
-                    $emailObj = new My_Mail_AccRecovery($user, $email);                   
-                                    
+                    $emailObj = new My_Mail_AccRecovery($user, $email);
+
 
                     try {
                         $emailObj->send();
@@ -684,44 +685,94 @@ class UserController extends Zend_Controller_Action {
         }
         $this->view->form = $emailForm;
     }
-    
+
     public function resetPasswordAction() {
-        
-        $uid = $this->_getParam('id', null);                 
-        
+
+        $uid = $this->_getParam('id', null);
+
         $form = new My_Form_ResetPassword();
-                
+
         if ($this->getRequest()->isPost()) {
             if ($form->isValid($_POST)) {
-                
+
                 $resetPassRow = My_Model_Table_ResetPassword::fetchUsingUID($uid, false);
-                
+
                 if (is_null($resetPassRow)) {
                     $this->_helper->FlashMessenger('Cannot reset password');
                     return $this->_redirect('/');
                 }
-                
-               
+
+
                 if ($resetPassRow->isExpired()) {
                     $this->_helper->FlashMessenger('This link expired');
                     return $this->_redirect('/');
                 }
-                
+
                 $user_id = $resetPassRow->user_id;
-                
+
                 //set new password for a give user
                 $user = new My_Houseshare_User($user_id);
-                $user->setNewPassword($form->getValue('password1'));                
-                
+                $user->setNewPassword($form->getValue('password1'));
+
                 //seems everyhing went ok
                 $this->_helper->FlashMessenger('Password was changed');
-                return $this->_redirect('/');          
+                return $this->_redirect('/');
             }
-        }        
-        
-        $this->view->form = $form;        
+        }
+
+        $this->view->form = $form;
     }
-    
+
+    public function changePasswordAction() {
+
+        $authData = Zend_Auth::getInstance()->getIdentity();
+
+        if (null === $authData) {
+            $this->_helper->FlashMessenger('You were logged out. Please login.');
+            return $this->_redirect('/');
+        }
+
+        $user_id = $authData->property->user_id;
+        $userType = $authData->property->type;
+
+        $user = My_Houseshare_Factory::user($user_id, $userType);
+
+        //make sure that user has current password.
+        //OpenID user will not have it, so they should be here.
+        if (!$user->hasPassword()) {
+            return $this->_redirect('/user');
+        }
+
+
+        /* set page for navigatoin */
+        /* @var $navigation Zend_Navigation */
+        $navigation = $this->view->navigation()->getContainer();
+        /* @var $accshowPage My_Navigation_Page_AccShow */
+        $userindexPage = $navigation->findBy('Name', 'userchangepass');
+        $userindexPage->setUser($user);
+
+
+        $form = new My_Form_ChangePassword();
+
+        if ($this->getRequest()->isPost()) {
+
+            if (true == isset($_POST['cancel'])) {
+                return $this->_redirect('/user');
+            }
+
+            if ($form->isValid($_POST)) {
+
+                //set new password for a give user              
+                $user->setNewPassword($form->getValue('password1'));
+
+                //seems everyhing went ok
+                $this->_helper->FlashMessenger('Password was changed');
+                return $this->_redirect('/');
+            }
+        }
+
+        $this->view->form = $form;
+    }
 
     /**
      * Get My_Auth_Adapter_Facebook adapter

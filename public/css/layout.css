@@ -53,8 +53,12 @@ html, body {
     color: #DD7601;
     text-decoration: none;
 }
-.user-options a {
+.user-options {
     color: #ACACAC; 
+}
+
+.user-options a {    
+    color: #ACACAC;
     text-decoration: none;
 }
 
@@ -220,7 +224,7 @@ form#form-sendemail input, form#form-sendemail textarea, form#limit-form button,
 form#photos-form input, form.login-form input, form#acc-recovery input,
 form#address input, #openid_input_area input,
 form#form-changeimages input[type=submit],
-form#reset-password input {
+form#reset-password input, form#change-password input {
     width:98%;
     border: 1px solid #b5b5b5;
     height: 28px;

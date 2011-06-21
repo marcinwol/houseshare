@@ -64,6 +64,13 @@
                             <controller>user</controller>
                             <action>edit</action>                            
                         </edit>
+                        <change-password>
+                            <type>My_Navigation_Page_UserEdit</type>
+                            <label>Change password</label>
+                            <name>userchangepass</name>                                    
+                            <controller>user</controller>
+                            <action>change-password</action>                            
+                        </change-password>
                         <accedit>
                             <type>My_Navigation_Page_AccEdit</type>
                             <label>Edit</label>

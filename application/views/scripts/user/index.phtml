@@ -48,7 +48,11 @@ $this->sideBarElement('', $sideBarContent);
         </table>
         <div class="user-options">       
             <br/>
-            <a href="<?php echo $this->baseUrl('/user/edit'); ?>"><?php echo $this->translate('Edit your data');?></a>
+            <a href="<?php echo $this->baseUrl('/user/edit'); ?>"><?php echo $this->translate('Edit data');?></a>
+            <?php if ($this->hasPassword):?>
+                |
+                <a href="<?php echo $this->baseUrl('/user/change-password'); ?>"><?php echo $this->translate('Change password');?></a>
+            <?php endif;?>
         </div>
     </div>
 </div>

@@ -22,7 +22,7 @@ class ResetPasswordModelTest extends ModelTestCase {
     
     public function testFindByKey() {
         //find correct id
-        $row = $this->_model->findByUniqueID('ad0234829205b9033196ba818f7a872b');
+        $row = $this->_model->findByUniqueID('ad0234829205b9033196ba818f7a872b', false);
         $this->assertEquals(2, $row->reset_p_id);
         
         //check if we can get correct user row.

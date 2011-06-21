@@ -115,6 +115,18 @@ class My_Houseshare_User extends My_Houseshare_Abstract_PropertyAccessor {
     public function getPassword() {
         return $this->_user->_row->getPassword()->password;
     }
+    
+    /**
+     * Check if user has password or not.
+     * User may have not password if he/she is using
+     * OpenID.
+     * 
+     * @return boolean 
+     */
+    public function hasPassword() {
+        $passwordRow = $this->_user->_row->getPassword();
+        return (boolean) $passwordRow;
+    }
 
     /**
      * Save password as a md5 hash.
