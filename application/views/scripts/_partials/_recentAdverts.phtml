@@ -65,15 +65,15 @@
             $('.paginationControl').find('a').live('click', function(e) {
                 var link = $(this);
                 var href = link.attr('href');
-                href = "/sharehouse/public/index/get-recent-adverts/page/2"
+                href = myGlobals['baseUrl'] + "/index/get-recent-adverts/page/2"
                 // alert('asdf');      
                 $('#resent-adverts').empty();
                 $('#progress').show();
                 $( 'html, body' ).animate( { scrollTop: 0 }, 'slow' );
-                $('#progress').html('<img class="loadingimg" src="/sharehouse/public/images/loading2.gif" />');
-                //$('#resent-adverts').empty().html('<div style="width:100%"> <img class="loadingimg" src="http://localhost.com/sharehouse/public/images/loading2.gif" /></div>');                                       
-             //   $('#resent-adverts').load(href);
-               // return false;
+                
+                var loadingImgUrl = myGlobals['baseUrl'] + '/images/loading2.gif';
+                
+                $('#progress').html('<img class="loadingimg" src="' + loadingImgUrl +'" />');                
             });
         });    
 

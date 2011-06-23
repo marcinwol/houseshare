@@ -39,11 +39,9 @@
 
 
             // the application specific 
-            //if ($this->controller() == 'accommodation') {
             $this->headScript()->appendFile($this->baseUrl('/js/houseshare_acc.js'));
-            // }
-            // openid-selector
-            //if ($this->controller() == 'user' || $this->controller() == 'accommodation') {
+            
+            // openid-selector            
             $this->headLink()->appendStylesheet($this->baseUrl('/css/openid.css'));
             $this->headScript()->appendFile($this->baseUrl('/js/openid-jquery.js'));
             $this->headScript()->appendFile($this->baseUrl('/js/openid-en.js'));
@@ -76,6 +74,9 @@
 
             // set some JS global values to be used in the app.            
             var myGlobals = {};
+            
+            // set baseUrl
+            myGlobals.baseUrl = '<?php echo $this->baseUrl();?>';
             
             // set language, i.e. locale
             myGlobals.lang = '<?php echo Zend_Registry::get('Zend_Locale')->getLanguage(); ?>';                       

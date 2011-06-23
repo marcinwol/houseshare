@@ -94,7 +94,7 @@ $(document).ready(function () {
     
     
     $("#address-city").autocomplete({
-        source: "/sharehouse/public/index/getcities/nostate/1",
+        source: myGlobals['baseUrl'] + "/index/getcities/nostate/1",
         delay: 0,
         minLength: 2,
         select: function(event, ui){
@@ -102,81 +102,15 @@ $(document).ready(function () {
             $('#address-state').val(ui.item.state_name);
         }
     });
-    //    
-    //    $.get('/houseshare/public/index/getcities/nostate/1', function(cities) {
-    //        //console.log(streets.length);
-    //        //    console.log(streets[0]);
-    //
-    //        
-    //        $("#address-city").autocomplete( {            
-    //            delay: 0,
-    //            minLength: 1,
-    //            source: function(request, response){
-    //                var matches = new Array();
-    //                var needle = request.term.toLowerCase();
-    //                var len = cities.length;
-    //                for(i = 0; i < len; ++i)   {
-    //                    var haystack = cities[i].label.toLowerCase();
-    //                    if(haystack.indexOf(needle) == 0 || haystack.indexOf(" " + needle) != -1)   {
-    //                        matches.push(cities[i]);
-    //                        if (matches.length > 10 ) {                           
-    //                            break;
-    //                        }
-    //                    }
-    //                }
-    //                response(matches);
-    //            },
-    //            select: function(event, ui){
-    //                $("#address-city").val(ui.item.city_name);
-    //                $('#address-state').val(ui.item.state_name);
-    //            }
-    //            
-    //        });
-    //   
-    //    }, 'json');
-    //    
-
+    
     
     $("#address-street_name").autocomplete({
-        source: "/sharehouse/public/index/getstreets",
+        source: myGlobals['baseUrl'] + "/index/getstreets",
         delay: 0,
         minLength: 2
     });
 
 
-
-    //    $("#address-state").autocomplete({
-    //        source: "/houseshare/public/index/getstates",
-    //        delay: 0,
-    //        minLength: 2
-    //    });
-    
-    
-    //    $.get('/houseshare/public/index/getstreets', function(streets) {
-    //
-    //        
-    //        $("#address-street_name").autocomplete( {            
-    //            delay: 0,
-    //            minLength: 1,
-    //            source: function(request, response){
-    //                var matches = new Array();
-    //                var needle = request.term.toLowerCase();
-    //                var len = streets.length;
-    //                for(i = 0; i < len; ++i)   {
-    //                    var haystack = streets[i].label.toLowerCase();
-    //                    if(haystack.indexOf(needle) == 0 || haystack.indexOf(" " + needle) != -1)   {
-    //                        matches.push(streets[i]);
-    //                        if (matches.length > 10 ) {                           
-    //                            break;
-    //                        }
-    //                    }
-    //                }
-    //                response(matches);
-    //            }
-    //        });
-    //   
-    //    }, 'json');
-    
     
     // JQTIP 
     
