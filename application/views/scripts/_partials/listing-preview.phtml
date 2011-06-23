@@ -28,7 +28,7 @@
             ?>
             <a class="city" href="<?php echo $this->url(array('city' => $city_id, 'cityname' => $city),'listacc'); ?>"><?php echo $city . ':'; ?></a>
             <a href="<?php echo $this->accUrl($this->acc); ?>">
-                <?php echo $this->truncate(ucfirst(strtolower($this->acc->title)), 0, 45); ?>
+                <?php echo $this->truncate(ucfirst(strtolower($this->acc->title)), 0, 42); ?>
             </a>
             <a id="aID<?php echo $this->acc->acc_id; ?>" href="">
                 <img src="<?php echo $this->baseUrl('/images/preview-icon.gif'); ?>" title="Quick preview" alt="Preview" />
