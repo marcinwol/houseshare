@@ -33,6 +33,8 @@ class IndexController extends Zend_Controller_Action {
 
         $mainForm = new My_Form_MainPage();
         $page = $this->_getParam('page', 1);
+        
+       // $mainForm->getElement('i_city')->markAsError();
 
         if ($this->getRequest()->isPost()) {
             if ($mainForm->isValid($_POST)) {

@@ -14,6 +14,31 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
 
         return $view;
     }
+    
+    function _initDb() {
+                
+        // get cache for config files
+        $cacheManager = $this->bootstrap('cachemanager')->getResource('cachemanager');
+        $cache = $cacheManager->getCache('configFiles');
+        
+        $cacheId = 'db';
+
+        # $t1 = microtime(true);
+        $dbConfig = $cache->load($cacheId);
+
+        if (!$dbConfig) {
+            $file = APPLICATION_PATH . '/configs/db.ini';       
+            $dbConfig = new Zend_Config_Ini($file);  
+            $cache->save($dbConfig, $cacheId);
+        }
+       
+             
+        $db = Zend_Db::factory($dbConfig->db);
+        
+        Zend_Db_Table::setDefaultAdapter($db);
+        
+        return $db;        
+    }
 
     protected function _initAutoload() {
         $autoLoader = Zend_Loader_Autoloader::getInstance();
