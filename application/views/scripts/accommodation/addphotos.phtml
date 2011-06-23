@@ -19,7 +19,7 @@ if (isset($this->acc) && count($this->acc->photosurls) > 0) {
         <?php echo $this->form; ?>
     </div>
     <div  id="progress"  style="display:none; width:100%"> 
-        <img class="loadingimg"  src="/sharehouse/public/images/loading2.gif" />
+        <img class="loadingimg"  src="<?php echo $this->baseUrl('/images/loading2.gif');?>" />
     </div>
 
 </div>
@@ -31,11 +31,14 @@ if (isset($this->acc) && count($this->acc->photosurls) > 0) {
         var text = "<?php echo $this->translate('Please wait.<br />It may take a while, depending on your Internet speed and size of the photos uploaded.');?>";
         
         $('#Upload').live('click', function(e) {   
+            
+            var loadingImgUrl = myGlobals['baseUrl'] + '/images/loading2.gif';
            
             $('#photos-form').submit();
             $('#photos-upload-form').empty();
             $('#progress').show();
-            $('#progress').html('<img class="loadingimg" src="/sharehouse/public/images/loading2.gif" /><p style="text-align:center;">'+text+'</p>');
+            
+            $('#progress').html('<img class="loadingimg" src="' + loadingImgUrl +'" /><p style="text-align:center;">'+text+'</p>');
             
             return true;
            
