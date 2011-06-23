@@ -692,9 +692,9 @@ class AccommodationController extends Zend_Controller_Action {
                 // get form data
                 $formData = $accForm->getValues();
                 
-                
+               
                  //check if accommodatin type hasn't changed
-                if ($accTypeID != $formData['basic_info']['acc_type']) {
+                if (null !== $formData['basic_info']['acc_type']) {
                     throw new Zend_Exception('Cannot change accommodation type change');
                 }
 
