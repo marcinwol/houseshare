@@ -27,8 +27,18 @@
                 $city_id = $this->acc->address->city_id;  
             ?>
             <a class="city" href="<?php echo $this->url(array('city' => $city_id, 'cityname' => $city),'listacc'); ?>"><?php echo $city . ':'; ?></a>
+		<?php 
+			
+			$cityLength = strlen($city);	
+			$title = $this->acc->title;
+			$titleLength = strlen($title);	
+
+			//detrmine length of title for dispaly
+			$newTitleLength = 50 - $cityLength; 
+			
+		?>	
             <a href="<?php echo $this->accUrl($this->acc); ?>">
-                <?php echo $this->truncate(ucfirst(strtolower($this->acc->title)), 0, 42); ?>
+                <?php echo $this->truncate(ucfirst(strtolower($title)), 0, $newTitleLength); ?>
             </a>
             <a id="aID<?php echo $this->acc->acc_id; ?>" href="">
                 <img src="<?php echo $this->baseUrl('/images/preview-icon.gif'); ?>" title="Quick preview" alt="Preview" />
