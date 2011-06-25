@@ -53,11 +53,11 @@ class AccommodationController extends Zend_Controller_Action {
                         $emailObj->send();
                     } catch (Zend_Mail_Exception $e) {
                         echo 'Problem with sending your message: '
-                              . $e->getMessage();
+                        . $e->getMessage();
                         exit;
                     }
 
-                    echo $this->view->translate('Your query was sent.');            
+                    echo $this->view->translate('Your query was sent.');
                 } else {
                     echo 'Form is not valid. Message not send';
                 }
@@ -191,8 +191,8 @@ class AccommodationController extends Zend_Controller_Action {
         $limitForm->page->setValue($page);
         $limitForm->city->setValue($city_id);
         $limitForm->setAction($this->view->baseUrl('/accommodation/list'));
-      
-        if (empty($maxPrice)) {         
+
+        if (empty($maxPrice)) {
             $maxPrice = $limitForm->getElement('maxpricedefault')->getValue();
         } else {
             $limitForm->getElement('maxpricedefault')->setValue($maxPrice);
@@ -677,12 +677,12 @@ class AccommodationController extends Zend_Controller_Action {
         $accForm->basic_info->acc_type->setRequired(false);
         // get acc_type from database
         $accTypeID = $acc->type_id;
-  
+
 
         if ($this->getRequest()->isPost()) {
             if ($accForm->isValid($_POST)) {
-                
-             
+
+
 
                 if ($accForm->cancel->isChecked()) {
                     // if cancel button was clicked                    
@@ -691,9 +691,9 @@ class AccommodationController extends Zend_Controller_Action {
 
                 // get form data
                 $formData = $accForm->getValues();
-                
-               
-                 //check if accommodatin type hasn't changed
+
+
+                //check if accommodatin type hasn't changed
                 if (null !== $formData['basic_info']['acc_type']) {
                     throw new Zend_Exception('Cannot change accommodation type change');
                 }
@@ -839,24 +839,20 @@ class AccommodationController extends Zend_Controller_Action {
                     // $acc->setTypeId($formData['basic_info']['acc_type']);
 
 
-                    
+
                     if ($acc->save() != $acc_id) {
                         $db->rollBack();
                         throw new Zend_Db_Exception('Editted acc_id is different then updated');
                     }
 
-                    //clean this acc's cache
-                    $this->_cache->remove('acc_' . $acc_id);
-                    // clean output cache for this acc
-                    $this->view->viewCache()->remove('acc' . $acc_id);
-
+                    $this->_cleanAccsCaches($acc_id);
 
                     $db->commit();
                 } catch (Exception $e) {
                     $db->rollBack();
                     throw $e;
                 }
-               
+
                 $this->_helper->FlashMessenger('Accommodation data was changed');
                 return $this->_redirect('/user/');
             }
@@ -872,7 +868,7 @@ class AccommodationController extends Zend_Controller_Action {
 
         // retrive just creatend accommodation info from session.
         $addAccInfoNamespace = new Zend_Session_Namespace('addAccInfo');
-              
+
 
         if (!isset($addAccInfoNamespace->step)) {
             // no session, so just check if this is a requested from logged user
@@ -918,7 +914,7 @@ class AccommodationController extends Zend_Controller_Action {
         if ($this->getRequest()->isPost()) {
             if ($photosForm->isValid($_POST)) {
 
-            
+
 
                 if ($photosForm->skip->isChecked()) {
                     // if skip button was clicked
@@ -933,22 +929,22 @@ class AccommodationController extends Zend_Controller_Action {
                     return $this->_redirect('accommodation/create-acc');
                 }
 
-    
+
                 $savedPhotos = $this->_processUploads($photosForm);
-                
-            
+
+
 
                 if (false == $photoEdit) {
                     // if this addition of photos for a new acc
                     // than save photos data in a session and 
                     // go to next step.
                     $addAccInfoNamespace->step[3] = $savedPhotos;
-                 
+
                     // everything went fine, so just redirect.
-                    return $this->_redirect('accommodation/create-acc');                    
+                    return $this->_redirect('accommodation/create-acc');
                 }
-                
-            
+
+
 
                 // this is addition of photos for an existing acc
                 // so add the new photos now.
@@ -975,7 +971,7 @@ class AccommodationController extends Zend_Controller_Action {
                 return $this->_redirect('accommodation/photochange/id/' . $acc_id);
             }
         }
-        
+
         if (false == $showSteps) {
             $photosForm->skip->setLabel('Cancel');
             $this->view->acc = $acc;
@@ -1038,9 +1034,9 @@ class AccommodationController extends Zend_Controller_Action {
 
         $savedPhotos = array();
         $i = 0;
-        
-         
-        
+
+
+
         foreach ($adapter->getFileInfo() as $filename => $info) {
             if (empty($info['tmp_name'])) {
                 continue;
@@ -1061,7 +1057,7 @@ class AccommodationController extends Zend_Controller_Action {
                             $info['tmp_name'], PHOTOS_PATH, $outBaseName, $uploadSubDir
             );
 
-           
+
 
 
             if (!file_exists($imgPath)) {
@@ -1090,8 +1086,8 @@ class AccommodationController extends Zend_Controller_Action {
                 'path' => My_Houseshare_Tools::addDirSeperator($uploadSubDir)
             );
         }
-        
-         
+
+
 
         return $savedPhotos;
     }
@@ -1268,116 +1264,6 @@ class AccommodationController extends Zend_Controller_Action {
         }
     }
 
-    public function addphotosAction_old() {
-
-        // retrive just creatend accommodation info from session.
-        $addAccInfoNamespace = new Zend_Session_Namespace('addAccInfo');
-
-        if (null === $addAccInfoNamespace->step) {
-            //throw new Zend_Session_Exception('Cannot retrive accommodation info from session');
-            $this->_helper->FlashMessenger('Cannot retrive accommodation info from session');
-            return $this->_redirect('index');
-        }
-
-        $photosForm = new My_Form_Photos();
-        $photosForm->setNoOfPhotosToAdd($noOfPhotosToAdd)->init();
-
-        if ($this->getRequest()->isPost()) {
-            if ($photosForm->isValid($_POST)) {
-
-                if ($photosForm->skip->isChecked()) {
-                    // if skip button was clicked
-
-                    if ('addphotos' == $referer) {
-                        // this is when a user add photos to existing accommodation
-                        // rather then creates when he/she creates a new accommodation.
-                        // don't need this session namespace anymore
-                        Zend_Session::namespaceUnset('addAccInfo');
-                        return $this->_redirect('accommodation/photochange/id/' . $acc_id);
-                    }
-
-                    return $this->_redirect('accommodation/success');
-                }
-
-                $photoElem = $photosForm->getElement('photo');
-                $adapter = $photoElem->getTransferAdapter();
-
-                $i = 0;
-                foreach ($adapter->getFileInfo() as $filename => $info) {
-                    if (empty($info['tmp_name'])) {
-                        continue;
-                    }
-
-                    $dateprefix = date("YmdHms") . '_';
-                    $outBaseName = $dateprefix . ($i++);
-
-
-                    // if there will be other accommodetions (e.g. for sell)
-                    // photos can be uploaded to 'forsell' directory.
-                    $uploadSubDir = 'forrent';
-
-
-
-                    // manually receive the uploaded file, resize it and save it.
-                    // files will be saved in dir PHOTOS_PATH/$uploaddir/.
-                    $imgPath = My_Houseshare_Photo::resizeAndSave(
-                                    $info['tmp_name'], PHOTOS_PATH, $outBaseName, $uploadSubDir
-                    );
-
-
-
-                    if (!file_exists($imgPath)) {
-                        throw new Exception("Could not make file: $imgPath");
-                    }
-                    if (!is_readable($imgPath)) {
-                        throw new Exception("File \"$imgPath\" is not readable");
-                    }
-
-
-
-                    // make a thumbnail of the image uploaded.
-                    $thumbImgPath = My_Houseshare_Photo::makeThumb($imgPath);
-
-
-                    if (!file_exists($thumbImgPath)) {
-                        throw new Exception("Cound not make file: $thumbImgPath");
-                    }
-                    if (!is_readable($thumbImgPath)) {
-                        throw new Exception("File \"$thumbImgPath\" is not readable");
-                    }
-
-
-
-                    // write the path and filename in PHOTO table.
-                    // filepath is relative to PHOTOS_PATH constant.
-                    // Thus full paths will be PHOTOS_PATH/$photo->path/$photo->filename
-                    $photo = My_Houseshare_Factory::photo();
-                    $photo->filename = basename($imgPath);
-                    $photo->path = My_Houseshare_Tools::addDirSeperator($uploadSubDir);
-                    $photo->setAccId($acc_id);
-
-                    $photo_id = $photo->save();
-                    if (!is_numeric($photo_id)) {
-                        throw new Exception("Information about \"$imgPath\" was not saved in the database");
-                    }
-                }
-
-                if ('addphotos' == $referer) {
-                    // this is when a user add photos to existing accommodation
-                    // rather then creates when he/she creates a new accommodation.
-                    // don't need this session namespace anymore
-                    Zend_Session::namespaceUnset('addAccInfo');
-                    return $this->_redirect('accommodation/photochange/id/' . $acc_id);
-                }
-
-                // everything went fine, so just redirect.
-                return $this->_redirect('accommodation/success');
-            }
-        }
-
-        $this->view->form = $photosForm;
-    }
-
     /**
      * Checks if acc_id is not empty and if given acc_id belongs
      * to currently logged user. 
@@ -1474,7 +1360,7 @@ class AccommodationController extends Zend_Controller_Action {
                 //var_dump($imagesToChange);
             }
         }
-        
+
         $this->view->acc = $acc;
         $this->view->form = $form;
     }
@@ -1488,12 +1374,12 @@ class AccommodationController extends Zend_Controller_Action {
         if (null !== $acc_id) {
             $acc = My_Houseshare_Factory::accommodation($acc_id);
         } else {
-            
+
             // if user is logged go to user/index.
-            if (Zend_Auth::getInstance()->hasIdentity()) {                
+            if (Zend_Auth::getInstance()->hasIdentity()) {
                 return $this->_redirect('user/');
             }
-            
+
             // otherwise go to home page. 
             $this->_helper->FlashMessenger('Please login to make further changes');
             return $this->_redirect('/');
@@ -1556,6 +1442,15 @@ class AccommodationController extends Zend_Controller_Action {
 
         //$this->_helper->FlashMessenger('Accommodation was enabled');
         return $this->_redirect('/user/');
+    }
+
+    protected function _cleanAccsCaches($acc_id) {
+        //clean this acc's cache
+        $this->_cache->remove('acc_' . $acc_id);
+        // clean output cache for this acc
+        $this->view->viewCache()->remove('acc' . $acc_id);
+        // clean recentAdvertCahce
+        Zend_Registry::get('recentAdvertsCache')->clean(Zend_Cache::CLEANING_MODE_ALL);
     }
 
 }
