@@ -306,5 +306,6 @@ return array(
     'Current password' => 'Obecne hasło',
     'Change password' => 'Zmień hasło',
     'Incorrect password' => 'Niepoprawne hasło',
+    'Save to PDF' => 'Zapisz jako PDF'
     );
 ?>

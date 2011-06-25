@@ -817,13 +817,22 @@ div.advert-info dd a:hover {
     text-decoration: underline;
 }
 
+div.advert-stats a {
+    text-decoration: none;
+    font-weight: bold;
+    color: #868686;
+}
+
+div.advert-stats a:hover {
+    text-decoration: underline;    
+}
+
 .advert-stats dt, dl.advert-stats dd, div.advert-stats{
     color: #868686;
 }
 
 div.advert-stats {  
     padding-top: 20px;
-
 }
 
 
