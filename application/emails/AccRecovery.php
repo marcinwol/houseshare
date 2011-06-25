@@ -89,7 +89,7 @@ class My_Mail_AccRecovery extends My_Mail_Abstract {
         
         $content = $this->_getEmailBody($template, $vars);
 
-        $this->setBodyText($content);        
+        $this->setBodyHtml($content);        
         
     }
     

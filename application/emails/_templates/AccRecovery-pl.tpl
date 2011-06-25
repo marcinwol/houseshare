@@ -1,46 +1,48 @@
 Drogi <?php echo $username; ?>, 
 
-
+<p>
 Ktoś zarządał informcje odnośnie konta na 
 <?php echo SITE_NAME;?> związane z tym emailem.
 Jeśli to nie ty, proszę zignorować ten email.
-
+</p>
 
 
 <?php if (true == $passwordLogin):?>
 
-Masz konto bezpośrednio w naszym systemie. 
-Twoje hasło może być zresetowane pod tym adresem:
-<?php echo $resetPasswordLink;?>
-
-
-Ważność tego linku wygaśnie za <?php echo $resetExpire;?> godziny.
-
-<?php else:?>
-Użyłeś konto <?php echo $provider_type;?> do zalogowania się do 
-naszego systemu.
-
-<?php 
-if (!in_array($provider_type, array('facebook', 'twitter') )) {
-   // echo "Your OpenID identyfier is \n" . $auth_key;
+    <p>
+        <i>
+        Masz konto bezpośrednio w naszym systemie. 
+        Twoje hasło może być zresetowane pod
+        <a href="<?php echo $resetPasswordLink;?>">tym adresem</a>.    
+        </i>
+    </p>
     
-    //echo "\n\nCopy and paste this identifier to the field that will apppear
-   //     when OpenID icon will be clicked on the login page.
-   //     \n";
-}
-?>
+    <p>
+    Ważność tego adresu wygaśnie za <?php echo $resetExpire;?> godziny.
+    </p>
+    
+<?php else:?>
+    
+    <p>
+    <i>        
+        Użyłeś konto <strong><?php echo $provider_type;?></strong> do zalogowania się do 
+        naszego systemu.
+    </i>
+    </p>
 
 <?php endif;?>
 
 
+<p>
+Link do strony z logowaniem: 
+<a href="<?php echo $loginUrl; ?>"><?php echo $loginUrl; ?></a>
+</p>
 
-Link do strony z logowaniem:
-<?php echo $loginUrl; ?>
-
-
-
-Z poważaniem,
-ShareHouse Team
+<p>&nbsp;</p>
+--
+<p>
+<?php echo SITE_NAME;?>
+</p>
 
 
 
