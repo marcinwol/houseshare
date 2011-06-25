@@ -315,10 +315,9 @@ div.form-invalid {
     padding: 5px 5px;
     margin-top: 10px;
     text-align: center;
-    /*line-height: 50px;*/
-    background-color: red;
-    border: 1px solid black;
-    color: white;
+    /*line-height: 50px;*/    
+    border: 1px solid red;
+    color: red;
     font-size: 14px;
     font-weight: bold;
 }
@@ -329,6 +328,7 @@ div.form-invalid ul {
 div.form-invalid ul li {
     height: 15px;
     font-size: 12px;
+    list-style-type: none;    
 }
 
 label.required {
