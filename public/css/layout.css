@@ -276,6 +276,10 @@ form#form-sendemail label.error {
     font-size: 12px ; 
 }
 
+form#form-sendemail p.charsLeft {
+    font-size: 10px ; 
+}
+
 form#accommodation-form textarea,  form#register-form textarea, form#form-sendemail textarea {
     height: 100px;
 }

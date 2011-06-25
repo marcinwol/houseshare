@@ -56,7 +56,7 @@ class My_Mail_AccQuery extends My_Mail_Abstract {
 
         $content = $this->_getEmailBody($template, $vars);
 
-        $this->setBodyText($content);
+        $this->setBodyHtml($content, 'utf8');
     }
 
 }

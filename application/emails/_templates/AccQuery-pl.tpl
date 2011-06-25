@@ -1,25 +1,29 @@
 Drogi <?php echo $username; ?>, 
 
-
-Właśnie zostało zgłoszone zapytanie odnośnie twojej oferty :
-"<?php echo $advertTitle;?>"
-Link: <?php echo $advertUrl;?>
-
-
-
+<p>
+Właśnie zostało zgłoszone zapytanie odnośnie twojej oferty:
+<a href="<?php echo $advertUrl;?>">"<?php echo $advertTitle;?>"</a>
+</p>
+<p>
 Treść zapytania jest następująca:
+</p>
 
-
+<p>
+<i>        
 <?php echo $message; ?>
+</i>        
+</p>
 
-
-
+<p>
 Podany email zwrotny:
-<?php echo $fromMail;?>
+<a href="mainto:<?php echo $fromMail;?>"><?php echo $fromMail;?></a>
+</p>
 
+<p>&nbsp;</p>
 
-
-Pozdrawiamy,
+--
+<p>
 <?php echo SITE_NAME;?>
+</p>
 
 
