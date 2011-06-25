@@ -32,8 +32,7 @@
 
             $this->headScript()->appendFile($this->baseUrl('/js/markerwithlabel.js'));
             $this->headScript()->appendFile($this->baseUrl('/js/advertpreviewdialog.js'));
-            $this->headScript()->appendFile($this->baseUrl('/js/jquery.jqtransform.js'));
-            //$this->headScript()->appendFile($this->baseUrl('/js/jquery.charsleft-0.1.js'));
+            $this->headScript()->appendFile($this->baseUrl('/js/jquery.jqtransform.js'));            
             $this->headScript()->appendFile($this->baseUrl('/js/jquery.limit-1.2.source.js'));
 
 
@@ -45,7 +44,8 @@
             $this->headLink()->appendStylesheet($this->baseUrl('/css/openid.css'));
             $this->headScript()->appendFile($this->baseUrl('/js/openid-jquery.js'));
             $this->headScript()->appendFile($this->baseUrl('/js/openid-en.js'));
-            //}
+           
+           // $this->headScript()->appendFile($this->baseUrl('/js/myjs-min.js'));            
 
 
             $headers = (string) $this->headTitle($this->translate('ShareHouse: database of rooms and appartments for rent'));
