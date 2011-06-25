@@ -13,6 +13,13 @@
                     <label>Login</label>                                           
                     <controller>user</controller>
                     <action>login</action>   
+                    <pages>
+                        <create-account>
+                            <label>Create an account</label>                                           
+                            <controller>user</controller>
+                            <action>create</action>   
+                        </create-account>
+                    </pages>
                 </login>
                 <about>
                     <label>about</label>                                           
