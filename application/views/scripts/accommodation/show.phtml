@@ -224,7 +224,7 @@ if (!($this->viewCache()->start('acc' . (string) $this->acc->acc_id))):
             <?php echo $this->translate('Created'), ': ', $this->timeSince($this->acc->creationtimestamp), ' ', $this->translate('ago'); ?> |
             <?php echo $this->translate('Views'), ': ', $this->acc->views_count; ?> 
 
-            <span style="float:right">
+            <span id="as-pdf" style="float:right">
                 <a href="http://www.web2pdfconvert.com/engine?curl=<?php echo $this->serverUrl(true);?>&outputmode=service">
                         <?php echo $this->translate('Save to PDF');?>
                 </a>

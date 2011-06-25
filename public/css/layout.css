@@ -817,6 +817,13 @@ div.advert-info dd a:hover {
     text-decoration: underline;
 }
 
+span#as-pdf {
+    background-image: url(../images/pdf-icon.gif);
+    background-repeat: no-repeat;
+    background-position: left top; 
+    padding-left: 20px;
+}
+
 div.advert-stats a {
     text-decoration: none;
     font-weight: bold;
