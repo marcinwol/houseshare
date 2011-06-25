@@ -11,6 +11,7 @@ return array(
     'in _time' => 'in',
     'About _user' => 'About',
     'login _verb' => 'login',
+    'for max' => ' &nbsp; za max',
 );
 ?>
 
