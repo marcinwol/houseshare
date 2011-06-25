@@ -35,7 +35,7 @@ class My_Form_Email extends Zend_Form {
 
         $this->addElements(array($email, $cancelButton, $send));
     }
-
+    
 }
 
 ?>

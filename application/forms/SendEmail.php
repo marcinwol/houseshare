@@ -29,7 +29,8 @@ class My_Form_SendEmail extends Zend_Form {
         $body->setLabel('Your query');
         $body->setRequired();
         $body->removeDecorator('Errors');
-        $body->addValidator('StringLength', array('min' => 30, 'max' => 256));
+        $body->setFilters(array('stripTags', 'stringTrim'));       
+        $body->addValidator($this->_StringLength(201)); 
     
 
         $accID = $this->createElement('hidden','acc_id');        
@@ -53,8 +54,7 @@ class My_Form_SendEmail extends Zend_Form {
                 
         $msg = str_replace('%value%', $acc->title, $msg);
         
-        $this->message->setValue($msg);
-        
+        $this->message->setValue($msg);        
     }
 
     /**
@@ -113,6 +113,21 @@ class My_Form_SendEmail extends Zend_Form {
 
 
         return $captcha;
+    }
+    
+    
+     /**
+     * StringLengthValidator with some pre-set options.
+     * 
+     * @param type $max max length of string
+     * @return Zend_Validate_StringLength 
+     */
+    protected function _StringLength($max = 200) {
+
+        $val = new Zend_Validate_StringLength(array('max' => $max));
+        $val->setMessage('Field value is more than %max% characters long', Zend_Validate_StringLength::TOO_LONG);
+
+        return $val;
     }
 
 }
