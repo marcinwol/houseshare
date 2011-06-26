@@ -65,19 +65,7 @@ abstract class My_Form_Abstract_AccommodationAbstract extends Zend_Form {
         //$accTypeChoice->setRequired(true);
         $accTypeChoice->setValue('2');
 
-        // add element
-//        $liveChoice = new Zend_Form_Element_Select('live_in_acc');
-//        $liveChoice->setLabel('Do you live in the property?');
-//        $liveChoice->addMultiOptions(
-//                array(
-//                    '0' => "Yes and I rent it",
-//                    '1' => "Yes and I own it",
-//                    '2' => "No but I own it",
-//                    '3' => "No and I am a Real Estate Agent",
-//                )
-//        );
-//        $liveChoice->setRequired(true);
-//        $liveChoice->setValue('0');
+     
         // create new element
         $titleInput = $this->createElement('text', 'title');
         $titleInput->setRequired(true)->setLabel('Title');
@@ -89,7 +77,7 @@ abstract class My_Form_Abstract_AccommodationAbstract extends Zend_Form {
         $descriptionInput = $this->createElement('textarea', 'description');
         $descriptionInput->setRequired(true)->setLabel('Description');
         $descriptionInput->setFilters(array('stripTags', 'stringTrim'));
-        $descriptionInput->addValidator($this->_StringLength(501));
+        $descriptionInput->addValidator($this->_StringLength(701));
         $descriptionInput->setAttribs(array('cols' => 20, 'rows' => 5));
         $descriptionInput->setAttribs(array('tooltip' => $this->_tooltip('acc_desc')));
 
