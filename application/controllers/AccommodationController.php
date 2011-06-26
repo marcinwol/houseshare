@@ -743,6 +743,7 @@ class AccommodationController extends Zend_Controller_Action {
                         $acc->roomates->save($formData['roomates']);
                         $newRoomates = new My_Model_Table_Roomates();
                         $roomates_id = $newRoomates->setRoomates($formData['roomates']);
+                        $acc->setRoomatesId($roomates_id);
                     }
 
                     // if changing accommodation type, e.g. from room to appartment
@@ -836,6 +837,7 @@ class AccommodationController extends Zend_Controller_Action {
                     $acc->street_address_public = $formData['address']['address_public'];
                     /* $acc->short_term_ok = $formData['basic_info']['short_term']; */
                     $acc->setAddrId($addr_id);
+                    
                     // $acc->setTypeId($formData['basic_info']['acc_type']);
 
 
