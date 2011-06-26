@@ -183,11 +183,11 @@ class UserController extends Zend_Controller_Action {
 
         // while this one will be set by twitter
         $oauth_token = $this->getRequest()->getParam('oauth_token', null);
-
-
+        
+       
         // do the first query to the openid provider
         if ($openid_identifier) {
-
+            
             if ('https://www.twitter.com' == $openid_identifier) {
                 $adapter = $this->_getTwitterAdapter();
             } else if ('https://www.facebook.com' == $openid_identifier) {
@@ -209,13 +209,13 @@ class UserController extends Zend_Controller_Action {
 
                 $adapter->setExtensions($ext);
             }
-
+            
             // save $openid_identifier in a 10 minute cookie that will be writen
             // when we return from the auth provider.                        
             if (!setcookie('auth_identifier', $openid_identifier, time() + 600)) {
                 throw new Zend_Auth_Exception('A cookie with an idnetfier cound not be set');
             }
-
+            
             // here a user is redirect to the provider for loging
             $result = $auth->authenticate($adapter);
 
@@ -226,12 +226,16 @@ class UserController extends Zend_Controller_Action {
             // this will be exectued after provider redirected the user back to us
             //echo serialize($_GET);return;
             // retrive the auth idnetifier provider name from cookie set above
-            $auth_provider = 'Unknown';
+            
+            $auth_provider = 'unknown';
+            
             if (isset($_COOKIE['auth_identifier'])) {
                 $auth_provider = My_Model_Table_AuthProvider::getProvider($_COOKIE['auth_identifier']);
                 // remove the cookie as we do not need it now
                 setcookie("auth_identifier", "", time() - 3600);
             }
+            
+             
 
 
             if ($code) {

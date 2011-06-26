@@ -59,7 +59,7 @@ class My_Model_Table_AuthProvider extends Zend_Db_Table_Abstract {
             return self::$_identifiers[$identifier];
         }
         
-        return 'Unknown';                
+        return 'unknown';                
     }
 
     /**
