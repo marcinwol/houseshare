@@ -1,16 +1,6 @@
 <?php
-$sideBarContent = <<<END
-<strong>If you want</strong> you can provide some additional information. If you
-    don't want it is fine with us. Just make sure that your email is correct since
-    user quires regarding your advertisment will be sent to this email address.
-<p>
-    By default your email or phone are kept <strong>private</strong>. However, if you want you 
-    can make them public so that 
-    they are visible to the people watching your accommodation.
-</p>      
-       
-END;
-   $this->sideBarElement('What is this?',$sideBarContent, array('class' => 'side-bar-info'));  
+ $sideBarContent = 'partialfile:no-email-returned';
+$this->sideBarElement('No email',$sideBarContent, array('class' => 'side-bar-info'));  
 ?>
 
 <div class="grid_6">          

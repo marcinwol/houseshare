@@ -270,11 +270,10 @@ class UserController extends Zend_Controller_Action {
 
             $result = $auth->authenticate($adapter);
 
-            if ($result->isValid()) {
+            if ($result->isValid() && !is_null($auth->getIdentity())) {
 
                 // make an stdObj to sture user info fetched
-                $toStore = (object) array('identity' => $auth->getIdentity());
-
+                $toStore = (object) array('identity' => $auth->getIdentity());               
 
                 if (isset($ext)) {
                     // for openId
@@ -409,8 +408,8 @@ class UserController extends Zend_Controller_Action {
 
                 return $this->_redirect('/user/index');
             } else {
-                //$this->_helper->FlashMessenger('Failed authentication');
-                $this->_helper->FlashMessenger($result->getMessages());
+                $this->_helper->FlashMessenger('Authentication failed');
+                //$this->_helper->FlashMessenger($result->getMessages());
                 return $this->_redirect('/');
             }
         }

@@ -89,7 +89,9 @@ abstract class ModelTestCase extends Zend_Test_PHPUnit_DatabaseTestCase {
             
          }
         $this->_model = null;
-        $this->_connectionMock->close();
+        if (null != $this->_connectionMock) {
+            $this->_connectionMock->close();
+        }
         parent::tearDown();
     }
 

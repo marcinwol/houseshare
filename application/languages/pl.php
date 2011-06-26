@@ -153,7 +153,7 @@ return array(
     'Field value is more than %max% characters long' => 'Zawartosc pola jest dłuższa niż %max% znaków',
     'A user with the email %email% already exists in our database.' => 'Użytkownik o emailu %email% już istnieje w naszym systemie.',
     'Password confirmation does not match' => 'Potwierdzone hasło jest różne od orginalnego',
-    'Given email already exist in our system' => 'Podany email już istnieje. Jeśli należy on do Ciebie, spróbuj się najpierw zalogować.',
+    'Given email already exist in our system' => 'Podany email już istnieje. Jeśli należy on do Ciebie, spróbuj się zalogować.',
     '\'%value%\' does not appear to be an integer' => '\'%value%\' nie wygląda na liczbę całkowitą',
     '\'%value%\' was not found in the haystack' => '\'%value%\' nie został znaleziony w naszym systemie',
     'Incorrect email format' => 'Format adresu email jest nieprawidlowy',
@@ -305,6 +305,7 @@ return array(
     'Current password' => 'Obecne hasło',
     'Change password' => 'Zmień hasło',
     'Incorrect password' => 'Niepoprawne hasło',
-    'Save to PDF' => 'Zapisz jako PDF'
+    'Save to PDF' => 'Zapisz jako PDF',
+    'No email' => 'Brak adresu email'
     );
 ?>
