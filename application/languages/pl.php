@@ -306,6 +306,7 @@ return array(
     'Change password' => 'Zmień hasło',
     'Incorrect password' => 'Niepoprawne hasło',
     'Save to PDF' => 'Zapisz jako PDF',
-    'No email' => 'Brak adresu email'
+    'No email' => 'Brak adresu email',
+    'Last system update' => 'Ostatni update systemu'
     );
 ?>

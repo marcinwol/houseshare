@@ -212,7 +212,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
 
 
         $front->registerPlugin($aclPlugin);
-
+        
         Zend_View_Helper_Navigation_HelperAbstract::setDefaultAcl($acl);
         Zend_View_Helper_Navigation_HelperAbstract::setDefaultRole('guest');
     }

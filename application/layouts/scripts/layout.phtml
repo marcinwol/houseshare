@@ -215,7 +215,16 @@
                        title="Open feedback & support dialog (powered by UserVoice)">
                            <?php echo $this->translate('feedback always welcome'); ?>
                     </a>
-                </p>     
+                </p>
+                <p>&nbsp;</p>
+                <?php 
+                    $lastCommit = $this->lastCommit();
+                    if (!empty($lastCommit)):
+                ?>
+                    <p class="last-commit">                    
+                      <?php echo $this->translate('Last system update'), ': ', $lastCommit; ?>
+                    </p>
+                <?php endif;?>
             </div>
 
         </div>

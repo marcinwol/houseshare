@@ -101,6 +101,11 @@ html, body {
       text-decoration: underline;
 }
 
+#footer .last-commit {
+    text-align: right;
+    color: #CCC;
+}
+
 /*Opera Fix*/
 body:before {
 	content:"";
