@@ -15,6 +15,7 @@ public/images
 public/captchas
 public/cached
 cache
+last_commit.txt
 session
 *.orig
 /application/forms/Decorator/.LCKCaptcha.php~
