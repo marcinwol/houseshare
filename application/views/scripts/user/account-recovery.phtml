@@ -1,9 +1,9 @@
 <?php
 $sideBarContent = 'partialfile:account-recovery';
-$this->sideBarElement('Account Recovery', $sideBarContent, array('class' => 'side-bar-info'));  
+$this->sideBarElement('Account recovery', $sideBarContent, array('class' => 'side-bar-info'));  
 ?>
 
-<h1><?php echo $this->translate('Account Recovery');?></h1>
+<h1><?php echo $this->translate('Account recovery');?></h1>
 <?php 
     if (count($this->form->getErrorMessages()) > 0 ) {
         $errors = $this->form->getErrorMessages();

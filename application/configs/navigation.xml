@@ -29,6 +29,11 @@
                             <controller>user</controller>
                             <action>reset-password</action>   
                         </reset-password> 
+                        <account-recovery>
+                            <label>Account recovery</label>                                           
+                            <controller>user</controller>
+                            <action>account-recovery</action>   
+                        </account-recovery> 
                     </pages>
                 </login>
                 <about>

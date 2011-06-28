@@ -208,7 +208,7 @@ return array(
     'Approx. min. age' => 'Przyb. min. wiek',
     'Approx. max. age' => 'Przyb. max. wiek',
     'Partial' => 'Częściowe',
-    'Account Recovery' => 'Odzyskanie konta',
+    'Account recovery' => 'Odzyskanie konta',
     'Cancel' => 'Anuluj',
     'Send an account recovery email' => 'Wyśli email z informacjami odnośnie konta',
     'Unfortunately, there is no such email in our database' 
