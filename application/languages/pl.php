@@ -15,7 +15,7 @@ return array(
     'Powered by the Zend Framework'=>'Zasilany przez Zend Framework',
     'An error occurred' => 'Bład w aplikacji',
     'The website may not work well with Internet Explorer 6 or less' 
-        => 'Portal może działac niepoprawnie z Internet Explorer 6 albo starszym',
+        => 'Portal może działać niepoprawnie z Internet Explorer 6 albo starszym',
     'Our header' => 'Nasz nagłowek',
     'Welcom in houseshare project'=>'Witam w projekcje '.SITE_NAME ,
     'Hello world!'=>'Witaj świecie',

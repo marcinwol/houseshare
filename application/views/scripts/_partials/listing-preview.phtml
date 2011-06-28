@@ -64,9 +64,15 @@
             <span class="listing-preview-type" title="<?php echo $this->acc->getTypeAsString(); ?>" >
                 <?php echo $this->acc->getTypeAsString(); ?>
             </span>
-            <span class="listing-preview-type" style="margin-left:2px" title="<?php echo $this->acc->features->getAsString('furniture'); ?>">
-                <?php echo $this->translate('Furniture'),': ',$this->acc->features->getAsString('furniture'); ?>
-            </span>
+            <?php if ($this->acc->features->furniture > 0): ?>
+                <span class="listing-preview-type" style="margin-left:2px" title="<?php echo $this->acc->features->getAsString('furniture'); ?>">
+                    <?php echo $this->translate('Furniture'),': ',$this->acc->features->getAsString('furniture'); ?>
+                </span>
+            <?php else: ?>
+                <span class="listing-preview-type no-feature" style="margin-left:2px" title="<?php echo $this->acc->features->getAsString('furniture'); ?>">
+                    <?php echo $this->translate('Furniture'),': ',$this->acc->features->getAsString('furniture'); ?>
+                </span>
+            <?php endif; ?>
             <?php if ($this->acc->features->internet > 0): ?>
                 <span class="listing-preview-type"  style="margin-left:2px">
                     <?php echo 'Internet: ' . $this->acc->features->getAsString('internet'); ?>
