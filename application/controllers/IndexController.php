@@ -7,24 +7,34 @@ class IndexController extends Zend_Controller_Action {
      */
     public function testAction() {
 
-        $this->view->headLink()->setStylesheet('/style/style.css');
-        $this->view->headLink()->appendStylesheet('/style/style2.css');
-        $this->view->headLink()->appendStylesheet('/style/style3.css');
-
-
-        $headLinkContainer = $this->view->headLink()->getContainer();
-       
+        $db = Zend_Db_Table::getDefaultAdapter();
+        $select = $db->select();
         
-        unset($headLinkContainer[2]);
+        $dbExpr = new Zend_Db_Expr("(SELECT COUNT( * ) FROM blog_comments WHERE blog_comments.status = '1' AND blog_comments.blogid = blg.id) AS `commentcount`");        
         
-//        var_dump($container->getValue());
-//
-//        foreach ($container as $k => $v) {
-//            echo "<br/><br/>";
-//            var_dump($k, $v);
-//        }
-
-       // exit;
+        $select->from(
+                    array('blg' => 'blogs'), 
+                    array('id', 'heading', 'description', 'name as categoryname', $dbExpr)
+               )->joinInner(
+                            array('cat' => 'blog_category'), 
+                            'blg.category = cat.id',
+                            array()
+               )->joinInner(
+                            array('mem' => 'members_member'), 
+                            'blg.user = mem.id',
+                            array()
+               )->joinLeft(
+                            array('cmt' => 'blog_comments'), 
+                            'blg.id = cmt.blogid',
+                            array()
+               )->where('blg.status = ?', '1')
+                ->group('blg.id')
+                ->order('blg.id ASC');
+        
+        
+        echo $select->assemble();
+        exit;
+        
     }
 
     public function indexAction() {
@@ -33,8 +43,8 @@ class IndexController extends Zend_Controller_Action {
 
         $mainForm = new My_Form_MainPage();
         $page = $this->_getParam('page', 1);
-        
-       // $mainForm->getElement('i_city')->markAsError();
+
+        // $mainForm->getElement('i_city')->markAsError();
 
         if ($this->getRequest()->isPost()) {
             if ($mainForm->isValid($_POST)) {

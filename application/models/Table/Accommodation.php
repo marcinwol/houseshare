@@ -115,7 +115,7 @@ class My_Model_Table_Accommodation extends Zend_Db_Table_Abstract {
      * @return array  
      */
     static public function getDistinctCities() {
-
+      
         $db = Zend_Db_Table::getDefaultAdapter();
 
         $select = $db->select()->from('ACCOMMODATION', '')
