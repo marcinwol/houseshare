@@ -7,34 +7,17 @@ class IndexController extends Zend_Controller_Action {
      */
     public function testAction() {
 
-        $db = Zend_Db_Table::getDefaultAdapter();
-        $select = $db->select();
-        
-        $dbExpr = new Zend_Db_Expr("(SELECT COUNT( * ) FROM blog_comments WHERE blog_comments.status = '1' AND blog_comments.blogid = blg.id) AS `commentcount`");        
-        
-        $select->from(
-                    array('blg' => 'blogs'), 
-                    array('id', 'heading', 'description', 'name as categoryname', $dbExpr)
-               )->joinInner(
-                            array('cat' => 'blog_category'), 
-                            'blg.category = cat.id',
-                            array()
-               )->joinInner(
-                            array('mem' => 'members_member'), 
-                            'blg.user = mem.id',
-                            array()
-               )->joinLeft(
-                            array('cmt' => 'blog_comments'), 
-                            'blg.id = cmt.blogid',
-                            array()
-               )->where('blg.status = ?', '1')
-                ->group('blg.id')
-                ->order('blg.id ASC');
-        
-        
-        echo $select->assemble();
-        exit;
-        
+       $s = "SetColoursSizes('0', '[Select Colour]', '0', '[Select Size]', 0,585.00,500.00);";
+       $parts = explode(',', $s);            
+       preg_match('/\d+\.\d+/',$parts[count($parts)-2], $match1);       
+       preg_match('/\d+\.\d+/',$parts[count($parts)-1], $match2);       
+       var_dump($match1, $match2);
+       
+       preg_match('~([\d\.]+),\s*([\d\.]+)\);$~', $s, $matches);
+       
+       var_dump($matches);
+       
+       
     }
 
     public function indexAction() {
