@@ -7,15 +7,16 @@ class IndexController extends Zend_Controller_Action {
      */
     public function testAction() {
 
-       $s = "SetColoursSizes('0', '[Select Colour]', '0', '[Select Size]', 0,585.00,500.00);";
-       $parts = explode(',', $s);            
-       preg_match('/\d+\.\d+/',$parts[count($parts)-2], $match1);       
-       preg_match('/\d+\.\d+/',$parts[count($parts)-1], $match2);       
-       var_dump($match1, $match2);
-       
-       preg_match('~([\d\.]+),\s*([\d\.]+)\);$~', $s, $matches);
-       
-       var_dump($matches);
+      $db = Zend_Db_Table::getDefaultAdapter();
+      
+      $select = $db->select();
+      
+      $select->from('table_name')
+              ->order(new Zend_Db_Expr("FIELD(field_name, 'Small','Medium','Large')"));
+              
+    
+      var_dump($select->assemble());
+      exit;
        
        
     }
