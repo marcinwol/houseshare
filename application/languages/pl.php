@@ -10,7 +10,7 @@ return array(
     'Welcom to ShareHouse' => 'Witamy w StrefieStancji',
     'ShareHouse: database of rooms and appartments for rent' => SITE_NAME . ': oferty stancji (pokoi i mieszkan) na wynajem',
     'keywords _list' 
-        => 'strefastancji, stancje, mieszkania studenckie, darmowe ogloszenia, mieszkanie, mieszakania, pokoje, miejsce w pokoju, wynajem, pokój, do wynajęcia',
+        => 'strefastancji, stancje, mieszkania studenckie, darmowe ogłoszenia, mieszkanie, mieszakania, pokoje, miejsce w pokoju, wynajem, pokój, do wynajęcia',
     '_description' => 'StrefaStancji.pl: Darmowy, nowoczesny portal z ogłoszeniami i ofertami wolnych pokoi i mieszkań dla ludzi poszukujących zakwaterowania.',
     'Powered by the Zend Framework'=>'Zasilany przez Zend Framework',
     'An error occurred' => 'Bład w aplikacji',
@@ -39,7 +39,7 @@ return array(
     'feedback always welcome' => 'twoja opinia mile widziana',
     'Map view' => 'Widok na mapie',
     'Top cities' => 'Głowne miasta',
-    'Recently viewed' => 'Nidawno oglądane',
+    'Recently viewed' => 'Ostatnio oglądane',
     'Why ShareHouse?' => "Dlaczego ". SITE_NAME . "?",
     'I need'  => 'Potrzebuje',
     'room'  => 'pokój',
