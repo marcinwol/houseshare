@@ -96,6 +96,7 @@ return array(
     'Step 3: Photos' => 'Krok 3: Zdjęcia',
     'Current photos' => 'Obecne zdjęcia',
     'Upload images:' => 'Wybierz zdjęcia:',
+    'Add photos' => 'Dodaj zdjęcia',
     'Step 4: Preview' => 'Krok 4: Podgląd',
     'Success!' => 'Sukces!',
     'Disactivated' => 'Nie aktywne',

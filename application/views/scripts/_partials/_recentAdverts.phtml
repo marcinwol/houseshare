@@ -19,7 +19,16 @@
 
                         <a href="<?php echo $this->baseUrl('/accommodation/edit/id/' . $acc->acc_id); ?>"><?php echo $this->translate('Edit');?></a> 
                         |
-                        <a href="<?php echo $this->baseUrl('/accommodation/photochange/id/' . $acc->acc_id); ?>"><?php echo $this->translate('Change photos');?></a>
+                        <?php 
+                        $photos = $acc->photos;
+                        if (count($photos) > 0 ) {
+                            $photosText = 'Change photos';
+                        } else {
+                            $photosText = 'Add photos';
+                        }
+                            
+                        ?>
+                        <a href="<?php echo $this->baseUrl('/accommodation/photochange/id/' . $acc->acc_id); ?>"><?php echo $this->translate($photosText);?></a>
                         |            
                         <a href="<?php echo $this->baseUrl('/accommodation/map/id/' . $acc->acc_id); ?>"><?php echo $this->translate('Change localization on map');?></a>
                         |

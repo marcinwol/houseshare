@@ -5,7 +5,13 @@ if (isset($this->acc) && count($this->acc->photosurls) > 0) {
 }
 ?> 
 
+
+<?php
+    echo $this->sideBarElement('Photos','partialfile:acc-add-step3',  array('class' => 'side-bar-info'));
+?>
+
 <h1><?php echo $this->translate('Change photos');?></h1>
-<div class="grid_6">
+<div class="grid_6 alpha">
     <?php echo $this->form;?>
 </div>
+
