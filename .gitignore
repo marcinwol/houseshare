@@ -7,7 +7,7 @@ application/sql
 application/scripts/_data
 application/configs/appkeys.ini
 application/configs/mailsmtp.ini
-application/configs/db.ini
+/application/configs/db.ini
 /tmp
 /.zfproject.xml
 *.bak
