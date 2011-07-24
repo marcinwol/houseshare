@@ -80,7 +80,7 @@ return array(
     'day'   => 'dzień',
     'days' => 'dni',
     'hour' => 'godz',
-    'hours' => 'godz',
+    'hours' => 'godzin(y)',
     'minute' => 'minuta',
     'minutes' => 'minut',
     'second' => 'sekunda',
