@@ -82,7 +82,7 @@ return array(
     'hour' => 'godz',
     'hours' => 'godzin(y)',
     'minute' => 'minuta',
-    'minutes' => 'minut',
+    'minutes' => 'minut(y)',
     'second' => 'sekunda',
     'seconds' => 'sekund',
     'ago' => 'temu',
