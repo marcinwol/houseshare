@@ -898,6 +898,7 @@ class AccommodationController extends Zend_Controller_Action {
             $photoEdit = true;
             $showSteps = false;
             $title = "Photos";
+	    $action = '/accommodation/addphotos/id/' . $acc_id;	
         } else {
             // mark if this photos adding is for logged user 
             // (i.e. he/she updates his photos),
@@ -906,12 +907,14 @@ class AccommodationController extends Zend_Controller_Action {
             $photoEdit = false;
             $showSteps = true;
             $title = "Step 3: Photos";
+	    $action = '/accommodation/addphotos';	
         }
 
 
 
         $photosForm = new My_Form_Photos();
         $photosForm->setNoOfPhotosToAdd($noOfPhotosToAdd)->init();
+        $photosForm->setAction($this->view->baseUrl($action));
 
         if ($this->getRequest()->isPost()) {
             if ($photosForm->isValid($_POST)) {

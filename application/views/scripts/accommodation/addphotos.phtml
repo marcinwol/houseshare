@@ -2,12 +2,17 @@
 if ($this->showSteps) {
     echo $this->partial('_partials/acc-add-steps-desc.phtml', null, array('active' => 'step3'));
 }
+
 ?>
 
 <?php
 if (isset($this->acc) && count($this->acc->photosurls) > 0) {
     $imgsHtml = $this->partial('_partials/acc-photos.phtml',array('acc' => $this->acc));
     $this->sideBarElement('Current photos', $imgsHtml);
+}
+
+if (!$this->showSteps) {
+    echo $this->sideBarElement('Photos','partialfile:acc-add-step3',  array('class' => 'side-bar-info'));
 }
 ?> 
 
