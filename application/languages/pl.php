@@ -141,7 +141,7 @@ return array(
     'Go to step 2' => 'Idź do kroku 2',
     'Go to step 3' => 'Idź do kroku 3',
     'Upload' => 'Uploaduj zdjęcia',
-    'Skip' => 'Pomin ten krok',
+    'Skip' => 'Pomiń ten krok (zdjęcia mogą być dodane później)',
     'Appartment details' => 'Informacje o mieszkaniu',
     'Number of bedrooms' => 'Ilość pokoi',
     'Number of bathrooms' => 'Ilość łazienek',
