@@ -566,7 +566,7 @@ class AccommodationController extends Zend_Controller_Action {
                 'price' => "$legendPrice: {$acc->price} PLN/miesiac",
                 'internet' => $acc->features->getAsString('internet'),
                 'address' => "$legendAddress: {$this->view->address($acc)}",
-                'link' => "<a href=\"{$this->view->accUrl($acc)}\">$legendReadMore</a>",
+                'link' => "<a href=\"{$this->view->baseUrl($this->view->accUrl($acc))}\">$legendReadMore</a>",
                 'thumbLink' => $firstThumbPath
             );
         }
