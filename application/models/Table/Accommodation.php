@@ -101,7 +101,7 @@ class My_Model_Table_Accommodation extends Zend_Db_Table_Abstract {
      * @param int $no
      * @return Zend_Paginator 
      */
-    public function getAccPaginator(Zend_Db_Select $query, $page = 1, $no = 5) {
+    public function getAccPaginator(Zend_Db_Select $query, $page = 1, $no = 10) {
         $paginator = new Zend_Paginator(
                         new Zend_Paginator_Adapter_DbTableSelect($query)
         );

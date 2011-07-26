@@ -11,7 +11,7 @@ return array(
     'ShareHouse: database of rooms and appartments for rent' => SITE_NAME . ': oferty stancji (pokoi i mieszkan) na wynajem',
     'keywords _list' 
         => 'strefastancji, stancje, mieszkania studenckie, darmowe ogłoszenia, mieszkanie, mieszakania, pokoje, miejsce w pokoju, wynajem, pokój, do wynajęcia',
-    '_description' => 'StrefaStancji.pl: Darmowy, nowoczesny portal z ogłoszeniami i ofertami wolnych pokoi i mieszkań dla ludzi poszukujących zakwaterowania.',
+    '_description' => 'www.StrefaStancji.pl: Darmowy, nowoczesny portal z ogłoszeniami i ofertami wolnych pokoi i mieszkań dla ludzi poszukujących zakwaterowania.',
     'Powered by the Zend Framework'=>'Zasilany przez Zend Framework',
     'An error occurred' => 'Bład w aplikacji',
     'The website may not work well with Internet Explorer 6 or less' 
