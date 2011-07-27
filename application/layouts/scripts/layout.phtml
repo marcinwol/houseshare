@@ -214,15 +214,17 @@
                     <a href="javascript:UserVoice.showPopupWidget();" 
                        title="Open feedback & support dialog (powered by UserVoice)">
                            <?php echo $this->translate('feedback always welcome'); ?>
-                    </a>
-                </p>
+                    </a>                                        
+                </p>                
                 <p>&nbsp;</p>
                 <?php 
                     $lastCommit = $this->lastCommit();
                     if (!empty($lastCommit)):
                 ?>
-                    <p class="last-commit">                    
-                      <?php echo $this->translate('Last system update'), ': ', $lastCommit; ?>
+                    <p class="last-commit"> 
+                       <a href="http://katalog.servis.pl">Katalog Stron</b></a>
+                       |
+                       <?php echo $this->translate('Last system update'), ': ', $lastCommit; ?>
                     </p>
                 <?php endif;?>
             </div>
